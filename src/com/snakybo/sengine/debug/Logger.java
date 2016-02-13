@@ -311,15 +311,26 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs an exception to the console
+	 * Throws an exception, and logs it to the console
 	 * @param clazz - The type of the exception
 	 * @param e - The exception to log
 	 * @param source - The source of the exception, can also be a string
 	 */
-	public static <T extends Exception> void logException(Class<T> clazz, Exception e, Object source) throws T
+	public static <T extends Exception> void throwException(Class<T> clazz, Exception e, Object source) throws T
 	{
 		logPrefix(LogLevel.Exception, source, System.err);
 		throw clazz.cast(e);
+	}
+	
+	/**
+	 * Logs an exception
+	 * @param e - The exception to log
+	 * @param source - The source of the exception, can also be a string
+	 */
+	public static void logException(Exception e, Object source)
+	{
+		logPrefix(LogLevel.Exception, source, System.err);
+		e.printStackTrace();
 	}
 	
 	/**
@@ -343,6 +354,14 @@ public final class Logger
 	 */
 	private static void logPrefix(LogLevel level, Object source, PrintStream ps)
 	{
-		ps.print("[" + level + "][" + source.toString() + "] ");
+		ps.print("[" + level + "]");
+		
+		if(source != null)
+		{
+			ps.print("[" + source.toString() + "]");
+		}
+		
+		// Add a whitespace
+		ps.print(" ");
 	}
 }
