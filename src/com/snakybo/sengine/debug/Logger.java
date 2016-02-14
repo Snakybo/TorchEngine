@@ -356,7 +356,7 @@ public final class Logger
 	{
 		ps.print("[" + level + "]");
 		
-		if(source != null)
+		if(source != null && !source.toString().isEmpty())
 		{
 			ps.print("[" + source.toString() + "]");
 		}
