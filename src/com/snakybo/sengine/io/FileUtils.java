@@ -3,9 +3,11 @@ package com.snakybo.sengine.io;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.nio.file.OpenOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.snakybo.sengine.debug.Logger;
@@ -44,20 +46,52 @@ public final class FileUtils
 	}
 	
 	/**
-	 * Write the contents of a file
+	 * Append bytes to a file
+	 * @param file - The path of the file
+	 * @param bytes - The bytes to append
+	 */
+	public static void append(Path file, byte[] bytes)
+	{
+		write(file, bytes, StandardOpenOption.APPEND);
+	}
+	
+	/**
+	 * Append to a file
+	 * @param file - The path of the file
+	 * @param lines - The lines to append
+	 */
+	public static void append(Path file, Iterable<? extends CharSequence> lines)
+	{
+		write(file, lines, StandardOpenOption.APPEND);
+	}
+	
+	/**
+	 * Truncate a file, and write bytes to it
+	 * @param file - The path of the file
+	 * @param bytes - The bytes to write
+	 */
+	public static void write(Path file, byte[] bytes)
+	{
+		write(file, bytes, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
+	}
+	
+	/**
+	 * Truncate a file, and write to it
 	 * @param file - The path of the file
 	 * @param lines - The lines to write
 	 */
 	public static void write(Path file, Iterable<? extends CharSequence> lines)
 	{
-		try
-		{
-			Files.write(file, lines, Charset.forName("UTF-8"), StandardOpenOption.WRITE);
-		}
-		catch(IOException e)
-		{
-			Logger.logException(e, "FileHandler");
-		}
+		write(file, lines, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
+	}
+	
+	/**
+	 * Clear a file
+	 * @param file - The path of the file
+	 */
+	public static void clear(Path file)
+	{
+		write(file, new ArrayList<String>());
 	}
 	
 	/**
@@ -91,6 +125,20 @@ public final class FileUtils
 		return result;
 	}
 	
+	public static byte[] readBinary(Path file)
+	{
+		try
+		{
+			return Files.readAllBytes(file);
+		}
+		catch(IOException e)
+		{
+			Logger.logException(e, "FileHandler");
+		}
+		
+		return null;
+	}
+	
 	/**
 	 * Read the contents of a file
 	 * @param file - The file to read
@@ -100,7 +148,7 @@ public final class FileUtils
 	{
 		try
 		{
-			return Files.readAllLines(file);
+			return Files.readAllLines(file, Charset.forName("UTF-8"));
 		}
 		catch(IOException e)
 		{
@@ -129,5 +177,29 @@ public final class FileUtils
 	public static Path parsePath(String path, String extension)
 	{
 		return Paths.get("./res/" + path + "." + extension);
+	}
+	
+	private static void write(Path file, byte[] bytes, OpenOption... openOptions)
+	{
+		try
+		{
+			Files.write(file, bytes, openOptions);
+		}
+		catch(IOException e)
+		{
+			Logger.logException(e, "FileHandler");
+		}
+	}
+	
+	private static void write(Path file, Iterable<? extends CharSequence> lines, OpenOption... openOptions)
+	{
+		try
+		{
+			Files.write(file, lines, Charset.forName("UTF-8"), openOptions);
+		}
+		catch(IOException e)
+		{
+			Logger.logException(e, "FileHandler");
+		}
 	}
 }
