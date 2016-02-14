@@ -84,8 +84,8 @@ public final class WindowImplementation
 	 */
 	public static void update()
 	{
-		glfwSwapBuffers(window);
 		glfwPollEvents();
+		glfwSwapBuffers(window);
 	}
 	
 	/**
