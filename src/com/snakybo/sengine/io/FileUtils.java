@@ -125,6 +125,11 @@ public final class FileUtils
 		return result;
 	}
 	
+	/**
+	 * Read binary contents from a file
+	 * @param file - The file to read
+	 * @return The binary contents of a file
+	 */
 	public static byte[] readBinary(Path file)
 	{
 		try
@@ -179,6 +184,12 @@ public final class FileUtils
 		return Paths.get("./res/" + path + "." + extension);
 	}
 	
+	/**
+	 * Write binary contents to file
+	 * @param file - The target file
+	 * @param bytes - The bytes to write
+	 * @param openOptions - Optional open options
+	 */
 	private static void write(Path file, byte[] bytes, OpenOption... openOptions)
 	{
 		try
@@ -191,6 +202,12 @@ public final class FileUtils
 		}
 	}
 	
+	/**
+	 * Write a sequence of lines to a file
+	 * @param file - The target file
+	 * @param lines - The lines to write
+	 * @param openOptions - Optional open options
+	 */
 	private static void write(Path file, Iterable<? extends CharSequence> lines, OpenOption... openOptions)
 	{
 		try
