@@ -358,7 +358,14 @@ public final class Logger
 		
 		if(source != null && !source.toString().isEmpty())
 		{
-			ps.print("[" + source.toString() + "]");
+			if(source instanceof String)
+			{
+				ps.print("[" + source.toString() + "]");
+			}
+			else
+			{
+				ps.print("[" + source.getClass().getSimpleName() + "]");
+			}
 		}
 		
 		// Add a whitespace
