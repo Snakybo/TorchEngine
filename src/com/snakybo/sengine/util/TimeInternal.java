@@ -25,6 +25,8 @@ public abstract class TimeInternal
 	{
 		lastTime = glfwGetTime();
 		currentTime = glfwGetTime();
+		
+		updateFrameTime();
 	}
 	
 	private TimeInternal()
