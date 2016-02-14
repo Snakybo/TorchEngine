@@ -2,6 +2,7 @@ package com.snakybo.sengine;
 
 import com.snakybo.sengine.debug.Logger;
 import com.snakybo.sengine.rendering.WindowImplementation;
+import com.snakybo.sengine.scene.SceneUtilities;
 import com.snakybo.sengine.util.TimeInternal;
 
 /**
@@ -61,20 +62,64 @@ public final class SEngine
 	 */
 	private static void mainLoop()
 	{
+		double unprocessedTime = 0.0;
+		
 		while(running)
 		{
-			TimeInternal.update();
-			TimeInternal.updateFrameCount();
+			boolean shouldRender = false;
 			
-			if(WindowImplementation.isCloseRequested())
+			TimeInternal.update();
+			unprocessedTime += TimeInternal.getPassedTime();
+			
+			// Construct the frame queue
+			// Might have to be moved to updateCycle()
+			SceneUtilities.constructFrameQueue();
+			
+			while(unprocessedTime > TimeInternal.getFrameTime())
 			{
-				stop();
+				if(WindowImplementation.isCloseRequested())
+				{
+					stop();
+				}
+				
+				shouldRender = true;
+				unprocessedTime -= TimeInternal.getFrameTime();
+				
+				updateCycle();
 			}
 			
-			WindowImplementation.update();
+			if(shouldRender)
+			{
+				renderCycle();
+				
+				WindowImplementation.update();
+				TimeInternal.updateFrameCount();
+			}
+			else
+			{
+				try
+				{
+					Thread.sleep(1);
+				}
+				catch(InterruptedException e)
+				{
+					Logger.logException(e, "SEngine");
+				}
+			}
 		}
 		
 		destroy();
+	}
+	
+	private static void updateCycle()
+	{
+		SceneUtilities.constructFrameQueue();
+		SceneUtilities.runUpdateCycle();
+	}
+	
+	private static void renderCycle()
+	{
+		SceneUtilities.runRenderCycle();
 	}
 	
 	/**
