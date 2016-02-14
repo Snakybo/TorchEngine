@@ -32,7 +32,7 @@ public final class WindowImplementation
 {
 	private static GLFWErrorCallback errorCallback;
 	
-	static long window;
+	public static long window;
 	
 	static
 	{
