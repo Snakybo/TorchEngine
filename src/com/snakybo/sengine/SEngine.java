@@ -1,6 +1,7 @@
 package com.snakybo.sengine;
 
 import com.snakybo.sengine.debug.Logger;
+import com.snakybo.sengine.input.cursor.CursorInternal;
 import com.snakybo.sengine.input.keyboad.KeyboardInternal;
 import com.snakybo.sengine.input.mouse.MouseInternal;
 import com.snakybo.sengine.rendering.WindowImplementation;
@@ -40,6 +41,7 @@ public final class SEngine
 			
 			KeyboardInternal.create();
 			MouseInternal.create();
+			CursorInternal.create();
 			
 			// Create the scene
 			game.createScene();
@@ -124,6 +126,7 @@ public final class SEngine
 		// Update input
 		KeyboardInternal.update();
 		MouseInternal.update();
+		CursorInternal.update();
 	}
 	
 	private static void renderCycle()
@@ -136,6 +139,7 @@ public final class SEngine
 	 */
 	private static void destroy()
 	{
+		CursorInternal.destroy();
 		MouseInternal.destroy();
 		KeyboardInternal.destroy();
 		
