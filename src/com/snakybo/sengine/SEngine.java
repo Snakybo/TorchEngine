@@ -2,6 +2,7 @@ package com.snakybo.sengine;
 
 import com.snakybo.sengine.debug.Logger;
 import com.snakybo.sengine.rendering.WindowImplementation;
+import com.snakybo.sengine.util.TimeInternal;
 
 /**
  * @author Kevin
@@ -62,6 +63,9 @@ public final class SEngine
 	{
 		while(running)
 		{
+			TimeInternal.update();
+			TimeInternal.updateFrameCount();
+			
 			if(WindowImplementation.isCloseRequested())
 			{
 				stop();
