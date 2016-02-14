@@ -181,7 +181,7 @@ public final class FileUtils
 	 */
 	public static Path parsePath(String path, String extension)
 	{
-		return Paths.get("./res/" + path + "." + extension);
+		return Paths.get(path + "." + extension);
 	}
 	
 	/**
