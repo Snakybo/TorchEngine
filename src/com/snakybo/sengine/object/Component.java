@@ -38,21 +38,21 @@ public abstract class Component extends Object
 	/**
 	 * Called when a camera starts rendering the object
 	 */
-	protected void preRender()
+	protected void preRenderObject()
 	{
 	}
 	
 	/**
 	 * Called when a camera renders the object
 	 */
-	protected void render()
+	protected void renderObject()
 	{
 	}
 	
 	/**
 	 * Called when a camera has finished rendering the object
 	 */
-	protected void postRender()
+	protected void postRenderObject()
 	{
 	}
 	
