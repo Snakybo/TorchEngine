@@ -25,24 +25,33 @@ public final class GameObjectUtilities
 	}
 	
 	/**
-	 * Call {@link Component#update()} on all components in the frame queue of a {@link GameObject}.
-	 * It will also call {@link Component#start()} if neccecary
+	 * Call {@link Component#start()} on all components in the frame queue of a {@link GameObject} if neccecary
 	 * @param gameObject - The target {@link GameObject}
 	 * @see Component#start()
-	 * @see Component#update()
 	 */
-	public static void update(GameObject gameObject)
+	public static void start(GameObject gameObject)
 	{
 		// Call start() on components if neccecary
 		for(Component component : gameObject.frameQueue)
 		{
 			if(component.gameObject == null)
 			{
+				// Set the name of the component to include the GameObject's name
+				component.setName(gameObject.getName() + ":" + component.getName());
+				
 				component.gameObject = gameObject;
 				component.start();
 			}
 		}
-		
+	}
+	
+	/**
+	 * Call {@link Component#update()} on all components in the frame queue of a {@link GameObject}
+	 * @param gameObject - The target {@link GameObject}
+	 * @see Component#update()
+	 */
+	public static void update(GameObject gameObject)
+	{		
 		// Call update() on components
 		for(Component component : gameObject.frameQueue)
 		{
@@ -65,44 +74,44 @@ public final class GameObjectUtilities
 	}
 	
 	/**
-	 * Call {@link Component#preRender()} on all components in the frame queue of a {@link GameObject}
+	 * Call {@link Component#preRenderObject()} on all components in the frame queue of a {@link GameObject}
 	 * @param gameObject - The target {@link GameObject}
-	 * @see Component#preRender()()
+	 * @see Component#preRenderObject()
 	 */
-	public static void preRender(GameObject gameObject)
+	public static void preRenderObject(GameObject gameObject)
 	{
 		// Call preRender() on components
 		for(Component component : gameObject.frameQueue)
 		{
-			component.preRender();
+			component.preRenderObject();
 		}
 	}
 	
 	/**
-	 * Call {@link Component#render()} on all components in the frame queue of a {@link GameObject}
+	 * Call {@link Component#renderObject()} on all components in the frame queue of a {@link GameObject}
 	 * @param gameObject - The target {@link GameObject}
-	 * @see Component#render()
+	 * @see Component#renderObject()
 	 */
-	public static void render(GameObject gameObject)
+	public static void renderObject(GameObject gameObject)
 	{
 		// Call render() on components
 		for(Component component : gameObject.frameQueue)
 		{
-			component.render();
+			component.renderObject();
 		}
 	}
 	
 	/**
-	 * Call {@link Component#postRender()} on all components in the frame queue of a {@link GameObject}
+	 * Call {@link Component#postRenderObject()} on all components in the frame queue of a {@link GameObject}
 	 * @param gameObject - The target {@link GameObject}
-	 * @see Component#postRender()
+	 * @see Component#postRenderObject()
 	 */
-	public static void postRender(GameObject gameObject)
+	public static void postRenderObject(GameObject gameObject)
 	{
 		// Call postRender() on components
 		for(Component component : gameObject.frameQueue)
 		{
-			component.postRender();
+			component.postRenderObject();
 		}
 	}
 	
@@ -142,6 +151,10 @@ public final class GameObjectUtilities
 			
 			// Remove the GameObject as parent of the component
 			component.gameObject = null;
+			
+			// Restore the original name of the component
+			String[] name = component.getName().split(":");
+			component.setName(name[1]);
 		}
 	}
 }
