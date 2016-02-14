@@ -138,7 +138,7 @@ public final class Bitmap
 		return height;
 	}
 	
-	// TODO: Check if the bitmap has alpha after the used modified it with setPixel or setPixels
+	// TODO: Check if the bitmap has alpha after the user modified it with setPixel or setPixels
 	/**
 	 * @return Whether or not the bitmap contains an alpha channel
 	 */
