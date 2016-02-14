@@ -120,7 +120,6 @@ public final class SEngine
 	
 	private static void updateCycle()
 	{
-		SceneUtilities.constructFrameQueue();
 		SceneUtilities.runUpdateCycle();
 		
 		// Update input
