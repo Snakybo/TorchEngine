@@ -1,4 +1,4 @@
-package com.snakybo.sengine.resource.texture;
+package com.snakybo.sengine.texture;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
