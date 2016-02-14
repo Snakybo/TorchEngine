@@ -1,4 +1,4 @@
-package com.snakybo.sengine.rendering;
+package com.snakybo.sengine.window;
 
 import static org.lwjgl.glfw.GLFW.GLFW_RESIZABLE;
 import static org.lwjgl.glfw.GLFW.GLFW_VISIBLE;

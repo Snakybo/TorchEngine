@@ -10,7 +10,7 @@ import java.nio.DoubleBuffer;
 import org.joml.Vector2f;
 import org.lwjgl.BufferUtils;
 
-import com.snakybo.sengine.rendering.WindowImplementation;
+import com.snakybo.sengine.window.WindowImplementation;
 
 /**
  * @author Kevin

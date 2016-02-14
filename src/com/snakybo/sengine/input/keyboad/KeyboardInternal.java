@@ -4,7 +4,7 @@ import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 import static org.lwjgl.glfw.GLFW.GLFW_REPEAT;
 import static org.lwjgl.glfw.GLFW.glfwGetKey;
 
-import com.snakybo.sengine.rendering.WindowImplementation;
+import com.snakybo.sengine.window.WindowImplementation;
 
 /**
  * @author Kevin

@@ -5,7 +5,7 @@ import static org.lwjgl.glfw.GLFW.GLFW_CURSOR_DISABLED;
 import static org.lwjgl.glfw.GLFW.GLFW_CURSOR_NORMAL;
 import static org.lwjgl.glfw.GLFW.glfwSetInputMode;
 
-import com.snakybo.sengine.rendering.WindowImplementation;
+import com.snakybo.sengine.window.WindowImplementation;
 
 /**
  * @author Kevin

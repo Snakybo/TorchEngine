@@ -4,9 +4,9 @@ import com.snakybo.sengine.debug.Logger;
 import com.snakybo.sengine.input.cursor.CursorInternal;
 import com.snakybo.sengine.input.keyboad.KeyboardInternal;
 import com.snakybo.sengine.input.mouse.MouseInternal;
-import com.snakybo.sengine.rendering.WindowImplementation;
 import com.snakybo.sengine.scene.SceneUtilities;
 import com.snakybo.sengine.util.TimeInternal;
+import com.snakybo.sengine.window.WindowImplementation;
 
 /**
  * @author Kevin

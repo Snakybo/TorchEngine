@@ -4,7 +4,7 @@ import static org.lwjgl.glfw.GLFW.glfwSetCursorPos;
 
 import org.joml.Vector2f;
 
-import com.snakybo.sengine.rendering.WindowImplementation;
+import com.snakybo.sengine.window.WindowImplementation;
 
 /**
  * @author Kevin

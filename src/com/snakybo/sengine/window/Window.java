@@ -1,4 +1,4 @@
-package com.snakybo.sengine.rendering;
+package com.snakybo.sengine.window;
 
 import static org.lwjgl.glfw.GLFW.glfwGetWindowSize;
 import static org.lwjgl.glfw.GLFW.glfwSetWindowSize;

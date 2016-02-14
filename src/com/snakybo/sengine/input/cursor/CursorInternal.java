@@ -5,7 +5,7 @@ import org.joml.Vector2f;
 import com.snakybo.sengine.input.keyboad.Key;
 import com.snakybo.sengine.input.keyboad.Keyboard;
 import com.snakybo.sengine.input.mouse.Mouse;
-import com.snakybo.sengine.rendering.Window;
+import com.snakybo.sengine.window.Window;
 
 /**
  * @author Kevin
