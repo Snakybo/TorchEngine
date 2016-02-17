@@ -32,6 +32,7 @@ public final class SEngine
 		if(!running)
 		{
 			Logger.log("Starting", "SEngine");
+			Logger.log("Game name: " + game.getName(), "SEngine");
 			
 			SEngine.running = true;
 			SEngine.gameName = game.getName();

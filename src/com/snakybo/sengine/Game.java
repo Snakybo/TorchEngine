@@ -10,8 +10,12 @@ public abstract class Game
 {
 	private static int targetFrameRate = 60;
 	
-	public Game()
+	private final String name;
+	
+	public Game(String name)
 	{
+		this.name = name;
+		
 		SEngine.start(this);
 	}
 	
@@ -23,7 +27,10 @@ public abstract class Game
 	/**
 	 * @return The name of the game
 	 */
-	public abstract String getName();
+	public final String getName()
+	{
+		return name;
+	}
 	
 	/**
 	 * Quit the game

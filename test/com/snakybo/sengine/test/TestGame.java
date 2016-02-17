@@ -8,16 +8,14 @@ import com.snakybo.sengine.Game;
  */
 public class TestGame extends Game
 {
-	@Override
-	public void createScene()
+	public TestGame()
 	{
-		
+		super("Test Game");
 	}
 
 	@Override
-	public String getName()
+	public void createScene()
 	{
-		return "Test Game";
 	}
 	
 	public static void main(String[] args)
