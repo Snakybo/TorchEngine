@@ -218,8 +218,8 @@ public final class Logger
 	 */
 	public static void logError(boolean b, Object source)
 	{
-		logPrefix(LogLevel.Error, source);
-		System.out.println(b);
+		logPrefix(LogLevel.Error, source, System.err);
+		System.err.println(b);
 	}
 	
 	/**
@@ -229,8 +229,8 @@ public final class Logger
 	 */
 	public static void logError(char c, Object source)
 	{
-		logPrefix(LogLevel.Error, source);
-		System.out.println(c);
+		logPrefix(LogLevel.Error, source, System.err);
+		System.err.println(c);
 	}
 	
 	/**
@@ -240,8 +240,8 @@ public final class Logger
 	 */
 	public static void logError(int i, Object source)
 	{
-		logPrefix(LogLevel.Error, source);
-		System.out.println(i);
+		logPrefix(LogLevel.Error, source, System.err);
+		System.err.println(i);
 	}
 	
 	/**
@@ -251,8 +251,8 @@ public final class Logger
 	 */
 	public static void logError(float f, Object source)
 	{
-		logPrefix(LogLevel.Error, source);
-		System.out.println(f);
+		logPrefix(LogLevel.Error, source, System.err);
+		System.err.println(f);
 	}
 	
 	/**
@@ -262,8 +262,8 @@ public final class Logger
 	 */
 	public static void logError(double d, Object source)
 	{
-		logPrefix(LogLevel.Error, source);
-		System.out.println(d);
+		logPrefix(LogLevel.Error, source, System.err);
+		System.err.println(d);
 	}
 	
 	/**
@@ -273,8 +273,8 @@ public final class Logger
 	 */
 	public static void logError(long l, Object source)
 	{
-		logPrefix(LogLevel.Error, source);
-		System.out.println(l);
+		logPrefix(LogLevel.Error, source, System.err);
+		System.err.println(l);
 	}
 	
 	/**
@@ -284,8 +284,8 @@ public final class Logger
 	 */
 	public static void logError(char[] s, Object source)
 	{
-		logPrefix(LogLevel.Error, source);
-		System.out.println(s);
+		logPrefix(LogLevel.Error, source, System.err);
+		System.err.println(s);
 	}
 	
 	/**
@@ -295,8 +295,8 @@ public final class Logger
 	 */
 	public static void logError(String s, Object source)
 	{		
-		logPrefix(LogLevel.Error, source);
-		System.out.println(s);
+		logPrefix(LogLevel.Error, source, System.err);
+		System.err.println(s);
 	}
 	
 	/**
