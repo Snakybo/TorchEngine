@@ -1,12 +1,11 @@
 package com.snakybo.sengine.asset;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import com.snakybo.sengine.debug.Logger;
-import com.snakybo.sengine.io.FileUtils;
+import com.snakybo.sengine.io.File;
 import com.snakybo.sengine.object.Object;
 
 /**
@@ -30,9 +29,8 @@ public abstract class Asset extends Object
 	public static <T extends Asset> T load(Class<T> asset, String path)
 	{
 		Logger.log("Loading asset at: " + path, "Asset");
-		
-		Path file = FileUtils.load(path, "asset", false);		
-		if(file == null)
+				
+		if(!File.exists(path + ".asset"))
 		{
 			Logger.logError("No asset found at: " + path, "Asset");
 			return null;
@@ -41,7 +39,7 @@ public abstract class Asset extends Object
 		try
 		{
 			Asset result = asset.newInstance();			
-			AssetParser.setFields(result, AssetParser.getFields(file));
+			AssetParser.setFields(result, AssetParser.getFields(path + ".asset"));
 			
 			return asset.cast(result);
 		}
@@ -63,7 +61,6 @@ public abstract class Asset extends Object
 		Logger.log("Saving asset: " + asset + " at: " + path, "Asset");
 		
 		List<String> lines = new ArrayList<String>();
-		Path file = FileUtils.load(path, "asset");
 		
 		// Add fields
 		lines.add("fields:");		
@@ -74,6 +71,6 @@ public abstract class Asset extends Object
 		}
 		
 		// Write the data
-		FileUtils.write(file, lines);
+		File.writeLines(path + ".asset", lines);
 	}
 }

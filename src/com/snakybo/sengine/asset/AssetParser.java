@@ -1,12 +1,11 @@
 package com.snakybo.sengine.asset;
 
 import java.lang.reflect.Field;
-import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.snakybo.sengine.io.FileUtils;
+import com.snakybo.sengine.io.File;
 import com.snakybo.sengine.reflection.FieldUtilities;
 
 /**
@@ -54,10 +53,10 @@ public final class AssetParser
 		return result;
 	}
 	
-	public static Map<String, String> getFields(Path file)
+	public static Map<String, String> getFields(String file)
 	{
 		Map<String, String> fields = new HashMap<String, String>();
-		List<String> lines = FileUtils.read(file);
+		List<String> lines = File.readLines(file);
 		
 		// Get all field data
 		int fieldsStart = lines.indexOf("fields:");		
