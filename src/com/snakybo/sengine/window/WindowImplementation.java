@@ -14,10 +14,10 @@ import static org.lwjgl.glfw.GLFW.glfwSwapBuffers;
 import static org.lwjgl.glfw.GLFW.glfwTerminate;
 import static org.lwjgl.glfw.GLFW.glfwWindowHint;
 import static org.lwjgl.glfw.GLFW.glfwWindowShouldClose;
+import static org.lwjgl.opengl.GL.createCapabilities;
 import static org.lwjgl.opengl.GL11.GL_FALSE;
 import static org.lwjgl.opengl.GL11.GL_TRUE;
 import static org.lwjgl.system.MemoryUtil.NULL;
-import static org.lwjgl.opengl.GL.createCapabilities;
 
 import org.lwjgl.glfw.GLFWErrorCallback;
 
@@ -38,12 +38,12 @@ public final class WindowImplementation
 	{
 		Logger.log("Initializing GLFW", "Window");
 		
+		glfwSetErrorCallback(errorCallback = GLFWErrorCallback.createPrint(System.err));
+		
 		if(glfwInit() != GL_TRUE)
 		{
-			Logger.throwException(RuntimeException.class, new RuntimeException("Unable to initialize GLFW"), "Window");
+			Logger.logException(new RuntimeException("Unable to initialize GLFW"), "Window");
 		}
-		
-		glfwSetErrorCallback(errorCallback = GLFWErrorCallback.createPrint(System.err));
 	}
 	
 	private WindowImplementation()
@@ -58,7 +58,8 @@ public final class WindowImplementation
 	{
 		if(isCreated())
 		{
-			Logger.throwException(RuntimeException.class, new RuntimeException("Already created"), "Window");
+			Logger.logException(new RuntimeException("Already created"), "Window");
+			return;
 		}
 		
 		glfwDefaultWindowHints();
@@ -70,7 +71,8 @@ public final class WindowImplementation
 		window = glfwCreateWindow(1280, 720, SEngine.getGameName(), NULL, NULL);
 		if(window == NULL)
 		{
-			Logger.throwException(RuntimeException.class, new RuntimeException("Unable to create GLFW window"), "Window");
+			Logger.logException(new RuntimeException("Unable to create GLFW window"), "Window");
+			return;
 		}
 		
 		glfwMakeContextCurrent(window);

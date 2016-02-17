@@ -311,18 +311,6 @@ public final class Logger
 	}
 	
 	/**
-	 * Throws an exception, and logs it to the console
-	 * @param clazz - The type of the exception
-	 * @param e - The exception to log
-	 * @param source - The source of the exception, can also be a string
-	 */
-	public static <T extends Exception> void throwException(Class<T> clazz, Exception e, Object source) throws T
-	{
-		logPrefix(LogLevel.Exception, source, System.err);
-		throw clazz.cast(e);
-	}
-	
-	/**
 	 * Logs an exception
 	 * @param e - The exception to log
 	 * @param source - The source of the exception, can also be a string
