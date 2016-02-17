@@ -2,6 +2,7 @@ package com.snakybo.sengine.texture;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -14,12 +15,7 @@ import com.snakybo.sengine.debug.Logger;
  */
 public final class Bitmap
 {
-	private int[] pixels;
-	
-	private int width;
-	private int height;
-	
-	private boolean hasAlpha;
+	private BufferedImage bitmap;
 	
 	/**
 	 * Create a new bitmap
@@ -28,10 +24,7 @@ public final class Bitmap
 	 */
 	public Bitmap(int width, int height)
 	{
-		this.pixels	= new int[width * height];
-		this.width = width;
-		this.height = height;
-		this.hasAlpha = false;
+		bitmap = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 	}
 	
 	/**
@@ -40,22 +33,15 @@ public final class Bitmap
 	 */
 	public Bitmap(String fileName)
 	{
-		File file = new File("./res/" + fileName);
-		
-		if(!file.exists())
-		{
-			Logger.logError(fileName + " cannot be found", this);
-			return;
-		}
-		
 		try
 		{
-			BufferedImage image = ImageIO.read(file);
+			File file = new File("./res/" + fileName);			
+			if(!file.exists())
+			{
+				throw new FileNotFoundException(fileName + " cannot be found");
+			}
 			
-			width = image.getWidth();
-			height = image.getHeight();
-			pixels = image.getRGB(0, 0, width, height, null, 0, width);
-			hasAlpha = image.getColorModel().hasAlpha();
+			bitmap = ImageIO.read(file);
 		}
 		catch(IOException e)
 		{
@@ -72,11 +58,10 @@ public final class Bitmap
 	{
 		try
 		{
-			BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);		
-			image.setRGB(0, 0, width, height, pixels, 0, width);
+			Logger.log("Saving bitmap to: " + outputFile + "." + format, this);
 			
 			File file = new File("./res/" + outputFile + "." + format);
-			ImageIO.write(image, format, file);
+			ImageIO.write(bitmap, format, file);
 		}
 		catch(IOException e)
 		{
@@ -90,7 +75,7 @@ public final class Bitmap
 	 */
 	public final void setPixels(int[] pixels)
 	{
-		this.pixels = pixels;
+		bitmap.setRGB(0, 0, getWidth(), getHeight(), pixels, 0, getWidth());
 	}
 	
 	/**
@@ -101,7 +86,7 @@ public final class Bitmap
 	 */
 	public final void setPixel(int x, int y, int pixel)
 	{
-		pixels[y * width + x] = pixel;
+		bitmap.setRGB(x, y, pixel);
 	}
 	
 	/**
@@ -109,7 +94,7 @@ public final class Bitmap
 	 */
 	public final int[] getPixels()
 	{
-		return pixels;
+		return bitmap.getRGB(0, 0, getWidth(), getHeight(), null, 0, getWidth());
 	}
 	
 	/**
@@ -119,7 +104,7 @@ public final class Bitmap
 	 */
 	public final int getPixel(int x, int y)
 	{
-		return pixels[y * width + x];
+		return bitmap.getRGB(x, y);
 	}
 	
 	/**
@@ -127,7 +112,7 @@ public final class Bitmap
 	 */
 	public final int getWidth()
 	{
-		return width;
+		return bitmap.getWidth();
 	}
 	
 	/**
@@ -135,15 +120,14 @@ public final class Bitmap
 	 */
 	public final int getHeight()
 	{
-		return height;
+		return bitmap.getHeight();
 	}
 	
-	// TODO: Check if the bitmap has alpha after the user modified it with setPixel or setPixels
 	/**
 	 * @return Whether or not the bitmap contains an alpha channel
 	 */
 	public final boolean hasAlpha()
 	{
-		return hasAlpha;
+		return bitmap.getColorModel().hasAlpha();
 	}
 }
