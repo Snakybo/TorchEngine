@@ -28,7 +28,6 @@ public final class File
 	/**
 	 * Create a new file
 	 * @param file - The path of the file to create
-	 * @return The file
 	 */
 	public static void create(String file)
 	{
@@ -46,6 +45,10 @@ public final class File
 		}
 	}
 	
+	/**
+	 * Create a new directory
+	 * @param directory - The path to the new directory
+	 */
 	public static void creatDirectory(String directory)
 	{
 		try
