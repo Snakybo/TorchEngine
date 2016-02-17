@@ -193,24 +193,24 @@ public final class File
 			else
 			{
 				List<String> files = listDirectory(path);
-				List<String> directories = new ArrayList<String>();
 				
+				// Delete all found files
 				for(String e : files)
 				{
 					if(!isDirectory(e))
 					{
 						Files.delete(getPath(e));
 					}
-					else
-					{
-						directories.add(e);
-					}
 				}
 				
-				Collections.reverse(directories);
-				for(String d : directories)
+				// Reverse the list and delete all directories starting from max depth
+				Collections.reverse(files);
+				for(String e : files)
 				{
-					Files.delete(getPath(d));
+					if(isDirectory(e))
+					{
+						Files.delete(getPath(e));
+					}
 				}
 			}
 		}
