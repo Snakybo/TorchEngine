@@ -8,6 +8,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import com.snakybo.sengine.debug.Logger;
+import com.snakybo.sengine.util.Color;
+import com.snakybo.sengine.util.Color32;
 
 /**
  * @author Kevin
@@ -76,6 +78,28 @@ public final class Bitmap
 	public final void setPixels(int[] pixels)
 	{
 		bitmap.setRGB(0, 0, getWidth(), getHeight(), pixels, 0, getWidth());
+	}
+	
+	/**
+	 * Set the pixel at (x, y)
+	 * @param x - The X position of the pixel
+	 * @param y - The Y position of the pixel
+	 * @param pixel - The new pixel
+	 */
+	public final void setPixel(int x, int y, Color pixel)
+	{
+		setPixel(x, y, pixel.toColor32());
+	}
+	
+	/**
+	 * Set the pixel at (x, y)
+	 * @param x - The X position of the pixel
+	 * @param y - The Y position of the pixel
+	 * @param pixel - The new pixel
+	 */
+	public final void setPixel(int x, int y, Color32 pixel)
+	{
+		setPixel(x, y, pixel.getRGBA());
 	}
 	
 	/**
