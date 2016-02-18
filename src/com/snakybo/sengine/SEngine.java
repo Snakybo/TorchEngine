@@ -1,5 +1,6 @@
 package com.snakybo.sengine;
 
+import com.snakybo.sengine.audio.AudioManagerInternal;
 import com.snakybo.sengine.debug.Logger;
 import com.snakybo.sengine.input.cursor.CursorInternal;
 import com.snakybo.sengine.input.keyboad.KeyboardInternal;
@@ -39,6 +40,7 @@ public final class SEngine
 			
 			// Initialize engine systems
 			WindowImplementation.create();
+			AudioManagerInternal.create();
 			
 			KeyboardInternal.create();
 			MouseInternal.create();
@@ -143,6 +145,7 @@ public final class SEngine
 		MouseInternal.destroy();
 		KeyboardInternal.destroy();
 		
+		AudioManagerInternal.destroy();
 		WindowImplementation.destroy();
 	}
 	
