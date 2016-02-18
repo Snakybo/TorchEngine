@@ -17,7 +17,7 @@ public final class FileUtils
 	/**
 	 * Get the file extension from a file
 	 * @param file - The file
-	 * @return The file name, or {@code null}
+	 * @return The file extension, if there was an error, it will return an empty string
 	 */
 	public static String getFileExtension(String file)
 	{
@@ -29,6 +29,6 @@ public final class FileUtils
 			return fileName.substring(fileName.lastIndexOf('.') + 1);
 		}
 		
-		return null;
+		return "";
 	}
 }
