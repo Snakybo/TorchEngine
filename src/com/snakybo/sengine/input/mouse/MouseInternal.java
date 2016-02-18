@@ -10,7 +10,7 @@ import java.nio.DoubleBuffer;
 import org.joml.Vector2f;
 import org.lwjgl.BufferUtils;
 
-import com.snakybo.sengine.window.WindowImplementation;
+import com.snakybo.sengine.window.WindowInternal;
 
 /**
  * @author Kevin
@@ -52,7 +52,7 @@ public final class MouseInternal
 		
 		for(int i = 0; i < Mouse.current.length; i++)
 		{
-			int state = glfwGetMouseButton(WindowImplementation.window, i);
+			int state = glfwGetMouseButton(WindowInternal.window, i);
 			boolean pressed = false;
 			
 			if(state == GLFW_PRESS || state == GLFW_REPEAT)
@@ -88,7 +88,7 @@ public final class MouseInternal
 	{
 		DoubleBuffer xBuffer = BufferUtils.createDoubleBuffer(1);
 		DoubleBuffer yBuffer = BufferUtils.createDoubleBuffer(1);
-		glfwGetCursorPos(WindowImplementation.window, xBuffer, yBuffer);
+		glfwGetCursorPos(WindowInternal.window, xBuffer, yBuffer);
 		
 		return new Vector2f((float)xBuffer.get(), (float)yBuffer.get());
 	}

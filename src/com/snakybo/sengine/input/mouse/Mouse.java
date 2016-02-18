@@ -4,7 +4,7 @@ import static org.lwjgl.glfw.GLFW.glfwSetCursorPos;
 
 import org.joml.Vector2f;
 
-import com.snakybo.sengine.window.WindowImplementation;
+import com.snakybo.sengine.window.WindowInternal;
 
 /**
  * @author Kevin
@@ -43,7 +43,7 @@ public final class Mouse
 	 */
 	public static void setCursorPosition(int x, int y)
 	{
-		glfwSetCursorPos(WindowImplementation.window, x, y);
+		glfwSetCursorPos(WindowInternal.window, x, y);
 	}
 	
 	/**

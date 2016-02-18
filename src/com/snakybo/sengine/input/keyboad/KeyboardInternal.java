@@ -4,7 +4,7 @@ import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 import static org.lwjgl.glfw.GLFW.GLFW_REPEAT;
 import static org.lwjgl.glfw.GLFW.glfwGetKey;
 
-import com.snakybo.sengine.window.WindowImplementation;
+import com.snakybo.sengine.window.WindowInternal;
 
 /**
  * @author Kevin
@@ -43,7 +43,7 @@ public final class KeyboardInternal
 		
 		for(int i = 0; i < Keyboard.current.length; i++)
 		{
-			int state = glfwGetKey(WindowImplementation.window, i);
+			int state = glfwGetKey(WindowInternal.window, i);
 			boolean pressed = false;
 			
 			if(state == GLFW_PRESS || state == GLFW_REPEAT)

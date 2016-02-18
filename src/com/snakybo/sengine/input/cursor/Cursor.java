@@ -5,7 +5,7 @@ import static org.lwjgl.glfw.GLFW.GLFW_CURSOR_DISABLED;
 import static org.lwjgl.glfw.GLFW.GLFW_CURSOR_NORMAL;
 import static org.lwjgl.glfw.GLFW.glfwSetInputMode;
 
-import com.snakybo.sengine.window.WindowImplementation;
+import com.snakybo.sengine.window.WindowInternal;
 
 /**
  * @author Kevin
@@ -36,6 +36,6 @@ public final class Cursor
 	 */
 	public static void setVisible(boolean visible)
 	{
-		glfwSetInputMode(WindowImplementation.window, GLFW_CURSOR, visible ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_DISABLED);
+		glfwSetInputMode(WindowInternal.window, GLFW_CURSOR, visible ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_DISABLED);
 	}
 }

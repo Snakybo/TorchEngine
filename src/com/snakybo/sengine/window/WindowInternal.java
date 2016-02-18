@@ -28,7 +28,7 @@ import com.snakybo.sengine.debug.Logger;
  * @author Kevin
  * @since Feb 14, 2016
  */
-public final class WindowImplementation
+public final class WindowInternal
 {
 	private static GLFWErrorCallback errorCallback;
 	
@@ -46,7 +46,7 @@ public final class WindowImplementation
 		}
 	}
 	
-	private WindowImplementation()
+	private WindowInternal()
 	{
 		throw new AssertionError();
 	}

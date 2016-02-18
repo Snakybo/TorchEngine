@@ -7,7 +7,7 @@ import com.snakybo.sengine.input.keyboad.KeyboardInternal;
 import com.snakybo.sengine.input.mouse.MouseInternal;
 import com.snakybo.sengine.scene.SceneUtilities;
 import com.snakybo.sengine.util.time.TimeInternal;
-import com.snakybo.sengine.window.WindowImplementation;
+import com.snakybo.sengine.window.WindowInternal;
 
 /**
  * @author Kevin
@@ -39,7 +39,7 @@ public final class SEngine
 			SEngine.gameName = game.getName();
 			
 			// Initialize engine systems
-			WindowImplementation.create();
+			WindowInternal.create();
 			AudioManagerInternal.create();
 			
 			KeyboardInternal.create();
@@ -87,7 +87,7 @@ public final class SEngine
 			
 			while(unprocessedTime > TimeInternal.getFrameTime())
 			{
-				if(WindowImplementation.isCloseRequested())
+				if(WindowInternal.isCloseRequested())
 				{
 					stop();
 				}
@@ -102,7 +102,7 @@ public final class SEngine
 			{
 				renderCycle();
 				
-				WindowImplementation.update();
+				WindowInternal.update();
 				TimeInternal.updateFrameCount();
 			}
 			else
@@ -146,7 +146,7 @@ public final class SEngine
 		KeyboardInternal.destroy();
 		
 		AudioManagerInternal.destroy();
-		WindowImplementation.destroy();
+		WindowInternal.destroy();
 	}
 	
 	/**

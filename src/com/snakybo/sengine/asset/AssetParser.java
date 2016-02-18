@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.snakybo.sengine.io.File;
-import com.snakybo.sengine.reflection.FieldUtilities;
+import com.snakybo.sengine.reflection.FieldUtils;
 
 /**
  * @author Kevin
@@ -23,14 +23,14 @@ public final class AssetParser
 	{
 		for(Map.Entry<String, String> target : fields.entrySet())
 		{
-			Field field = FieldUtilities.getAccessibleField(asset, target.getKey());
+			Field field = FieldUtils.getAccessibleField(asset, target.getKey());
 			
 			if(field != null)
 			{
 				boolean accessible = field.isAccessible();
 				field.setAccessible(true);
 				
-				FieldUtilities.setAccessibleFieldValue(asset, field, target.getValue());
+				FieldUtils.setAccessibleFieldValue(asset, field, target.getValue());
 				
 				field.setAccessible(accessible);
 			}
@@ -40,12 +40,12 @@ public final class AssetParser
 	public static Map<String, String> getFields(Asset asset)
 	{
 		Map<String, String> result = new HashMap<String, String>();
-		List<Field> fields = FieldUtilities.getAccessibleFields(asset);
+		List<Field> fields = FieldUtils.getAccessibleFields(asset);
 		
 		for(Field field : fields)
 		{
 			String name = field.getName();
-			Object value = FieldUtilities.getValue(asset, field);
+			Object value = FieldUtils.getValue(asset, field);
 			
 			result.put(name, value == null ? "" : value.toString());
 		}

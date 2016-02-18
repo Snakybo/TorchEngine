@@ -12,9 +12,9 @@ import com.snakybo.sengine.debug.Logger;
  * @author Kevin
  * @since Feb 14, 2016
  */
-public final class FieldUtilities
+public final class FieldUtils
 {
-	private FieldUtilities()
+	private FieldUtils()
 	{
 		throw new AssertionError();
 	}

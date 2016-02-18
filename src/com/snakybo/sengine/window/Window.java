@@ -25,7 +25,7 @@ public final class Window
 	 */
 	public static void setWidth(int width)
 	{
-		glfwSetWindowSize(WindowImplementation.window, width, getHeight());
+		glfwSetWindowSize(WindowInternal.window, width, getHeight());
 	}
 	
 	/**
@@ -34,7 +34,7 @@ public final class Window
 	 */
 	public static void setHeight(int height)
 	{
-		glfwSetWindowSize(WindowImplementation.window, getWidth(), height);
+		glfwSetWindowSize(WindowInternal.window, getWidth(), height);
 	}
 	
 	/**
@@ -61,7 +61,7 @@ public final class Window
 		IntBuffer width = BufferUtils.createIntBuffer(1);
 		IntBuffer height = BufferUtils.createIntBuffer(1);
 		
-		glfwGetWindowSize(WindowImplementation.window, width, height);
+		glfwGetWindowSize(WindowInternal.window, width, height);
 		return width.get();
 	}
 	
@@ -73,7 +73,7 @@ public final class Window
 		IntBuffer width = BufferUtils.createIntBuffer(1);
 		IntBuffer height = BufferUtils.createIntBuffer(1);
 		
-		glfwGetWindowSize(WindowImplementation.window, width, height);
+		glfwGetWindowSize(WindowInternal.window, width, height);
 		return height.get();
 	}
 }
