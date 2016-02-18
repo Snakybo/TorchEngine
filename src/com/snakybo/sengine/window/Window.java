@@ -9,8 +9,8 @@ import org.joml.Vector2f;
 import org.lwjgl.BufferUtils;
 
 /**
- * @author Kevin
- * @since Feb 13, 2016
+ * @author Snakybo
+ * @since 1.0
  */
 public final class Window
 {

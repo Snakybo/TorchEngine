@@ -9,8 +9,8 @@ import com.snakybo.sengine.annotations.AccessibleField;
 import com.snakybo.sengine.debug.Logger;
 
 /**
- * @author Kevin
- * @since Feb 14, 2016
+ * @author Snakybo
+ * @since 1.0
  */
 public final class FieldUtils
 {

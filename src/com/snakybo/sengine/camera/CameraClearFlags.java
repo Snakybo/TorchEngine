@@ -1,8 +1,8 @@
 package com.snakybo.sengine.camera;
 
 /**
- * @author Kevin
- * @since Feb 18, 2016
+ * @author Snakybo
+ * @since 1.0
  */
 public enum CameraClearFlags
 {

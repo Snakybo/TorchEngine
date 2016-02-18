@@ -10,8 +10,8 @@ import org.joml.Vector3f;
 import com.snakybo.sengine.debug.Logger;
 
 /**
- * @author Kevin
- * @since Feb 18, 2016
+ * @author Snakybo
+ * @since 1.0
  */
 public final class AudioManager
 {

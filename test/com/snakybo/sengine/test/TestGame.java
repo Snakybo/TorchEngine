@@ -3,8 +3,8 @@ package com.snakybo.sengine.test;
 import com.snakybo.sengine.Game;
 
 /**
- * @author Kevin
- * @since Feb 14, 2016
+ * @author Snakybo
+ * @since 1.0
  */
 public class TestGame extends Game
 {

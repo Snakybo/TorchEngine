@@ -3,8 +3,8 @@ package com.snakybo.sengine;
 import com.snakybo.sengine.util.time.TimeInternal;
 
 /**
- * @author Kevin
- * @since Feb 14, 2016
+ * @author Snakybo
+ * @since 1.0
  */
 public abstract class Game
 {

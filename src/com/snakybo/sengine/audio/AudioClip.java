@@ -18,8 +18,8 @@ import com.snakybo.sengine.io.FileUtils;
 import com.snakybo.sengine.util.IDestroyable;
 
 /**
- * @author Kevin
- * @since Feb 18, 2016
+ * @author Snakybo
+ * @since 1.0
  */
 public final class AudioClip implements IDestroyable
 {

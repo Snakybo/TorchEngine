@@ -8,8 +8,8 @@ import com.snakybo.sengine.input.mouse.Mouse;
 import com.snakybo.sengine.window.Window;
 
 /**
- * @author Kevin
- * @since Feb 14, 2016
+ * @author Snakybo
+ * @since 1.0
  */
 public class CursorInternal
 {

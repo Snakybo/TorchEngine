@@ -19,8 +19,8 @@ import com.snakybo.sengine.debug.Logger;
 import com.snakybo.sengine.util.ALUtil;
 
 /**
- * @author Kevin
- * @since Feb 18, 2016
+ * @author Snakybo
+ * @since 1.0
  */
 public final class AudioClipImporter
 {

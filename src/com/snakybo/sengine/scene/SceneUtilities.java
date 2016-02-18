@@ -8,8 +8,8 @@ import com.snakybo.sengine.object.GameObject;
 import com.snakybo.sengine.object.GameObjectUtilities;
 
 /**
- * @author Kevin
- * @since Feb 13, 2016
+ * @author Snakybo
+ * @since 1.0
  */
 public final class SceneUtilities
 {

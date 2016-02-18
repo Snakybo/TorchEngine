@@ -6,8 +6,8 @@ import com.snakybo.sengine.object.Component;
 import com.snakybo.sengine.util.Color;
 
 /**
- * @author Kevin
- * @since Feb 18, 2016
+ * @author Snakybo
+ * @since 1.0
  */
 public final class Camera extends Component
 {

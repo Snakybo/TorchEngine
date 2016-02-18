@@ -7,8 +7,8 @@ import org.joml.Vector2f;
 import com.snakybo.sengine.window.WindowInternal;
 
 /**
- * @author Kevin
- * @since Feb 14, 2016
+ * @author Snakybo
+ * @since 1.0
  */
 public final class Mouse
 {

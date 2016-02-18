@@ -1,8 +1,8 @@
 package com.snakybo.sengine.util.time;
 
 /**
- * @author Kevin
- * @since Feb 14, 2016
+ * @author Snakybo
+ * @since 1.0
  */
 public abstract class Time
 {

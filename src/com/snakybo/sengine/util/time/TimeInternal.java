@@ -5,8 +5,8 @@ import static org.lwjgl.glfw.GLFW.glfwGetTime;
 import com.snakybo.sengine.Game;
 
 /**
- * @author Kevin
- * @since Feb 14, 2016
+ * @author Snakybo
+ * @since 1.0
  */
 public abstract class TimeInternal
 {

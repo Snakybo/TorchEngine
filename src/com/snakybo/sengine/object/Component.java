@@ -1,8 +1,8 @@
 package com.snakybo.sengine.object;
 
 /**
- * @author Kevin
- * @since Feb 13, 2016
+ * @author Snakybo
+ * @since 1.0
  */
 public abstract class Component extends Object
 {	

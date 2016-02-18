@@ -4,8 +4,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
- * @author Kevin
- * @since Feb 17, 2016
+ * @author Snakybo
+ * @since 1.0
  */
 public final class FileUtils
 {

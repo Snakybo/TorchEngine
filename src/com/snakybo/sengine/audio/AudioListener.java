@@ -3,8 +3,8 @@ package com.snakybo.sengine.audio;
 import com.snakybo.sengine.object.Component;
 
 /**
- * @author Kevin
- * @since Feb 18, 2016
+ * @author Snakybo
+ * @since 1.0
  */
 public class AudioListener extends Component
 {

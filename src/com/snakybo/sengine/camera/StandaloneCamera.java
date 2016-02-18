@@ -5,8 +5,8 @@ import org.joml.Matrix4f;
 import com.snakybo.sengine.util.Color;
 
 /**
- * @author Kevin
- * @since Feb 18, 2016
+ * @author Snakybo
+ * @since 1.0
  */
 public final class StandaloneCamera
 {

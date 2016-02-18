@@ -7,8 +7,8 @@ import org.joml.Vector2f;
 import org.joml.Vector3f;
 
 /**
- * @author Kevin
- * @since Feb 15, 2016
+ * @author Snakybo
+ * @since 1.0
  */
 public final class Model
 {

@@ -7,8 +7,8 @@ import java.lang.annotation.Target;
 
 /**
  * Add this annotation before a private, protected or internal field to expose it to the engine
- * @author Kevin
- * @since Feb 13, 2016
+ * @author Snakybo
+ * @since 1.0
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
