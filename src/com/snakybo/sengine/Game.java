@@ -1,6 +1,6 @@
 package com.snakybo.sengine;
 
-import com.snakybo.sengine.util.TimeInternal;
+import com.snakybo.sengine.util.time.TimeInternal;
 
 /**
  * @author Kevin

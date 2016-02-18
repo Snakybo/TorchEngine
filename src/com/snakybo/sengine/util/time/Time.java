@@ -1,4 +1,4 @@
-package com.snakybo.sengine.util;
+package com.snakybo.sengine.util.time;
 
 /**
  * @author Kevin
