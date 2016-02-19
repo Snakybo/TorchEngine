@@ -24,8 +24,7 @@ public class AudioListener extends Component
 	
 	private Vector3f lastPosition;
 	
-	@Override
-	protected void start()
+	public AudioListener()
 	{
 		if(instance != null)
 		{
@@ -34,7 +33,11 @@ public class AudioListener extends Component
 		}
 		
 		instance = this;
-		
+	}
+	
+	@Override
+	protected void start()
+	{
 		lastPosition = getTransform().getPosition();		
 		positionBuffer = BufferUtils.createFloatBuffer(3);
 		velocityBuffer = BufferUtils.createFloatBuffer(3);
