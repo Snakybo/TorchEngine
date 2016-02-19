@@ -66,8 +66,16 @@ public abstract class Component extends Object
 	/**
 	 * @return The parent {@link GameObject}
 	 */
-	public GameObject getGameObject()
+	public final GameObject getGameObject()
 	{
 		return gameObject;
+	}
+	
+	/**
+	 * @return The transform of the {@link GameObject}
+	 */
+	public final Transform getTransform()
+	{
+		return gameObject.getTransform();
 	}
 }

@@ -14,6 +14,20 @@ public final class GameObject extends Object
 	Set<Component> components;
 	Set<Component> frameQueue;
 	
+	Transform transform;
+	
+	/**
+	 * Create a new {@link GameObject}
+	 */
+	public GameObject()
+	{
+		this("GameObject");
+	}
+	
+	/**
+	 * Create a new {@link GameObject} with the specified name
+	 * @param name - The name of the {@link GameObject}
+	 */
 	public GameObject(String name)
 	{
 		super(name);
@@ -23,13 +37,16 @@ public final class GameObject extends Object
 		
 		components = new HashSet<Component>();
 		frameQueue = new HashSet<Component>();
+		
+		transform = new Transform();
+		transform.gameObject = this;
 	}
 	
 	/**
 	 * Add a component to the GameObject
 	 * @param component - The component to add
 	 */
-	public void addComponent(Component component)
+	public final void addComponent(Component component)
 	{
 		components.add(component);
 	}
@@ -39,7 +56,7 @@ public final class GameObject extends Object
 	 * @param type - The type of component to retrieve
 	 * @return The component, or {@code null} if no component of {@code type} was found
 	 */
-	public <T extends Component> T getComponent(Class<T> type)
+	public final <T extends Component> T getComponent(Class<T> type)
 	{
 		for(Component component : components)
 		{
@@ -57,7 +74,7 @@ public final class GameObject extends Object
 	 * @param type - The type of component to retrieve
 	 * @return The components, it's empty if no components of {@code type} are found
 	 */
-	public <T extends Component> Iterable<T> getComponents(Class<T> type)
+	public final <T extends Component> Iterable<T> getComponents(Class<T> type)
 	{
 		Set<T> result = new HashSet<T>();
 		
@@ -70,5 +87,13 @@ public final class GameObject extends Object
 		}
 		
 		return result;
+	}
+	
+	/**
+	 * @return The {@link Transform} attached to this {@link GameObject}
+	 */
+	public final Transform getTransform()
+	{
+		return transform;
 	}
 }

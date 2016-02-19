@@ -123,6 +123,12 @@ public final class GameObjectUtilities
 	 */
 	public static void destroy(GameObject gameObject)
 	{
+		// Also destroy all children of the GameObject
+		for(Transform transform : gameObject.getTransform().getChildren())
+		{
+			destroy(transform.getGameObject());
+		}
+		
 		// Let the components know they're being destroyed
 		for(Component component : gameObject.frameQueue)
 		{
