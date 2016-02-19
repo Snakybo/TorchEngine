@@ -7,8 +7,10 @@ import static org.lwjgl.openal.AL10.AL_LOOPING;
 import static org.lwjgl.openal.AL10.AL_PAUSED;
 import static org.lwjgl.openal.AL10.AL_PITCH;
 import static org.lwjgl.openal.AL10.AL_PLAYING;
+import static org.lwjgl.openal.AL10.AL_POSITION;
 import static org.lwjgl.openal.AL10.AL_SOURCE_STATE;
 import static org.lwjgl.openal.AL10.AL_TRUE;
+import static org.lwjgl.openal.AL10.AL_VELOCITY;
 import static org.lwjgl.openal.AL10.alDeleteSources;
 import static org.lwjgl.openal.AL10.alGenSources;
 import static org.lwjgl.openal.AL10.alGetSourcef;
@@ -17,9 +19,11 @@ import static org.lwjgl.openal.AL10.alSourcePause;
 import static org.lwjgl.openal.AL10.alSourcePlay;
 import static org.lwjgl.openal.AL10.alSourceStop;
 import static org.lwjgl.openal.AL10.alSourcef;
+import static org.lwjgl.openal.AL10.alSourcefv;
 import static org.lwjgl.openal.AL10.alSourcei;
 import static org.lwjgl.openal.ALUtil.checkALError;
 
+import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 import org.joml.Vector3f;
@@ -33,6 +37,9 @@ public final class AudioChannel
 {
 	private final IntBuffer source;
 	
+	private FloatBuffer positionBuffer;
+	private FloatBuffer velocityBuffer;
+	
 	AudioClip audioClip;
 	
 	public AudioChannel()
@@ -41,6 +48,9 @@ public final class AudioChannel
 		
 		alGenSources(source);
 		checkALError();
+		
+		positionBuffer = BufferUtils.createFloatBuffer(3);
+		velocityBuffer = BufferUtils.createFloatBuffer(3);
 	}
 	
 	/**
@@ -69,6 +79,8 @@ public final class AudioChannel
 		alSourcei(source.get(0), AL_BUFFER, 0);
 		
 		setLoop(false);
+		setVelocity(new Vector3f());
+		setPosition(new Vector3f());
 		setPitch(1);
 		setVolume(1);
 	}
@@ -96,15 +108,11 @@ public final class AudioChannel
 	 * @param audioClip - The audio clip to play
 	 * @param point - the point in world-space to play the clip at
 	 */
-	// TODO: Play audio in 3D space
 	final void playAt(AudioClip audioClip, Vector3f point)
 	{
-		//this.audioClip = audioClip;
-		
-		// Reset the audio source
-		//stop();
-		
 		play(audioClip);
+		
+		setPosition(point);
 	}
 	
 	/**
@@ -163,6 +171,26 @@ public final class AudioChannel
 	public final void setPitch(float pitch)
 	{
 		alSourcef(source.get(0), AL_PITCH, pitch);
+		checkALError();
+	}
+	
+	public final void setVelocity(Vector3f velocity)
+	{
+		velocityBuffer.clear();
+		velocityBuffer.put(new float[] { velocity.x, velocity.y, velocity.z });
+		velocityBuffer.rewind();
+		
+		alSourcefv(source.get(0), AL_VELOCITY, velocityBuffer);
+		checkALError();
+	}
+	
+	private final void setPosition(Vector3f position)
+	{
+		positionBuffer.clear();
+		positionBuffer.put(new float[] { position.x, position.y, position.z });
+		positionBuffer.rewind();
+		
+		alSourcefv(source.get(0), AL_POSITION, positionBuffer);
 		checkALError();
 	}
 	

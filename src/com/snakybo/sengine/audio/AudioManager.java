@@ -35,6 +35,11 @@ public final class AudioManager
 	 */
 	public static AudioChannel play(AudioClip audioClip)
 	{
+		if(AudioListener.instance == null)
+		{
+			Logger.logWarning("There is no audio listener in the scene", "AudioListener");
+		}
+		
 		AudioChannel audioChannel = getAvailableAudioChannel();
 		
 		if(audioChannel != null)
@@ -55,6 +60,11 @@ public final class AudioManager
 	 */
 	public static AudioChannel playAt(AudioClip audioClip, Vector3f point)
 	{
+		if(AudioListener.instance == null)
+		{
+			Logger.logWarning("There is no audio listener in the scene", "AudioListener");
+		}
+		
 		AudioChannel audioChannel = getAvailableAudioChannel();
 		
 		if(audioChannel != null)
