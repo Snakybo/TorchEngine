@@ -168,12 +168,20 @@ public final class AudioChannel
 		checkALError();
 	}
 	
+	/**
+	 * Set the pitch of the audio channel
+	 * @param pitch - The new pitch
+	 */
 	public final void setPitch(float pitch)
 	{
 		alSourcef(source.get(0), AL_PITCH, pitch);
 		checkALError();
 	}
 	
+	/**
+	 * Set the velocity of the channel
+	 * @param velocity - The new velocity
+	 */
 	public final void setVelocity(Vector3f velocity)
 	{
 		velocityBuffer.clear();
@@ -184,6 +192,10 @@ public final class AudioChannel
 		checkALError();
 	}
 	
+	/**
+	 * Set the position of the channel in world space
+	 * @param position - The new position
+	 */
 	private final void setPosition(Vector3f position)
 	{
 		positionBuffer.clear();
@@ -195,6 +207,14 @@ public final class AudioChannel
 	}
 	
 	/**
+	 * @return The current audio clip
+	 */
+	public final AudioClip getAudioClip()
+	{
+		return audioClip;
+	}
+	
+	/**
 	 * @return The current volume of the channel
 	 */
 	public final float getVolume()
@@ -202,6 +222,9 @@ public final class AudioChannel
 		return alGetSourcef(source.get(0), AL_GAIN);
 	}
 	
+	/**
+	 * @return The pitch of the channel
+	 */
 	public final float getPitch()
 	{
 		return alGetSourcef(source.get(0), AL_PITCH);
