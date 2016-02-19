@@ -5,6 +5,7 @@ import static org.lwjgl.openal.AL10.AL_FALSE;
 import static org.lwjgl.openal.AL10.AL_GAIN;
 import static org.lwjgl.openal.AL10.AL_LOOPING;
 import static org.lwjgl.openal.AL10.AL_PAUSED;
+import static org.lwjgl.openal.AL10.AL_PITCH;
 import static org.lwjgl.openal.AL10.AL_PLAYING;
 import static org.lwjgl.openal.AL10.AL_SOURCE_STATE;
 import static org.lwjgl.openal.AL10.AL_TRUE;
@@ -68,6 +69,8 @@ public final class AudioChannel
 		alSourcei(source.get(0), AL_BUFFER, 0);
 		
 		setLoop(false);
+		setPitch(1);
+		setVolume(1);
 	}
 	
 	/**
@@ -157,11 +160,22 @@ public final class AudioChannel
 		checkALError();
 	}
 	
+	public final void setPitch(float pitch)
+	{
+		alSourcef(source.get(0), AL_PITCH, pitch);
+		checkALError();
+	}
+	
 	/**
 	 * @return The current volume of the channel
 	 */
 	public final float getVolume()
 	{
 		return alGetSourcef(source.get(0), AL_GAIN);
+	}
+	
+	public final float getPitch()
+	{
+		return alGetSourcef(source.get(0), AL_PITCH);
 	}
 }
