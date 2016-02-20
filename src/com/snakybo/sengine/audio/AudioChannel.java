@@ -37,9 +37,6 @@ public final class AudioChannel
 {
 	private final IntBuffer source;
 	
-	private FloatBuffer positionBuffer;
-	private FloatBuffer velocityBuffer;
-	
 	AudioClip audioClip;
 	
 	public AudioChannel()
@@ -48,9 +45,6 @@ public final class AudioChannel
 		
 		alGenSources(source);
 		checkALError();
-		
-		positionBuffer = BufferUtils.createFloatBuffer(3);
-		velocityBuffer = BufferUtils.createFloatBuffer(3);
 	}
 	
 	/**
@@ -74,44 +68,30 @@ public final class AudioChannel
 	 */
 	public final void stop()
 	{
-		alSourceStop(source.get(0));
-		
+		alSourceStop(source.get(0));		
 		alSourcei(source.get(0), AL_BUFFER, 0);
 		
-		setLoop(false);
-		setVelocity(new Vector3f());
-		setPosition(new Vector3f());
+		setLooping(false);
+		setSourceVelocity(new Vector3f());
+		setSourcePosition(new Vector3f());
 		setPitch(1);
 		setVolume(1);
 	}
 	
 	/**
-	 * Play a 2D audio clip
-	 * @param audioClip - The audio clip to play
+	 * Play an {@link AudioClip}
+	 * @param audioClip - The {@link AudioClip} to play
 	 */
 	final void play(AudioClip audioClip)
 	{
 		this.audioClip = audioClip;
 		
-		// Reset the audio source
 		stop();
 		
 		audioClip.bind(source.get(0));
 		
 		alSourcePlay(source.get(0));
 		checkALError();
-	}
-	
-	/**
-	 * Play a 3D audio clip
-	 * @param audioClip - The audio clip to play
-	 * @param point - the point in world-space to play the clip at
-	 */
-	final void playAt(AudioClip audioClip, Vector3f point)
-	{
-		play(audioClip);
-		
-		setPosition(point);
 	}
 	
 	/**
@@ -140,7 +120,7 @@ public final class AudioChannel
 	}
 	
 	/**
-	 * @return Whether or not the audio channel is set to loop a clip
+	 * @return Whether or not the current clip is set to loop
 	 */
 	public final boolean isLooping()
 	{
@@ -148,15 +128,29 @@ public final class AudioChannel
 	}
 	
 	/**
-	 * Set whether or not the current audio clip should loop
-	 * @param loop - Whether or not to loop
+	 * Set the velocity of the source
+	 * @param velocity - The new velocity
 	 */
-	public final void setLoop(boolean loop)
+	public final void setSourceVelocity(Vector3f velocity)
 	{
-		alSourcei(source.get(0), AL_LOOPING, loop ? AL_TRUE : AL_FALSE);
+		FloatBuffer buffer = BufferUtils.createFloatBuffer(3);
+		
+		alSourcefv(source.get(0), AL_VELOCITY, velocity.get(buffer));
 		checkALError();
 	}
-	
+
+	/**
+	 * Set the position of the source in world space
+	 * @param position - The new position
+	 */
+	public final void setSourcePosition(Vector3f position)
+	{
+		FloatBuffer buffer = BufferUtils.createFloatBuffer(3);
+		
+		alSourcefv(source.get(0), AL_POSITION, position.get(buffer));
+		checkALError();
+	}
+
 	/**
 	 * Set the volume of the audio channel
 	 * @param volume - The new volume
@@ -178,35 +172,17 @@ public final class AudioChannel
 	}
 	
 	/**
-	 * Set the velocity of the channel
-	 * @param velocity - The new velocity
+	 * Set whether or not the current audio clip should loop
+	 * @param loop - Whether or not to loop
 	 */
-	public final void setVelocity(Vector3f velocity)
+	public final void setLooping(boolean loop)
 	{
-		velocityBuffer.clear();
-		velocityBuffer.put(new float[] { velocity.x, velocity.y, velocity.z });
-		velocityBuffer.rewind();
-		
-		alSourcefv(source.get(0), AL_VELOCITY, velocityBuffer);
+		alSourcei(source.get(0), AL_LOOPING, loop ? AL_TRUE : AL_FALSE);
 		checkALError();
 	}
-	
+
 	/**
-	 * Set the position of the channel in world space
-	 * @param position - The new position
-	 */
-	private final void setPosition(Vector3f position)
-	{
-		positionBuffer.clear();
-		positionBuffer.put(new float[] { position.x, position.y, position.z });
-		positionBuffer.rewind();
-		
-		alSourcefv(source.get(0), AL_POSITION, positionBuffer);
-		checkALError();
-	}
-	
-	/**
-	 * @return The current audio clip
+	 * @return The current {@link AudioClip}
 	 */
 	public final AudioClip getAudioClip()
 	{

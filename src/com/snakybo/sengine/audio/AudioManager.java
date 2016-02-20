@@ -5,8 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.joml.Vector3f;
-
 import com.snakybo.sengine.debug.Logger;
 
 /**
@@ -45,31 +43,6 @@ public final class AudioManager
 		if(audioChannel != null)
 		{
 			audioChannel.play(audioClip);
-			return audioChannel;
-		}
-		
-		Logger.logWarning("No free audio channel available", "AudioManager");
-		return null;
-	}
-	
-	/**
-	 * Play a 3D audio clip
-	 * @param audioClip - The audio clip to play
-	 * @param point - The point in world-space to play the clip at
-	 * @return The audio channel the clip is being played on, or null if none was available
-	 */
-	public static AudioChannel playAt(AudioClip audioClip, Vector3f point)
-	{
-		if(AudioListener.instance == null)
-		{
-			Logger.logWarning("There is no audio listener in the scene", "AudioListener");
-		}
-		
-		AudioChannel audioChannel = getAvailableAudioChannel();
-		
-		if(audioChannel != null)
-		{
-			audioChannel.playAt(audioClip, point);
 			return audioChannel;
 		}
 		
