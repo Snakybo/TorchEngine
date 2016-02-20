@@ -1,20 +1,6 @@
 package com.snakybo.sengine.audio;
 
-import static org.lwjgl.openal.AL10.AL_FORMAT_MONO16;
-import static org.lwjgl.openal.AL10.alBufferData;
-import static org.lwjgl.openal.AL10.alDeleteBuffers;
-import static org.lwjgl.openal.AL10.alGenBuffers;
-import static org.lwjgl.openal.ALUtil.checkALError;
-
-import java.nio.IntBuffer;
-
-import org.lwjgl.BufferUtils;
-import org.lwjgl.stb.STBVorbisInfo;
-
-import com.snakybo.sengine.debug.Logger;
-import com.snakybo.sengine.importer.AudioClipImporter;
-import com.snakybo.sengine.importer.AudioClipImporter.AudioClipData;
-import com.snakybo.sengine.io.FileUtils;
+import com.snakybo.sengine.asset.AssetDatabase;
 import com.snakybo.sengine.util.IDestroyable;
 
 /**
@@ -23,45 +9,54 @@ import com.snakybo.sengine.util.IDestroyable;
  */
 public final class AudioClip implements IDestroyable
 {
-	private final IntBuffer buffer;
-	
-	private float duration;
-	
-	private int samples;
+	private final AudioAsset asset;
 	
 	/**
-	 * Create a new audio clip
-	 * @param clip - The file to load
+	 * Create a new {@link AudioClip}. If the specified {@code clip} has already been imported,
+	 * it will reuse the imported {@link AudioAsset}
+	 * @param clip - The clip to load
 	 */
 	public AudioClip(String clip)
 	{
-		buffer = BufferUtils.createIntBuffer(1);
+		clip = "./res/" + clip;
 		
-		if(!FileUtils.getFileExtension("./res/" + clip).equals("ogg"))
+		if(AssetDatabase.hasAsset(clip))
 		{
-			Logger.logException(new UnsupportedOperationException("Currently only .ogg sound files are supported"), this);
-			return;
+			asset = (AudioAsset)AssetDatabase.link(clip, this);
 		}
-		
-		STBVorbisInfo info = STBVorbisInfo.malloc();		
-		
-		AudioClipData data = AudioClipImporter.importClip(clip, 32, info);
-		duration = data.duration;
-		samples = data.samples;
-			
-		alGenBuffers(buffer);
-		checkALError();
-			
-		alBufferData(buffer.get(0), AL_FORMAT_MONO16, data.pcm, info.sample_rate());
-		checkALError();
-			
-		info.free();
+		else
+		{
+			asset = new AudioAsset(clip);
+			AssetDatabase.register(clip, asset, this);
+		}
+	}
+	
+	@Override
+	protected void finalize() throws Throwable
+	{
+		try
+		{
+			destroy();
+		}
+		finally
+		{
+			super.finalize();
+		}
 	}
 	
 	@Override
 	public void destroy()
 	{
-		alDeleteBuffers(buffer);
+		AssetDatabase.unlink(asset.getName(), this);
+	}
+	
+	/**
+	 * Bind the {@link AudioClip} to a source
+	 * @param source - The source to bind to
+	 */
+	final void bind(int source)
+	{
+		asset.bind(source);
 	}
 	
 	/**
@@ -69,7 +64,7 @@ public final class AudioClip implements IDestroyable
 	 */
 	public final float getDuration()
 	{
-		return duration;
+		return asset.getDuration();
 	}
 	
 	/**
@@ -77,14 +72,14 @@ public final class AudioClip implements IDestroyable
 	 */
 	public final int getNumSamples()
 	{
-		return samples;
+		return asset.getNumSamples();
 	}
 	
 	/**
-	 * @return The ID of this audio clip
+	 * @return The sample rate of the audio clip
 	 */
-	final int getBufferId()
+	public final int getSampleRate()
 	{
-		return buffer.get(0);
+		return asset.getSampleRate();
 	}
 }

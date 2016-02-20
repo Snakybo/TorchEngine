@@ -96,8 +96,7 @@ public final class AudioChannel
 		// Reset the audio source
 		stop();
 		
-		alSourcei(source.get(0), AL_BUFFER, audioClip.getBufferId());
-		checkALError();
+		audioClip.bind(source.get(0));
 		
 		alSourcePlay(source.get(0));
 		checkALError();
