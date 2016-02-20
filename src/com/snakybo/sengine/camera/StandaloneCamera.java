@@ -1,7 +1,10 @@
 package com.snakybo.sengine.camera;
 
 import org.joml.Matrix4f;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
 
+import com.snakybo.sengine.object.Transform;
 import com.snakybo.sengine.util.Color;
 
 /**
@@ -12,8 +15,8 @@ public final class StandaloneCamera
 {
 	private CameraClearFlags clearFlags;
 	
-	private Matrix4f projection;
-	
+	private Matrix4f projection;	
+	private Transform transform;
 	private Color clearColor;
 	
 	/**
@@ -37,6 +40,8 @@ public final class StandaloneCamera
 		this.projection = projection;
 		this.clearFlags = clearFlags;
 		this.clearColor = clearColor;
+		
+		transform = new Transform();
 	}
 	
 	/**
@@ -84,6 +89,15 @@ public final class StandaloneCamera
 	}
 	
 	/**
+	 * Set the transform of the camera
+	 * @param transform - The new transform
+	 */
+	public final void setTransform(Transform transform)
+	{
+		this.transform = transform;
+	}
+	
+	/**
 	 * Set the clear color of the camera, only used in {@link CameraClearFlags#SolidColor}
 	 * @param clearColor - The new clear color
 	 */
@@ -106,6 +120,21 @@ public final class StandaloneCamera
 	public final Matrix4f getProjection()
 	{
 		return projection;
+	}
+	
+	/**
+	 * @return The view projection of the camera
+	 */
+	public final Matrix4f getViewProjection()
+	{
+		Vector3f position = transform.getPosition().mul(-1, new Vector3f());
+		Quaternionf rotation = transform.getRotation().conjugate(new Quaternionf());		
+		
+		Matrix4f viewProjection = new Matrix4f(projection);
+		viewProjection.translate(position);
+		viewProjection.rotate(rotation);
+		
+		return viewProjection;
 	}
 	
 	/**

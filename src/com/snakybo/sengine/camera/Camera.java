@@ -29,6 +29,12 @@ public final class Camera extends Component
 		camera = new StandaloneCamera(projection, clearFlags, clearColor);
 	}
 	
+	@Override
+	protected final void start()
+	{
+		camera.setTransform(getTransform());
+	}
+	
 	/**
 	 * @see StandaloneCamera#render()
 	 */
@@ -75,6 +81,14 @@ public final class Camera extends Component
 	public final Matrix4f getProjection()
 	{
 		return camera.getProjection();
+	}
+	
+	/**
+	 * @see StandaloneCamera#getViewProjection()
+	 */
+	public final Matrix4f getViewProjection()
+	{
+		return camera.getViewProjection();
 	}
 	
 	/**
