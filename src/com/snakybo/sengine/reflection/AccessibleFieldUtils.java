@@ -12,20 +12,20 @@ import com.snakybo.sengine.debug.Logger;
  * @author Snakybo
  * @since 1.0
  */
-public final class FieldUtils
+public final class AccessibleFieldUtils
 {
-	private FieldUtils()
+	private AccessibleFieldUtils()
 	{
 		throw new AssertionError();
 	}
 	
 	/**
-	 * Set the value of an accessible field
+	 * Set the value of an {@link AccessibleField}
 	 * @param object - The object of the field
 	 * @param field - The field
 	 * @param value - The value of the field as string
 	 */
-	public static void setAccessibleFieldValue(Object object, Field field, String value)
+	public static void set(Object object, Field field, String value)
 	{
 		Class<?> t = field.getType();
 		
@@ -70,22 +70,22 @@ public final class FieldUtils
 		}
 		catch(IllegalArgumentException | IllegalAccessException e)
 		{
-			Logger.logException(e, "FieldUtilities");
+			Logger.logException(e, "AccessibleFieldUtils");
 		}
 	}
 	
 	/**
-	 * Get all accessible fields from an object
+	 * Get all {@link AccessibleField}s from an object
 	 * @param object - The object
 	 * @return All accessible fields
 	 */
-	public static List<Field> getAccessibleFields(Object object)
+	public static List<Field> getAll(Object object)
 	{
 		List<Field> result = new ArrayList<Field>();
 		
 		for(Field field : object.getClass().getDeclaredFields())
 		{
-			if(!isFieldAccessible(field))
+			if(!isAccessible(field))
 			{
 				continue;
 			}
@@ -97,18 +97,18 @@ public final class FieldUtils
 	}
 	
 	/**
-	 * Get an accessible field with the specified name
+	 * Get an {@link AccessibleField} with the specified {@code name}
 	 * @param object - The object of the field
 	 * @param name - The name of the field
 	 * @return The field, or null if no field was found with the specified name
 	 */
-	public static Field getAccessibleField(Object object, String name)
+	public static Field get(Object object, String name)
 	{
 		try
 		{
 			Field result = object.getClass().getDeclaredField(name);
 			
-			if(isFieldAccessible(result))
+			if(isAccessible(result))
 			{
 				return result;
 			}
@@ -122,7 +122,7 @@ public final class FieldUtils
 	}
 	
 	/**
-	 * Get the value of a field
+	 * Get the value of an {@link AccessibleField}
 	 * @param object - The object of the field
 	 * @param field - The field to get the value of
 	 * @return The value of the field as a string
@@ -140,7 +140,7 @@ public final class FieldUtils
 		}
 		catch(IllegalArgumentException | IllegalAccessException e)
 		{
-			Logger.logException(e, "FieldUtilities");
+			Logger.logException(e, "AccessibleFieldUtils");
 		}
 		
 		field.setAccessible(accessible);
@@ -152,7 +152,7 @@ public final class FieldUtils
 	 * @param field - The field to check
 	 * @return Whether or not the field is accessible
 	 */
-	public static boolean isFieldAccessible(Field field)
+	public static boolean isAccessible(Field field)
 	{
 		int modifiers = field.getModifiers();
 		
@@ -169,7 +169,7 @@ public final class FieldUtils
 		}
 		
 		// A field must have a certain type
-		if(!isAccessibleFieldTypeValid(field.getType()))
+		if(!isTypeValid(field.getType()))
 		{
 			return false;
 		}
@@ -182,9 +182,9 @@ public final class FieldUtils
 	 * @param type - The type of the field
 	 * @return Whether or not the type of the field is valid
 	 */
-	private static boolean isAccessibleFieldTypeValid(Class<?> type)
+	private static boolean isTypeValid(Class<?> type)
 	{
-		Class<?>[] allowed = new Class<?>[]
+		final Class<?>[] allowed = new Class<?>[]
 		{ 
 			int.class, boolean.class,
 			String.class, float.class,
