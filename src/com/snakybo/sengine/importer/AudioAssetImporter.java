@@ -15,8 +15,10 @@ import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
 import org.lwjgl.BufferUtils;
+import org.lwjgl.openal.AL10;
 import org.lwjgl.stb.STBVorbisInfo;
 
+import com.snakybo.sengine.audio.AudioAsset;
 import com.snakybo.sengine.debug.Logger;
 import com.snakybo.sengine.io.FileUtils;
 import com.snakybo.sengine.util.ALUtil;
@@ -35,6 +37,11 @@ public final class AudioAssetImporter
 		throw new AssertionError();
 	}
 	
+	/**
+	 * Begin importing an {@link AudioAsset}, make sure to call {@link #endImport()} when you're done importing.
+	 * @param asset - The asset to load
+	 * @param bufferSize - The buffer size of the {@link AudioAsset}
+	 */
 	public static void beginImport(String asset, int bufferSize)
 	{
 		if(!canImport(asset))
@@ -44,7 +51,7 @@ public final class AudioAssetImporter
 		
 		if(vorbisInfo != null)
 		{
-			Logger.logWarning("Another Audio Asset has not finished importing", "AudioAssetImporter");
+			Logger.logWarning("Another audio asset has not finished importing", "AudioAssetImporter");
 		}
 		
 		Logger.log("Beginning import of audio asset: " + asset, "AudioAssetImporter");
@@ -72,6 +79,10 @@ public final class AudioAssetImporter
 		}
 	}
 	
+	/**
+	 * Stop importing an {@link AudioAsset},
+	 * this will free up any memory used by {@link STBVorbisInfo} and it will close the decoder
+	 */
 	public static void endImport()
 	{
 		stb_vorbis_close(decoder);
@@ -80,6 +91,11 @@ public final class AudioAssetImporter
 		vorbisInfo = null;
 	}
 	
+	/**
+	 * Check if the specified {@code asset} is valid for importation
+	 * @param asset - The asset to import
+	 * @return Whether or not the asset can be imported
+	 */
 	private static boolean canImport(String asset)
 	{
 		String extension = FileUtils.getFileExtension(asset);
@@ -93,6 +109,9 @@ public final class AudioAssetImporter
 		return false;
 	}
 	
+	/**
+	 * @return The PCM data of the imported asset
+	 */
 	public static ByteBuffer getPCM()
 	{
 		int channels = getNumChannels();
@@ -104,26 +123,42 @@ public final class AudioAssetImporter
 		return pcm;
 	}
 	
+	/**
+	 * @return The duration in seconds of the imported asset
+	 */
 	public static float getDuration()
 	{
 		return stb_vorbis_stream_length_in_seconds(decoder);
 	}
 	
+	/**
+	 * @return The number of samples the imported asset has
+	 */
 	public static int getNumSamples()
 	{
 		return stb_vorbis_stream_length_in_samples(decoder);
 	}
 	
+	/**
+	 * @return The sample rate of the imported asset
+	 */
 	public static int getSampleRate()
 	{
 		return vorbisInfo.sample_rate();
 	}
 	
+	/**
+	 * @return The amount of channels the imported asset has
+	 */
 	public static int getNumChannels()
 	{
 		return vorbisInfo.channels();
 	}
 	
+	/**
+	 * @return The OpenAL format of the imported asset,
+	 * {@link AL10#AL_FORMAT_MONO16} or {@link AL10#AL_FORMAT_STEREO16}
+	 */
 	public static int getFormat()
 	{
 		int channels = getNumChannels();
