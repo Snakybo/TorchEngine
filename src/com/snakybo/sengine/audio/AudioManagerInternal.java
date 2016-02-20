@@ -14,12 +14,12 @@ import com.snakybo.sengine.debug.Logger;
  */
 public final class AudioManagerInternal
 {
+	private static ALContext context;
+	
 	private AudioManagerInternal()
 	{
 		throw new AssertionError();
-	}
-	
-	private static ALContext context;
+	}	
 	
 	/**
 	 * Create the audio manager
@@ -63,6 +63,9 @@ public final class AudioManagerInternal
 		context.getDevice().destroy();
 	}
 	
+	/**
+	 * Log information about OpenAL
+	 */
 	private static void logOpenALInfo()
 	{
 		Logger.log("Vendor: " + alGetString(AL_VENDOR), "OpenAL");
