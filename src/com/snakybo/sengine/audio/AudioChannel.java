@@ -68,6 +68,8 @@ public final class AudioChannel
 	 */
 	public final void stop()
 	{
+		audioClip = null;
+		
 		alSourceStop(source.get(0));		
 		alSourcei(source.get(0), AL_BUFFER, 0);
 		
@@ -84,9 +86,9 @@ public final class AudioChannel
 	 */
 	final void play(AudioClip audioClip)
 	{
-		this.audioClip = audioClip;
-		
 		stop();
+		
+		this.audioClip = audioClip;
 		
 		audioClip.bind(source.get(0));
 		
