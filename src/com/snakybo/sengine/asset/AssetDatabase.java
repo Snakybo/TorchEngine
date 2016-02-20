@@ -71,6 +71,7 @@ public final class AssetDatabase
 		{
 			int usages = useCount.get(assetName);
 			useCount.put(assetName, usages - 1);
+			sources.remove(source);
 			
 			// Delete the asset if neccecary
 			if(usages - 1 <= 0)
