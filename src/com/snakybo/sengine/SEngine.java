@@ -125,6 +125,9 @@ public final class SEngine
 		destroy();
 	}
 	
+	/**
+	 * Run a single update cycle
+	 */
 	private static void updateCycle()
 	{
 		SceneUtilities.runUpdateCycle();
@@ -135,6 +138,9 @@ public final class SEngine
 		CursorInternal.update();
 	}
 	
+	/**
+	 * Run a single render cycle
+	 */
 	private static void renderCycle()
 	{
 		SceneUtilities.runRenderCycle();
