@@ -1,5 +1,7 @@
 package com.snakybo.sengine;
 
+import org.lwjgl.Version;
+
 import com.snakybo.sengine.audio.AudioManagerInternal;
 import com.snakybo.sengine.debug.Logger;
 import com.snakybo.sengine.input.cursor.CursorInternal;
@@ -34,6 +36,8 @@ public final class SEngine
 		{
 			Logger.log("Starting", "SEngine");
 			Logger.log("Game name: " + game.getName(), "SEngine");
+			
+			logLWJGLInfo();
 			
 			SEngine.running = true;
 			SEngine.gameName = game.getName();
@@ -155,5 +159,13 @@ public final class SEngine
 	public static String getGameName()
 	{
 		return gameName;
+	}
+	
+	/**
+	 * Log information about LWJGL
+	 */
+	private static void logLWJGLInfo()
+	{
+		Logger.log("Version: " + Version.getVersion(), "LWJGL");
 	}
 }

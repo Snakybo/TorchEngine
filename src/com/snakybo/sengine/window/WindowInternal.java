@@ -5,6 +5,7 @@ import static org.lwjgl.glfw.GLFW.GLFW_VISIBLE;
 import static org.lwjgl.glfw.GLFW.glfwCreateWindow;
 import static org.lwjgl.glfw.GLFW.glfwDefaultWindowHints;
 import static org.lwjgl.glfw.GLFW.glfwDestroyWindow;
+import static org.lwjgl.glfw.GLFW.glfwGetVersionString;
 import static org.lwjgl.glfw.GLFW.glfwInit;
 import static org.lwjgl.glfw.GLFW.glfwMakeContextCurrent;
 import static org.lwjgl.glfw.GLFW.glfwPollEvents;
@@ -15,8 +16,13 @@ import static org.lwjgl.glfw.GLFW.glfwTerminate;
 import static org.lwjgl.glfw.GLFW.glfwWindowHint;
 import static org.lwjgl.glfw.GLFW.glfwWindowShouldClose;
 import static org.lwjgl.opengl.GL.createCapabilities;
+import static org.lwjgl.opengl.GL11.GL_EXTENSIONS;
 import static org.lwjgl.opengl.GL11.GL_FALSE;
+import static org.lwjgl.opengl.GL11.GL_RENDERER;
 import static org.lwjgl.opengl.GL11.GL_TRUE;
+import static org.lwjgl.opengl.GL11.GL_VENDOR;
+import static org.lwjgl.opengl.GL11.GL_VERSION;
+import static org.lwjgl.opengl.GL11.glGetString;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 import org.lwjgl.glfw.GLFWErrorCallback;
@@ -44,6 +50,8 @@ public final class WindowInternal
 		{
 			Logger.logException(new RuntimeException("Unable to initialize GLFW"), "Window");
 		}
+		
+		logGLFWInfo();
 	}
 	
 	private WindowInternal()
@@ -79,6 +87,8 @@ public final class WindowInternal
 		glfwShowWindow(window);
 		
 		createCapabilities();
+		
+		logOpenGLInfo();
 	}
 	
 	/**
@@ -102,6 +112,25 @@ public final class WindowInternal
 		glfwTerminate();
 		
 		errorCallback.release();
+	}
+	
+	/**
+	 * Log information about GLFW
+	 */
+	private static void logGLFWInfo()
+	{
+		Logger.log("Version: " + glfwGetVersionString(), "GLFW");
+	}
+	
+	/**
+	 * Log information about OpenGL
+	 */
+	private static void logOpenGLInfo()
+	{
+		Logger.log("Vendor: " + glGetString(GL_VENDOR), "OpenGL");
+		Logger.log("Renderer: " + glGetString(GL_RENDERER), "OpenGL");
+		Logger.log("Version: " + glGetString(GL_VERSION), "OpenGL");
+		Logger.log("Extensions: " + glGetString(GL_EXTENSIONS), "OpenGL");
 	}
 	
 	/**
