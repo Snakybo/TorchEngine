@@ -118,8 +118,8 @@ public final class Transform
 	{
 		Matrix4f result = getParentMatrix();		
 		result.translate(position);
-		result.scale(scale);
 		result.rotate(rotation);
+		result.scale(scale);
 		
 		return result;
 	}
