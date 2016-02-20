@@ -1,8 +1,10 @@
 package com.snakybo.sengine.audio;
 
-import org.lwjgl.openal.ALCCapabilities;
 import org.lwjgl.openal.ALContext;
 import org.lwjgl.openal.ALDevice;
+import static org.lwjgl.openal.AL10.*;
+
+import org.lwjgl.openal.ALCCapabilities;
 
 import com.snakybo.sengine.debug.Logger;
 
@@ -41,6 +43,8 @@ public final class AudioManagerInternal
 		}
 		
 		context = ALContext.create(device);
+		
+		logOpenALInfo();
 	}
 	
 	/**
@@ -57,5 +61,13 @@ public final class AudioManagerInternal
 		
 		context.destroy();
 		context.getDevice().destroy();
+	}
+	
+	private static void logOpenALInfo()
+	{
+		Logger.log("Vendor: " + alGetString(AL_VENDOR), "OpenAL");
+		Logger.log("Renderer: " + alGetString(AL_RENDERER), "OpenAL");
+		Logger.log("Version: " + alGetString(AL_VERSION), "OpenAL");		
+		Logger.log("Extensions: " + alGetString(AL_EXTENSIONS), "OpenAL");
 	}
 }
