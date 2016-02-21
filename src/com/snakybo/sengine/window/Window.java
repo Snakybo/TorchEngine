@@ -13,10 +13,54 @@ import org.lwjgl.BufferUtils;
  * @since 1.0
  */
 public final class Window
-{
+{	
 	private Window()
 	{
 		throw new AssertionError();
+	}
+	
+	/**
+	 * Set whether or not the {@link Window} shoud be fullscreen (or borderless fullscreen)
+	 * @param fullscreen - Whether or not to be fullscreen
+	 * @param borderless - Should the window be borderless fullscreen?
+	 */
+	public static void setFullscreen(boolean fullscreen, boolean borderless)
+	{
+		setFullscreen(fullscreen, borderless, Monitor.getPrimaryMonitor());
+	}
+	
+	/**
+	 * Set whether or not the {@link Window} shoud be fullscreen (or borderless fullscreen)
+	 * @param fullscreen - Whether or not to be fullscreen
+	 * @param borderless - Should the window be borderless fullscreen?
+	 * @param monitor - The monitor to display the fullscreen window on
+	 */
+	public static void setFullscreen(boolean fullscreen, boolean borderless, Monitor monitor)
+	{
+		setFullscreen(fullscreen, borderless, monitor, monitor.getNativeDisplayMode());
+	}
+	
+	/**
+	 * Set whether or not the {@link Window} shoud be fullscreen (or borderless fullscreen)
+	 * @param fullscreen - Whether or not to be fullscreen
+	 * @param borderless - Should the window be borderless fullscreen?
+	 * @param monitor - The {@link Monitor} to display the fullscreen {@link Window} on
+	 * @param displayMode - The {@link DisplayMode} to use
+	 */
+	public static void setFullscreen(boolean fullscreen, boolean borderless, Monitor monitor, DisplayMode displayMode)
+	{
+		if(fullscreen && !borderless)
+		{
+			WindowInternal.createFullscreen(monitor, displayMode);
+		}
+		else if(fullscreen && borderless)
+		{
+			WindowInternal.createBorderlessFullscreen(displayMode);
+		}
+		else if(!fullscreen)
+		{
+			WindowInternal.createWindowed(1280, 720);
+		}
 	}
 	
 	/**
@@ -37,6 +81,14 @@ public final class Window
 		glfwSetWindowSize(WindowInternal.window, getWidth(), height);
 	}
 	
+	/**
+	 * @return The {@link WindowMode}
+	 */
+	public static WindowMode getWindowMode()
+	{
+		return WindowInternal.getWindowMode();
+	}
+
 	/**
 	 * @return The center of the window
 	 */

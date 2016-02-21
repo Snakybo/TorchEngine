@@ -1,5 +1,10 @@
 package com.snakybo.sengine.window;
 
+import static org.lwjgl.glfw.GLFW.GLFW_BLUE_BITS;
+import static org.lwjgl.glfw.GLFW.GLFW_DECORATED;
+import static org.lwjgl.glfw.GLFW.GLFW_GREEN_BITS;
+import static org.lwjgl.glfw.GLFW.GLFW_RED_BITS;
+import static org.lwjgl.glfw.GLFW.GLFW_REFRESH_RATE;
 import static org.lwjgl.glfw.GLFW.GLFW_RESIZABLE;
 import static org.lwjgl.glfw.GLFW.GLFW_VISIBLE;
 import static org.lwjgl.glfw.GLFW.glfwCreateWindow;
@@ -38,7 +43,11 @@ public final class WindowInternal
 {
 	private static GLFWErrorCallback errorCallback;
 	
+	private static WindowMode windowMode;
+	
 	public static long window;
+	
+	private static boolean loggedOGL;
 	
 	static
 	{
@@ -60,35 +69,63 @@ public final class WindowInternal
 	}
 	
 	/**
-	 * Create a window
+	 * Create a windowed window
+	 * @param width - The width of the new window
+	 * @param height - The height of the new window
 	 */
-	public static void create()
+	public static void createWindowed(int width, int height)
 	{
 		if(isCreated())
 		{
-			Logger.logException(new RuntimeException("Already created"), "Window");
-			return;
+			glfwDestroyWindow(window);
 		}
+		
+		windowMode = WindowMode.Windowed;
 		
 		glfwDefaultWindowHints();
-		glfwWindowHint(GLFW_VISIBLE, GL_FALSE);
-		glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-		
-		// TODO: Allow the user to modify the window
-		Logger.log("Creating window width=" + 1280 + " height=" + 720 + " title=" + SEngine.getGameName(), "Window");
-		window = glfwCreateWindow(1280, 720, SEngine.getGameName(), NULL, NULL);
-		if(window == NULL)
+		create(width, height, NULL);
+	}
+	
+	/**
+	 * Create a borderless fullscreen window
+	 * @param displayMode - The {@link DisplayMode} to use
+	 */
+	public static void createBorderlessFullscreen(DisplayMode displayMode)
+	{
+		if(isCreated())
 		{
-			Logger.logException(new RuntimeException("Unable to create GLFW window"), "Window");
-			return;
+			glfwDestroyWindow(window);
 		}
 		
-		glfwMakeContextCurrent(window);
-		glfwShowWindow(window);
+		windowMode = WindowMode.Borderless;
 		
-		createCapabilities();
+		glfwDefaultWindowHints();
+		glfwWindowHint(GLFW_RED_BITS, displayMode.getRedBits());
+		glfwWindowHint(GLFW_GREEN_BITS, displayMode.getGreenBits());
+		glfwWindowHint(GLFW_BLUE_BITS, displayMode.getBlueBits());
+		glfwWindowHint(GLFW_REFRESH_RATE, displayMode.getRefreshRate());
 		
-		logOpenGLInfo();
+		glfwWindowHint(GLFW_DECORATED, GL_FALSE);
+		
+		create(displayMode.getWidth(), displayMode.getHeight(), NULL);
+	}
+	
+	/**
+	 * Create a fullscreen window
+	 * @param monitor - The {@link Monitor} to display the window on
+	 * @param displayMode - The {@link DisplayMode} to use 
+	 */
+	public static void createFullscreen(Monitor monitor, DisplayMode displayMode)
+	{
+		if(isCreated())
+		{
+			glfwDestroyWindow(window);
+		}
+		
+		windowMode = WindowMode.Fullscreen;
+		
+		glfwDefaultWindowHints();
+		create(displayMode.getWidth(), displayMode.getHeight(), monitor.id);
 	}
 	
 	/**
@@ -105,7 +142,6 @@ public final class WindowInternal
 	 */
 	public static void destroy()
 	{
-		Logger.log("Destroying window", "Window");
 		Logger.log("Terminating GLFW", "Window");
 		
 		glfwDestroyWindow(window);
@@ -114,6 +150,32 @@ public final class WindowInternal
 		errorCallback.release();
 	}
 	
+	/**
+	 * Actually create the window
+	 * @param width - The width of the window
+	 * @param height - The height of the window
+	 * @param monitor - The monitor to display the window on, {@code NULL} for anything other than fullscreen windows
+	 */
+	private static void create(int width, int height, long monitor)
+	{
+		glfwWindowHint(GLFW_VISIBLE, GL_FALSE);
+		glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+		
+		window = glfwCreateWindow(width, height, SEngine.getGameName(), monitor, NULL);
+		if(window == NULL)
+		{
+			Logger.logException(new RuntimeException("Unable to create GLFW window"), "Window");
+			return;
+		}
+		
+		glfwMakeContextCurrent(window);
+		glfwShowWindow(window);
+		
+		createCapabilities();
+		
+		logOpenGLInfo();
+	}
+
 	/**
 	 * Log information about GLFW
 	 */
@@ -127,10 +189,15 @@ public final class WindowInternal
 	 */
 	private static void logOpenGLInfo()
 	{
-		Logger.log("Vendor: " + glGetString(GL_VENDOR), "OpenGL");
-		Logger.log("Renderer: " + glGetString(GL_RENDERER), "OpenGL");
-		Logger.log("Version: " + glGetString(GL_VERSION), "OpenGL");
-		Logger.log("Extensions: " + glGetString(GL_EXTENSIONS), "OpenGL");
+		if(!loggedOGL)
+		{
+			Logger.log("Vendor: " + glGetString(GL_VENDOR), "OpenGL");
+			Logger.log("Renderer: " + glGetString(GL_RENDERER), "OpenGL");
+			Logger.log("Version: " + glGetString(GL_VERSION), "OpenGL");
+			Logger.log("Extensions: " + glGetString(GL_EXTENSIONS), "OpenGL");
+			
+			loggedOGL = true;
+		}
 	}
 	
 	/**
@@ -147,5 +214,13 @@ public final class WindowInternal
 	public static boolean isCreated()
 	{
 		return window != NULL;
+	}
+	
+	/**
+	 * @return The {@link WindowMode}
+	 */
+	public static WindowMode getWindowMode()
+	{
+		return windowMode;
 	}
 }

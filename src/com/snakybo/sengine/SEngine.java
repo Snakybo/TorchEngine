@@ -43,7 +43,7 @@ public final class SEngine
 			SEngine.gameName = game.getName();
 			
 			// Initialize engine systems
-			WindowInternal.create();
+			WindowInternal.createWindowed(1280, 720);
 			AudioManagerInternal.create();
 			
 			KeyboardInternal.create();
