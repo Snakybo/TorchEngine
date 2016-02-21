@@ -1,6 +1,5 @@
 package com.snakybo.sengine.audio;
 
-import static org.lwjgl.openal.AL10.AL_BUFFER;
 import static org.lwjgl.openal.AL10.AL_FALSE;
 import static org.lwjgl.openal.AL10.AL_GAIN;
 import static org.lwjgl.openal.AL10.AL_LOOPING;
@@ -10,7 +9,6 @@ import static org.lwjgl.openal.AL10.AL_PLAYING;
 import static org.lwjgl.openal.AL10.AL_POSITION;
 import static org.lwjgl.openal.AL10.AL_SOURCE_STATE;
 import static org.lwjgl.openal.AL10.AL_TRUE;
-import static org.lwjgl.openal.AL10.AL_VELOCITY;
 import static org.lwjgl.openal.AL10.alDeleteSources;
 import static org.lwjgl.openal.AL10.alGenSources;
 import static org.lwjgl.openal.AL10.alGetSourcef;
@@ -26,87 +24,128 @@ import static org.lwjgl.openal.ALUtil.checkALError;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
-import org.joml.Vector3f;
 import org.lwjgl.BufferUtils;
+
+import com.snakybo.sengine.object.Component;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class AudioChannel
+public final class AudioPlayer extends Component
 {
 	private final IntBuffer source;
 	
-	AudioClip audioClip;
+	private AudioClip audioClip;
 	
-	public AudioChannel()
+	private boolean autoPlay;
+	
+	public AudioPlayer(AudioClip audioClip)
 	{
-		source = BufferUtils.createIntBuffer(1);
+		this(audioClip, true);
+	}
+	
+	public AudioPlayer(AudioClip audioClip, boolean autoPlay)
+	{
+		this(audioClip, autoPlay, false);
+	}
+	
+	public AudioPlayer(AudioClip audioClip, boolean autoPlay, boolean looping)
+	{
+		this.source = BufferUtils.createIntBuffer(1);
+		this.audioClip = audioClip;
+		this.autoPlay = autoPlay;
 		
 		alGenSources(source);
 		checkALError();
+		
+		audioClip.bind(source.get(0));		
+		setLooping(looping);
 	}
 	
-	/**
-	 * Pause the audio channel
-	 */
-	public final void pause()
+	@Override
+	protected void start()
 	{
-		alSourcePause(source.get(0));
+		if(autoPlay)
+		{
+			play();
+		}
 	}
 	
-	/**
-	 * Resume the audio channel
-	 */
-	public final void resume()
+	@Override
+	protected void postUpdate()
 	{
-		alSourcePlay(source.get(0));
-	}
-	
-	/**
-	 * Stop the audio channel
-	 */
-	public final void stop()
-	{
-		audioClip = null;
-		
-		alSourceStop(source.get(0));		
-		alSourcei(source.get(0), AL_BUFFER, 0);
-		
-		setLooping(false);
-		setSourceVelocity(new Vector3f());
-		setSourcePosition(new Vector3f());
-		setPitch(1);
-		setVolume(1);
-	}
-	
-	/**
-	 * Play an {@link AudioClip}
-	 * @param audioClip - The {@link AudioClip} to play
-	 */
-	final void play(AudioClip audioClip)
-	{
-		stop();
-		
-		this.audioClip = audioClip;
-		
-		audioClip.bind(source.get(0));
-		
-		alSourcePlay(source.get(0));
+		FloatBuffer position = BufferUtils.createFloatBuffer(3);		
+		alSourcefv(source.get(0), AL_POSITION, getTransform().getPosition().get(position));
 		checkALError();
+		
+		// TODO: AudioPlayer velocity
+//		FloatBuffer velocity = BufferUtils.createFloatBuffer(3);		
+//		alSourcefv(source.get(0), AL_VELOCITY, velocity);
+//		checkALError();
 	}
 	
-	/**
-	 * Destroy the audio channel
-	 */
-	final void destroy()
+	@Override
+	protected final void destroy()
 	{
+		audioClip.bind(0);
+		
 		alDeleteSources(source);
 		checkALError();
 	}
 	
 	/**
-	 * @return Whether or not the audio channel is currently playing something
+	 * Pause playback
+	 */
+	public final void pause()
+	{
+		alSourcePause(source.get(0));
+		checkALError();
+	}
+	
+	/**
+	 * Resume playback
+	 */
+	public final void resume()
+	{
+		alSourcePlay(source.get(0));
+		checkALError();
+	}
+	
+	/**
+	 * Stop playback
+	 */
+	public final void stop()
+	{
+		alSourceStop(source.get(0));
+		checkALError();
+	}
+	
+	/**
+	 * Start playback
+	 */
+	public final void play()
+	{
+		stop();
+		
+		alSourcePlay(source.get(0));
+		checkALError();
+	}
+	
+	/**
+	 * Start playback
+	 * @param audioClip - The {@link AudioClip} to play
+	 */
+	public final void play(AudioClip audioClip)
+	{
+		this.audioClip = audioClip;
+		
+		audioClip.bind(source.get(0));
+		play();
+	}
+	
+	/**
+	 * @return Whether or not we're currently playing something
 	 */
 	public final boolean isPlaying()
 	{
@@ -114,7 +153,7 @@ public final class AudioChannel
 	}
 	
 	/**
-	 * @return Whether or not the audio channel has been paused
+	 * @return Whether or not playback has been paused
 	 */
 	public final boolean isPaused()
 	{
@@ -122,7 +161,7 @@ public final class AudioChannel
 	}
 	
 	/**
-	 * @return Whether or not the current clip is set to loop
+	 * @return Whether or not we're set to loop
 	 */
 	public final boolean isLooping()
 	{
@@ -130,31 +169,7 @@ public final class AudioChannel
 	}
 	
 	/**
-	 * Set the velocity of the source
-	 * @param velocity - The new velocity
-	 */
-	public final void setSourceVelocity(Vector3f velocity)
-	{
-		FloatBuffer buffer = BufferUtils.createFloatBuffer(3);
-		
-		alSourcefv(source.get(0), AL_VELOCITY, velocity.get(buffer));
-		checkALError();
-	}
-
-	/**
-	 * Set the position of the source in world space
-	 * @param position - The new position
-	 */
-	public final void setSourcePosition(Vector3f position)
-	{
-		FloatBuffer buffer = BufferUtils.createFloatBuffer(3);
-		
-		alSourcefv(source.get(0), AL_POSITION, position.get(buffer));
-		checkALError();
-	}
-
-	/**
-	 * Set the volume of the audio channel
+	 * Set the volume
 	 * @param volume - The new volume
 	 */
 	public final void setVolume(float volume)
@@ -164,7 +179,7 @@ public final class AudioChannel
 	}
 	
 	/**
-	 * Set the pitch of the audio channel
+	 * Set the pitch
 	 * @param pitch - The new pitch
 	 */
 	public final void setPitch(float pitch)
@@ -174,7 +189,7 @@ public final class AudioChannel
 	}
 	
 	/**
-	 * Set whether or not the current audio clip should loop
+	 * Set whether or not we should loop playback
 	 * @param loop - Whether or not to loop
 	 */
 	public final void setLooping(boolean loop)
@@ -192,7 +207,7 @@ public final class AudioChannel
 	}
 	
 	/**
-	 * @return The current volume of the channel
+	 * @return The current volume
 	 */
 	public final float getVolume()
 	{
@@ -200,7 +215,7 @@ public final class AudioChannel
 	}
 	
 	/**
-	 * @return The pitch of the channel
+	 * @return The current pitch
 	 */
 	public final float getPitch()
 	{

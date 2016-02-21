@@ -54,11 +54,6 @@ public final class AudioManagerInternal
 	{
 		Logger.log("Terminating OpenAL", "AudioManager");
 		
-		for(AudioChannel audioChannel : AudioManager.audioChannels)
-		{
-			audioChannel.destroy();
-		}
-		
 		context.destroy();
 		context.getDevice().destroy();
 	}

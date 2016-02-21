@@ -4,6 +4,7 @@ import static org.lwjgl.openal.AL10.AL_ORIENTATION;
 import static org.lwjgl.openal.AL10.AL_POSITION;
 import static org.lwjgl.openal.AL10.AL_VELOCITY;
 import static org.lwjgl.openal.AL10.alListenerfv;
+import static org.lwjgl.openal.ALUtil.checkALError;
 
 import java.nio.FloatBuffer;
 
@@ -20,7 +21,7 @@ import com.snakybo.sengine.util.time.Time;
  */
 public class AudioListener extends Component
 {	
-	static AudioListener instance;
+	private static AudioListener instance;
 	
 	private Vector3f lastPosition;
 	
@@ -45,8 +46,8 @@ public class AudioListener extends Component
 	protected void postUpdate()
 	{
 		setPosition();
-		setVelocity();
-		setOrientation();
+//		setVelocity();
+//		setOrientation();
 		
 		lastPosition = getTransform().getPosition();
 	}
@@ -69,6 +70,7 @@ public class AudioListener extends Component
 		Vector3f position = getTransform().getPosition();
 		
 		alListenerfv(AL_POSITION, position.get(buffer));
+		checkALError();
 	}
 	
 	/**
@@ -76,6 +78,7 @@ public class AudioListener extends Component
 	 */
 	private void setVelocity()
 	{
+		// TODO: AudioListener velocity
 		FloatBuffer buffer = BufferUtils.createFloatBuffer(3);
 		
 		float dt = Time.getDeltaTime();
@@ -84,6 +87,7 @@ public class AudioListener extends Component
 		velocity.sub(dt, dt, dt);
 		
 		alListenerfv(AL_VELOCITY, velocity.get(buffer));
+		checkALError();
 	}
 	
 	/**
@@ -91,16 +95,16 @@ public class AudioListener extends Component
 	 */
 	private void setOrientation()
 	{
-		FloatBuffer buffer = BufferUtils.createFloatBuffer(6);
+		// TODO: AudioListener orientation
+		FloatBuffer buffer = BufferUtils.createFloatBuffer(6);		
 		
-		// TODO: Fix listener orientation (?)
-		//Vector3f forward = getTransform().getForward();
-		Vector3f forward = getTransform().getBack();
+		Vector3f forward = getTransform().getForward();
 		Vector3f up = getTransform().getUp();
 		
 		forward.get(buffer);
 		up.get(buffer);
 		
 		alListenerfv(AL_ORIENTATION, buffer);
+		checkALError();
 	}
 }
