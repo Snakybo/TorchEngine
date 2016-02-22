@@ -23,7 +23,7 @@ public class AudioListener extends Component
 {	
 	private static AudioListener instance;
 	
-	private Vector3f lastPosition;
+	private Vector3f previousPosition;
 	
 	public AudioListener()
 	{
@@ -39,17 +39,17 @@ public class AudioListener extends Component
 	@Override
 	protected void start()
 	{
-		lastPosition = getTransform().getPosition();
+		previousPosition = new Vector3f(getTransform().getPosition());
 	}
 	
 	@Override
 	protected void postUpdate()
 	{
 		setPosition();
-//		setVelocity();
-//		setOrientation();
+		setVelocity();
+		setOrientation();
 		
-		lastPosition = getTransform().getPosition();
+		previousPosition = getTransform().getPosition();
 	}
 	
 	@Override
@@ -78,16 +78,15 @@ public class AudioListener extends Component
 	 */
 	private void setVelocity()
 	{
-		// TODO: AudioListener velocity
-		FloatBuffer buffer = BufferUtils.createFloatBuffer(3);
+		Vector3f currentPosition = getTransform().getPosition();
+		Vector3f velocity = currentPosition.sub(previousPosition, new Vector3f()).div(Time.getDeltaTime());
 		
-		float dt = Time.getDeltaTime();
-		Vector3f position = getTransform().getPosition();
-		Vector3f velocity = position.sub(lastPosition, new Vector3f());
-		velocity.sub(dt, dt, dt);
+		FloatBuffer buffer = BufferUtils.createFloatBuffer(3);
 		
 		alListenerfv(AL_VELOCITY, velocity.get(buffer));
 		checkALError();
+		
+		previousPosition.set(currentPosition);
 	}
 	
 	/**
@@ -95,8 +94,13 @@ public class AudioListener extends Component
 	 */
 	private void setOrientation()
 	{
-		// TODO: AudioListener orientation
-		FloatBuffer buffer = BufferUtils.createFloatBuffer(6);		
+		FloatBuffer buffer = (FloatBuffer)BufferUtils.createFloatBuffer(6).put(new float[] {0, 0, -1, 0, 1, 0}).rewind();
+		
+		alListenerfv(AL_ORIENTATION, buffer);
+		checkALError();
+		
+		// TODO: Proper AudioListener orientation
+		/*FloatBuffer buffer = BufferUtils.createFloatBuffer(6);		
 		
 		Vector3f forward = getTransform().getForward();
 		Vector3f up = getTransform().getUp();
@@ -105,6 +109,14 @@ public class AudioListener extends Component
 		up.get(buffer);
 		
 		alListenerfv(AL_ORIENTATION, buffer);
-		checkALError();
+		checkALError();*/
+	}
+	
+	/**
+	 * @return Whether or not an {@link AudioListener} is present in the game scene
+	 */
+	public static boolean isPresent()
+	{
+		return instance != null;
 	}
 }

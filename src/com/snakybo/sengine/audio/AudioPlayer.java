@@ -8,7 +8,8 @@ import static org.lwjgl.openal.AL10.AL_PITCH;
 import static org.lwjgl.openal.AL10.AL_PLAYING;
 import static org.lwjgl.openal.AL10.AL_POSITION;
 import static org.lwjgl.openal.AL10.AL_SOURCE_STATE;
-import static org.lwjgl.openal.AL10.AL_TRUE;
+import static org.lwjgl.openal.AL10.*;
+import static org.lwjgl.openal.AL10.AL_VELOCITY;
 import static org.lwjgl.openal.AL10.alDeleteSources;
 import static org.lwjgl.openal.AL10.alGenSources;
 import static org.lwjgl.openal.AL10.alGetSourcef;
@@ -24,9 +25,14 @@ import static org.lwjgl.openal.ALUtil.checkALError;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
+import org.joml.Vector3f;
 import org.lwjgl.BufferUtils;
 
+import com.snakybo.sengine.debug.Logger;
+import com.snakybo.sengine.input.keyboad.Key;
+import com.snakybo.sengine.input.keyboad.Keyboard;
 import com.snakybo.sengine.object.Component;
+import com.snakybo.sengine.util.time.Time;
 
 /**
  * @author Snakybo
@@ -36,6 +42,7 @@ public final class AudioPlayer extends Component
 {
 	private final IntBuffer source;
 	
+	private Vector3f previousPosition;
 	private AudioClip audioClip;
 	
 	private boolean autoPlay;
@@ -70,19 +77,48 @@ public final class AudioPlayer extends Component
 		{
 			play();
 		}
+		
+		previousPosition = new Vector3f(getTransform().getPosition());
 	}
 	
 	@Override
 	protected void postUpdate()
 	{
-		FloatBuffer position = BufferUtils.createFloatBuffer(3);		
-		alSourcefv(source.get(0), AL_POSITION, getTransform().getPosition().get(position));
+		getTransform().getPosition().z = 1;
+		getTransform().getPosition().x += 0.03f;
+		
+		if(getTransform().getPosition().x > 3)
+		{
+			getTransform().getPosition().x = -3;
+		}
+		
+		
+		Vector3f currentPosition = getTransform().getPosition();
+		Vector3f velocity = currentPosition.sub(previousPosition, new Vector3f()).div(Time.getDeltaTime());
+		
+		// Position
+		FloatBuffer positionBuffer = BufferUtils.createFloatBuffer(3);		
+		alSourcefv(source.get(0), AL_POSITION, currentPosition.get(positionBuffer));
 		checkALError();
 		
-		// TODO: AudioPlayer velocity
-//		FloatBuffer velocity = BufferUtils.createFloatBuffer(3);		
-//		alSourcefv(source.get(0), AL_VELOCITY, velocity);
-//		checkALError();
+		// Velocity
+		FloatBuffer velocityBuffer = BufferUtils.createFloatBuffer(3);
+		alSourcefv(source.get(0), AL_VELOCITY, velocity.get(velocityBuffer));
+		checkALError();
+		
+		// Doppler
+		if(AudioListener.isPresent())
+		{
+			// Double the frequency
+			alDopplerFactor(2);
+			checkALError();
+			
+			// Velocity is the speed of sound at sea level
+			alDopplerVelocity(340.29f);
+			checkALError();
+		}
+		
+		previousPosition.set(currentPosition);
 	}
 	
 	@Override
