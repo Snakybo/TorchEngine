@@ -38,6 +38,7 @@ public final class Bitmap
 	{
 		try
 		{
+			// TODO: Don't require the file to be in ./res/ (?)
 			File file = new File("./res/" + fileName);			
 			if(!file.exists())
 			{
@@ -63,7 +64,7 @@ public final class Bitmap
 		{
 			LoggerInternal.log("Saving bitmap to: " + outputFile + "." + format, this);
 			
-			File file = new File("./res/" + outputFile + "." + format);
+			File file = new File(outputFile + "." + format);
 			ImageIO.write(bitmap, format, file);
 		}
 		catch(IOException e)
