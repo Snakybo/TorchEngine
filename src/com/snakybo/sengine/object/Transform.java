@@ -7,6 +7,8 @@ import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
+import com.snakybo.sengine.debug.Logger;
+
 /**
  * @author Snakybo
  * @since 1.0
@@ -35,6 +37,12 @@ public final class Transform
 		position = new Vector3f();
 		rotation = new Quaternionf();
 		scale = new Vector3f();
+	}
+	
+	@Override
+	public String toString()
+	{
+		return gameObject.toString();
 	}
 	
 	/**
@@ -94,6 +102,12 @@ public final class Transform
 	 */
 	public final void setParent(Transform parent)
 	{
+		if(parent == this || children.contains(parent))
+		{
+			Logger.logWarning("You cannot parent the transform to itself, or it's children", this);
+			return;
+		}
+		
 		if(this.parent != null)
 		{
 			this.parent.children.remove(this);
@@ -130,6 +144,21 @@ public final class Transform
 	public final GameObject getGameObject()
 	{
 		return gameObject;
+	}
+	
+	/**
+	 * @return The root {@link Transform}, if this transform is the root transform, it will return this transform
+	 */
+	public final Transform getRoot()
+	{
+		Transform root = this;
+		
+		while(root.getParent() != null)
+		{
+			root = root.getParent();
+		}
+		
+		return root;
 	}
 	
 	/**
