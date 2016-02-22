@@ -8,9 +8,11 @@ import static org.lwjgl.openal.AL10.AL_PITCH;
 import static org.lwjgl.openal.AL10.AL_PLAYING;
 import static org.lwjgl.openal.AL10.AL_POSITION;
 import static org.lwjgl.openal.AL10.AL_SOURCE_STATE;
-import static org.lwjgl.openal.AL10.*;
+import static org.lwjgl.openal.AL10.AL_TRUE;
 import static org.lwjgl.openal.AL10.AL_VELOCITY;
 import static org.lwjgl.openal.AL10.alDeleteSources;
+import static org.lwjgl.openal.AL10.alDopplerFactor;
+import static org.lwjgl.openal.AL10.alDopplerVelocity;
 import static org.lwjgl.openal.AL10.alGenSources;
 import static org.lwjgl.openal.AL10.alGetSourcef;
 import static org.lwjgl.openal.AL10.alGetSourcei;
@@ -28,9 +30,6 @@ import java.nio.IntBuffer;
 import org.joml.Vector3f;
 import org.lwjgl.BufferUtils;
 
-import com.snakybo.sengine.debug.Logger;
-import com.snakybo.sengine.input.keyboad.Key;
-import com.snakybo.sengine.input.keyboad.Keyboard;
 import com.snakybo.sengine.object.Component;
 import com.snakybo.sengine.util.time.Time;
 
