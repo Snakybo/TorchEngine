@@ -36,7 +36,13 @@ public final class Monitor
 		{
 			displayModes.add(new DisplayMode(id, modes.get(i)));
 		}
-	}	
+	}
+	
+	@Override
+	public String toString()
+	{
+		return getName();
+	}
 	
 	/**
 	 * @return Whether or not this is the primary {@link Monitor}
@@ -102,7 +108,7 @@ public final class Monitor
 	/**
 	 * @return All detected {@link Monitor}s
 	 */
-	public static List<Monitor> getMonitors()
+	public static Monitor[] getMonitors()
 	{
 		PointerBuffer monitors = glfwGetMonitors();
 		List<Monitor> result = new ArrayList<Monitor>();
@@ -113,6 +119,6 @@ public final class Monitor
 			result.add(new Monitor(id));
 		}
 		
-		return result;
+		return result.toArray(new Monitor[result.size()]);
 	}
 }
