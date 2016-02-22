@@ -20,6 +20,7 @@ import org.lwjgl.stb.STBVorbisInfo;
 
 import com.snakybo.sengine.audio.AudioAsset;
 import com.snakybo.sengine.debug.Logger;
+import com.snakybo.sengine.debug.LoggerInternal;
 import com.snakybo.sengine.io.FileUtils;
 import com.snakybo.sengine.util.ALUtil;
 
@@ -54,7 +55,7 @@ public final class AudioAssetImporter
 			Logger.logWarning("Another audio asset has not finished importing", "AudioAssetImporter");
 		}
 		
-		Logger.log("Beginning import of audio asset: " + asset, "AudioAssetImporter");
+		LoggerInternal.log("Beginning import of audio asset: " + asset, "AudioAssetImporter");
 		
 		try
 		{

@@ -34,6 +34,7 @@ import org.lwjgl.glfw.GLFWErrorCallback;
 
 import com.snakybo.sengine.SEngine;
 import com.snakybo.sengine.debug.Logger;
+import com.snakybo.sengine.debug.LoggerInternal;
 
 /**
  * @author Snakybo
@@ -51,7 +52,7 @@ public final class WindowInternal
 	
 	static
 	{
-		Logger.log("Initializing GLFW", "Window");
+		LoggerInternal.log("Initializing GLFW", "Window");
 		
 		glfwSetErrorCallback(errorCallback = GLFWErrorCallback.createPrint(System.err));
 		
@@ -142,7 +143,7 @@ public final class WindowInternal
 	 */
 	public static void destroy()
 	{
-		Logger.log("Terminating GLFW", "Window");
+		LoggerInternal.log("Terminating GLFW", "Window");
 		
 		glfwDestroyWindow(window);
 		glfwTerminate();
@@ -181,7 +182,7 @@ public final class WindowInternal
 	 */
 	private static void logGLFWInfo()
 	{
-		Logger.log("Version: " + glfwGetVersionString(), "GLFW");
+		LoggerInternal.log("Version: " + glfwGetVersionString(), "GLFW");
 	}
 	
 	/**
@@ -191,10 +192,10 @@ public final class WindowInternal
 	{
 		if(!loggedOGL)
 		{
-			Logger.log("Vendor: " + glGetString(GL_VENDOR), "OpenGL");
-			Logger.log("Renderer: " + glGetString(GL_RENDERER), "OpenGL");
-			Logger.log("Version: " + glGetString(GL_VERSION), "OpenGL");
-			Logger.log("Extensions: " + glGetString(GL_EXTENSIONS), "OpenGL");
+			LoggerInternal.log("Vendor: " + glGetString(GL_VENDOR), "OpenGL");
+			LoggerInternal.log("Renderer: " + glGetString(GL_RENDERER), "OpenGL");
+			LoggerInternal.log("Version: " + glGetString(GL_VERSION), "OpenGL");
+			LoggerInternal.log("Extensions: " + glGetString(GL_EXTENSIONS), "OpenGL");
 			
 			loggedOGL = true;
 		}

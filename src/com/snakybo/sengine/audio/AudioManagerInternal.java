@@ -1,12 +1,17 @@
 package com.snakybo.sengine.audio;
 
-import org.lwjgl.openal.ALContext;
-import org.lwjgl.openal.ALDevice;
-import static org.lwjgl.openal.AL10.*;
+import static org.lwjgl.openal.AL10.AL_EXTENSIONS;
+import static org.lwjgl.openal.AL10.AL_RENDERER;
+import static org.lwjgl.openal.AL10.AL_VENDOR;
+import static org.lwjgl.openal.AL10.AL_VERSION;
+import static org.lwjgl.openal.AL10.alGetString;
 
 import org.lwjgl.openal.ALCCapabilities;
+import org.lwjgl.openal.ALContext;
+import org.lwjgl.openal.ALDevice;
 
 import com.snakybo.sengine.debug.Logger;
+import com.snakybo.sengine.debug.LoggerInternal;
 
 /**
  * @author Snakybo
@@ -26,7 +31,7 @@ public final class AudioManagerInternal
 	 */
 	public static void create()
 	{
-		Logger.log("Initializing OpenAL", "AudioManager");
+		LoggerInternal.log("Initializing OpenAL", "AudioManager");
 		
 		ALDevice device = ALDevice.create(null);
 		if(device == null)
@@ -52,7 +57,7 @@ public final class AudioManagerInternal
 	 */
 	public static void destroy()
 	{
-		Logger.log("Terminating OpenAL", "AudioManager");
+		LoggerInternal.log("Terminating OpenAL", "AudioManager");
 		
 		context.destroy();
 		context.getDevice().destroy();
@@ -63,9 +68,9 @@ public final class AudioManagerInternal
 	 */
 	private static void logOpenALInfo()
 	{
-		Logger.log("Vendor: " + alGetString(AL_VENDOR), "OpenAL");
-		Logger.log("Renderer: " + alGetString(AL_RENDERER), "OpenAL");
-		Logger.log("Version: " + alGetString(AL_VERSION), "OpenAL");		
-		Logger.log("Extensions: " + alGetString(AL_EXTENSIONS), "OpenAL");
+		LoggerInternal.log("Vendor: " + alGetString(AL_VENDOR), "OpenAL");
+		LoggerInternal.log("Renderer: " + alGetString(AL_RENDERER), "OpenAL");
+		LoggerInternal.log("Version: " + alGetString(AL_VERSION), "OpenAL");		
+		LoggerInternal.log("Extensions: " + alGetString(AL_EXTENSIONS), "OpenAL");
 	}
 }

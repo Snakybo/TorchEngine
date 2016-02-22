@@ -8,6 +8,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import com.snakybo.sengine.debug.Logger;
+import com.snakybo.sengine.debug.LoggerInternal;
 import com.snakybo.sengine.util.Color;
 import com.snakybo.sengine.util.Color32;
 
@@ -60,7 +61,7 @@ public final class Bitmap
 	{
 		try
 		{
-			Logger.log("Saving bitmap to: " + outputFile + "." + format, this);
+			LoggerInternal.log("Saving bitmap to: " + outputFile + "." + format, this);
 			
 			File file = new File("./res/" + outputFile + "." + format);
 			ImageIO.write(bitmap, format, file);

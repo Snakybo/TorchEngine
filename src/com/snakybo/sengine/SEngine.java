@@ -4,6 +4,7 @@ import org.lwjgl.Version;
 
 import com.snakybo.sengine.audio.AudioManagerInternal;
 import com.snakybo.sengine.debug.Logger;
+import com.snakybo.sengine.debug.LoggerInternal;
 import com.snakybo.sengine.input.cursor.CursorInternal;
 import com.snakybo.sengine.input.keyboad.KeyboardInternal;
 import com.snakybo.sengine.input.mouse.MouseInternal;
@@ -34,8 +35,8 @@ public final class SEngine
 	{
 		if(!running)
 		{
-			Logger.log("Starting", "SEngine");
-			Logger.log("Game name: " + game.getName(), "SEngine");
+			LoggerInternal.log("Starting", "SEngine");
+			LoggerInternal.log("Game name: " + game.getName(), "SEngine");
 			
 			logLWJGLInfo();
 			
@@ -65,7 +66,7 @@ public final class SEngine
 	{
 		if(running)
 		{
-			Logger.log("Stopping", "SEngine");
+			LoggerInternal.log("Stopping", "SEngine");
 			
 			running = false;
 		}
@@ -172,6 +173,6 @@ public final class SEngine
 	 */
 	private static void logLWJGLInfo()
 	{
-		Logger.log("Version: " + Version.getVersion(), "LWJGL");
+		LoggerInternal.log("Version: " + Version.getVersion(), "LWJGL");
 	}
 }
