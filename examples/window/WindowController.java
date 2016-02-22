@@ -1,4 +1,4 @@
-package com.snakybo.sengine.test.window;
+package window;
 
 import com.snakybo.sengine.debug.Logger;
 import com.snakybo.sengine.input.keyboad.Key;

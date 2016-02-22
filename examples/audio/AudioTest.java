@@ -1,4 +1,4 @@
-package com.snakybo.sengine.test.audio;
+package audio;
 
 import com.snakybo.sengine.Game;
 import com.snakybo.sengine.audio.AudioClip;

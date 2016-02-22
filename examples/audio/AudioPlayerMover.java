@@ -1,4 +1,4 @@
-package com.snakybo.sengine.test.audio;
+package audio;
 
 import org.joml.Vector3f;
 

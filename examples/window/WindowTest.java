@@ -1,4 +1,4 @@
-package com.snakybo.sengine.test.window;
+package window;
 
 import com.snakybo.sengine.Game;
 import com.snakybo.sengine.object.GameObject;
