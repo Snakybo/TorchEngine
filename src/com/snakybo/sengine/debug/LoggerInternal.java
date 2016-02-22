@@ -10,7 +10,12 @@ public final class LoggerInternal
 	
 	static
 	{
-		debug = System.getenv("DEBUG").equals("true");
+		String env = System.getenv("DEBUG");
+		
+		if(env != null)
+		{
+			debug = env.equals("true");
+		}
 	}
 	
 	private LoggerInternal()
