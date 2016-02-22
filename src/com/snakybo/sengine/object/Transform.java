@@ -42,7 +42,11 @@ public final class Transform
 	@Override
 	public String toString()
 	{
-		return gameObject.toString();
+		String position = "Position(" + this.position.x +", " + this.position.y + ", " + this.position.z + ")";
+		String rotation = "Rotation(" + this.rotation.x +", " + this.rotation.y + ", " + this.rotation.z + ", " + this.rotation.w + ")";
+		String scale = "Scale(" + this.scale.x + ", " + this.scale.y + ", " + this.scale.z + ")";
+		
+		return gameObject + ": " + position + " " + rotation + " " + scale;
 	}
 	
 	/**
