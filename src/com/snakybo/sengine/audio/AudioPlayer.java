@@ -48,15 +48,15 @@ public final class AudioPlayer extends Component
 	
 	public AudioPlayer(AudioClip audioClip)
 	{
-		this(audioClip, true);
+		this(audioClip, false);
 	}
 	
-	public AudioPlayer(AudioClip audioClip, boolean autoPlay)
+	public AudioPlayer(AudioClip audioClip, boolean looping)
 	{
-		this(audioClip, autoPlay, false);
+		this(audioClip, looping, true);
 	}
 	
-	public AudioPlayer(AudioClip audioClip, boolean autoPlay, boolean looping)
+	public AudioPlayer(AudioClip audioClip, boolean looping, boolean autoPlay)
 	{
 		this.source = BufferUtils.createIntBuffer(1);
 		this.audioClip = audioClip;
