@@ -64,6 +64,37 @@ public abstract class Component extends Object
 	}
 	
 	/**
+	 * Add a component to the parent GameObject
+	 * @param component - The component to add
+	 */
+	public final void addComponent(Component component)
+	{
+		gameObject.addComponent(component);
+	}
+	
+	/**
+	 * Attempt to retrieve a component of {@code type} from the parent GameObject
+	 * @param type - The type of component to retrieve
+	 * @return The component, or {@code null} if no component of {@code type} was found
+	 * @see GameObject#getComponent(Class)
+	 */
+	public final <T extends Component> T getComponent(Class<T> type)
+	{
+		return gameObject.getComponent(type);
+	}
+	
+	/**
+	 * Attempt to retrieve all components of {@code type} from the parent GameObject
+	 * @param type - The type of component to retrieve
+	 * @return The components, it's empty if no components of {@code type} are found
+	 * @see GameObject#getComponents(Class)
+	 */
+	public final <T extends Component> Iterable<T> getComponents(Class<T> type)
+	{
+		return gameObject.getComponents(type);
+	}
+	
+	/**
 	 * @return The parent {@link GameObject}
 	 */
 	public final GameObject getGameObject()
