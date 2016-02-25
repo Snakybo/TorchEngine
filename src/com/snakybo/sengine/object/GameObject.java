@@ -48,6 +48,10 @@ public final class GameObject extends Object
 	 */
 	public final void addComponent(Component component)
 	{
+		// Set the name of the component to include the GameObject's name
+		component.setName(getName() + ":" + component.getName());		
+		component.gameObject = this;
+		
 		components.add(component);
 	}
 	

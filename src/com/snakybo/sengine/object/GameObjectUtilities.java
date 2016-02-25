@@ -31,15 +31,12 @@ public final class GameObjectUtilities
 	 */
 	public static void start(GameObject gameObject)
 	{
-		// Call start() on components if neccecary
+		// Call start() on all components that still require it
 		for(Component component : gameObject.frameQueue)
 		{
-			if(component.gameObject == null)
+			if(!component.started)
 			{
-				// Set the name of the component to include the GameObject's name
-				component.setName(gameObject.getName() + ":" + component.getName());
-				
-				component.gameObject = gameObject;
+				component.started = true;
 				component.start();
 			}
 		}

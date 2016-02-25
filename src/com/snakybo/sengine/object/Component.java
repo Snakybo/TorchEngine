@@ -8,6 +8,8 @@ public abstract class Component extends Object
 {	
 	GameObject gameObject;
 	
+	boolean started;
+	
 	public Component()
 	{
 		super("Component");

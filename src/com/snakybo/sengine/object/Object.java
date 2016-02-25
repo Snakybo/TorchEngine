@@ -61,7 +61,7 @@ public class Object
 		}
 		else if(object instanceof Component)
 		{
-			Component c = (Component)object;			
+			Component c = (Component)object;
 			GameObjectUtilities.removeComponent(c.gameObject, c);
 		}
 	}
