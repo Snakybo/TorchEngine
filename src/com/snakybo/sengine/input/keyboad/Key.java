@@ -133,4 +133,254 @@ public enum Key
 	{
 		this.id = key;
 	}
+	
+	@Override
+	public final String toString()
+	{
+		switch(this)
+		{
+		case SPACE:
+			return "Space";
+		case APOSTROPHE:
+			return "Apostrophe";
+		case COMMA:
+			return "Comma";
+		case MINUS:
+			return "Minus";
+		case PERIOD:
+			return "Period";
+		case SLASH:
+			return "Slash";
+		case NUM_0:
+			return "0";
+		case NUM_1:
+			return "1";
+		case NUM_2:
+			return "2";
+		case NUM_3:
+			return "3";
+		case NUM_4:
+			return "4";
+		case NUM_5:
+			return "5";
+		case NUM_6:
+			return "6";
+		case NUM_7:
+			return "7";
+		case NUM_8:
+			return "8";
+		case NUM_9:
+			return "9";
+		case SEMICOLON:
+			return "Semicolon";
+		case EQUAL:
+			return "Equal";
+		case A:
+			return "A";
+		case B:
+			return "B";
+		case C:
+			return "C";
+		case D:
+			return "D";
+		case E:
+			return "E";
+		case F:
+			return "F";
+		case G:
+			return "G";
+		case H:
+			return "H";
+		case I:
+			return "I";
+		case J:
+			return "J";
+		case K:
+			return "K";
+		case L:
+			return "L";
+		case M:
+			return "M";
+		case N:
+			return "N";
+		case O:
+			return "O";
+		case P:
+			return "P";
+		case Q:
+			return "Q";
+		case R:
+			return "R";
+		case S:
+			return "S";
+		case T:
+			return "T";
+		case U:
+			return "U";
+		case V:
+			return "V";
+		case W:
+			return "W";
+		case X:
+			return "X";
+		case Y:
+			return "Y";
+		case Z:
+			return "Z";
+		case BACKSLASH:
+			return "Backslash";
+		case BACKSPACE:
+			return "Backspace";
+		case CAPS_LOCK:
+			return "Caps Lock";
+		case DELETE:
+			return "Delete";
+		case DOWN:
+			return "Down";
+		case END:
+			return "End";
+		case ENTER:
+			return "Enter";
+		case ESCAPE:
+			return "Escape";
+		case F1:
+			return "F1";
+		case F10:
+			return "F10";
+		case F11:
+			return "F11";
+		case F12:
+			return "F12";
+		case F13:
+			return "F13";
+		case F14:
+			return "F14";
+		case F15:
+			return "F15";
+		case F16:
+			return "F16";
+		case F17:
+			return "F17";
+		case F18:
+			return "F18";
+		case F19:
+			return "F19";
+		case F2:
+			return "F2";
+		case F20:
+			return "F20";
+		case F21:
+			return "F21";
+		case F22:
+			return "F22";
+		case F23:
+			return "F23";
+		case F24:
+			return "F24";
+		case F25:
+			return "F25";
+		case F3:
+			return "F3";
+		case F4:
+			return "F4";
+		case F5:
+			return "F5";
+		case F6:
+			return "F6";
+		case F7:
+			return "F7";
+		case F8:
+			return "F8";
+		case F9:
+			return "F9";
+		case GRAVE_ACCENT:
+			return "Grave Accent";
+		case HOME:
+			return "Home";
+		case INSERT:
+			return "Insert";
+		case KP_0:
+			return "Numpad 0";
+		case KP_1:
+			return "Numpad 1";
+		case KP_2:
+			return "Numpad 2";
+		case KP_3:
+			return "Numpad 3";
+		case KP_4:
+			return "Numpad 4";
+		case KP_5:
+			return "Numpad 5";
+		case KP_6:
+			return "Numpad 6";
+		case KP_7:
+			return "Numpad 7";
+		case KP_8:
+			return "Numpad 8";
+		case KP_9:
+			return "Numpad 9";
+		case KP_ADD:
+			return "Numpad Add";
+		case KP_DECIMAL:
+			return "Numpad Decimal";
+		case KP_DIVIDE:
+			return "Numpad Divide";
+		case KP_ENTER:
+			return "Numpad Enter";
+		case KP_EQUAL:
+			return "Numpad Equal";
+		case KP_MULTIPLY:
+			return "Numpad Multiply";
+		case KP_SUBTRACT:
+			return "Numpad Subtract";
+		case LEFT:
+			return "Left Arrow";
+		case LEFT_ALT:
+			return "Left Alt";
+		case LEFT_BRACKET:
+			return "Left Bracket";
+		case LEFT_CONTROL:
+			return "Left Control";
+		case LEFT_SHIFT:
+			return "Left Shift";
+		case LEFT_SUPER:
+			return "Left Super";
+		case MENU:
+			return "Menu";
+		case NUM_LOCK:
+			return "Num Lock";
+		case PAGE_DOWN:
+			return "Page Down";
+		case PAGE_UP:
+			return "Page Up";
+		case PAUSE:
+			return "Pause";
+		case PRINT_SCREEN:
+			return "Print Screen";
+		case RIGHT:
+			return "Right Arrow";
+		case RIGHT_ALT:
+			return "Right Alt";
+		case RIGHT_BRACKET:
+			return "Right Bracket";
+		case RIGHT_CONTROL:
+			return "Right Control";
+		case RIGHT_SHIFT:
+			return "Right Shift";
+		case RIGHT_SUPER:
+			return "Right Super";
+		case SCROLL_LOCK:
+			return "Scroll Lock";
+		case TAB:
+			return "Tab";
+		case UP:
+			return "Up Arrow";
+		case WORLD_1:
+			return "World 1";
+		case WORLD_2:
+			return "World 2";
+		default:
+			return "Unknown";
+		}
+	}
 }
