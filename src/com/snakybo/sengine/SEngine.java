@@ -54,7 +54,7 @@ public final class SEngine
 			// Create the scene
 			game.createScene();
 			
-			// Begin the mainloop
+			// Begin the main loop
 			mainLoop();
 		}
 	}
