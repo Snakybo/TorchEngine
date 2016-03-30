@@ -6,10 +6,7 @@ package com.snakybo.sengine.util;
  */
 public final class Color32
 {
-	private int r;
-	private int g;
-	private int b;
-	private int a;
+	private int value;
 	
 	/**
 	 * Create a new color
@@ -20,7 +17,7 @@ public final class Color32
 	}
 	
 	/**
-	 * Create a new color
+	 * Create a new color. Values are in the range of [0-255]
 	 * @param r - The red component
 	 * @param g - The green component
 	 * @param b - The blue component
@@ -31,7 +28,7 @@ public final class Color32
 	}
 	
 	/**
-	 * Create a new color
+	 * Create a new color. Values are in the range of [0-255]
 	 * @param r - The red component
 	 * @param g - The green component
 	 * @param b - The blue component
@@ -39,60 +36,99 @@ public final class Color32
 	 */
 	public Color32(int r, int g, int b, int a)
 	{
-		setRed(r);
-		setGreen(g);
-		setBlue(b);
-		setAlpha(a);
+		// Clamp the input values between 0-255
+		r = MathUtils.clamp(r, 0, 255);
+		g = MathUtils.clamp(g, 0, 255);
+		b = MathUtils.clamp(b, 0, 255);
+		a = MathUtils.clamp(a, 0, 255);
+		
+		value = ((a & 0xFF) << 24) |
+				((r & 0xFF) << 16) |
+				((g & 0xFF) << 8)  |
+				((b & 0xFF) << 0);
+	}
+	
+	/**
+	 * Copy the value of another color
+	 * @param other - The color to copy
+	 */
+	public Color32(Color32 other)
+	{
+		value = other.value;
 	}
 	
 	@Override
 	public String toString()
 	{
-		return "(" + r + ", " + g + ", " + b + ", " + a + ")";
+		return "(" + getRed() + ", " + getGreen() + ", " + getBlue() + ", " + getAlpha() + ")";
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		return value;
+	}
+	
+	@Override
+	public boolean equals(Object obj)
+	{
+		return obj instanceof Color32 && ((Color32)obj).value == value;
 	}
 	
 	/**
-	 * Set the red component of the color [0-255]
+	 * Set the red component of the color. Accepted value is in the range of [0-255]
 	 * @param r - The red component
 	 */
 	public final void setRed(int r)
 	{
-		this.r = MathUtils.clamp(r, 0, 1);
+		value = ((getAlpha() & 0xFF) << 24) |
+				((MathUtils.clamp(r, 0, 255) & 0xFF) << 16) |
+				((getGreen() & 0xFF) << 8)  |
+				((getBlue() & 0xFF) << 0);
 	}
 	
 	/**
-	 * Set the green component of the color [0-255]
+	 * Set the green component of the color. Accepted value is in the range of [0-255]
 	 * @param g - The green component
 	 */
 	public final void setGreen(int g)
 	{
-		this.g = MathUtils.clamp(g, 0, 1);
+		value = ((getAlpha() & 0xFF) << 24) |
+				((getRed() & 0xFF) << 16) |
+				((MathUtils.clamp(g, 0, 255) & 0xFF) << 8)  |
+				((getBlue() & 0xFF) << 0);
 	}
 	
 	/**
-	 * Set the blue component of the color [0-255]
+	 * Set the blue component of the color. Accepted value is in the range of [0-255]
 	 * @param b - The blue component
 	 */
 	public final void setBlue(int b)
 	{
-		this.b = MathUtils.clamp(b, 0, 1);
+		value = ((getAlpha() & 0xFF) << 24) |
+				((getRed() & 0xFF) << 16) |
+				((getGreen() & 0xFF) << 8)  |
+				((MathUtils.clamp(b, 0, 255) & 0xFF) << 0);
 	}
 	
 	/**
-	 * Set the alpha component of the color [0-255]
+	 * Set the alpha component of the color. Accepted value is in the range of [0-255]
 	 * @param a - The alpha component
 	 */
 	public final void setAlpha(int a)
 	{
-		this.a = MathUtils.clamp(a, 0, 1);
+		value = ((MathUtils.clamp(a, 0, 255) & 0xFF) << 24) |
+				((getRed() & 0xFF) << 16) |
+				((getGreen() & 0xFF) << 8)  |
+				((getBlue() & 0xFF) << 0);
 	}
 	
 	/**
-	 * Convert the 32-bit color into a color
+	 * @return The color values to a color in the range of [0-1] 
 	 */
-	public final Color32 toColor()
+	public final Color toColor()
 	{
-		return new Color32(r / 255, g / 255, b / 255, a / 255);
+		return new Color(getRed() / 255f, getGreen() / 255f, getBlue() / 255f, getAlpha() / 255f);
 	}
 	
 	/**
@@ -100,7 +136,7 @@ public final class Color32
 	 */
 	public final int getRed()
 	{
-		return r;
+		return (getARGB() >> 16) & 0xFF;
 	}
 	
 	/**
@@ -108,7 +144,7 @@ public final class Color32
 	 */
 	public final int getGreen()
 	{
-		return g;
+		return (getARGB() >> 8) & 0xFF;
 	}
 	
 	/**
@@ -116,39 +152,22 @@ public final class Color32
 	 */
 	public final int getBlue()
 	{
-		return b;
+		return (getARGB() >> 0) & 0xFF;
 	}
-
+	
 	/**
 	 * @return The alpha component of the color
 	 */
 	public final int getAlpha()
 	{
-		return a;
+		return (getARGB() >> 24) & 0xFF;
 	}
 	
 	/**
-	 * Convert the RGB values of the color to an integer
+	 * @return The RGB value of the color. Bits 24-31 are alpha, 16-23 are red, 8-15 are green, 0-7 are blue
 	 */
-	public final int getRGB()
+	public final int getARGB()
 	{
-		int red = (r << 16) & 0x00FF0000;
-		int green = (g << 8) & 0x0000FF00;
-		int blue = b & 0x000000FF;
-		
-		return 0xFF000000 | red | green | blue;
-	}
-	
-	/**
-	 * Convert the RGBA values of the color to an integer
-	 */
-	public final int getRGBA()
-	{
-		int alpha = (a << 24) & 0xFF000000;
-		int red = (r << 16) & 0x00FF0000;
-		int green = (g << 8) & 0x0000FF00;
-		int blue = b & 0x000000FF;
-		
-		return alpha | red | green | blue;
+		return value;
 	}
 }

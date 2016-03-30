@@ -6,10 +6,7 @@ package com.snakybo.sengine.util;
  */
 public final class Color
 {
-	private float r;
-	private float g;
-	private float b;
-	private float a;
+	private Color32 value;
 	
 	/**
 	 * Create a new color
@@ -20,7 +17,7 @@ public final class Color
 	}
 	
 	/**
-	 * Create a new color
+	 * Create a new color. Values are in the range of [0-1]
 	 * @param r - The red component
 	 * @param g - The green component
 	 * @param b - The blue component
@@ -31,7 +28,7 @@ public final class Color
 	}
 	
 	/**
-	 * Create a new color
+	 * Create a new color. Values are in the range of [0-1]
 	 * @param r - The red component
 	 * @param g - The green component
 	 * @param b - The blue component
@@ -39,65 +36,102 @@ public final class Color
 	 */
 	public Color(float r, float g, float b, float a)
 	{
-		setRed(r);
-		setGreen(g);
-		setBlue(b);
-		setAlpha(a);
+		// Clamp the input values between 0-1
+		r = MathUtils.clamp01(r);
+		g = MathUtils.clamp01(g);
+		b = MathUtils.clamp01(b);
+		a = MathUtils.clamp01(a);
+		
+		// Convert the values to the range of 0-255
+		int r32 = (int)(r * 255 + 0.5);
+		int g32 = (int)(g * 255 + 0.5);
+		int b32 = (int)(b * 255 + 0.5);
+		int a32 = (int)(a * 255 + 0.5);
+		
+		value = new Color32(r32, g32, b32, a32);
+	}
+	
+	/**
+	 * Copy the value of another color
+	 * @param other - The color to copy
+	 */
+	public Color(Color other)
+	{
+		value = new Color32(other.value);
 	}
 	
 	@Override
 	public String toString()
 	{
-		return "(" + r + ", " + g + ", " + b + ", " + a + ")";
+		return "(" + getRed() + ", " + getGreen() + ", " + getBlue() + ", " + getAlpha() + ")";
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		return value.hashCode();
+	}
+	
+	@Override
+	public boolean equals(Object obj)
+	{
+		return obj instanceof Color && ((Color)obj).value.getARGB() == value.getARGB();
 	}
 	
 	/**
-	 * Set the red component of the color [0-1]
+	 * Set the red component of the color. Accepted value is in the range of [0-1]
 	 * @param r - The red component
 	 */
 	public final void setRed(float r)
 	{
-		this.r = MathUtils.clamp(r, 0, 1);
+		r = MathUtils.clamp01(r);
+		int r32 = (int)(r * 255 + 0.5);
+		
+		value.setRed(r32);
 	}
 	
 	/**
-	 * Set the green component of the color [0-1]
+	 * Set the green component of the color. Accepted value is in the range of [0-1]
 	 * @param g - The green component
 	 */
 	public final void setGreen(float g)
 	{
-		this.g = MathUtils.clamp(g, 0, 1);
+		g = MathUtils.clamp01(g);
+		int g32 = (int)(g * 255 + 0.5);
+		
+		value.setGreen(g32);
 	}
 	
 	/**
-	 * Set the blue component of the color [0-1]
+	 * Set the blue component of the color. Accepted value is in the range of [0-1]
 	 * @param b - The blue component
 	 */
 	public final void setBlue(float b)
 	{
-		this.b = MathUtils.clamp(b, 0, 1);
+		b = MathUtils.clamp01(b);
+		int b32 = (int)(b * 255 + 0.5);
+		
+		value.setBlue(b32);
 	}
 	
 	/**
-	 * Set the alpha component of the color [0-1]
+	 * Set the alpha component of the color. Accepted value is in the range of [0-1]
 	 * @param a - The alpha component
 	 */
 	public final void setAlpha(float a)
 	{
-		this.a = MathUtils.clamp(a, 0, 1);
+		a = MathUtils.clamp01(a);
+		int a32 = (int)(a * 255 + 0.5);
+		
+		value.setAlpha(a32);
 	}
 	
 	/**
-	 * Convert the color to a 32-bit color
+	 * @return The color values to a color in the range of [0-255] 
 	 */
-	public final Color32 toColor32()
+	public final Color32 getColor32()
 	{
-		int red = (int)Math.ceil(r * 255);
-		int green = (int)Math.ceil(r * 255);
-		int blue = (int)Math.ceil(r * 255);
-		int alpha = (int)Math.ceil(r * 255);
-		
-		return new Color32(red, green, blue, alpha);
+		return new Color32(value);
 	}
 	
 	/**
@@ -105,7 +139,7 @@ public final class Color
 	 */
 	public final float getRed()
 	{
-		return r;
+		return value.getARGB() / 255f;
 	}
 	
 	/**
@@ -113,7 +147,7 @@ public final class Color
 	 */
 	public final float getGreen()
 	{
-		return g;
+		return value.getARGB() / 255f;
 	}
 	
 	/**
@@ -121,30 +155,22 @@ public final class Color
 	 */
 	public final float getBlue()
 	{
-		return b;
+		return value.getARGB() / 255f;
 	}
-
+	
 	/**
 	 * @return The alpha component of the color
 	 */
 	public final float getAlpha()
 	{
-		return a;
+		return value.getARGB() / 255f;
 	}
 	
 	/**
-	 * Convert the RGB values of the color to an integer
+	 * @return The RGB value of the color. Bits 24-31 are alpha, 16-23 are red, 8-15 are green, 0-7 are blue
 	 */
-	public final int getRGB()
+	public final int getARGB()
 	{
-		return toColor32().getRGB();
-	}
-	
-	/**
-	 * Convert the RGBA values of the color to an integer
-	 */
-	public final int getRGBA()
-	{
-		return toColor32().getRGBA();
+		return value.getARGB();
 	}
 }

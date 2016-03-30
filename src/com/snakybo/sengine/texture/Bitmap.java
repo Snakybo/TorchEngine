@@ -89,7 +89,7 @@ public final class Bitmap
 	 */
 	public final void setPixel(int x, int y, Color pixel)
 	{
-		setPixel(x, y, pixel.toColor32());
+		setPixel(x, y, pixel.getARGB());
 	}
 	
 	/**
@@ -100,7 +100,7 @@ public final class Bitmap
 	 */
 	public final void setPixel(int x, int y, Color32 pixel)
 	{
-		setPixel(x, y, pixel.getRGBA());
+		setPixel(x, y, pixel.getARGB());
 	}
 	
 	/**
