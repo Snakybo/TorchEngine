@@ -38,8 +38,7 @@ public final class Bitmap
 	{
 		try
 		{
-			// TODO: Don't require the file to be in ./res/ (?)
-			File file = new File("./res/" + fileName);			
+			File file = new File(fileName);			
 			if(!file.exists())
 			{
 				throw new FileNotFoundException(fileName + " cannot be found");
