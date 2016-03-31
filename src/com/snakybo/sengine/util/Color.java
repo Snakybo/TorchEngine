@@ -151,7 +151,7 @@ public final class Color
 	/**
 	 * @return The color values to a color in the range of [0-255] 
 	 */
-	public final Color32 getColor32()
+	public final Color32 toColor32()
 	{
 		return new Color32(value);
 	}
