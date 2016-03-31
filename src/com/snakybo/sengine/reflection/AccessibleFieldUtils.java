@@ -45,54 +45,289 @@ public final class AccessibleFieldUtils
 	 * Set the value of an {@link AccessibleField}
 	 * @param object - The object of the field
 	 * @param field - The field
-	 * @param value - The value of the field as string
+	 * @param value - The value of the field
+	 */
+	public static void set(Object object, Field field, boolean value)
+	{
+		Class<?> t = field.getType();		
+		if(t.equals(boolean.class))
+		{
+			try
+			{
+				boolean accessible = field.isAccessible();
+				field.setAccessible(true);
+				field.setBoolean(object, value);
+				field.setAccessible(accessible);
+			}
+			catch (IllegalArgumentException | IllegalAccessException e)
+			{
+				Logger.logException(e, "AccessibleFieldUtils");
+			}
+		}
+		else
+		{
+			Logger.logError("boolean is not equal to " + t, "AcessibleFieldUtils");
+		}
+	}
+	
+	/**
+	 * Set the value of an {@link AccessibleField}
+	 * @param object - The object of the field
+	 * @param field - The field
+	 * @param value - The value of the field
+	 */
+	public static void set(Object object, Field field, byte value)
+	{
+		Class<?> t = field.getType();		
+		if(t.equals(byte.class))
+		{
+			try
+			{
+				boolean accessible = field.isAccessible();
+				field.setAccessible(true);
+				field.setByte(object, value);
+				field.setAccessible(accessible);
+			}
+			catch (IllegalArgumentException | IllegalAccessException e)
+			{
+				Logger.logException(e, "AccessibleFieldUtils");
+			}
+		}
+		else
+		{
+			Logger.logError("byte is not equal to " + t, "AcessibleFieldUtils");
+		}
+	}
+	
+	/**
+	 * Set the value of an {@link AccessibleField}
+	 * @param object - The object of the field
+	 * @param field - The field
+	 * @param value - The value of the field
+	 */
+	public static void set(Object object, Field field, short value)
+	{
+		Class<?> t = field.getType();		
+		if(t.equals(short.class))
+		{
+			try
+			{
+				boolean accessible = field.isAccessible();
+				field.setAccessible(true);
+				field.setShort(object, value);
+				field.setAccessible(accessible);
+			}
+			catch (IllegalArgumentException | IllegalAccessException e)
+			{
+				Logger.logException(e, "AccessibleFieldUtils");
+			}
+		}
+		else
+		{
+			Logger.logError("short is not equal to " + t, "AcessibleFieldUtils");
+		}
+	}
+	
+	/**
+	 * Set the value of an {@link AccessibleField}
+	 * @param object - The object of the field
+	 * @param field - The field
+	 * @param value - The value of the field
+	 */
+	public static void set(Object object, Field field, int value)
+	{
+		Class<?> t = field.getType();		
+		if(t.equals(int.class))
+		{
+			try
+			{
+				boolean accessible = field.isAccessible();
+				field.setAccessible(true);
+				field.setInt(object, value);
+				field.setAccessible(accessible);
+			}
+			catch (IllegalArgumentException | IllegalAccessException e)
+			{
+				Logger.logException(e, "AccessibleFieldUtils");
+			}
+		}
+		else
+		{
+			Logger.logError("int is not equal to " + t, "AcessibleFieldUtils");
+		}
+	}
+	
+	/**
+	 * Set the value of an {@link AccessibleField}
+	 * @param object - The object of the field
+	 * @param field - The field
+	 * @param value - The value of the field
+	 */
+	public static void set(Object object, Field field, float value)
+	{
+		Class<?> t = field.getType();		
+		if(t.equals(float.class))
+		{
+			try
+			{
+				boolean accessible = field.isAccessible();
+				field.setAccessible(true);
+				field.setFloat(object, value);
+				field.setAccessible(accessible);
+			}
+			catch (IllegalArgumentException | IllegalAccessException e)
+			{
+				Logger.logException(e, "AccessibleFieldUtils");
+			}
+		}
+		else
+		{
+			Logger.logError("float is not equal to " + t, "AcessibleFieldUtils");
+		}
+	}
+	
+	/**
+	 * Set the value of an {@link AccessibleField}
+	 * @param object - The object of the field
+	 * @param field - The field
+	 * @param value - The value of the field
+	 */
+	public static void set(Object object, Field field, double value)
+	{
+		Class<?> t = field.getType();		
+		if(t.equals(double.class))
+		{
+			try
+			{
+				boolean accessible = field.isAccessible();
+				field.setAccessible(true);
+				field.setDouble(object, value);
+				field.setAccessible(accessible);
+			}
+			catch (IllegalArgumentException | IllegalAccessException e)
+			{
+				Logger.logException(e, "AccessibleFieldUtils");
+			}
+		}
+		else
+		{
+			Logger.logError("double is not equal to " + t, "AcessibleFieldUtils");
+		}
+	}
+	
+	/**
+	 * Set the value of an {@link AccessibleField}
+	 * @param object - The object of the field
+	 * @param field - The field
+	 * @param value - The value of the field
+	 */
+	public static void set(Object object, Field field, long value)
+	{
+		Class<?> t = field.getType();		
+		if(t.equals(long.class))
+		{
+			try
+			{
+				boolean accessible = field.isAccessible();
+				field.setAccessible(true);
+				field.setLong(object, value);
+				field.setAccessible(accessible);
+			}
+			catch (IllegalArgumentException | IllegalAccessException e)
+			{
+				Logger.logException(e, "AccessibleFieldUtils");
+			}
+		}
+		else
+		{
+			Logger.logError("long is not equal to " + t, "AcessibleFieldUtils");
+		}
+	}
+	
+	/**
+	 * Set the value of an {@link AccessibleField}
+	 * @param object - The object of the field
+	 * @param field - The field
+	 * @param value - The value of the field
+	 */
+	public static void set(Object object, Field field, char value)
+	{
+		Class<?> t = field.getType();		
+		if(t.equals(char.class))
+		{
+			try
+			{
+				boolean accessible = field.isAccessible();
+				field.setAccessible(true);
+				field.setChar(object, value);
+				field.setAccessible(accessible);
+			}
+			catch (IllegalArgumentException | IllegalAccessException e)
+			{
+				Logger.logException(e, "AccessibleFieldUtils");
+			}
+		}
+		else
+		{
+			Logger.logError("char is not equal to " + t, "AcessibleFieldUtils");
+		}
+	}
+	
+	/**
+	 * Set the value of an {@link AccessibleField}
+	 * @param object - The object of the field
+	 * @param field - The field
+	 * @param value - The value of the field
 	 */
 	public static void set(Object object, Field field, String value)
 	{
 		Class<?> t = field.getType();
-		
-		try
+		if(t.equals(String.class) || value == null)
 		{
-			if(t.equals(int.class))
+			try
 			{
-				field.setInt(object, Integer.parseInt(value));
-			}
-			else if(t.equals(boolean.class))
-			{
-				field.setBoolean(object, Boolean.parseBoolean(value));
-			}
-			else if(t.equals(String.class))
-			{
+				boolean accessible = field.isAccessible();
+				field.setAccessible(true);
 				field.set(object, value);
+				field.setAccessible(accessible);
 			}
-			else if(t.equals(float.class))
+			catch (IllegalArgumentException | IllegalAccessException e)
 			{
-				field.setFloat(object, Float.parseFloat(value));
-			}
-			else if(t.equals(short.class))
-			{
-				field.setShort(object, Short.parseShort(value));
-			}
-			else if(t.equals(long.class))
-			{
-				field.setLong(object, Long.parseLong(value));
-			}
-			else if(t.equals(char.class))
-			{
-				field.setChar(object, value.charAt(0));
-			}
-			else if(t.equals(byte.class))
-			{
-				field.setByte(object, Byte.parseByte(value));
-			}
-			else if(t.equals(double.class))
-			{
-				field.setDouble(object, Double.parseDouble(value));
+				Logger.logException(e, "AccessibleFieldUtils");
 			}
 		}
-		catch(IllegalArgumentException | IllegalAccessException e)
+		else
 		{
-			Logger.logException(e, "AccessibleFieldUtils");
+			Logger.logError(value.getClass() + " is not equal to " + t, "AcessibleFieldUtils");
+		}
+	}
+	
+	/**
+	 * Set the value of an {@link AccessibleField}
+	 * @param object - The object of the field
+	 * @param field - The field
+	 * @param value - The value of the field
+	 */
+	public static void set(Object object, Field field, Object value)
+	{
+		Class<?> t = field.getType();
+		if(t.equals(value.getClass()) || value == null)
+		{
+			try
+			{
+				boolean accessible = field.isAccessible();
+				field.setAccessible(true);
+				field.set(object, value);
+				field.setAccessible(accessible);
+			}
+			catch (IllegalArgumentException | IllegalAccessException e)
+			{
+				Logger.logException(e, "AccessibleFieldUtils");
+			}
+		}
+		else
+		{
+			Logger.logError(value.getClass() + " is not equal to " + t, "AcessibleFieldUtils");
 		}
 	}
 	
@@ -101,7 +336,7 @@ public final class AccessibleFieldUtils
 	 * @param object - The object
 	 * @return All accessible fields
 	 */
-	public static List<Field> getAll(Object object)
+	public static Field[] getAll(Object object)
 	{
 		List<Field> result = new ArrayList<Field>();
 		
@@ -115,7 +350,7 @@ public final class AccessibleFieldUtils
 			result.add(field);
 		}
 		
-		return result;
+		return result.toArray(new Field[result.size()]);
 	}
 	
 	/**
@@ -190,39 +425,6 @@ public final class AccessibleFieldUtils
 			return false;
 		}
 		
-		// A field must have a certain type
-		if(!isTypeValid(field.getType()))
-		{
-			return false;
-		}
-		
 		return true;
-	}
-	
-	/**
-	 * Check if the type of an accessible field is valid
-	 * @param type - The type of the field
-	 * @return Whether or not the type of the field is valid
-	 */
-	private static boolean isTypeValid(Class<?> type)
-	{
-		final Class<?>[] allowed = new Class<?>[]
-		{ 
-			int.class, boolean.class,
-			String.class, float.class,
-			short.class, long.class,
-			char.class, byte.class,
-			double.class
-		};
-		
-		for(Class<?> t : allowed)
-		{
-			if(type.equals(t))
-			{
-				return true;
-			}
-		}
-		
-		return false;
 	}
 }
