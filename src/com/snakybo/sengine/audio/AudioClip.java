@@ -22,7 +22,7 @@
 
 package com.snakybo.sengine.audio;
 
-import com.snakybo.sengine.asset.AssetDatabase;
+import com.snakybo.sengine.resource.ResourceDatabase;
 import com.snakybo.sengine.util.IDestroyable;
 
 /**
@@ -31,25 +31,25 @@ import com.snakybo.sengine.util.IDestroyable;
  */
 public final class AudioClip implements IDestroyable
 {
-	private final AudioAsset asset;
+	private final AudioResource resource;
 	
 	/**
 	 * Create a new {@link AudioClip}. If the specified {@code clip} has already been imported,
-	 * it will reuse the imported {@link AudioAsset}
+	 * it will reuse the imported {@link AudioResource}
 	 * @param clip - The clip to load
 	 */
 	public AudioClip(String clip)
 	{
 		clip = "./res/" + clip;
 		
-		if(AssetDatabase.hasAsset(clip))
+		if(ResourceDatabase.hasResource(clip))
 		{
-			asset = (AudioAsset)AssetDatabase.link(clip, this);
+			resource = (AudioResource)ResourceDatabase.link(clip, this);
 		}
 		else
 		{
-			asset = new AudioAsset(clip);
-			AssetDatabase.register(clip, asset, this);
+			resource = new AudioResource(clip);
+			ResourceDatabase.register(clip, resource, this);
 		}
 	}
 	
@@ -69,7 +69,7 @@ public final class AudioClip implements IDestroyable
 	@Override
 	public void destroy()
 	{
-		AssetDatabase.unlink(asset.getName(), this);
+		ResourceDatabase.unlink(resource.getName(), this);
 	}
 	
 	/**
@@ -78,30 +78,30 @@ public final class AudioClip implements IDestroyable
 	 */
 	final void bind(int source)
 	{
-		asset.bind(source);
+		resource.bind(source);
 	}
 	
 	/**
-	 * @return The duration of the audio clip
+	 * @return The duration in seconds
 	 */
 	public final float getDuration()
 	{
-		return asset.getDuration();
+		return resource.getDuration();
 	}
 	
 	/**
-	 * @return The number of samples the audio clip has
+	 * @return The number of samples
 	 */
 	public final int getNumSamples()
 	{
-		return asset.getNumSamples();
+		return resource.getNumSamples();
 	}
 	
 	/**
-	 * @return The sample rate of the audio clip
+	 * @return The sample rate
 	 */
 	public final int getSampleRate()
 	{
-		return asset.getSampleRate();
+		return resource.getSampleRate();
 	}
 }

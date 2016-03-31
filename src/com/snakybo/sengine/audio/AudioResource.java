@@ -33,14 +33,14 @@ import java.nio.IntBuffer;
 
 import org.lwjgl.BufferUtils;
 
-import com.snakybo.sengine.asset.Asset;
-import com.snakybo.sengine.importer.AudioAssetImporter;
+import com.snakybo.sengine.resource.Resource;
+import com.snakybo.sengine.resource.loader.AudioResourceLoader;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class AudioAsset extends Asset
+public final class AudioResource extends Resource
 {
 	private final IntBuffer buffer;
 	
@@ -52,27 +52,28 @@ public final class AudioAsset extends Asset
 	private int sampleRate;
 	
 	/**
-	 * Create a new {@link AudioAsset}, it will automatically import the specified {@code clip}
+	 * Create a new {@link AudioResource}, it will automatically import the specified {@code clip}
 	 * @param clip - The clip to import
 	 */
-	public AudioAsset(String clip)
+	public AudioResource(String clip)
 	{
 		buffer = BufferUtils.createIntBuffer(1);
 		name = clip;
 		
-		AudioAssetImporter.beginImport(clip, 32);
+		AudioResourceLoader loader = new AudioResourceLoader();
+		loader.beginImport(clip, 32);
 		
-		duration = AudioAssetImporter.getDuration();
-		numSamples = AudioAssetImporter.getNumSamples();
-		sampleRate = AudioAssetImporter.getSampleRate();
+		duration = AudioResourceLoader.getDuration();
+		numSamples = AudioResourceLoader.getNumSamples();
+		sampleRate = AudioResourceLoader.getSampleRate();
 		
 		alGenBuffers(buffer);
 		checkALError();
 			
-		alBufferData(buffer.get(0), AudioAssetImporter.getFormat(), AudioAssetImporter.getPCM(), sampleRate);
+		alBufferData(buffer.get(0), AudioResourceLoader.getFormat(), AudioResourceLoader.getPCM(), sampleRate);
 		checkALError();
 		
-		AudioAssetImporter.endImport();
+		loader.endImport();
 	}
 	
 	@Override
@@ -82,7 +83,7 @@ public final class AudioAsset extends Asset
 	}
 	
 	/**
-	 * Bind the {@link AudioAsset} to a source
+	 * Bind the {@link AudioResource} to a source
 	 * @param source - The source to bind to
 	 */
 	public void bind(int source)
@@ -92,7 +93,7 @@ public final class AudioAsset extends Asset
 	}
 	
 	/**
-	 * @return The name of the {@link AudioAsset}
+	 * @return The name
 	 */
 	public final String getName()
 	{
@@ -100,7 +101,7 @@ public final class AudioAsset extends Asset
 	}
 	
 	/**
-	 * @return The duration of the imported {@link AudioAsset}
+	 * @return The duration in seconds
 	 */
 	public final float getDuration()
 	{
@@ -108,7 +109,7 @@ public final class AudioAsset extends Asset
 	}
 	
 	/**
-	 * @return The number of samples the imported {@link AudioAsset} has
+	 * @return The number of samples
 	 */
 	public final int getNumSamples()
 	{
@@ -116,7 +117,7 @@ public final class AudioAsset extends Asset
 	}
 	
 	/**
-	 * @return The sample rate of the imported {@link AudioAsset}
+	 * @return The sample rate
 	 */
 	public final int getSampleRate()
 	{

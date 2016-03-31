@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.sengine.asset;
+package com.snakybo.sengine.resource;
 
 import com.snakybo.sengine.util.IDestroyable;
 
@@ -28,7 +28,7 @@ import com.snakybo.sengine.util.IDestroyable;
  * @author Snakybo
  * @since 1.0
  */
-public abstract class Asset implements IDestroyable
+public abstract class Resource implements IDestroyable
 {
 	@Override
 	public abstract void destroy();

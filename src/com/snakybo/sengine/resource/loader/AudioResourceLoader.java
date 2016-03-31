@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.sengine.importer;
+package com.snakybo.sengine.resource.loader;
 
 import static org.lwjgl.openal.AL10.AL_FORMAT_MONO16;
 import static org.lwjgl.openal.AL10.AL_FORMAT_STEREO16;
@@ -40,7 +40,6 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.openal.AL10;
 import org.lwjgl.stb.STBVorbisInfo;
 
-import com.snakybo.sengine.audio.AudioAsset;
 import com.snakybo.sengine.debug.Logger;
 import com.snakybo.sengine.debug.LoggerInternal;
 import com.snakybo.sengine.io.FileUtils;
@@ -50,38 +49,29 @@ import com.snakybo.sengine.util.ALUtil;
  * @author Snakybo
  * @since 1.0
  */
-public final class AudioAssetImporter
+public final class AudioResourceLoader extends ResourceLoader
 {
 	private static STBVorbisInfo vorbisInfo;
 	private static long decoder;
 	
-	private AudioAssetImporter()
+	@Override
+	public void beginImport(String resource, Object... objects)
 	{
-		throw new AssertionError();
-	}
-	
-	/**
-	 * Begin importing an {@link AudioAsset}, make sure to call {@link #endImport()} when you're done importing.
-	 * @param asset - The asset to load
-	 * @param bufferSize - The buffer size of the {@link AudioAsset}
-	 */
-	public static void beginImport(String asset, int bufferSize)
-	{
-		if(!canImport(asset))
+		if(!canImport(resource))
 		{
 			return;
 		}
 		
 		if(vorbisInfo != null)
 		{
-			Logger.logWarning("Another audio asset has not finished importing", "AudioAssetImporter");
+			Logger.logWarning("Another audio resource has not finished importing", "AudioResourceImporter");
 		}
 		
-		LoggerInternal.log("Beginning import of audio asset: " + asset, "AudioAssetImporter");
+		LoggerInternal.log("Beginning import of audio resource: " + resource, "AudioResourceImporter");
 		
 		try
 		{
-			ByteBuffer vorbis = ALUtil.ioResourceToByteBuffer(asset, bufferSize);			
+			ByteBuffer vorbis = ALUtil.ioResourceToByteBuffer(resource, (int)objects[0]);			
 			IntBuffer error = BufferUtils.createIntBuffer(1);
 			
 			vorbisInfo = STBVorbisInfo.malloc();
@@ -98,15 +88,12 @@ public final class AudioAssetImporter
 		}
 		catch(IOException e)
 		{
-			Logger.logException(e, "AudioAssetImporter");
+			Logger.logException(e, "AudioResourceImporter");
 		}
 	}
 	
-	/**
-	 * Stop importing an {@link AudioAsset},
-	 * this will free up any memory used by {@link STBVorbisInfo} and it will close the decoder
-	 */
-	public static void endImport()
+	@Override
+	public void endImport()
 	{
 		stb_vorbis_close(decoder);
 		
@@ -114,26 +101,22 @@ public final class AudioAssetImporter
 		vorbisInfo = null;
 	}
 	
-	/**
-	 * Check if the specified {@code asset} is valid for importation
-	 * @param asset - The asset to import
-	 * @return Whether or not the asset can be imported
-	 */
-	private static boolean canImport(String asset)
+	@Override
+	public boolean canImport(String resource)
 	{
-		String extension = FileUtils.getFileExtension(asset);
+		String extension = FileUtils.getFileExtension(resource);
 		
 		if(extension.equals("ogg"))
 		{
 			return true;
 		}
 		
-		Logger.logException(new UnsupportedOperationException("Unable to import: " + asset + ", currently only .ogg sound files are supported"), "AudioAssetImporter");
+		Logger.logException(new UnsupportedOperationException("Unable to import: " + resource + ", currently only .ogg sound files are supported"), "AudioResourceImporter");
 		return false;
 	}
 	
 	/**
-	 * @return The PCM data of the imported asset
+	 * @return The PCM data of the imported resource
 	 */
 	public static ByteBuffer getPCM()
 	{
@@ -147,7 +130,7 @@ public final class AudioAssetImporter
 	}
 	
 	/**
-	 * @return The duration in seconds of the imported asset
+	 * @return The duration in seconds of the imported resource
 	 */
 	public static float getDuration()
 	{
@@ -155,7 +138,7 @@ public final class AudioAssetImporter
 	}
 	
 	/**
-	 * @return The number of samples the imported asset has
+	 * @return The number of samples the imported resource has
 	 */
 	public static int getNumSamples()
 	{
@@ -163,7 +146,7 @@ public final class AudioAssetImporter
 	}
 	
 	/**
-	 * @return The sample rate of the imported asset
+	 * @return The sample rate of the imported resource
 	 */
 	public static int getSampleRate()
 	{
@@ -171,7 +154,7 @@ public final class AudioAssetImporter
 	}
 	
 	/**
-	 * @return The amount of channels the imported asset has
+	 * @return The amount of channels the imported resource has
 	 */
 	public static int getNumChannels()
 	{
@@ -179,7 +162,7 @@ public final class AudioAssetImporter
 	}
 	
 	/**
-	 * @return The OpenAL format of the imported asset,
+	 * @return The OpenAL format of the imported resource,
 	 * {@link AL10#AL_FORMAT_MONO16} or {@link AL10#AL_FORMAT_STEREO16}
 	 */
 	public static int getFormat()
@@ -193,7 +176,7 @@ public final class AudioAssetImporter
 		case 2:
 			return AL_FORMAT_STEREO16;
 		default:
-			Logger.logException(new UnsupportedOperationException("Unsupported number of channels: " + channels), "AudioAssetImporter");
+			Logger.logException(new UnsupportedOperationException("Unsupported number of channels: " + channels), "AudioResourceImporter");
 		}
 		
 		return AL_FORMAT_MONO16;
