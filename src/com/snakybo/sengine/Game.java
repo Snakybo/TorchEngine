@@ -31,7 +31,7 @@ import com.snakybo.sengine.util.time.TimeInternal;
  */
 public abstract class Game
 {
-	private static int targetFrameRate = 60;
+	private static int targetFrameRate = Integer.MAX_VALUE;
 	
 	private final String name;
 	
