@@ -25,6 +25,8 @@ package com.snakybo.sengine.util.time;
 import static org.lwjgl.glfw.GLFW.glfwGetTime;
 
 import com.snakybo.sengine.Game;
+import com.snakybo.sengine.debug.Debug;
+import com.snakybo.sengine.debug.Logger;
 
 /**
  * @author Snakybo
@@ -73,6 +75,12 @@ public abstract class TimeInternal
 			
 			frameCounter = 0;
 			currentFrameCount = 0;
+			
+			// Log FPS if required
+			if(Debug.logFps)
+			{
+				Logger.log("FPS: " + Time.getFrameRate());
+			}
 		}
 	}
 	
