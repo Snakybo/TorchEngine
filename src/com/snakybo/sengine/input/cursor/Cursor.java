@@ -41,7 +41,7 @@ import java.nio.ByteBuffer;
 import org.joml.Vector2f;
 import org.lwjgl.glfw.GLFWImage;
 
-import com.snakybo.sengine.debug.Logger;
+import com.snakybo.sengine.debug.LoggerInternal;
 import com.snakybo.sengine.texture.Bitmap;
 import com.snakybo.sengine.texture.ImageUtils;
 import com.snakybo.sengine.window.WindowInternal;
@@ -145,7 +145,8 @@ public final class Cursor
 		if(CursorShape.hasCursor(bitmap, hot))
 		{
 			setShape(CursorShape.getCursor(bitmap, hot));
-			Logger.log("LOADED");
+			
+			LoggerInternal.log("Loaded existing cursor shape", "Cursor");
 		}
 		else
 		{
@@ -156,7 +157,8 @@ public final class Cursor
 			CursorShape.addCursor(bitmap, hot, cursor);
 			
 			setShape(cursor);
-			Logger.log("CREATED");
+			
+			LoggerInternal.log("Created new cursor shape", "Cursor");
 		}
 	}
 	

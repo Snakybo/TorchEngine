@@ -60,6 +60,8 @@ public final class Bitmap
 	{
 		try
 		{
+			LoggerInternal.log("Loading Bitmap from: ./res/" + fileName, "Bitmap");
+			
 			File file = new File("./res/" + fileName);			
 			if(!file.exists())
 			{

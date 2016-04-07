@@ -28,17 +28,7 @@ package com.snakybo.sengine.debug;
  */
 public final class LoggerInternal
 {
-	private static boolean debug;
-	
-	static
-	{
-		String env = System.getenv("DEBUG");
-		
-		if(env != null)
-		{
-			debug = env.equals("true");
-		}
-	}
+	private static final boolean debug = Boolean.parseBoolean(System.getenv("DEBUG"));
 	
 	private LoggerInternal()
 	{
