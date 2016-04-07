@@ -42,6 +42,8 @@ public final class Mouse
 	static Vector2f mousePositionDelta;
 	static Vector2f mousePosition;
 	
+	static Vector2f scrollDelta;
+	
 	private Mouse()
 	{
 		throw new AssertionError();
@@ -82,6 +84,14 @@ public final class Mouse
 	public static Vector2f getCursorPositionDelta()
 	{
 		return new Vector2f(mousePositionDelta);
+	}
+	
+	/**
+	 * @return Return the scroll-wheel delta
+	 */
+	public static Vector2f getScrollDelta()
+	{
+		return scrollDelta;
 	}
 	
 	/**

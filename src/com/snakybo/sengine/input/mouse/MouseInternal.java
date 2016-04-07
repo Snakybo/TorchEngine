@@ -26,11 +26,13 @@ import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 import static org.lwjgl.glfw.GLFW.GLFW_REPEAT;
 import static org.lwjgl.glfw.GLFW.glfwGetCursorPos;
 import static org.lwjgl.glfw.GLFW.glfwGetMouseButton;
+import static org.lwjgl.glfw.GLFW.glfwSetScrollCallback;
 
 import java.nio.DoubleBuffer;
 
 import org.joml.Vector2f;
 import org.lwjgl.BufferUtils;
+import org.lwjgl.glfw.GLFWScrollCallback;
 
 import com.snakybo.sengine.window.WindowInternal;
 
@@ -40,6 +42,17 @@ import com.snakybo.sengine.window.WindowInternal;
  */
 public final class MouseInternal
 {
+	private static class ScrollCallback extends GLFWScrollCallback
+	{
+		@Override
+		public void invoke(long window, double xoffset, double yoffset)
+		{
+			Mouse.scrollDelta = new Vector2f((float)xoffset, (float)yoffset);
+		}
+	}
+	
+	private static GLFWScrollCallback glfwScrollCallback;
+	
 	private MouseInternal()
 	{
 		throw new AssertionError();
@@ -50,15 +63,18 @@ public final class MouseInternal
 	 */
 	public static void create()
 	{
+		glfwSetScrollCallback(WindowInternal.window, glfwScrollCallback = new ScrollCallback());
+		
 		Mouse.mousePositionDelta = new Vector2f();
 		Mouse.mousePosition = getCursorPosition();
 	}
 	
 	/**
-	 * Unused
+	 * Release callbacks
 	 */
 	public static void destroy()
 	{
+		glfwScrollCallback.release();
 	}
 	
 	/**
@@ -67,6 +83,8 @@ public final class MouseInternal
 	 */
 	public static void update()
 	{
+		Mouse.scrollDelta = new Vector2f(0, 0);
+		
 		for(int i = 0; i < Mouse.last.length; i++)
 		{
 			Mouse.last[i] = Mouse.current[i];
