@@ -46,7 +46,7 @@ public class AudioTest extends Game
 		listener.addComponent(new AudioListener());
 		
 		GameObject source = new GameObject("Source");
-		source.addComponent(new AudioPlayer(new AudioClip("car.ogg"), true));
+		source.addComponent(new AudioPlayer(new AudioClip("examples/audio/car.ogg"), true));
 		source.addComponent(new AudioPlayerMover());
 	}
 	
