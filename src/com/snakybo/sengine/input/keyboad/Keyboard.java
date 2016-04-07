@@ -88,6 +88,24 @@ public final class Keyboard
 	}
 	
 	/**
+	 * Set the value of the Clipboard
+	 * @param string - The new value of the clipboard
+	 */
+	public static void setClipboardString(String string)
+	{
+		glfwSetClipboardString(WindowInternal.window, string);
+	}
+	
+	/**
+	 * Remove a character listener
+	 * @param listener - The listener
+	 */
+	public static void removeCharListener(CharListener listener)
+	{
+		charListeners.remove(listener);
+	}
+	
+	/**
 	 * Returns true if the specified key is currently held down
 	 * @param key - The key
 	 * @return True if the key is currently held down
