@@ -28,6 +28,7 @@ import com.snakybo.sengine.audio.AudioManagerInternal;
 import com.snakybo.sengine.debug.Logger;
 import com.snakybo.sengine.debug.LoggerInternal;
 import com.snakybo.sengine.input.cursor.CursorInternal;
+import com.snakybo.sengine.input.joystick.JoystickInternal;
 import com.snakybo.sengine.input.keyboad.KeyboardInternal;
 import com.snakybo.sengine.input.mouse.MouseInternal;
 import com.snakybo.sengine.scene.SceneUtilities;
@@ -72,6 +73,7 @@ public final class SEngine
 			KeyboardInternal.create();
 			MouseInternal.create();
 			CursorInternal.create();
+			JoystickInternal.create();
 			
 			// Create the scene
 			game.createScene();
@@ -159,6 +161,7 @@ public final class SEngine
 		KeyboardInternal.update();
 		MouseInternal.update();
 		CursorInternal.update();
+		JoystickInternal.update();
 	}
 	
 	/**
@@ -177,6 +180,7 @@ public final class SEngine
 		CursorInternal.destroy();
 		MouseInternal.destroy();
 		KeyboardInternal.destroy();
+		JoystickInternal.destroy();
 		
 		AudioManagerInternal.destroy();
 		WindowInternal.destroy();

@@ -55,7 +55,7 @@ public final class KeyboardInternal
 	}
 	
 	/**
-	 * Unused
+	 * Create callbacks
 	 */
 	public static void create()
 	{
@@ -63,7 +63,7 @@ public final class KeyboardInternal
 	}
 	
 	/**
-	 * Unused
+	 * Release callbacks
 	 */
 	public static void destroy()
 	{
