@@ -39,12 +39,12 @@ public class WindowController extends Component
 	@Override
 	protected void start()
 	{
-		Logger.log("Press F for exclusive fullscreen", this);
-		Logger.log("Press G for borderless fullscreen", this);
-		Logger.log("Press H for windowed", this);
+		Logger.log("Press F for exclusive fullscreen");
+		Logger.log("Press G for borderless fullscreen");
+		Logger.log("Press H for windowed");
 		
-		Logger.log("Press V to log all monitors", this);
-		Logger.log("Press B to log all available display modes on the primary monitor", this);
+		Logger.log("Press V to log all monitors");
+		Logger.log("Press B to log all available display modes on the primary monitor");
 	}
 	
 	@Override

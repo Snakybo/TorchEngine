@@ -40,7 +40,7 @@ import com.snakybo.sengine.util.Color32;
  */
 public final class Bitmap
 {
-	private BufferedImage bitmap;
+	BufferedImage bufferedImage;
 	
 	/**
 	 * Create a new bitmap
@@ -49,7 +49,7 @@ public final class Bitmap
 	 */
 	public Bitmap(int width, int height)
 	{
-		bitmap = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 	}
 	
 	/**
@@ -60,18 +60,30 @@ public final class Bitmap
 	{
 		try
 		{
-			File file = new File(fileName);			
+			File file = new File("./res/" + fileName);			
 			if(!file.exists())
 			{
 				throw new FileNotFoundException(fileName + " cannot be found");
 			}
 			
-			bitmap = ImageIO.read(file);
+			bufferedImage = ImageIO.read(file);
 		}
 		catch(IOException e)
 		{
 			Logger.logException(e, this);
 		}
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		return bufferedImage.hashCode();
+	}
+	
+	@Override
+	public boolean equals(Object obj)
+	{
+		return obj instanceof Bitmap && ((Bitmap)obj).bufferedImage.equals(bufferedImage);
 	}
 	
 	/**
@@ -86,7 +98,7 @@ public final class Bitmap
 			LoggerInternal.log("Saving bitmap to: " + outputFile + "." + format, this);
 			
 			File file = new File(outputFile + "." + format);
-			ImageIO.write(bitmap, format, file);
+			ImageIO.write(bufferedImage, format, file);
 		}
 		catch(IOException e)
 		{
@@ -100,7 +112,7 @@ public final class Bitmap
 	 */
 	public final void setPixels(int[] pixels)
 	{
-		bitmap.setRGB(0, 0, getWidth(), getHeight(), pixels, 0, getWidth());
+		bufferedImage.setRGB(0, 0, getWidth(), getHeight(), pixels, 0, getWidth());
 	}
 	
 	/**
@@ -133,7 +145,7 @@ public final class Bitmap
 	 */
 	public final void setPixel(int x, int y, int pixel)
 	{
-		bitmap.setRGB(x, y, pixel);
+		bufferedImage.setRGB(x, y, pixel);
 	}
 	
 	/**
@@ -141,7 +153,7 @@ public final class Bitmap
 	 */
 	public final int[] getPixels()
 	{
-		return bitmap.getRGB(0, 0, getWidth(), getHeight(), null, 0, getWidth());
+		return bufferedImage.getRGB(0, 0, getWidth(), getHeight(), null, 0, getWidth());
 	}
 	
 	/**
@@ -151,7 +163,7 @@ public final class Bitmap
 	 */
 	public final int getPixel(int x, int y)
 	{
-		return bitmap.getRGB(x, y);
+		return bufferedImage.getRGB(x, y);
 	}
 	
 	/**
@@ -159,7 +171,7 @@ public final class Bitmap
 	 */
 	public final int getWidth()
 	{
-		return bitmap.getWidth();
+		return bufferedImage.getWidth();
 	}
 	
 	/**
@@ -167,7 +179,7 @@ public final class Bitmap
 	 */
 	public final int getHeight()
 	{
-		return bitmap.getHeight();
+		return bufferedImage.getHeight();
 	}
 	
 	/**
@@ -175,6 +187,6 @@ public final class Bitmap
 	 */
 	public final boolean hasAlpha()
 	{
-		return bitmap.getColorModel().hasAlpha();
+		return bufferedImage.getColorModel().hasAlpha();
 	}
 }

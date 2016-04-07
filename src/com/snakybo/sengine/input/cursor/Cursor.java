@@ -22,11 +22,28 @@
 
 package com.snakybo.sengine.input.cursor;
 
+import static org.lwjgl.glfw.GLFW.GLFW_ARROW_CURSOR;
+import static org.lwjgl.glfw.GLFW.GLFW_CROSSHAIR_CURSOR;
 import static org.lwjgl.glfw.GLFW.GLFW_CURSOR;
 import static org.lwjgl.glfw.GLFW.GLFW_CURSOR_DISABLED;
 import static org.lwjgl.glfw.GLFW.GLFW_CURSOR_NORMAL;
+import static org.lwjgl.glfw.GLFW.GLFW_HAND_CURSOR;
+import static org.lwjgl.glfw.GLFW.GLFW_HRESIZE_CURSOR;
+import static org.lwjgl.glfw.GLFW.GLFW_IBEAM_CURSOR;
+import static org.lwjgl.glfw.GLFW.GLFW_VRESIZE_CURSOR;
+import static org.lwjgl.glfw.GLFW.glfwCreateCursor;
+import static org.lwjgl.glfw.GLFW.glfwCreateStandardCursor;
+import static org.lwjgl.glfw.GLFW.glfwSetCursor;
 import static org.lwjgl.glfw.GLFW.glfwSetInputMode;
 
+import java.nio.ByteBuffer;
+
+import org.joml.Vector2f;
+import org.lwjgl.glfw.GLFWImage;
+
+import com.snakybo.sengine.debug.Logger;
+import com.snakybo.sengine.texture.Bitmap;
+import com.snakybo.sengine.texture.ImageUtils;
 import com.snakybo.sengine.window.WindowInternal;
 
 /**
@@ -59,5 +76,96 @@ public final class Cursor
 	public static void setVisible(boolean visible)
 	{
 		glfwSetInputMode(WindowInternal.window, GLFW_CURSOR, visible ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_DISABLED);
+	}
+	
+	/**
+	 * Set the cursor to a standard arrow shape
+	 */
+	public static void setShapeArrow()
+	{
+		setShape(glfwCreateStandardCursor(GLFW_ARROW_CURSOR));
+	}
+	
+	/**
+	 * Set the cursor to a standard IBeam shape
+	 */
+	public static void setShapeIBeam()
+	{
+		setShape(glfwCreateStandardCursor(GLFW_IBEAM_CURSOR));
+	}
+	
+	/**
+	 * Set the cursor to a standard crosshair shape
+	 */
+	public static void setShapeCrosshair()
+	{
+		setShape(glfwCreateStandardCursor(GLFW_CROSSHAIR_CURSOR));
+	}
+	
+	/**
+	 * Set the cursor to a standard hand shape
+	 */
+	public static void setShapeHand()
+	{
+		setShape(glfwCreateStandardCursor(GLFW_HAND_CURSOR));
+	}
+	
+	/**
+	 * Set the cursor to a standard Horizontal Resize shape
+	 */
+	public static void setShapeHResize()
+	{
+		setShape(glfwCreateStandardCursor(GLFW_HRESIZE_CURSOR));
+	}
+	
+	/**
+	 * Set the cursor to a standard Vertical Resize shape
+	 */
+	public static void setShapeVResize()
+	{
+		setShape(glfwCreateStandardCursor(GLFW_VRESIZE_CURSOR));
+	}
+	
+	/**
+	 * Set a custom cursor shape
+	 * @param bitmap - The bitmap to use as cursor
+	 */
+	public static void setShape(Bitmap bitmap)
+	{
+		setShape(bitmap, new Vector2f(0, 0));
+	}
+	
+	/**
+	 * Set a custom cursor shape
+	 * @param bitmap - The bitmap to use as cursor
+	 * @param hot - The position that actually clicks
+	 */
+	public static void setShape(Bitmap bitmap, Vector2f hot)
+	{
+		if(CursorShape.hasCursor(bitmap, hot))
+		{
+			setShape(CursorShape.getCursor(bitmap, hot));
+			Logger.log("LOADED");
+		}
+		else
+		{
+			ByteBuffer buffer = ImageUtils.toByteByffer(bitmap);
+			GLFWImage image = GLFWImage.malloc().set(bitmap.getWidth(), bitmap.getHeight(), buffer);
+			
+			long cursor = glfwCreateCursor(image, Math.round(hot.x), Math.round(hot.y));
+			CursorShape.addCursor(bitmap, hot, cursor);
+			
+			setShape(cursor);
+			Logger.log("CREATED");
+		}
+	}
+	
+	/**
+	 * Set the shape of the cursor
+	 * @param shape - The new shape of the cursor
+	 */
+	private static void setShape(long shape)
+	{
+		glfwSetCursor(WindowInternal.window, shape);
 	}
 }
