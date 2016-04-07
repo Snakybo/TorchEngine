@@ -25,6 +25,9 @@ package com.snakybo.sengine.input.keyboad;
 import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 import static org.lwjgl.glfw.GLFW.GLFW_REPEAT;
 import static org.lwjgl.glfw.GLFW.glfwGetKey;
+import static org.lwjgl.glfw.GLFW.glfwSetCharCallback;
+
+import org.lwjgl.glfw.GLFWCharCallback;
 
 import com.snakybo.sengine.window.WindowInternal;
 
@@ -34,6 +37,17 @@ import com.snakybo.sengine.window.WindowInternal;
  */
 public final class KeyboardInternal
 {
+	private static class CharCallback extends GLFWCharCallback
+	{
+		@Override
+		public void invoke(long window, int codepoint)
+		{
+			Keyboard.onCharPressed(Character.toChars(codepoint)[0]);
+		}
+	}
+	
+	private static GLFWCharCallback glfwCharCallback;
+	
 	private KeyboardInternal()
 	{
 		throw new AssertionError();
@@ -44,6 +58,7 @@ public final class KeyboardInternal
 	 */
 	public static void create()
 	{
+		glfwSetCharCallback(WindowInternal.window, glfwCharCallback = new CharCallback());
 	}
 	
 	/**
@@ -51,6 +66,7 @@ public final class KeyboardInternal
 	 */
 	public static void destroy()
 	{
+		glfwCharCallback.release();
 	}
 	
 	/**
