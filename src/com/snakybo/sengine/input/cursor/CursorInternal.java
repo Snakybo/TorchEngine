@@ -22,12 +22,17 @@
 
 package com.snakybo.sengine.input.cursor;
 
+import static org.lwjgl.glfw.GLFW.glfwSetCursorEnterCallback;
+
 import org.joml.Vector2f;
+import org.lwjgl.glfw.GLFWCursorEnterCallback;
 
 import com.snakybo.sengine.input.keyboad.Key;
 import com.snakybo.sengine.input.keyboad.Keyboard;
 import com.snakybo.sengine.input.mouse.Mouse;
+import com.snakybo.sengine.scene.SceneUtilities;
 import com.snakybo.sengine.window.Window;
+import com.snakybo.sengine.window.WindowInternal;
 
 /**
  * @author Snakybo
@@ -35,6 +40,17 @@ import com.snakybo.sengine.window.Window;
  */
 public class CursorInternal
 {
+	private static class CursorEnterCallback extends GLFWCursorEnterCallback
+	{
+		@Override
+		public void invoke(long window, int entered)
+		{
+			SceneUtilities.notifyGameObjectsCursorEntered(entered == 1 ? CursorEnterMode.Entered : CursorEnterMode.Left);
+		}
+	}
+	
+	private static GLFWCursorEnterCallback glfwCursorEnterCallback;
+	
 	private CursorInternal()
 	{
 		throw new AssertionError();
@@ -45,6 +61,7 @@ public class CursorInternal
 	 */
 	public static void create()
 	{
+		glfwSetCursorEnterCallback(WindowInternal.window, glfwCursorEnterCallback = new CursorEnterCallback());
 	}
 	
 	/**
@@ -52,6 +69,7 @@ public class CursorInternal
 	 */
 	public static void destroy()
 	{
+		glfwCursorEnterCallback.release();
 	}
 	
 	/**

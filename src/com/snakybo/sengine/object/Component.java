@@ -22,6 +22,8 @@
 
 package com.snakybo.sengine.object;
 
+import com.snakybo.sengine.input.cursor.CursorEnterMode;
+
 /**
  * @author Snakybo
  * @since 1.0
@@ -84,6 +86,22 @@ public abstract class Component extends Object
 	 * Called when the component or parent {@link GameObject} has been destroyed by {@link #destroy(Object)}
 	 */
 	protected void destroy()
+	{
+	}
+	
+	/**
+	 * Called when the cursor has entered or left the game window
+	 * @param enterMode - The enter mode
+	 */
+	protected void onCursorEnter(CursorEnterMode enterMode)
+	{
+	}
+	
+	/**
+	 * Called when a character on the keyboard has been pressed. Useful for text input
+	 * @param c - The char
+	 */
+	protected void onCharPressed(char c)
 	{
 	}
 	

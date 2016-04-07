@@ -25,9 +25,6 @@ package com.snakybo.sengine.input.keyboad;
 import static org.lwjgl.glfw.GLFW.glfwGetClipboardString;
 import static org.lwjgl.glfw.GLFW.glfwSetClipboardString;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import com.snakybo.sengine.window.WindowInternal;
 
 /**
@@ -35,20 +32,8 @@ import com.snakybo.sengine.window.WindowInternal;
  * @since 1.0
  */
 public final class Keyboard
-{
-	@FunctionalInterface
-	public interface CharListener
-	{
-		/**
-		 * Called when a character has been pressed on the keyboard
-		 * @param c - The character pressed
-		 */
-		void onCharPressed(char c);
-	}
-	
+{	
 	private static final int LAST = Key.MENU.id;
-	
-	static Set<CharListener> charListeners = new HashSet<CharListener>();
 	
 	static boolean[] current = new boolean[LAST];
 	static boolean[] last = new boolean[LAST];
@@ -56,53 +41,6 @@ public final class Keyboard
 	private Keyboard()
 	{
 		throw new AssertionError();
-	}
-	
-	/**
-	 * Called when a character has been pressed on the keyboard
-	 * @param c - The character pressed
-	 */
-	static void onCharPressed(char c)
-	{
-		for(CharListener listener : charListeners)
-		{
-			listener.onCharPressed(c);
-		}
-	}
-	
-	/**
-	 * Add a character listener
-	 * @param listener - The listener
-	 */
-	public static void addCharListener(CharListener listener)
-	{
-		charListeners.add(listener);
-	}
-	
-	/**
-	 * @return Get the current string stored on the clipboard
-	 */
-	public static String getClipboardString()
-	{
-		return glfwGetClipboardString(WindowInternal.window);
-	}
-	
-	/**
-	 * Set the value of the Clipboard
-	 * @param string - The new value of the clipboard
-	 */
-	public static void setClipboardString(String string)
-	{
-		glfwSetClipboardString(WindowInternal.window, string);
-	}
-	
-	/**
-	 * Remove a character listener
-	 * @param listener - The listener
-	 */
-	public static void removeCharListener(CharListener listener)
-	{
-		charListeners.remove(listener);
 	}
 	
 	/**
@@ -136,5 +74,22 @@ public final class Keyboard
 	public static boolean onKeyUp(Key key)
 	{
 		return !current[key.id] && last[key.id];
+	}
+
+	/**
+	 * Set the value of the Clipboard
+	 * @param string - The new value of the clipboard
+	 */
+	public static void setClipboardString(String string)
+	{
+		glfwSetClipboardString(WindowInternal.window, string);
+	}
+
+	/**
+	 * @return Get the current string stored on the clipboard
+	 */
+	public static String getClipboardString()
+	{
+		return glfwGetClipboardString(WindowInternal.window);
 	}
 }

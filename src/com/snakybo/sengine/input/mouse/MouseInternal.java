@@ -39,7 +39,7 @@ import com.snakybo.sengine.window.WindowInternal;
  * @since 1.0
  */
 public final class MouseInternal
-{	
+{
 	private MouseInternal()
 	{
 		throw new AssertionError();

@@ -29,6 +29,7 @@ import static org.lwjgl.glfw.GLFW.glfwSetCharCallback;
 
 import org.lwjgl.glfw.GLFWCharCallback;
 
+import com.snakybo.sengine.scene.SceneUtilities;
 import com.snakybo.sengine.window.WindowInternal;
 
 /**
@@ -42,7 +43,7 @@ public final class KeyboardInternal
 		@Override
 		public void invoke(long window, int codepoint)
 		{
-			Keyboard.onCharPressed(Character.toChars(codepoint)[0]);
+			SceneUtilities.notifyGameObjectsCharPressed(Character.toChars(codepoint)[0]);
 		}
 	}
 	

@@ -22,6 +22,7 @@
 
 package com.snakybo.sengine.object;
 
+import com.snakybo.sengine.input.cursor.CursorEnterMode;
 import com.snakybo.sengine.scene.SceneUtilities;
 
 /**
@@ -33,6 +34,38 @@ public final class GameObjectUtilities
 	private GameObjectUtilities()
 	{
 		throw new AssertionError();
+	}
+	
+	/**
+	 * Notify a GameObject that the cursor has entered or left the game window
+	 * @param gameObject - The GameObject to notify
+	 * @param enterMode - The enter mode
+	 */
+	public static void notifyCursorEnter(GameObject gameObject, CursorEnterMode enterMode)
+	{
+		for(Component component : gameObject.frameQueue)
+		{
+			if(component.started)
+			{
+				component.onCursorEnter(enterMode);
+			}
+		}
+	}
+	
+	/**
+	 * Notify a GameObject that a character has been pressed on the keyboard
+	 * @param gameObject - The GameObject to notify
+	 * @param c - The character pressed
+	 */
+	public static void notifyCharPressed(GameObject gameObject, char c)
+	{
+		for(Component component : gameObject.frameQueue)
+		{
+			if(component.started)
+			{
+				component.onCharPressed(c);
+			}
+		}
 	}
 	
 	/**

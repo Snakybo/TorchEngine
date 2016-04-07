@@ -25,6 +25,7 @@ package com.snakybo.sengine.scene;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.snakybo.sengine.input.cursor.CursorEnterMode;
 import com.snakybo.sengine.object.Component;
 import com.snakybo.sengine.object.GameObject;
 import com.snakybo.sengine.object.GameObjectUtilities;
@@ -118,5 +119,29 @@ public final class SceneUtilities
 	public static void unregister(GameObject gameObject)
 	{
 		Scene.gameObjects.remove(gameObject);
+	}
+	
+	/**
+	 * Notify all GameObjects that the cursor has entered or left the game window
+	 * @param enterMode - The enter mode
+	 */
+	public static void notifyGameObjectsCursorEntered(CursorEnterMode enterMode)
+	{
+		for(GameObject gameObject : frameQueue)
+		{
+			GameObjectUtilities.notifyCursorEnter(gameObject, enterMode);
+		}
+	}
+	
+	/**
+	 * Notify all GameObjects that a character has been pressed on the keyboard
+	 * @param c - The character pressed
+	 */
+	public static void notifyGameObjectsCharPressed(char c)
+	{
+		for(GameObject gameObject : frameQueue)
+		{
+			GameObjectUtilities.notifyCharPressed(gameObject, c);
+		}
 	}
 }
