@@ -22,8 +22,6 @@
 
 package cursor;
 
-import org.joml.Vector2f;
-
 import com.snakybo.sengine.Game;
 import com.snakybo.sengine.debug.Logger;
 import com.snakybo.sengine.input.cursor.Cursor;
