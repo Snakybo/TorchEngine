@@ -23,6 +23,7 @@
 package com.snakybo.sengine.input.cursor;
 
 import java.util.HashSet;
+import java.util.Set;
 
 import org.joml.Vector2f;
 
@@ -34,7 +35,7 @@ import com.snakybo.sengine.texture.Bitmap;
  */
 class CursorShape
 {
-	private static HashSet<CursorShape> cursorShapeCache = new HashSet<CursorShape>();
+	private static Set<CursorShape> cursorShapeCache = new HashSet<CursorShape>();
 	
 	private Bitmap bitmap;
 	private Vector2f hot;
