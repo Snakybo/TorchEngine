@@ -40,7 +40,12 @@ import com.snakybo.sengine.window.WindowInternal;
  * @since 1.0
  */
 public final class SEngine
-{
+{	
+	public static final int VERSION_MAJOR = 1;
+	public static final int VERSION_MINOR = 0;
+	public static final int VERSION_PATCH = 0;
+	public static final String VERSION_STRING = VERSION_MAJOR + "." + VERSION_MINOR + "." + VERSION_PATCH;
+	
 	private static String gameName;
 	
 	private static boolean running;
@@ -59,6 +64,7 @@ public final class SEngine
 		if(!running)
 		{
 			LoggerInternal.log("Starting", "SEngine");
+			LoggerInternal.log("SEngine version: " + VERSION_STRING, "SEngine");
 			LoggerInternal.log("Game name: " + game.getName(), "SEngine");
 			
 			logLWJGLInfo();
