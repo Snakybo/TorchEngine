@@ -24,6 +24,9 @@ package com.snakybo.sengine.input.mouse;
 
 import static org.lwjgl.glfw.GLFW.glfwSetCursorPos;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.joml.Vector2f;
 
 import com.snakybo.sengine.window.WindowInternal;
@@ -44,9 +47,30 @@ public final class Mouse
 	
 	static Vector2f scrollDelta;
 	
+	private static Map<String, MouseButton> inputMapping = new HashMap<String, MouseButton>();
+	
 	private Mouse()
 	{
 		throw new AssertionError();
+	}
+	
+	/**
+	 * Register a new input map
+	 * @param name - The name of the map
+	 * @param key - The key to assign to the map
+	 */
+	public static void addInputMapping(String name, MouseButton mouseButton)
+	{
+		inputMapping.put(name, mouseButton);
+	}
+	
+	/**
+	 * Unregister an input map
+	 * @param name - The name of the map to unassign
+	 */
+	public static void removeInputMapping(String name)
+	{
+		inputMapping.remove(name);
 	}
 	
 	/**
@@ -95,6 +119,21 @@ public final class Mouse
 	}
 	
 	/**
+	 * Returns true if the mouse button assigned to the specified map is currently held down
+	 * @param map - The name of the map
+	 * @return True if the mouse button assigned to the map is currently held down
+	 */
+	public static boolean isMapDown(String map)
+	{
+		if(!inputMapping.containsKey(map))
+		{
+			return false;
+		}
+		
+		return isMouseDown(inputMapping.get(map));
+	}
+	
+	/**
 	 * Returns true if the specified mouse button is currently held down
 	 * @param mouseButton - The mouse button
 	 * @return True if the mouse button is currently held down
@@ -106,6 +145,21 @@ public final class Mouse
 	}
 	
 	/**
+	 * Returns true the frame when the specified mouse button assigned to the map is pressed 
+	 * @param map - The name of the map
+	 * @return True if the mouse button assigned to the map was pressed in this frame
+	 */
+	public static boolean onMapDown(String map)
+	{
+		if(!inputMapping.containsKey(map))
+		{
+			return false;
+		}
+		
+		return onMouseDown(inputMapping.get(map));
+	}
+	
+	/**
 	 * Returns true the frame when the specified mouse button is pressed 
 	 * @param mouseButton - The mouse button
 	 * @return True if the mouse button was pressed in this frame
@@ -114,6 +168,21 @@ public final class Mouse
 	public static boolean onMouseDown(MouseButton mouseButton)
 	{
 		return current[mouseButton.id] && !last[mouseButton.id];
+	}
+	
+	/**
+	 * Returns true the frame when the specified mouse button assigned to the map was released
+	 * @param map - The name of the map
+	 * @return True if the mouse button assigned to the map was released in this frame
+	 */
+	public static boolean onMapUp(String map)
+	{
+		if(!inputMapping.containsKey(map))
+		{
+			return false;
+		}
+		
+		return onMouseUp(inputMapping.get(map));
 	}
 	
 	/**

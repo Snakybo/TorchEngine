@@ -25,6 +25,9 @@ package com.snakybo.sengine.input.keyboad;
 import static org.lwjgl.glfw.GLFW.glfwGetClipboardString;
 import static org.lwjgl.glfw.GLFW.glfwSetClipboardString;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.snakybo.sengine.window.WindowInternal;
 
 /**
@@ -38,9 +41,45 @@ public final class Keyboard
 	static boolean[] current = new boolean[LAST];
 	static boolean[] last = new boolean[LAST];
 	
+	private static Map<String, Key> inputMapping = new HashMap<String, Key>();
+	
 	private Keyboard()
 	{
 		throw new AssertionError();
+	}
+	
+	/**
+	 * Register a new input map
+	 * @param name - The name of the map
+	 * @param key - The key to assign to the map
+	 */
+	public static void addInputMapping(String name, Key key)
+	{
+		inputMapping.put(name, key);
+	}
+	
+	/**
+	 * Unregister an input map
+	 * @param name - The name of the map to unassign
+	 */
+	public static void removeInputMapping(String name)
+	{
+		inputMapping.remove(name);
+	}
+	
+	/**
+	 * Returns true if the key assigned to the specified map is currently held down
+	 * @param map - The name of the map
+	 * @return True if the key assigned to the map is currently held down
+	 */
+	public static boolean isMapDown(String map)
+	{
+		if(!inputMapping.containsKey(map))
+		{
+			return false;
+		}
+		
+		return isKeyDown(inputMapping.get(map));
 	}
 	
 	/**
@@ -55,6 +94,21 @@ public final class Keyboard
 	}
 	
 	/**
+	 * Returns true the frame when the specified key assigned to the map is pressed 
+	 * @param map - The name of the map
+	 * @return True if the key assigned to the map was pressed in this frame
+	 */
+	public static boolean onMapDown(String map)
+	{
+		if(!inputMapping.containsKey(map))
+		{
+			return false;
+		}
+		
+		return onKeyDown(inputMapping.get(map));
+	}
+	
+	/**
 	 * Returns true the frame when the specified key is pressed 
 	 * @param key - The key
 	 * @return True if the key was pressed in this frame
@@ -63,6 +117,21 @@ public final class Keyboard
 	public static boolean onKeyDown(Key key)
 	{
 		return current[key.id] && !last[key.id];
+	}
+	
+	/**
+	 * Returns true the frame when the specified key assigned to the map was released
+	 * @param map - The name of the map
+	 * @return True if the key assigned to the map was released in this frame
+	 */
+	public static boolean onMapUp(String map)
+	{
+		if(!inputMapping.containsKey(map))
+		{
+			return false;
+		}
+		
+		return onKeyUp(inputMapping.get(map));
 	}
 	
 	/**

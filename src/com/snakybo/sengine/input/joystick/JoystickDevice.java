@@ -78,7 +78,12 @@ final class JoystickDevice
 	 */
 	public final boolean isButtonDown(int button)
 	{
-		return buttonsCurrent[button];
+		if(button >= 0 && button < buttonsCurrent.length)
+		{
+			return buttonsCurrent[button];
+		}
+		
+		return false;
 	}
 	
 	/**
@@ -88,7 +93,12 @@ final class JoystickDevice
 	 */
 	public final boolean onButtonDown(int button)
 	{
-		return buttonsCurrent[button] && !buttonsLast[button];
+		if(button >= 0 && button < buttonsCurrent.length)
+		{
+			return buttonsCurrent[button] && !buttonsLast[button];
+		}
+		
+		return false;
 	}
 	
 	/**
@@ -98,7 +108,12 @@ final class JoystickDevice
 	 */
 	public final boolean onButtonUp(int button)
 	{
-		return !buttonsCurrent[button] && buttonsLast[button];
+		if(button >= 0 && button < buttonsCurrent.length)
+		{
+			return !buttonsCurrent[button] && buttonsLast[button];
+		}
+		
+		return false;
 	}
 	
 	/**
@@ -116,7 +131,12 @@ final class JoystickDevice
 	 */
 	public final float getAxis(int axis)
 	{
-		return axes[axis];
+		if(axis >= 0 && axis < buttonsCurrent.length)
+		{
+			return axes[axis];
+		}
+		
+		return 0;
 	}
 	
 	/**
