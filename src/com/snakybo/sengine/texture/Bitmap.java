@@ -93,14 +93,14 @@ public final class Bitmap
 	 * @param outputFile - The path to the output file
 	 * @param format - The format of the image
 	 */
-	public final void saveToDisk(String outputFile, String format)
+	public final void saveToDisk(String outputFile, BitmapOutputFormat format)
 	{
 		try
 		{
 			LoggerInternal.log("Saving bitmap to: " + outputFile + "." + format, this);
 			
 			File file = new File(outputFile + "." + format);
-			ImageIO.write(bufferedImage, format, file);
+			ImageIO.write(bufferedImage, format.asString(), file);
 		}
 		catch(IOException e)
 		{
