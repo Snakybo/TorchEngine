@@ -34,7 +34,7 @@ import com.snakybo.sengine.window.Window;
  * @author Snakybo
  * @since 1.0
  */
-public class WindowController extends Component
+class WindowController extends Component
 {
 	@Override
 	protected void start()

@@ -48,6 +48,7 @@ public final class SEngine
 	
 	private static String gameName;
 	
+	private static boolean created;
 	private static boolean running;
 	
 	private SEngine()
@@ -56,21 +57,21 @@ public final class SEngine
 	}
 	
 	/**
-	 * Start the engine, called by the constructor of {@link Game}
+	 * Create the engine, called by the {@link Game#Game(String)}
 	 * @param game The game
 	 */
-	static void start(Game game)
+	static void create(String gameName)
 	{
-		if(!running)
+		if(!created)
 		{
 			LoggerInternal.log("Starting", "SEngine");
 			LoggerInternal.log("SEngine version: " + VERSION_STRING, "SEngine");
-			LoggerInternal.log("Game name: " + game.getName(), "SEngine");
+			LoggerInternal.log("Game name: " + gameName, "SEngine");
 			
 			logLWJGLInfo();
 			
-			SEngine.running = true;
-			SEngine.gameName = game.getName();
+			SEngine.created = true;
+			SEngine.gameName = gameName;
 			
 			// Initialize engine systems
 			WindowInternal.createWindowed(1280, 720);
@@ -80,11 +81,18 @@ public final class SEngine
 			MouseInternal.create();
 			CursorInternal.create();
 			JoystickInternal.create();
+		}
+	}
+	
+	/**
+	 * Start the engine, called by {@link Game#start()}
+	 */
+	static void start()
+	{
+		if(created && !running)
+		{
+			SEngine.running = true;
 			
-			// Create the scene
-			game.createScene();
-			
-			// Begin the main loop
 			mainLoop();
 		}
 	}
@@ -115,6 +123,9 @@ public final class SEngine
 			
 			TimeInternal.update();
 			unprocessedTime += TimeInternal.getPassedTime();
+			
+			// Load the new scene if the user scheduled a scene load via SceneManager.load
+			SceneUtilities.loadScene();
 			
 			// Construct the frame queue
 			// Might have to be moved to updateCycle()

@@ -29,30 +29,18 @@ import com.snakybo.sengine.util.time.TimeInternal;
  * @author Snakybo
  * @since 1.0
  */
-public abstract class Game
+public final class Game
 {
 	private static int targetFrameRate = 60;
 	
-	private final String name;
-	
-	public Game(String name)
+	public static void create(String name)
 	{
-		this.name = name;
-		
-		SEngine.start(this);
+		SEngine.create(name);
 	}
 	
-	/**
-	 * Used to create the game scene
-	 */
-	public abstract void createScene();
-	
-	/**
-	 * @return The name of the game
-	 */
-	public final String getName()
+	public static void start()
 	{
-		return name;
+		SEngine.start();
 	}
 	
 	/**

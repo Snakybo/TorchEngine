@@ -22,38 +22,68 @@
 
 package com.snakybo.sengine.scene;
 
-import java.util.HashSet;
-import java.util.Set;
-
+import com.snakybo.sengine.debug.LoggerInternal;
 import com.snakybo.sengine.object.GameObject;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class Scene
+public final class SceneManager
 {
-	Set<GameObject> gameObjects;
+	static Scene currentScene;
 	
-	private final String name;
+	private static Scene newScene;
 	
-	public Scene(String name)
+	static
 	{
-		gameObjects = new HashSet<GameObject>();
-		
-		this.name = name;
+		load(new Scene("New Scene"));
+		doLoad();
 	}
 	
-	public final String getName()
+	private SceneManager()
 	{
-		return name;
+		throw new AssertionError();
 	}
 	
 	/**
-	 * @return The number of {@link GameObject}s in the scene
+	 * Load a new scene
+	 * @param scene - The new scene
 	 */
-	public final int getSceneSize()
+	public static void load(Scene scene)
 	{
-		return gameObjects.size();
+		newScene = scene;
+	}
+	
+	/**
+	 * Find a {@link GameObject} with the specified name
+	 * @param name - The name of the {@link GameObject}
+	 * @return The {@link GameObject} with the specified name, or {@code null} if no {@link GameObject} was found
+	 */
+	public static GameObject find(String name)
+	{
+		for(GameObject gameObject : currentScene.gameObjects)
+		{
+			if(gameObject.getName().equals(name))
+			{
+				return gameObject;
+			}
+		}
+		
+		return null;
+	}
+	
+	static void doLoad()
+	{
+		currentScene = newScene;
+		LoggerInternal.log("Loaded scene: " + currentScene.getName(), "SceneManager");
+	}
+	
+	/**
+	 * @return The currently loaded scene
+	 */
+	public static Scene getCurrentScene()
+	{
+		return currentScene;
 	}
 }

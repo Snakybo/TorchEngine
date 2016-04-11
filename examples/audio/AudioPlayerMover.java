@@ -30,7 +30,7 @@ import com.snakybo.sengine.object.Component;
  * @author Snakybo
  * @since 1.0
  */
-public class AudioPlayerMover extends Component
+class AudioPlayerMover extends Component
 {
 	private Vector3f position;
 	

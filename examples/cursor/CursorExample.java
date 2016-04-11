@@ -35,9 +35,9 @@ import com.snakybo.sengine.texture.Bitmap;
  * @author Snakybo
  * @since 1.0
  */
-public class CursorExample extends Game
+class CursorExample
 {
-	private class CursorManager extends Component
+	private static class CursorManager extends Component
 	{
 		private final int NUM_CURSORS = 5;
 		
@@ -100,20 +100,18 @@ public class CursorExample extends Game
 		}
 	}
 	
-	public CursorExample()
+	public static void main(String[] args)
 	{
-		super("Cursor Test");
+		Game.create("Cursor Test");
+		
+		loadScene();
+		
+		Game.start();
 	}
 	
-	@Override
-	public void createScene()
+	private static void loadScene()
 	{
 		GameObject cursorManager = new GameObject("Cursor Manager");
 		cursorManager.addComponent(new CursorManager());
-	}
-	
-	public static void main(String[] args)
-	{
-		new CursorExample();
 	}
 }

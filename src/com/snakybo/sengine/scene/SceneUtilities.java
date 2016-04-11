@@ -44,13 +44,21 @@ public final class SceneUtilities
 	}
 	
 	/**
+	 * Actually load a new scene
+	 */
+	public static void loadScene()
+	{
+		SceneManager.doLoad();
+	}
+	
+	/**
 	 * Construct the frame queue, the frame queue contains all {@link GameObject}s which will receive updates this frame.
 	 * It will also call {@link GameObjectUtilities#constructFrameQueue(GameObject)} for those {@link GameObject}s
 	 */
 	public static void constructFrameQueue()
 	{
 		frameQueue.clear();
-		frameQueue.addAll(Scene.gameObjects);
+		frameQueue.addAll(SceneManager.currentScene.gameObjects);
 		
 		// Construct the frame queue for all GameObjects in the frame queue
 		for(GameObject gameObject : frameQueue)
@@ -108,7 +116,7 @@ public final class SceneUtilities
 	 */
 	public static void register(GameObject gameObject)
 	{
-		Scene.gameObjects.add(gameObject);
+		SceneManager.currentScene.gameObjects.add(gameObject);
 	}
 	
 	/**
@@ -118,7 +126,7 @@ public final class SceneUtilities
 	 */
 	public static void unregister(GameObject gameObject)
 	{
-		Scene.gameObjects.remove(gameObject);
+		SceneManager.currentScene.gameObjects.remove(gameObject);
 	}
 	
 	/**

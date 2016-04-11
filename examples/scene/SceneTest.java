@@ -20,40 +20,63 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.sengine.scene;
+package scene;
 
-import java.util.HashSet;
-import java.util.Set;
-
+import com.snakybo.sengine.Game;
+import com.snakybo.sengine.debug.Logger;
+import com.snakybo.sengine.input.keyboad.Key;
+import com.snakybo.sengine.input.keyboad.Keyboard;
+import com.snakybo.sengine.object.Component;
 import com.snakybo.sengine.object.GameObject;
+import com.snakybo.sengine.scene.Scene;
+import com.snakybo.sengine.scene.SceneManager;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class Scene
+class SceneTest
 {
-	Set<GameObject> gameObjects;
-	
-	private final String name;
-	
-	public Scene(String name)
+	private static class LogUpdate extends Component
 	{
-		gameObjects = new HashSet<GameObject>();
+		@Override
+		protected void update()
+		{
+			Logger.log("Update!");
+		}
+	}
+	
+	private static class SceneSwitcher extends Component
+	{
+		@Override
+		protected void start()
+		{
+			Logger.log("Loaded scene: " + SceneManager.getCurrentScene().getName());
+		}
 		
-		this.name = name;
+		@Override
+		protected void update()
+		{
+			if(Keyboard.onKeyDown(Key.SPACE))
+			{
+				SceneManager.load(new Scene("Scene 2"));
+			}
+		}
 	}
 	
-	public final String getName()
+	public static void main(String[] args)
 	{
-		return name;
+		Game.create("Scene Test");
+		
+		loadScene();
+		
+		Game.start();
 	}
 	
-	/**
-	 * @return The number of {@link GameObject}s in the scene
-	 */
-	public final int getSceneSize()
+	private static void loadScene()
 	{
-		return gameObjects.size();
+		GameObject go = new GameObject();
+		go.addComponent(new SceneSwitcher());
+		go.addComponent(new LogUpdate());
 	}
 }

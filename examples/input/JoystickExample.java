@@ -32,9 +32,9 @@ import com.snakybo.sengine.object.GameObject;
  * @author Snakybo
  * @since 1.0
  */
-public class JoystickExample extends Game
+class JoystickExample
 {
-	class JoystickManager extends Component
+	private static class JoystickManager extends Component
 	{
 		@Override
 		protected void update()
@@ -74,20 +74,18 @@ public class JoystickExample extends Game
 		}
 	}
 	
-	public JoystickExample()
+	public static void main(String[] args)
 	{
-		super("Joystick Example");
+		Game.create("Joystick Test");
+		
+		loadScene();
+		
+		Game.start();
 	}
 	
-	@Override
-	public void createScene()
+	private static void loadScene()
 	{
 		GameObject joystickManager = new GameObject();
 		joystickManager.addComponent(new JoystickManager());
-	}
-	
-	public static void main(String[] args)
-	{
-		new JoystickExample();
 	}
 }
