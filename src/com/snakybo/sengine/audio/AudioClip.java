@@ -22,7 +22,7 @@
 
 package com.snakybo.sengine.audio;
 
-import com.snakybo.sengine.resource.ResourceDatabase;
+import com.snakybo.sengine.resource.RuntimeResourceDatabase;
 import com.snakybo.sengine.util.IDestroyable;
 
 /**
@@ -42,14 +42,14 @@ public final class AudioClip implements IDestroyable
 	{
 		clip = "./res/" + clip;
 		
-		if(ResourceDatabase.hasResource(clip))
+		if(RuntimeResourceDatabase.hasResource(clip))
 		{
-			resource = (AudioResource)ResourceDatabase.link(clip, this);
+			resource = (AudioResource)RuntimeResourceDatabase.link(clip, this);
 		}
 		else
 		{
 			resource = new AudioResource(clip);
-			ResourceDatabase.register(clip, resource, this);
+			RuntimeResourceDatabase.register(clip, resource, this);
 		}
 	}
 	
@@ -69,7 +69,7 @@ public final class AudioClip implements IDestroyable
 	@Override
 	public void destroy()
 	{
-		ResourceDatabase.unlink(resource.getName(), this);
+		RuntimeResourceDatabase.unlink(resource.getName(), this);
 	}
 	
 	/**
