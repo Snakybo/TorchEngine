@@ -22,11 +22,15 @@
 
 package com.snakybo.sengine.camera;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 import com.snakybo.sengine.object.Transform;
+import com.snakybo.sengine.scene.SceneUtilities;
 import com.snakybo.sengine.util.Color;
 
 /**
@@ -35,6 +39,9 @@ import com.snakybo.sengine.util.Color;
  */
 public final class StandaloneCamera
 {
+	private static Set<StandaloneCamera> cameras = new HashSet<StandaloneCamera>();
+	private static StandaloneCamera current;
+	
 	private CameraClearFlags clearFlags;
 	
 	private Matrix4f projection;	
@@ -64,6 +71,13 @@ public final class StandaloneCamera
 		this.clearColor = clearColor;
 		
 		transform = new Transform();
+		
+		cameras.add(this);
+	}
+	
+	public void destroy()
+	{
+		cameras.remove(this);
 	}
 	
 	/**
@@ -71,14 +85,8 @@ public final class StandaloneCamera
 	 */
 	public final void render()
 	{
-		clear();
-	}
-	
-	/**
-	 * Apply the camera's clear setting
-	 */
-	private void clear()
-	{
+		current = this;
+		
 		switch(clearFlags)
 		{
 		case Skybox:
@@ -90,6 +98,8 @@ public final class StandaloneCamera
 		case NoClear:
 			break;
 		}
+		
+		current = null;
 	}
 	
 	/**
@@ -165,5 +175,22 @@ public final class StandaloneCamera
 	public final Color getClearColor()
 	{
 		return clearColor;
+	}
+	
+	/**
+	 * @return A collection of all cameras
+	 */
+	public static Iterable<StandaloneCamera> getCameras()
+	{
+		return cameras;
+	}
+	
+	/**
+	 * Get the current camera, use {@link Camera#getCurrentCamera()} unless you have to access internal cameras
+	 * @return The current camera
+	 */
+	public static StandaloneCamera getCurrentCamera()
+	{
+		return current;
 	}
 }

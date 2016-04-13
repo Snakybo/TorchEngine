@@ -22,6 +22,9 @@
 
 package com.snakybo.sengine.camera;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.joml.Matrix4f;
 
 import com.snakybo.sengine.object.Component;
@@ -33,7 +36,9 @@ import com.snakybo.sengine.util.Color;
  */
 public final class Camera extends Component
 {
-	private final StandaloneCamera camera;
+	private static Set<Camera> cameras = new HashSet<Camera>();
+	
+	private final StandaloneCamera standaloneCamera;
 	
 	/**
 	 * @see StandaloneCamera#StandaloneCamera(Matrix4f, CameraClearFlags)
@@ -48,13 +53,21 @@ public final class Camera extends Component
 	 */
 	public Camera(Matrix4f projection, CameraClearFlags clearFlags, Color clearColor)
 	{
-		camera = new StandaloneCamera(projection, clearFlags, clearColor);
+		standaloneCamera = new StandaloneCamera(projection, clearFlags, clearColor);
 	}
 	
 	@Override
 	protected final void start()
 	{
-		camera.setTransform(getTransform());
+		cameras.add(this);
+		standaloneCamera.setTransform(getTransform());
+	}
+	
+	@Override
+	protected void destroy()
+	{
+		cameras.remove(this);
+		standaloneCamera.destroy();
 	}
 	
 	/**
@@ -62,7 +75,7 @@ public final class Camera extends Component
 	 */
 	public final void render()
 	{
-		camera.render();
+		standaloneCamera.render();
 	}
 	
 	/**
@@ -70,7 +83,7 @@ public final class Camera extends Component
 	 */
 	public final void setClearFlags(CameraClearFlags clearFlags)
 	{
-		camera.setClearFlags(clearFlags);
+		standaloneCamera.setClearFlags(clearFlags);
 	}
 	
 	/**
@@ -78,7 +91,7 @@ public final class Camera extends Component
 	 */
 	public final void setProjection(Matrix4f projection)
 	{
-		camera.setProjection(projection);
+		standaloneCamera.setProjection(projection);
 	}
 	
 	/**
@@ -86,7 +99,7 @@ public final class Camera extends Component
 	 */
 	public final void setClearColor(Color clearColor)
 	{
-		camera.setClearColor(clearColor);
+		standaloneCamera.setClearColor(clearColor);
 	}
 	
 	/**
@@ -94,7 +107,7 @@ public final class Camera extends Component
 	 */
 	public final CameraClearFlags getClearFlags()
 	{
-		return camera.getClearFlags();
+		return standaloneCamera.getClearFlags();
 	}
 	
 	/**
@@ -102,7 +115,7 @@ public final class Camera extends Component
 	 */
 	public final Matrix4f getProjection()
 	{
-		return camera.getProjection();
+		return standaloneCamera.getProjection();
 	}
 	
 	/**
@@ -110,7 +123,7 @@ public final class Camera extends Component
 	 */
 	public final Matrix4f getViewProjection()
 	{
-		return camera.getViewProjection();
+		return standaloneCamera.getViewProjection();
 	}
 	
 	/**
@@ -118,6 +131,31 @@ public final class Camera extends Component
 	 */
 	public final Color getClearColor()
 	{
-		return camera.getClearColor();
+		return standaloneCamera.getClearColor();
+	}
+	
+	/**
+	 * @return A collection of all cameras
+	 */
+	public static Iterable<Camera> getCameras()
+	{
+		return cameras;
+	}
+	
+	/**
+	 * Get the current camera, this will return {@code null} if the engine is rendering a {@link StandaloneCamera}
+	 * @return The current camera or null
+	 */
+	public static Camera getCurrentCamera()
+	{
+		for(Camera camera : cameras)
+		{
+			if(camera.standaloneCamera == StandaloneCamera.getCurrentCamera())
+			{
+				return camera;
+			}
+		}
+		
+		return null;
 	}
 }
