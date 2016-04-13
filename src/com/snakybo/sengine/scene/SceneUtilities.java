@@ -25,10 +25,12 @@ package com.snakybo.sengine.scene;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.snakybo.sengine.camera.Camera;
 import com.snakybo.sengine.input.cursor.CursorEnterMode;
 import com.snakybo.sengine.object.Component;
 import com.snakybo.sengine.object.GameObject;
 import com.snakybo.sengine.object.GameObjectUtilities;
+import com.snakybo.sengine.renderer.OpenGLRenderer;
 
 /**
  * @author Snakybo
@@ -97,16 +99,29 @@ public final class SceneUtilities
 	}
 	
 	/**
-	 * Run a render cycle. The render cycle is:
-	 * <ol>
-	 * 	<li>Clear the scene</li>
-	 * 	<li>Call {@link Camera#render()} on all {@link Camera}s in the scene</li>
-	 * 	<li>Render lighting and shadows</li>
-	 * 	<li>Render post-process effects
+	 * Run a render cycle.
+	 * This will find all cameras in the scene, and call {@link Camera#render()} on them
 	 */
 	public static void runRenderCycle()
 	{
+		Iterable<Camera> cameras = Camera.getCameras();
 		
+		for(Camera camera : cameras)
+		{
+			camera.render();
+		}
+	}
+	
+	/**
+	 * Render a single camera
+	 * @param camera - The camera to render
+	 */
+	public static void renderCamera()
+	{
+		for(GameObject gameObject : frameQueue)
+		{
+			OpenGLRenderer.renderObject(gameObject);
+		}
 	}
 	
 	/**

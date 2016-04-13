@@ -99,6 +99,8 @@ public final class StandaloneCamera
 			break;
 		}
 		
+		SceneUtilities.renderCamera();
+		
 		current = null;
 	}
 	
