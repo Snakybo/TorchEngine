@@ -166,6 +166,24 @@ public final class File
 	}
 	
 	/**
+	 * Read the contents of a file, and merge them togheter in a single string
+	 * @param file - The file to read
+	 * @return The contents of the file
+	 */
+	public static String readLinesMerge(String file)
+	{
+		List<String> lines = readLines(file);
+		StringBuilder result = new StringBuilder();
+		
+		for(String line : lines)
+		{
+			result.append(line).append("\n");
+		}
+		
+		return result.toString();
+	}
+	
+	/**
 	 * Retrieve all files in a directory, and it's sub-directories
 	 * @param directory - The directory to walk
 	 * @return A list containing all found files
