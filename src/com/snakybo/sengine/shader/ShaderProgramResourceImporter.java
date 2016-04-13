@@ -36,6 +36,7 @@ import java.util.Set;
 
 import com.snakybo.sengine.io.File;
 import com.snakybo.sengine.resource.ResourceImporter;
+import com.snakybo.sengine.shader.ShaderProgram.ShaderProgramResource;
 
 /**
  * @author Snakybo

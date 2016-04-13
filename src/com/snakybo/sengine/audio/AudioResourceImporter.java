@@ -39,6 +39,7 @@ import java.nio.IntBuffer;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.stb.STBVorbisInfo;
 
+import com.snakybo.sengine.audio.AudioClip.AudioClipResource;
 import com.snakybo.sengine.debug.Logger;
 import com.snakybo.sengine.debug.LoggerInternal;
 import com.snakybo.sengine.io.FileUtils;
@@ -49,7 +50,7 @@ import com.snakybo.sengine.util.ALUtil;
  * @author Snakybo
  * @since 1.0
  */
-final class AudioResourceImporter extends ResourceImporter<AudioResource>
+final class AudioResourceImporter extends ResourceImporter<AudioClipResource>
 {
 	private final String fileName;
 	private final int bufferSize;
@@ -61,7 +62,7 @@ final class AudioResourceImporter extends ResourceImporter<AudioResource>
 	}
 	
 	@Override
-	protected AudioResource importResource()
+	protected AudioClipResource importResource()
 	{
 		if(!isFileValid(fileName))
 		{
@@ -109,7 +110,7 @@ final class AudioResourceImporter extends ResourceImporter<AudioResource>
 		pcm = BufferUtils.createByteBuffer(numSamples * 2);		
 		stb_vorbis_get_samples_short_interleaved(decoder, vorbisInfo.channels(), pcm, numSamples);
 		
-		return new AudioResource(fileName, duration, numSamples, sampleRate, format, pcm);
+		return new AudioClipResource(fileName, duration, numSamples, sampleRate, format, pcm);
 	}
 	
 	private final boolean isFileValid(String fileName)

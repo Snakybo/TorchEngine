@@ -22,6 +22,19 @@
 
 package com.snakybo.sengine.audio;
 
+import static org.lwjgl.openal.AL10.AL_BUFFER;
+import static org.lwjgl.openal.AL10.alBufferData;
+import static org.lwjgl.openal.AL10.alDeleteBuffers;
+import static org.lwjgl.openal.AL10.alGenBuffers;
+import static org.lwjgl.openal.AL10.alSourcei;
+import static org.lwjgl.openal.ALUtil.checkALError;
+
+import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
+
+import org.lwjgl.BufferUtils;
+
+import com.snakybo.sengine.resource.Resource;
 import com.snakybo.sengine.resource.ResourceDatabase;
 import com.snakybo.sengine.util.IDestroyable;
 
@@ -31,17 +44,53 @@ import com.snakybo.sengine.util.IDestroyable;
  */
 public final class AudioClip implements IDestroyable
 {
-	private final AudioResource resource;
+	static class AudioClipResource extends Resource
+	{
+		final IntBuffer buffer;
+		
+		float duration;
+		
+		int numSamples;
+		int sampleRate;
+		
+		/**
+		 * Create a new {@link AudioClipResource}, it will automatically import the specified {@code clip}
+		 * @param clip - The clip to import
+		 */
+		AudioClipResource(String fileName, float duration, int numSamples, int sampleRate, int format, ByteBuffer pcm)
+		{
+			super(fileName);
+			
+			this.buffer = BufferUtils.createIntBuffer(1);
+			this.duration = duration;
+			this.numSamples = numSamples;
+			this.sampleRate = sampleRate;
+			
+			alGenBuffers(buffer);
+			checkALError();
+				
+			alBufferData(buffer.get(0), format, pcm, sampleRate);
+			checkALError();
+		}
+		
+		@Override
+		public void destroy()
+		{
+			alDeleteBuffers(buffer);
+		}
+	}
+	
+	private final AudioClipResource resource;
 	
 	/**
 	 * Create a new {@link AudioClip}. If the specified {@code clip} has already been imported,
-	 * it will reuse the imported {@link AudioResource}
+	 * it will reuse the imported {@link AudioClipResource}
 	 * @param clip - The clip to load
 	 */
 	public AudioClip(String clip)
 	{
 		clip = "./res/" + clip;		
-		resource = ResourceDatabase.load(AudioResource.class, clip, this, new AudioResourceImporter(clip, 32));
+		resource = ResourceDatabase.load(AudioClipResource.class, clip, this, new AudioResourceImporter(clip, 32));
 	}
 	
 	@Override
@@ -69,7 +118,8 @@ public final class AudioClip implements IDestroyable
 	 */
 	final void bind(int source)
 	{
-		resource.bind(source);
+		alSourcei(source, AL_BUFFER, resource.buffer.get(0));
+		checkALError();
 	}
 	
 	/**
@@ -77,7 +127,7 @@ public final class AudioClip implements IDestroyable
 	 */
 	public final float getDuration()
 	{
-		return resource.getDuration();
+		return resource.duration;
 	}
 	
 	/**
@@ -85,7 +135,7 @@ public final class AudioClip implements IDestroyable
 	 */
 	public final int getNumSamples()
 	{
-		return resource.getNumSamples();
+		return resource.numSamples;
 	}
 	
 	/**
@@ -93,6 +143,6 @@ public final class AudioClip implements IDestroyable
 	 */
 	public final int getSampleRate()
 	{
-		return resource.getSampleRate();
+		return resource.sampleRate;
 	}
 }
