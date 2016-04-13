@@ -43,14 +43,8 @@ import static org.lwjgl.glfw.GLFW.glfwSwapInterval;
 import static org.lwjgl.glfw.GLFW.glfwTerminate;
 import static org.lwjgl.glfw.GLFW.glfwWindowHint;
 import static org.lwjgl.glfw.GLFW.glfwWindowShouldClose;
-import static org.lwjgl.opengl.GL.createCapabilities;
-import static org.lwjgl.opengl.GL11.GL_EXTENSIONS;
 import static org.lwjgl.opengl.GL11.GL_FALSE;
-import static org.lwjgl.opengl.GL11.GL_RENDERER;
 import static org.lwjgl.opengl.GL11.GL_TRUE;
-import static org.lwjgl.opengl.GL11.GL_VENDOR;
-import static org.lwjgl.opengl.GL11.GL_VERSION;
-import static org.lwjgl.opengl.GL11.glGetString;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 import org.lwjgl.glfw.GLFWErrorCallback;
@@ -58,6 +52,7 @@ import org.lwjgl.glfw.GLFWErrorCallback;
 import com.snakybo.sengine.SEngine;
 import com.snakybo.sengine.debug.Logger;
 import com.snakybo.sengine.debug.LoggerInternal;
+import com.snakybo.sengine.renderer.OpenGLRenderer;
 
 /**
  * @author Snakybo
@@ -70,8 +65,6 @@ public final class WindowInternal
 	private static WindowMode windowMode;
 	
 	public static long window;
-	
-	private static boolean loggedOGL;
 	
 	static
 	{
@@ -157,8 +150,8 @@ public final class WindowInternal
 	 */
 	public static void update()
 	{
-		glfwPollEvents();
 		glfwSwapBuffers(window);
+		glfwPollEvents();		
 	}
 	
 	/**
@@ -197,9 +190,7 @@ public final class WindowInternal
 		
 		glfwSwapInterval(0);
 		
-		createCapabilities();
-		
-		logOpenGLInfo();
+		OpenGLRenderer.create();
 	}
 
 	/**
@@ -208,22 +199,6 @@ public final class WindowInternal
 	private static void logGLFWInfo()
 	{
 		LoggerInternal.log("Version: " + glfwGetVersionString(), "GLFW");
-	}
-	
-	/**
-	 * Log information about OpenGL
-	 */
-	private static void logOpenGLInfo()
-	{
-		if(!loggedOGL)
-		{
-			LoggerInternal.log("Vendor: " + glGetString(GL_VENDOR), "OpenGL");
-			LoggerInternal.log("Renderer: " + glGetString(GL_RENDERER), "OpenGL");
-			LoggerInternal.log("Version: " + glGetString(GL_VERSION), "OpenGL");
-			LoggerInternal.log("Extensions: " + glGetString(GL_EXTENSIONS), "OpenGL");
-			
-			loggedOGL = true;
-		}
 	}
 	
 	/**
