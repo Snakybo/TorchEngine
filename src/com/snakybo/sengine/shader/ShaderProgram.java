@@ -22,21 +22,7 @@
 
 package com.snakybo.sengine.shader;
 
-import static org.lwjgl.opengl.GL20.GL_LINK_STATUS;
-import static org.lwjgl.opengl.GL20.GL_VALIDATE_STATUS;
-import static org.lwjgl.opengl.GL20.glAttachShader;
-import static org.lwjgl.opengl.GL20.glCreateProgram;
-import static org.lwjgl.opengl.GL20.glDeleteProgram;
-import static org.lwjgl.opengl.GL20.glDetachShader;
-import static org.lwjgl.opengl.GL20.glGetProgramInfoLog;
-import static org.lwjgl.opengl.GL20.glGetProgrami;
-import static org.lwjgl.opengl.GL20.glLinkProgram;
-import static org.lwjgl.opengl.GL20.glUseProgram;
-import static org.lwjgl.opengl.GL20.glValidateProgram;
-
-import java.util.Set;
-
-import com.snakybo.sengine.debug.Logger;
+import com.snakybo.sengine.resource.ResourceDatabase;
 import com.snakybo.sengine.util.IDestroyable;
 
 /**
@@ -45,39 +31,12 @@ import com.snakybo.sengine.util.IDestroyable;
  */
 public final class ShaderProgram implements IDestroyable
 {
-	private Set<Shader> attached;
-	
-	private int id;
+	private ShaderProgramResource resource;
 	
 	public ShaderProgram(String fileName)
 	{		
-		id = glCreateProgram();
-		
-		if(id == 0)
-		{
-			Logger.logError("Unable to create shader program", this);
-			return;
-		}
-		
-		attached = ShaderLoader.loadFromFile("./res/shaders/" + fileName);		
-		for(Shader shader : attached)
-		{
-			glAttachShader(id, shader.id);
-		}
-		
-		glLinkProgram(id);
-		if(glGetProgrami(id, GL_LINK_STATUS) == 0)
-		{
-			Logger.logError("Unable to link shader program: " + glGetProgramInfoLog(id, 1024), this);
-			return;
-		}
-		
-		glValidateProgram(id);
-		if(glGetProgrami(id, GL_VALIDATE_STATUS) == 0)
-		{
-			Logger.logError("Unable to validate shader program: " + glGetProgramInfoLog(id, 1024), this);
-			return;
-		}
+		fileName = "./res/" + fileName;
+		resource = ResourceDatabase.load(ShaderProgramResource.class, fileName, this, new ShaderProgramResourceImporter(fileName));
 	}
 	
 	@Override
@@ -96,19 +55,7 @@ public final class ShaderProgram implements IDestroyable
 	@Override
 	public void destroy()
 	{
-		if(id != 0)
-		{
-			for(Shader shader : attached)
-			{
-				glDetachShader(id, shader.id);
-				shader.destroy();
-			}			
-			
-			glDeleteProgram(id);
-			
-			id = 0;
-			attached.clear();
-		}
+		resource.destroy();
 	}
 	
 	/**
@@ -116,6 +63,6 @@ public final class ShaderProgram implements IDestroyable
 	 */
 	public void use()
 	{
-		glUseProgram(id);
+		resource.use();
 	}
 }

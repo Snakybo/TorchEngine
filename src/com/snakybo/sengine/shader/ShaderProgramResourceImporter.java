@@ -35,16 +35,25 @@ import java.util.Map;
 import java.util.Set;
 
 import com.snakybo.sengine.io.File;
+import com.snakybo.sengine.resource.ResourceImporter;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-final class ShaderLoader
+class ShaderProgramResourceImporter extends ResourceImporter<ShaderProgramResource>
 {
-	private ShaderLoader()
+	private final String fileName;
+	
+	ShaderProgramResourceImporter(String fileName)
 	{
-		throw new AssertionError();
+		this.fileName = fileName;
+	}
+	
+	@Override
+	protected ShaderProgramResource importResource()
+	{
+		return new ShaderProgramResource(fileName, loadFromFile(fileName));
 	}
 	
 	/**
@@ -52,7 +61,7 @@ final class ShaderLoader
 	 * @param fileName - The shader file
 	 * @return A collection of shaders which have been constructed from the specified file
 	 */
-	static Set<Shader> loadFromFile(String fileName)
+	private final Set<Shader> loadFromFile(String fileName)
 	{
 		Set<Shader> result = new HashSet<Shader>();
 		Map<Integer, String> shaders = parseShaders(fileName);
@@ -74,7 +83,7 @@ final class ShaderLoader
 	 * @param fileName - The shader file
 	 * @return The sources of all shaders in the file
 	 */
-	private static Map<Integer, String> parseShaders(String fileName)
+	private final Map<Integer, String> parseShaders(String fileName)
 	{
 		Map<Integer, String> result = new HashMap<Integer, String>();
 		String source = File.readLinesMerge(fileName);
@@ -95,7 +104,7 @@ final class ShaderLoader
 	 * @param keyword - The keyword of the current shader 
 	 * @return - The source of the shader, or an empty string
 	 */
-	private static String parseShader(String source, String keyword)
+	private final String parseShader(String source, String keyword)
 	{
 		int start = source.indexOf("#ifdef " + keyword); 
 		
