@@ -20,79 +20,28 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.sengine.audio;
+package com.snakybo.sengine.resource;
 
-import com.snakybo.sengine.resource.ResourceDatabase;
 import com.snakybo.sengine.util.IDestroyable;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class AudioClip implements IDestroyable
+public abstract class Resource implements IDestroyable
 {
-	private final AudioResource resource;
+	private final String name;
 	
-	/**
-	 * Create a new {@link AudioClip}. If the specified {@code clip} has already been imported,
-	 * it will reuse the imported {@link AudioResource}
-	 * @param clip - The clip to load
-	 */
-	public AudioClip(String clip)
+	public Resource(String name)
 	{
-		clip = "./res/" + clip;		
-		resource = ResourceDatabase.load(AudioResource.class, clip, this, new AudioResourceImporter(clip, 32));
+		this.name = name;
 	}
 	
 	@Override
-	protected void finalize() throws Throwable
-	{
-		try
-		{
-			destroy();
-		}
-		finally
-		{
-			super.finalize();
-		}
-	}
+	public abstract void destroy();
 	
-	@Override
-	public void destroy()
+	public final String getName()
 	{
-		ResourceDatabase.unlink(resource.getName(), this);
-	}
-	
-	/**
-	 * Bind the {@link AudioClip} to a source
-	 * @param source - The source to bind to
-	 */
-	final void bind(int source)
-	{
-		resource.bind(source);
-	}
-	
-	/**
-	 * @return The duration in seconds
-	 */
-	public final float getDuration()
-	{
-		return resource.getDuration();
-	}
-	
-	/**
-	 * @return The number of samples
-	 */
-	public final int getNumSamples()
-	{
-		return resource.getNumSamples();
-	}
-	
-	/**
-	 * @return The sample rate
-	 */
-	public final int getSampleRate()
-	{
-		return resource.getSampleRate();
+		return name;
 	}
 }

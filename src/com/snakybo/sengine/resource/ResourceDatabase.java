@@ -31,43 +31,43 @@ import java.util.Set;
  * @author Snakybo
  * @since 1.0
  */
-public final class RuntimeResourceDatabase
+public final class ResourceDatabase
 {
 	private static Map<String, Integer> useCount = new HashMap<String, Integer>();
-	private static Map<String, RuntimeResource> runtimeResources = new HashMap<String, RuntimeResource>();
+	private static Map<String, Resource> resources = new HashMap<String, Resource>();
 	
 	private static Set<Object> sources = new HashSet<Object>();
 	
-	private RuntimeResourceDatabase()
+	private ResourceDatabase()
 	{
 		throw new AssertionError();
 	}
 	
 	/**
-	 * Register a new resource, doing this will add the {@link RuntimeResource} to the database
+	 * Register a new resource, doing this will add the {@link Resource} to the database
 	 * @param resourceName - The name of the resource
-	 * @param runtimeResource - The resource to register
+	 * @param resource - The resource to register
 	 * @param source - The source of the registration
-	 * @return The {@link RuntimeResource}
+	 * @return The {@link Resource}
 	 */
-	public static RuntimeResource register(String resourceName, RuntimeResource runtimeResource, Object source)
+	public static Resource register(String resourceName, Resource resource, Object source)
 	{
 		if(!useCount.containsKey(resourceName))
 		{
 			useCount.put(resourceName, 0);
-			runtimeResources.put(resourceName, runtimeResource);
+			resources.put(resourceName, resource);
 		}
 		
 		return link(resourceName, source);
 	}
 	
 	/**
-	 * Link an object to an {@link RuntimeResource}, this will increase the usage-counter by 1
+	 * Link an object to an {@link Resource}, this will increase the usage-counter by 1
 	 * @param resourceName - The name of the resource
 	 * @param source - The object to link to the resource
-	 * @return The {@link RuntimeResource} registered with the same {@code resourceName}
+	 * @return The {@link Resource} registered with the same {@code resourceName}
 	 */
-	public static RuntimeResource link(String resourceName, Object source)
+	public static Resource link(String resourceName, Object source)
 	{
 		if(useCount.containsKey(resourceName))
 		{
@@ -75,14 +75,14 @@ public final class RuntimeResourceDatabase
 			useCount.put(resourceName, usages + 1);			
 			sources.add(source);
 			
-			return runtimeResources.get(resourceName);
+			return resources.get(resourceName);
 		}
 		
 		return null;
 	}
 	
 	/**
-	 * Unlink an object from an {@link RuntimeResource}, this will decrease the usage-counter by 1.
+	 * Unlink an object from an {@link Resource}, this will decrease the usage-counter by 1.
 	 * If the usage counter becomes 0 as a result of this operation, it will automatically destroy the resource
 	 * @param resourceName - The name of the resource
 	 * @param source - The object to unlink
@@ -98,24 +98,45 @@ public final class RuntimeResourceDatabase
 			// Delete the resource if necessary
 			if(usages - 1 <= 0)
 			{
-				RuntimeResource runtimeResource = runtimeResources.get(resourceName);
+				Resource resource = resources.get(resourceName);
 				
 				useCount.remove(resourceName);
-				runtimeResources.remove(resourceName);
+				resources.remove(resourceName);
 				
-				runtimeResource.destroy();
+				resource.destroy();
 			}
 		}
 	}
 	
+	public static <T extends Resource> T load(Class<T> resourceType, String resourceName, Object source, ResourceImporter<T> importer)
+	{
+		if(hasResource(resourceName))
+		{
+			return resourceType.cast(ResourceDatabase.link(resourceName, source));
+		}
+		else
+		{
+			try
+			{
+				return resourceType.cast(ResourceDatabase.register(resourceName, importer.importResource(), source));
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+		
+		return null;
+	}
+	
 	/**
-	 * Check whether or not an {@link RuntimeResource} has already been registered
-	 * @param resourceName - The name of the {@link RuntimeResource}
-	 * @return Whether or not the {@link RuntimeResource} has been registered
+	 * Check whether or not an {@link Resource} has already been registered
+	 * @param resourceName - The name of the {@link Resource}
+	 * @return Whether or not the {@link Resource} has been registered
 	 */
 	public static boolean hasResource(String resourceName)
 	{
-		if(runtimeResources.containsKey(resourceName))
+		if(resources.containsKey(resourceName))
 		{
 			return true;
 		}

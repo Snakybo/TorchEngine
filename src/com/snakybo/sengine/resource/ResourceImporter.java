@@ -22,28 +22,11 @@
 
 package com.snakybo.sengine.resource;
 
-import com.snakybo.sengine.util.IDestroyable;
-
 /**
  * @author Snakybo
  * @since 1.0
  */
-public abstract class RuntimeResource implements IDestroyable
+public abstract class ResourceImporter<T extends Resource>
 {
-	private boolean imported;
-	
-	@Override
-	public abstract void destroy();
-	
-	protected abstract void beginImport(String resource, Object... objects);
-	
-	protected void endImport()
-	{
-		imported = true;
-	}
-	
-	protected boolean canImport(String resource)
-	{
-		return !imported;
-	}
+	protected abstract T importResource();
 }
