@@ -77,7 +77,7 @@ public abstract class TimeInternal
 			currentFrameCount = 0;
 			
 			// Log FPS if required
-			if(Debug.logFps)
+			if(Debug.LOG_FPS)
 			{
 				Logger.log("FPS: " + Time.getFrameRate());
 			}

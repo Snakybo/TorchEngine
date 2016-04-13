@@ -28,7 +28,15 @@ package com.snakybo.sengine.debug;
  */
 public final class Debug
 {
-	public static boolean logFps = false;
+	public static boolean LOG_FPS;
+	
+	public static boolean LOG_DEBUG;
+	
+	static
+	{
+		LOG_DEBUG = Boolean.parseBoolean(System.getenv("LOG_FPS"));
+		LOG_DEBUG = Boolean.parseBoolean(System.getenv("DEBUG"));
+	}
 	
 	private Debug()
 	{
