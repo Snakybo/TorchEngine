@@ -23,13 +23,13 @@
 package cursor;
 
 import com.snakybo.sengine.Game;
+import com.snakybo.sengine.bitmap.Bitmap;
 import com.snakybo.sengine.debug.Logger;
 import com.snakybo.sengine.input.cursor.Cursor;
 import com.snakybo.sengine.input.mouse.Mouse;
 import com.snakybo.sengine.input.mouse.MouseButton;
 import com.snakybo.sengine.object.Component;
 import com.snakybo.sengine.object.GameObject;
-import com.snakybo.sengine.texture.Bitmap;
 
 /**
  * @author Snakybo

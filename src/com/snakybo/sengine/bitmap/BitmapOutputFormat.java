@@ -20,46 +20,36 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.sengine.texture;
-
-import java.nio.ByteBuffer;
-
-import org.lwjgl.BufferUtils;
+package com.snakybo.sengine.bitmap;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public abstract class ImageUtils
+public enum BitmapOutputFormat
 {
-	private ImageUtils()
+	/**
+	 * Save the bitmap as a JPG file
+	 */
+	JPG("jpg"),
+	
+	/**
+	 * Save the bitmap as a PNG file
+	 */
+	PNG("png");
+	
+	private final String format;
+	
+	private BitmapOutputFormat(String format)
 	{
-		throw new AssertionError();
+		this.format = format;
 	}
 	
 	/**
-	 * Convert a bitmap to a ByteBuffer
-	 * @param bitmap - The bitmap to convert
-	 * @return The ByteBuffer
+	 * @return The format of the image as a String
 	 */
-	public static ByteBuffer toByteByffer(Bitmap bitmap)
+	public final String asString()
 	{
-		ByteBuffer buffer = BufferUtils.createByteBuffer(bitmap.getWidth() * bitmap.getHeight() * 4);
-		
-		for(int y = 0; y < bitmap.getHeight(); y++)
-		{
-		    for(int x = 0; x < bitmap.getWidth(); x++)
-		    {
-				int pixel = bitmap.getPixel(x, y);
-        		
-				buffer.put((byte)((pixel >> 16) & 0xFF));
-				buffer.put((byte)((pixel >> 8) & 0xFF));
-				buffer.put((byte)(pixel & 0xFF));
-				buffer.put((byte)((pixel >> 24) & 0xFF));
-		    }
-		}
-		
-		buffer.flip();
-		return buffer;
+		return format;
 	}
 }

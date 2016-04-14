@@ -27,7 +27,7 @@ import java.util.Set;
 
 import org.joml.Vector2f;
 
-import com.snakybo.sengine.texture.Bitmap;
+import com.snakybo.sengine.bitmap.Bitmap;
 
 /**
  * @author Snakybo

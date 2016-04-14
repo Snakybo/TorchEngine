@@ -20,14 +20,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.sengine.texture;
+package com.snakybo.sengine.bitmap;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 
 import javax.imageio.ImageIO;
+
+import org.lwjgl.BufferUtils;
 
 import com.snakybo.sengine.debug.Logger;
 import com.snakybo.sengine.debug.LoggerInternal;
@@ -79,13 +82,13 @@ public final class Bitmap
 	}
 	
 	@Override
-	public int hashCode()
+	public final int hashCode()
 	{
 		return bufferedImage.hashCode();
 	}
 	
 	@Override
-	public boolean equals(Object obj)
+	public final boolean equals(Object obj)
 	{
 		return obj instanceof Bitmap && ((Bitmap)obj).bufferedImage.equals(bufferedImage);
 	}
@@ -150,6 +153,32 @@ public final class Bitmap
 	public final void setPixel(int x, int y, int pixel)
 	{
 		bufferedImage.setRGB(x, y, pixel);
+	}
+	
+	/**
+	 * Convert the bitmap to a ByteBuffer
+	 * @param bitmap - The bitmap to convert
+	 * @return The ByteBuffer
+	 */
+	public final ByteBuffer getByteByffer()
+	{
+		ByteBuffer buffer = BufferUtils.createByteBuffer(getWidth() * getHeight() * 4);
+		
+		for(int y = 0; y < getHeight(); y++)
+		{
+		    for(int x = 0; x < getWidth(); x++)
+		    {
+				int pixel = getPixel(x, y);
+        		
+				buffer.put((byte)((pixel >> 16) & 0xFF));
+				buffer.put((byte)((pixel >> 8) & 0xFF));
+				buffer.put((byte)(pixel & 0xFF));
+				buffer.put((byte)((pixel >> 24) & 0xFF));
+		    }
+		}
+		
+		buffer.flip();
+		return buffer;
 	}
 	
 	/**

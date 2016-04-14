@@ -36,14 +36,11 @@ import static org.lwjgl.glfw.GLFW.glfwCreateStandardCursor;
 import static org.lwjgl.glfw.GLFW.glfwSetCursor;
 import static org.lwjgl.glfw.GLFW.glfwSetInputMode;
 
-import java.nio.ByteBuffer;
-
 import org.joml.Vector2f;
 import org.lwjgl.glfw.GLFWImage;
 
+import com.snakybo.sengine.bitmap.Bitmap;
 import com.snakybo.sengine.debug.LoggerInternal;
-import com.snakybo.sengine.texture.Bitmap;
-import com.snakybo.sengine.texture.ImageUtils;
 import com.snakybo.sengine.window.WindowInternal;
 
 /**
@@ -150,8 +147,7 @@ public final class Cursor
 		}
 		else
 		{
-			ByteBuffer buffer = ImageUtils.toByteByffer(bitmap);
-			GLFWImage image = GLFWImage.malloc().set(bitmap.getWidth(), bitmap.getHeight(), buffer);
+			GLFWImage image = GLFWImage.malloc().set(bitmap.getWidth(), bitmap.getHeight(), bitmap.getByteByffer());
 			
 			long cursor = glfwCreateCursor(image, Math.round(hot.x), Math.round(hot.y));
 			CursorShape.addCursor(bitmap, hot, cursor);
