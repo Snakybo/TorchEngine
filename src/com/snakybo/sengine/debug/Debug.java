@@ -34,7 +34,7 @@ public final class Debug
 	
 	static
 	{
-		LOG_DEBUG = Boolean.parseBoolean(System.getenv("LOG_FPS"));
+		LOG_FPS = Boolean.parseBoolean(System.getenv("LOG_FPS"));
 		LOG_DEBUG = Boolean.parseBoolean(System.getenv("DEBUG"));
 	}
 	
