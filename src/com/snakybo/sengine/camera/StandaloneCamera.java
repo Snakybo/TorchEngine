@@ -22,6 +22,10 @@
 
 package com.snakybo.sengine.camera;
 
+import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.glClear;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -90,10 +94,13 @@ public final class StandaloneCamera
 		switch(clearFlags)
 		{
 		case Skybox:
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			break;
 		case SolidColor:
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			break;
 		case DepthOnly:
+			glClear(GL_DEPTH_BUFFER_BIT);
 			break;
 		case NoClear:
 			break;
