@@ -194,10 +194,10 @@ public final class SEngine
 	 */
 	private static void destroy()
 	{
+		JoystickInternal.destroy();
 		CursorInternal.destroy();
 		MouseInternal.destroy();
-		KeyboardInternal.destroy();
-		JoystickInternal.destroy();
+		KeyboardInternal.destroy();		
 		
 		AudioManagerInternal.destroy();
 		WindowInternal.destroy();
