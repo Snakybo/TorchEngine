@@ -82,6 +82,21 @@ public final class ResourceDatabase
 	}
 	
 	/**
+	 * Get the resource with the specified name
+	 * @param name - The name of the resource
+	 * @return The resource
+	 */
+	public static Resource get(String name)
+	{
+		if(hasResource(name))
+		{
+			return resources.get(name);
+		}
+		
+		return null;
+	}
+	
+	/**
 	 * Unlink an object from an {@link Resource}, this will decrease the usage-counter by 1.
 	 * If the usage counter becomes 0 as a result of this operation, it will automatically destroy the resource
 	 * @param resourceName - The name of the resource
