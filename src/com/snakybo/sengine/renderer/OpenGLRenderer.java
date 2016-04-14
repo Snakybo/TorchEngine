@@ -23,10 +23,13 @@
 package com.snakybo.sengine.renderer;
 
 import static org.lwjgl.opengl.GL.createCapabilities;
+import static org.lwjgl.opengl.GL11.GL_DEPTH_TEST;
 import static org.lwjgl.opengl.GL11.GL_EXTENSIONS;
 import static org.lwjgl.opengl.GL11.GL_RENDERER;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
 import static org.lwjgl.opengl.GL11.GL_VENDOR;
 import static org.lwjgl.opengl.GL11.GL_VERSION;
+import static org.lwjgl.opengl.GL11.glEnable;
 import static org.lwjgl.opengl.GL11.glGetString;
 
 import com.snakybo.sengine.debug.LoggerInternal;
@@ -55,6 +58,9 @@ public final class OpenGLRenderer
 		LoggerInternal.log("Renderer: " + glGetString(GL_RENDERER), "OpenGL");
 		LoggerInternal.log("Version: " + glGetString(GL_VERSION), "OpenGL");
 		LoggerInternal.log("Extensions: " + glGetString(GL_EXTENSIONS), "OpenGL");
+		
+		glEnable(GL_DEPTH_TEST);
+		glEnable(GL_TEXTURE_2D);
 	}
 	
 	/**
