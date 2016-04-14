@@ -22,17 +22,28 @@
 
 package com.snakybo.sengine.model;
 
+import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.joml.Vector2f;
 import org.joml.Vector3f;
+import org.lwjgl.BufferUtils;
+
+import com.snakybo.sengine.debug.Logger;
+import com.snakybo.sengine.debug.LoggerInternal;
+import com.snakybo.sengine.io.File;
+import com.snakybo.sengine.io.FileUtils;
+import com.snakybo.sengine.model.obj.OBJModel;
+import com.snakybo.sengine.resource.Resource;
+import com.snakybo.sengine.resource.ResourceDatabase;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class Model
+public final class Model extends Resource
 {
 	private List<Vector3f> vertices;
 	private List<Vector2f> texCoords;
@@ -40,16 +51,28 @@ public final class Model
 	private List<Vector3f> tangents;
 	private List<Integer> indices;
 	
+	public Model()
+	{
+		this("");
+	}
+	
 	/**
 	 * Create a new model
 	 */
-	public Model()
+	public Model(String name)
 	{
+		super(name);
+		
 		vertices = new ArrayList<Vector3f>();
 		texCoords = new ArrayList<Vector2f>();
 		normals = new ArrayList<Vector3f>();
 		tangents = new ArrayList<Vector3f>();
 		indices = new ArrayList<Integer>();
+	}
+	
+	@Override
+	public final void destroy()
+	{
 	}
 	
 	/**
@@ -223,6 +246,111 @@ public final class Model
 	}
 	
 	/**
+	 * @param index - The index of the vertex
+	 * @return The vertex at the specified index
+	 */
+	public final Vector3f getVertex(int index)
+	{
+		return vertices.get(index);
+	}
+	
+	/**
+	 * @param index - The index of the texCoord
+	 * @return The texCoord at the specified index
+	 */
+	public final Vector2f getTexCoord(int index)
+	{
+		return texCoords.get(index);
+	}
+	
+	/**
+	 * @param index - The index of the normal
+	 * @return The normal at the specified index
+	 */
+	public final Vector3f getNormal(int index)
+	{
+		return normals.get(index);
+	}
+	
+	/**
+	 * @param index - The index of the tangent
+	 * @return The tangent at the specified index
+	 */
+	public final Vector3f getTangent(int index)
+	{
+		return tangents.get(index);
+	}
+	
+	/**
+	 * @return The vertices array to a FloatBuffer
+	 */
+	public final FloatBuffer getVertexBuffer()
+	{
+		FloatBuffer result = BufferUtils.createFloatBuffer(vertices.size() * 3);
+		
+		for(Vector3f vertex : vertices)
+		{
+			result.put(vertex.x);
+			result.put(vertex.y);
+			result.put(vertex.z);
+		}
+		
+		result.flip();
+		return result;
+	}
+	
+	/**
+	 * @return The texCoord array to a FloatBuffer
+	 */
+	public final FloatBuffer getTexCoordBuffer()
+	{
+		FloatBuffer result = BufferUtils.createFloatBuffer(texCoords.size() * 2);
+		
+		for(Vector2f texCoord : texCoords)
+		{
+			result.put(texCoord.x);
+			result.put(texCoord.y);
+		}
+		
+		result.flip();
+		return result;
+	}
+	
+	/**
+	 * @return The normal array to a FloatBuffer
+	 */
+	public final FloatBuffer getNormalBuffer()
+	{
+		FloatBuffer result = BufferUtils.createFloatBuffer(normals.size() * 3);
+		
+		for(Vector3f normal : normals)
+		{
+			result.put(normal.x);
+			result.put(normal.y);
+			result.put(normal.z);
+		}
+		
+		result.flip();
+		return result;
+	}
+	
+	/**
+	 * @return The indices array to a FloatBuffer
+	 */
+	public final IntBuffer getIndexBuffer()
+	{
+		IntBuffer result = BufferUtils.createIntBuffer(indices.size());
+		
+		for(Integer index : indices)
+		{
+			result.put(index);
+		}
+		
+		result.flip();
+		return result;
+	}
+	
+	/**
 	 * @return The number of indices the model contains
 	 */
 	public final int getNumIndices()
@@ -236,5 +364,50 @@ public final class Model
 	public final int getNumTriangles()
 	{
 		return indices.size() / 3;
+	}
+	
+	/**
+	 * Attempt to load a model, if it's been loaded before; it won't load it again
+	 * @param fileName - The path to the model
+	 * @return The imported model
+	 */
+	public static Model load(String fileName)
+	{
+		fileName = "./res/" + fileName;
+		
+		if(ResourceDatabase.hasResource(fileName))
+		{
+			LoggerInternal.log("Already imported " + fileName, "ModelLoader");
+			return (Model)ResourceDatabase.get(fileName);
+		}
+		else
+		{
+			LoggerInternal.log("Importing " + fileName, "ModelLoader");
+			
+			if(!File.exists(fileName))
+			{
+				Logger.logError("No model found at: " + fileName, "ModelLoader");
+				return null;
+			}
+			
+			String extension = FileUtils.getFileExtension(fileName);
+			
+			List<String> lines = File.readLines(fileName);
+			IModelLoader loader = null;
+			
+			switch(extension)
+			{
+			case "obj":
+				loader = new OBJModel(lines);
+				break;
+			default:
+				Logger.logError("Unsupported model format: " + extension, "ModelLoader");
+				return null;
+			}
+			
+			Model result = loader.toModel();
+			ResourceDatabase.register(fileName, result, null);
+			return result;
+		}
 	}
 }
