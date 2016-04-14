@@ -156,12 +156,7 @@ public final class Transform
 	 */
 	public final Matrix4f getTransformation()
 	{
-		Matrix4f result = getParentMatrix();		
-		result.translate(position);
-		result.rotate(rotation);
-		result.scale(scale);
-		
-		return result;
+		return getParentMatrix().translate(position).rotate(rotation).scale(scale);
 	}
 	
 	/**
