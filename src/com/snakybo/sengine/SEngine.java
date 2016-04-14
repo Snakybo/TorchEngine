@@ -60,7 +60,7 @@ public final class SEngine
 	 * Create the engine, called by the {@link Game#Game(String)}
 	 * @param game The game
 	 */
-	static void create(String gameame)
+	static void create(String gameName)
 	{
 		if(!created)
 		{
