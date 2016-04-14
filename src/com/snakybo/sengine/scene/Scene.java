@@ -44,6 +44,9 @@ public final class Scene
 		this.name = name;
 	}
 	
+	/**
+	 * @return The name of the scene
+	 */
 	public final String getName()
 	{
 		return name;

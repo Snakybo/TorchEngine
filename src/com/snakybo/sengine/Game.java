@@ -33,11 +33,18 @@ public final class Game
 {
 	private static int targetFrameRate = 60;
 	
+	/**
+	 * Create the engine
+	 * @param name - The name of the game
+	 */
 	public static void create(String name)
 	{
 		SEngine.create(name);
 	}
 	
+	/**
+	 * Start the game
+	 */
 	public static void start()
 	{
 		SEngine.start();

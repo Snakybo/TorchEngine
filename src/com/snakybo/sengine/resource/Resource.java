@@ -40,6 +40,9 @@ public abstract class Resource implements IDestroyable
 	@Override
 	public abstract void destroy();
 	
+	/**
+	 * @return The name of the resource
+	 */
 	public final String getName()
 	{
 		return name;
