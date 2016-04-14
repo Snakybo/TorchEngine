@@ -75,8 +75,11 @@ public final class SceneManager
 	
 	static void doLoad()
 	{
-		currentScene = newScene;
-		LoggerInternal.log("Loaded scene: " + currentScene.getName(), "SceneManager");
+		if(currentScene == null || !currentScene.equals(newScene))
+		{
+			currentScene = newScene;
+			LoggerInternal.log("Loaded scene: " + currentScene.getName(), "SceneManager");
+		}
 	}
 	
 	/**
