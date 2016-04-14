@@ -30,61 +30,27 @@ import static org.lwjgl.opengl.GL40.GL_TESS_EVALUATION_SHADER;
 import static org.lwjgl.opengl.GL43.GL_COMPUTE_SHADER;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 import com.snakybo.sengine.io.File;
 import com.snakybo.sengine.resource.ResourceImporter;
-import com.snakybo.sengine.shader.ShaderProgram.ShaderProgramResource;
+import com.snakybo.sengine.shader.Shader.ShaderResource;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-class ShaderProgramResourceImporter extends ResourceImporter<ShaderProgramResource>
+class ShaderResourceImporter extends ResourceImporter<ShaderResource>
 {
 	private final String fileName;
 	
-	ShaderProgramResourceImporter(String fileName)
+	ShaderResourceImporter(String fileName)
 	{
 		this.fileName = fileName;
 	}
 	
 	@Override
-	protected ShaderProgramResource importResource()
-	{
-		return new ShaderProgramResource(fileName, loadFromFile(fileName));
-	}
-	
-	/**
-	 * Load a shader file, this will parse the file and create shaders from the sources
-	 * @param fileName - The shader file
-	 * @return A collection of shaders which have been constructed from the specified file
-	 */
-	private final Set<Shader> loadFromFile(String fileName)
-	{
-		Set<Shader> result = new HashSet<Shader>();
-		Map<Integer, String> shaders = parseShaders(fileName);
-		
-		for(Map.Entry<Integer, String> shader : shaders.entrySet())
-		{
-			if(shader.getValue() != null)
-			{
-				Shader s = new Shader(fileName, shader.getValue(), shader.getKey());
-				result.add(s);
-			}
-		}
-		
-		return result;
-	}
-	
-	/**
-	 * Parse a shader file
-	 * @param fileName - The shader file
-	 * @return The sources of all shaders in the file
-	 */
-	private final Map<Integer, String> parseShaders(String fileName)
+	protected final ShaderResource importResource()
 	{
 		Map<Integer, String> result = new HashMap<Integer, String>();
 		String source = File.readLinesMerge(fileName);
@@ -96,7 +62,7 @@ class ShaderProgramResourceImporter extends ResourceImporter<ShaderProgramResour
 		result.put(GL_TESS_CONTROL_SHADER, parseShader(source, "TESS_CONTROL_PASS"));
 		result.put(GL_TESS_EVALUATION_SHADER, parseShader(source, "TESS_EVAL_PASS"));
 		
-		return result;
+		return new ShaderResource(fileName, source, result);
 	}
 	
 	/**
@@ -107,23 +73,11 @@ class ShaderProgramResourceImporter extends ResourceImporter<ShaderProgramResour
 	 */
 	private final String parseShader(String source, String keyword)
 	{
-		int start = source.indexOf("#ifdef " + keyword); 
-		
-		if(start != -1)
+		if(source.contains("#ifdef " + keyword))
 		{
-			start += ("#ifdef " + keyword).length();
-			int end = source.indexOf("#endif", start);
-			
-			String shader = source.substring(start, end).trim();
-			
-			if(shader.length() == 0)
-			{
-				return null;
-			}
-			
-			return "#version " + GLSLVersion.GLSL_VERSION + "\n\n" + shader;
+			return "#version " + GLSLVersion.GLSL_VERSION + "\n\n#define " + keyword + "\n\n" + source;
 		}
 		
-		return null;
+		return "";
 	}
 }
