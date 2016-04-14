@@ -58,11 +58,13 @@ public final class Bitmap
 	 */
 	public Bitmap(String fileName)
 	{
+		fileName = "./res/" + fileName;
+		
 		try
 		{
-			LoggerInternal.log("Loading Bitmap from: ./res/" + fileName, "Bitmap");
+			LoggerInternal.log("Loading Bitmap from: " + fileName, "Bitmap");
 			
-			File file = new File("./res/" + fileName);			
+			File file = new File(fileName);			
 			if(!file.exists())
 			{
 				throw new FileNotFoundException(fileName + " cannot be found");
