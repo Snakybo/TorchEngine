@@ -31,6 +31,7 @@ import com.snakybo.sengine.camera.CameraClearFlags;
 import com.snakybo.sengine.mesh.Material;
 import com.snakybo.sengine.mesh.Mesh;
 import com.snakybo.sengine.mesh.MeshRenderer;
+import com.snakybo.sengine.object.Component;
 import com.snakybo.sengine.object.GameObject;
 import com.snakybo.sengine.texture.Texture;
 import com.snakybo.sengine.window.Window;
@@ -39,18 +40,15 @@ import com.snakybo.sengine.window.Window;
  * @author Snakybo
  * @since 1.0
  */
-class RendererTest
+public class RendererTest extends Game
 {
-	public static void main(String[] args)
+	public RendererTest()
 	{
-		Game.create("Renderer Test");
-		
-		loadScene();
-		
-		Game.start();
+		super("Renderer Test");
 	}
 	
-	private static void loadScene()
+	@Override
+	protected void onCreate()
 	{
 		GameObject camera = new GameObject("Camera");
 		camera.addComponent(new Camera(new Matrix4f().perspective((float)Math.toRadians(90f), Window.getAspectRatio(), 0.01f, 1000), CameraClearFlags.SolidColor));
@@ -61,6 +59,14 @@ class RendererTest
 		GameObject box = new GameObject();
 		box.addComponent(new Mesh("./src/test/resources/cube.obj"));
 		box.addComponent(new MeshRenderer(material));
+		box.addComponent(new Component()
+		{
+			@Override
+			protected void update()
+			{
+				getTransform().rotate(new Vector3f(0, 1, 0), 0.01f);
+			}
+		});
 		box.getTransform().getLocalScale().set(0.25f);
 		box.getTransform().getPosition().set(0, 0, -1f);
 		box.getTransform().rotate(new Vector3f(0, 1, 0), 45f);

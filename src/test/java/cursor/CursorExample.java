@@ -35,7 +35,7 @@ import com.snakybo.sengine.object.GameObject;
  * @author Snakybo
  * @since 1.0
  */
-class CursorExample
+public class CursorExample extends Game
 {
 	private static class CursorManager extends Component
 	{
@@ -99,18 +99,14 @@ class CursorExample
 			}
 		}
 	}
-	
-	public static void main(String[] args)
+
+	public CursorExample()
 	{
-		Game.create("Cursor Test");
-		
-		loadScene();
-		
-		Game.start();
+		super("Cursor Example");
 	}
 	
-	private static void loadScene()
-	{
+	@Override
+	protected void onCreate() {
 		GameObject cursorManager = new GameObject("Cursor Manager");
 		cursorManager.addComponent(new CursorManager());
 	}

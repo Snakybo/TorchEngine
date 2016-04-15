@@ -49,10 +49,9 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 
 import org.lwjgl.glfw.GLFWErrorCallback;
 
-import com.snakybo.sengine.SEngine;
+import com.snakybo.sengine.Game;
 import com.snakybo.sengine.debug.Logger;
 import com.snakybo.sengine.debug.LoggerInternal;
-import com.snakybo.sengine.renderer.OpenGLRenderer;
 
 /**
  * @author Snakybo
@@ -178,7 +177,7 @@ public final class WindowInternal
 		glfwWindowHint(GLFW_VISIBLE, GL_FALSE);
 		glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 		
-		window = glfwCreateWindow(width, height, SEngine.getGameName(), monitor, NULL);
+		window = glfwCreateWindow(width, height, Game.getName(), monitor, NULL);
 		if(window == NULL)
 		{
 			Logger.logException(new RuntimeException("Unable to create GLFW window"), "Window");
@@ -189,8 +188,6 @@ public final class WindowInternal
 		glfwShowWindow(window);
 		
 		glfwSwapInterval(0);
-		
-		OpenGLRenderer.create();
 	}
 
 	/**

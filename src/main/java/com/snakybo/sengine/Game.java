@@ -23,6 +23,7 @@
 package com.snakybo.sengine;
 
 import com.snakybo.sengine.debug.Logger;
+import com.snakybo.sengine.debug.LoggerInternal;
 import com.snakybo.sengine.util.time.TimeInternal;
 import com.snakybo.sengine.util.SharedLibraryLoader;
 
@@ -30,34 +31,35 @@ import com.snakybo.sengine.util.SharedLibraryLoader;
  * @author Snakybo
  * @since 1.0
  */
-public final class Game
+public abstract class Game
 {
+	private static SEngine engine;
+	private static String name;
+	
 	private static int targetFrameRate = 60;
 	
 	/**
-	 * Create the engine
+	 * Create a game
 	 * @param name The name of the game
 	 */
-	public static void create(String name)
+	public Game(String name)
 	{
 		SharedLibraryLoader.load();
-		SEngine.create(name);
+		
+		Game.name = name;
+		Game.engine = new SEngine(this);
+		
+		LoggerInternal.log("Game name: " + name, "Game");
 	}
 	
-	/**
-	 * Start the game
-	 */
-	public static void start()
-	{
-		SEngine.start();
-	}
+	protected abstract void onCreate();
 	
 	/**
 	 * Quit the game
 	 */
 	public static void quit()
 	{
-		SEngine.stop();
+		engine.stop();
 	}
 	
 	/**
@@ -76,6 +78,14 @@ public final class Game
 		
 		// Update the frame time
 		TimeInternal.updateFrameTime();
+	}
+	
+	/**
+	 * @return The name of the game
+	 */
+	public static String getName()
+	{
+		return name;
 	}
 	
 	/**

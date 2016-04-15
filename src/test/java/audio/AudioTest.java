@@ -32,18 +32,15 @@ import com.snakybo.sengine.object.GameObject;
  * @author Snakybo
  * @since 1.0
  */
-class AudioTest
+public class AudioTest extends Game
 {
-	public static void main(String[] args)
+	public AudioTest()
 	{
-		Game.create("Audio Test");
-		
-		loadScene();
-		
-		Game.start();
+		super("Audio Test");
 	}
 	
-	private static void loadScene()
+	@Override
+	protected void onCreate()
 	{
 		GameObject listener = new GameObject("Listener");
 		listener.addComponent(new AudioListener());

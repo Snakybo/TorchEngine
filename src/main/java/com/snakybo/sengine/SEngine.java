@@ -22,6 +22,8 @@
 
 package com.snakybo.sengine;
 
+import java.lang.reflect.InvocationTargetException;
+
 import org.lwjgl.Version;
 
 import com.snakybo.sengine.audio.AudioManagerInternal;
@@ -31,6 +33,7 @@ import com.snakybo.sengine.input.cursor.CursorInternal;
 import com.snakybo.sengine.input.joystick.JoystickInternal;
 import com.snakybo.sengine.input.keyboad.KeyboardInternal;
 import com.snakybo.sengine.input.mouse.MouseInternal;
+import com.snakybo.sengine.renderer.OpenGLRenderer;
 import com.snakybo.sengine.scene.SceneUtilities;
 import com.snakybo.sengine.util.time.TimeInternal;
 import com.snakybo.sengine.window.WindowInternal;
@@ -46,53 +49,42 @@ public final class SEngine
 	public static final int VERSION_PATCH = 0;
 	public static final String VERSION_STRING = VERSION_MAJOR + "." + VERSION_MINOR + "." + VERSION_PATCH;
 	
-	private static String gameName;
+	private Game game;
 	
-	private static boolean created;
-	private static boolean running;
+	private boolean running;
 	
-	private SEngine()
+	SEngine(Game game)
 	{
-		throw new AssertionError();
-	}
-	
-	/**
-	 * Create the engine, called by the {@link Game#Game(String)}
-	 * @param game The game
-	 */
-	static void create(String gameName)
-	{
-		if(!created)
-		{
-			LoggerInternal.log("Starting", "SEngine");
-			LoggerInternal.log("SEngine version: " + VERSION_STRING, "SEngine");
-			LoggerInternal.log("Game name: " + gameName, "SEngine");
-			
-			logLWJGLInfo();
-			
-			SEngine.created = true;
-			SEngine.gameName = gameName;
-			
-			// Initialize engine systems
-			WindowInternal.createWindowed(1280, 720);
-			AudioManagerInternal.create();
-			
-			KeyboardInternal.create();
-			MouseInternal.create();
-			CursorInternal.create();
-			JoystickInternal.create();
-		}
+		LoggerInternal.log("Starting", this);
+		LoggerInternal.log("SEngine version: " + VERSION_STRING, this);
+		
+		logLWJGLInfo();
+		
+		// Initialize engine systems
+		WindowInternal.createWindowed(1280, 720);
+		OpenGLRenderer.create();
+		AudioManagerInternal.create();
+		
+		KeyboardInternal.create();
+		MouseInternal.create();
+		CursorInternal.create();
+		JoystickInternal.create();
+		
+		this.game = game;
+		
+		start();
 	}
 	
 	/**
 	 * Start the engine, called by {@link Game#start()}
 	 */
-	static void start()
+	private final void start()
 	{
-		if(created && !running)
+		if(!running)
 		{
-			SEngine.running = true;
+			running = true;
 			
+			game.onCreate();
 			mainLoop();
 		}
 	}
@@ -100,11 +92,11 @@ public final class SEngine
 	/**
 	 * Stop the engine, called by {@link Game#quit()}
 	 */
-	static void stop()
+	public final void stop()
 	{
 		if(running)
 		{
-			LoggerInternal.log("Stopping", "SEngine");
+			LoggerInternal.log("Stopping", this);
 			
 			running = false;
 		}
@@ -113,7 +105,7 @@ public final class SEngine
 	/**
 	 * The main loop of the engine
 	 */
-	private static void mainLoop()
+	private final void mainLoop()
 	{
 		double unprocessedTime = 0.0;
 		
@@ -170,7 +162,7 @@ public final class SEngine
 	/**
 	 * Run a single update cycle
 	 */
-	private static void updateCycle()
+	private final void updateCycle()
 	{
 		SceneUtilities.runUpdateCycle();
 		
@@ -184,7 +176,7 @@ public final class SEngine
 	/**
 	 * Run a single render cycle
 	 */
-	private static void renderCycle()
+	private final void renderCycle()
 	{
 		SceneUtilities.runRenderCycle();
 	}
@@ -192,7 +184,7 @@ public final class SEngine
 	/**
 	 * Destroy all engine systems
 	 */
-	private static void destroy()
+	private final void destroy()
 	{
 		JoystickInternal.destroy();
 		CursorInternal.destroy();
@@ -204,18 +196,21 @@ public final class SEngine
 	}
 	
 	/**
-	 * @return The name of the game
-	 */
-	public static String getGameName()
-	{
-		return gameName;
-	}
-	
-	/**
 	 * Log information about LWJGL
 	 */
-	private static void logLWJGLInfo()
+	private final void logLWJGLInfo()
 	{
 		LoggerInternal.log("Version: " + Version.getVersion(), "LWJGL");
+	}
+	
+	public static void main(String[] args) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException
+	{
+		if(args.length < 1)
+		{
+			System.err.println("No game specified");
+			System.exit(1);
+		}
+		
+		Class.forName(args[0]).getConstructor().newInstance();
 	}
 }

@@ -29,18 +29,15 @@ import com.snakybo.sengine.object.GameObject;
  * @author Snakybo
  * @since 1.0
  */
-class WindowTest
+public class WindowTest extends Game
 {
-	public static void main(String[] args)
+	public WindowTest()
 	{
-		Game.create("Window Test");
-		
-		loadScene();
-		
-		Game.start();
+		super("Window Test");
 	}
 	
-	private static void loadScene()
+	@Override
+	protected void onCreate()
 	{
 		GameObject controller = new GameObject("Window Controller");
 		controller.addComponent(new WindowController());

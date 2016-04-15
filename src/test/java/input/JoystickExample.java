@@ -32,60 +32,55 @@ import com.snakybo.sengine.object.GameObject;
  * @author Snakybo
  * @since 1.0
  */
-class JoystickExample
+public class JoystickExample extends Game
 {
-	private static class JoystickManager extends Component
+	public JoystickExample()
 	{
-		@Override
-		protected void update()
-		{
-			Logger.log("=========================");
-			Logger.log("Num joysticks present: " + Joystick.getNumJoysticksPresent());
-			
-			for(int i : Joystick.getJoysticksPresent())
-			{
-				Logger.log(" Name: " + Joystick.getJoystickName(i));
-				Logger.log("   Num buttons: " + Joystick.getNumButtons(i));
-				
-				for(int j = 0; j < Joystick.getNumButtons(i); j++)
-				{
-					if(Joystick.onButtonDown(i, j))
-					{
-						Logger.log("    onButtonDown: " + j);
-					}
-					
-					if(Joystick.isButtonDown(i, j))
-					{
-						Logger.log("    isButtonDown: " + j);
-					}
-					
-					if(Joystick.onButtonUp(i, j))
-					{
-						Logger.log("    onButtonUp: " + j);
-					}
-				}
-				
-				Logger.log("   Num axes: " + Joystick.getNumAxes(i));
-				for(int j = 0; j < Joystick.getNumAxes(i); j++)
-				{
-					Logger.log("    Axis " + j + ": " + Joystick.getAxis(i, j));
-				}
-			}
-		}
+		super("Joystick Test");
 	}
 	
-	public static void main(String[] args)
-	{
-		Game.create("Joystick Test");
-		
-		loadScene();
-		
-		Game.start();
-	}
-	
-	private static void loadScene()
+	@Override
+	protected void onCreate()
 	{
 		GameObject joystickManager = new GameObject();
-		joystickManager.addComponent(new JoystickManager());
+		joystickManager.addComponent(new Component()
+		{
+			@Override
+			protected void update()
+			{
+				Logger.log("=========================");
+				Logger.log("Num joysticks present: " + Joystick.getNumJoysticksPresent());
+				
+				for(int i : Joystick.getJoysticksPresent())
+				{
+					Logger.log(" Name: " + Joystick.getJoystickName(i));
+					Logger.log("   Num buttons: " + Joystick.getNumButtons(i));
+					
+					for(int j = 0; j < Joystick.getNumButtons(i); j++)
+					{
+						if(Joystick.onButtonDown(i, j))
+						{
+							Logger.log("    onButtonDown: " + j);
+						}
+						
+						if(Joystick.isButtonDown(i, j))
+						{
+							Logger.log("    isButtonDown: " + j);
+						}
+						
+						if(Joystick.onButtonUp(i, j))
+						{
+							Logger.log("    onButtonUp: " + j);
+						}
+					}
+					
+					Logger.log("   Num axes: " + Joystick.getNumAxes(i));
+					for(int j = 0; j < Joystick.getNumAxes(i); j++)
+					{
+						Logger.log("    Axis " + j + ": " + Joystick.getAxis(i, j));
+					}
+				}
+			}
+		});
 	}
 }

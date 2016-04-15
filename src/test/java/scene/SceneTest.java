@@ -35,48 +35,43 @@ import com.snakybo.sengine.scene.SceneManager;
  * @author Snakybo
  * @since 1.0
  */
-class SceneTest
+public class SceneTest extends Game
 {
-	private static class LogUpdate extends Component
+	public SceneTest()
 	{
-		@Override
-		protected void update()
-		{
-			Logger.log("Update!");
-		}
+		super("Scene Test");
 	}
 	
-	private static class SceneSwitcher extends Component
-	{
-		@Override
-		protected void start()
-		{
-			Logger.log("Loaded scene: " + SceneManager.getCurrentScene().getName());
-		}
-		
-		@Override
-		protected void update()
-		{
-			if(Keyboard.onKeyDown(Key.SPACE))
-			{
-				SceneManager.load(new Scene("Scene 2"));
-			}
-		}
-	}
-	
-	public static void main(String[] args)
-	{
-		Game.create("Scene Test");
-		
-		loadScene();
-		
-		Game.start();
-	}
-	
-	private static void loadScene()
+	@Override
+	protected void onCreate()
 	{
 		GameObject go = new GameObject();
-		go.addComponent(new SceneSwitcher());
-		go.addComponent(new LogUpdate());
+		
+		go.addComponent(new Component()
+		{
+			@Override
+			protected void start()
+			{
+				Logger.log("Loaded scene: " + SceneManager.getCurrentScene().getName());
+			}
+			
+			@Override
+			protected void update()
+			{
+				if(Keyboard.onKeyDown(Key.SPACE))
+				{
+					SceneManager.load(new Scene("Scene 2"));
+				}
+			}
+		});
+		
+		go.addComponent(new Component()
+		{
+			@Override
+			protected void update()
+			{
+				Logger.log("Update!");
+			}
+		});
 	}
 }
