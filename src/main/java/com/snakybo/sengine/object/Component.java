@@ -23,7 +23,6 @@
 package com.snakybo.sengine.object;
 
 import com.snakybo.sengine.input.cursor.CursorEnterMode;
-import com.snakybo.sengine.util.time.Time;
 
 /**
  * @author Snakybo
@@ -46,7 +45,7 @@ public abstract class Component extends Object
 		}
 		else
 		{
-			setName("Anonymous Component " + Time.getCurrentTime());
+			setName("Anonymous Component");
 		}
 	}
 	
