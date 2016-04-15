@@ -22,8 +22,6 @@
 
 package com.snakybo.sengine;
 
-import java.lang.reflect.InvocationTargetException;
-
 import org.lwjgl.Version;
 
 import com.snakybo.sengine.audio.AudioManagerInternal;
@@ -201,16 +199,5 @@ public final class SEngine
 	private final void logLWJGLInfo()
 	{
 		LoggerInternal.log("Version: " + Version.getVersion(), "LWJGL");
-	}
-	
-	public static void main(String[] args) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException
-	{
-		if(args.length < 1)
-		{
-			System.err.println("No game specified");
-			System.exit(1);
-		}
-		
-		Class.forName(args[0]).getConstructor().newInstance();
 	}
 }
