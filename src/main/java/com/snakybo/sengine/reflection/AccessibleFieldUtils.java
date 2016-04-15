@@ -43,9 +43,9 @@ public final class AccessibleFieldUtils
 	
 	/**
 	 * Set the value of an {@link AccessibleField}
-	 * @param object - The object of the field
-	 * @param field - The field
-	 * @param value - The value of the field
+	 * @param object The object of the field
+	 * @param field The field
+	 * @param value The value of the field
 	 */
 	public static void set(Object object, Field field, boolean value)
 	{
@@ -72,9 +72,9 @@ public final class AccessibleFieldUtils
 	
 	/**
 	 * Set the value of an {@link AccessibleField}
-	 * @param object - The object of the field
-	 * @param field - The field
-	 * @param value - The value of the field
+	 * @param object The object of the field
+	 * @param field The field
+	 * @param value The value of the field
 	 */
 	public static void set(Object object, Field field, byte value)
 	{
@@ -101,9 +101,9 @@ public final class AccessibleFieldUtils
 	
 	/**
 	 * Set the value of an {@link AccessibleField}
-	 * @param object - The object of the field
-	 * @param field - The field
-	 * @param value - The value of the field
+	 * @param object The object of the field
+	 * @param field The field
+	 * @param value The value of the field
 	 */
 	public static void set(Object object, Field field, short value)
 	{
@@ -130,9 +130,9 @@ public final class AccessibleFieldUtils
 	
 	/**
 	 * Set the value of an {@link AccessibleField}
-	 * @param object - The object of the field
-	 * @param field - The field
-	 * @param value - The value of the field
+	 * @param object The object of the field
+	 * @param field The field
+	 * @param value The value of the field
 	 */
 	public static void set(Object object, Field field, int value)
 	{
@@ -159,9 +159,9 @@ public final class AccessibleFieldUtils
 	
 	/**
 	 * Set the value of an {@link AccessibleField}
-	 * @param object - The object of the field
-	 * @param field - The field
-	 * @param value - The value of the field
+	 * @param object The object of the field
+	 * @param field The field
+	 * @param value The value of the field
 	 */
 	public static void set(Object object, Field field, float value)
 	{
@@ -188,9 +188,9 @@ public final class AccessibleFieldUtils
 	
 	/**
 	 * Set the value of an {@link AccessibleField}
-	 * @param object - The object of the field
-	 * @param field - The field
-	 * @param value - The value of the field
+	 * @param object The object of the field
+	 * @param field The field
+	 * @param value The value of the field
 	 */
 	public static void set(Object object, Field field, double value)
 	{
@@ -217,9 +217,9 @@ public final class AccessibleFieldUtils
 	
 	/**
 	 * Set the value of an {@link AccessibleField}
-	 * @param object - The object of the field
-	 * @param field - The field
-	 * @param value - The value of the field
+	 * @param object The object of the field
+	 * @param field The field
+	 * @param value The value of the field
 	 */
 	public static void set(Object object, Field field, long value)
 	{
@@ -246,9 +246,9 @@ public final class AccessibleFieldUtils
 	
 	/**
 	 * Set the value of an {@link AccessibleField}
-	 * @param object - The object of the field
-	 * @param field - The field
-	 * @param value - The value of the field
+	 * @param object The object of the field
+	 * @param field The field
+	 * @param value The value of the field
 	 */
 	public static void set(Object object, Field field, char value)
 	{
@@ -275,9 +275,9 @@ public final class AccessibleFieldUtils
 	
 	/**
 	 * Set the value of an {@link AccessibleField}
-	 * @param object - The object of the field
-	 * @param field - The field
-	 * @param value - The value of the field
+	 * @param object The object of the field
+	 * @param field The field
+	 * @param value The value of the field
 	 */
 	public static void set(Object object, Field field, String value)
 	{
@@ -304,9 +304,9 @@ public final class AccessibleFieldUtils
 	
 	/**
 	 * Set the value of an {@link AccessibleField}
-	 * @param object - The object of the field
-	 * @param field - The field
-	 * @param value - The value of the field
+	 * @param object The object of the field
+	 * @param field The field
+	 * @param value The value of the field
 	 */
 	public static void set(Object object, Field field, Object value)
 	{
@@ -333,7 +333,7 @@ public final class AccessibleFieldUtils
 	
 	/**
 	 * Get all {@link AccessibleField}s from an object
-	 * @param object - The object
+	 * @param object The object
 	 * @return All accessible fields
 	 */
 	public static Field[] getAll(Object object)
@@ -355,8 +355,8 @@ public final class AccessibleFieldUtils
 	
 	/**
 	 * Get an {@link AccessibleField} with the specified {@code name}
-	 * @param object - The object of the field
-	 * @param name - The name of the field
+	 * @param object The object of the field
+	 * @param name The name of the field
 	 * @return The field, or null if no field was found with the specified name
 	 */
 	public static Field get(Object object, String name)
@@ -380,8 +380,8 @@ public final class AccessibleFieldUtils
 	
 	/**
 	 * Get the value of an {@link AccessibleField}
-	 * @param object - The object of the field
-	 * @param field - The field to get the value of
+	 * @param object The object of the field
+	 * @param field The field to get the value of
 	 * @return The value of the field as a string
 	 */
 	public static Object getValue(Object object, Field field)
@@ -406,7 +406,7 @@ public final class AccessibleFieldUtils
 	
 	/**
 	 * Checks if a field is accessible 
-	 * @param field - The field to check
+	 * @param field The field to check
 	 * @return Whether or not the field is accessible
 	 */
 	public static boolean isAccessible(Field field)

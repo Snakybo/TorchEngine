@@ -58,6 +58,7 @@ public final class Model extends Resource
 	
 	/**
 	 * Create a new model
+	 * @param name The name of the model
 	 */
 	public Model(String name)
 	{
@@ -149,7 +150,7 @@ public final class Model extends Resource
 	
 	/**
 	 * Add a vertex to the model
-	 * @param vertex - The vertex to add
+	 * @param vertex The vertex to add
 	 */
 	public final void addVertex(Vector3f vertex)
 	{
@@ -158,7 +159,7 @@ public final class Model extends Resource
 	
 	/**
 	 * Add a texture coordinate to the model
-	 * @param texCoord - The texture coordinate to add
+	 * @param texCoord The texture coordinate to add
 	 */
 	public final void addTexCoord(Vector2f texCoord)
 	{
@@ -167,7 +168,7 @@ public final class Model extends Resource
 	
 	/**
 	 * Add a normal to the model
-	 * @param normal - The model to add
+	 * @param normal The model to add
 	 */
 	public final void addNormal(Vector3f normal)
 	{
@@ -176,7 +177,7 @@ public final class Model extends Resource
 	
 	/**
 	 * Add a tangent to the model
-	 * @param tangent - The tangent to add
+	 * @param tangent The tangent to add
 	 */
 	public final void addTangent(Vector3f tangent)
 	{
@@ -185,7 +186,7 @@ public final class Model extends Resource
 	
 	/**
 	 * Add a single index to the model
-	 * @param index - The index to add
+	 * @param index The index to add
 	 */
 	public final void addIndex(int index)
 	{
@@ -194,9 +195,9 @@ public final class Model extends Resource
 	
 	/**
 	 * Add a face, or 3 indices to the model
-	 * @param i0 - The first index
-	 * @param i1 - The second index
-	 * @param i2 - The third index
+	 * @param i0 The first index
+	 * @param i1 The second index
+	 * @param i2 The third index
 	 */
 	public final void addFace(int i0, int i1, int i2)
 	{
@@ -246,7 +247,7 @@ public final class Model extends Resource
 	}
 	
 	/**
-	 * @param index - The index of the vertex
+	 * @param index The index of the vertex
 	 * @return The vertex at the specified index
 	 */
 	public final Vector3f getVertex(int index)
@@ -255,7 +256,7 @@ public final class Model extends Resource
 	}
 	
 	/**
-	 * @param index - The index of the texCoord
+	 * @param index The index of the texCoord
 	 * @return The texCoord at the specified index
 	 */
 	public final Vector2f getTexCoord(int index)
@@ -264,7 +265,7 @@ public final class Model extends Resource
 	}
 	
 	/**
-	 * @param index - The index of the normal
+	 * @param index The index of the normal
 	 * @return The normal at the specified index
 	 */
 	public final Vector3f getNormal(int index)
@@ -273,7 +274,7 @@ public final class Model extends Resource
 	}
 	
 	/**
-	 * @param index - The index of the tangent
+	 * @param index The index of the tangent
 	 * @return The tangent at the specified index
 	 */
 	public final Vector3f getTangent(int index)
@@ -368,7 +369,7 @@ public final class Model extends Resource
 	
 	/**
 	 * Attempt to load a model, if it's been loaded before; it won't load it again
-	 * @param fileName - The path to the model
+	 * @param fileName The path to the model
 	 * @return The imported model
 	 */
 	public static Model load(String fileName)

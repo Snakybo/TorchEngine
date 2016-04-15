@@ -56,8 +56,8 @@ public final class Mouse
 	
 	/**
 	 * Register a new input map
-	 * @param name - The name of the map
-	 * @param key - The key to assign to the map
+	 * @param name The name of the map
+	 * @param mouseButton The mouse button to assign to the map
 	 */
 	public static void addInputMapping(String name, MouseButton mouseButton)
 	{
@@ -66,7 +66,7 @@ public final class Mouse
 	
 	/**
 	 * Unregister an input map
-	 * @param name - The name of the map to unassign
+	 * @param name The name of the map to unassign
 	 */
 	public static void removeInputMapping(String name)
 	{
@@ -75,7 +75,7 @@ public final class Mouse
 	
 	/**
 	 * Set the cursor position
-	 * @param position - The new position
+	 * @param position The new position
 	 * @see #setCursorPosition(int, int)
 	 */
 	public static void setCursorPosition(Vector2f position)
@@ -85,8 +85,8 @@ public final class Mouse
 	
 	/**
 	 * Set the cursor position
-	 * @param x - The X position
-	 * @param y - The Y position
+	 * @param x The X position
+	 * @param y The Y position
 	 * @see #setCursorPosition(Vector2f)
 	 */
 	public static void setCursorPosition(int x, int y)
@@ -120,7 +120,7 @@ public final class Mouse
 	
 	/**
 	 * Returns true if the mouse button assigned to the specified map is currently held down
-	 * @param map - The name of the map
+	 * @param map The name of the map
 	 * @return True if the mouse button assigned to the map is currently held down
 	 */
 	public static boolean isMapDown(String map)
@@ -135,7 +135,7 @@ public final class Mouse
 	
 	/**
 	 * Returns true if the specified mouse button is currently held down
-	 * @param mouseButton - The mouse button
+	 * @param mouseButton The mouse button
 	 * @return True if the mouse button is currently held down
 	 * @see MouseButton
 	 */
@@ -146,7 +146,7 @@ public final class Mouse
 	
 	/**
 	 * Returns true the frame when the specified mouse button assigned to the map is pressed 
-	 * @param map - The name of the map
+	 * @param map The name of the map
 	 * @return True if the mouse button assigned to the map was pressed in this frame
 	 */
 	public static boolean onMapDown(String map)
@@ -161,7 +161,7 @@ public final class Mouse
 	
 	/**
 	 * Returns true the frame when the specified mouse button is pressed 
-	 * @param mouseButton - The mouse button
+	 * @param mouseButton The mouse button
 	 * @return True if the mouse button was pressed in this frame
 	 * @see MouseButton
 	 */
@@ -172,7 +172,7 @@ public final class Mouse
 	
 	/**
 	 * Returns true the frame when the specified mouse button assigned to the map was released
-	 * @param map - The name of the map
+	 * @param map The name of the map
 	 * @return True if the mouse button assigned to the map was released in this frame
 	 */
 	public static boolean onMapUp(String map)
@@ -187,7 +187,7 @@ public final class Mouse
 	
 	/**
 	 * Returns true the frame when the specified mouse button was released
-	 * @param mouseButton - The mouse button
+	 * @param mouseButton The mouse button
 	 * @return True if the mouse button was released in this frame
 	 * @see MouseButton
 	 */

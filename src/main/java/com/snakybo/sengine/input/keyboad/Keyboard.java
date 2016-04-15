@@ -50,8 +50,8 @@ public final class Keyboard
 	
 	/**
 	 * Register a new input map
-	 * @param name - The name of the map
-	 * @param key - The key to assign to the map
+	 * @param name The name of the map
+	 * @param key The key to assign to the map
 	 */
 	public static void addInputMapping(String name, Key key)
 	{
@@ -60,7 +60,7 @@ public final class Keyboard
 	
 	/**
 	 * Unregister an input map
-	 * @param name - The name of the map to unassign
+	 * @param name The name of the map to unassign
 	 */
 	public static void removeInputMapping(String name)
 	{
@@ -69,7 +69,7 @@ public final class Keyboard
 	
 	/**
 	 * Returns true if the key assigned to the specified map is currently held down
-	 * @param map - The name of the map
+	 * @param map The name of the map
 	 * @return True if the key assigned to the map is currently held down
 	 */
 	public static boolean isMapDown(String map)
@@ -84,7 +84,7 @@ public final class Keyboard
 	
 	/**
 	 * Returns true if the specified key is currently held down
-	 * @param key - The key
+	 * @param key The key
 	 * @return True if the key is currently held down
 	 * @see Key
 	 */
@@ -95,7 +95,7 @@ public final class Keyboard
 	
 	/**
 	 * Returns true the frame when the specified key assigned to the map is pressed 
-	 * @param map - The name of the map
+	 * @param map The name of the map
 	 * @return True if the key assigned to the map was pressed in this frame
 	 */
 	public static boolean onMapDown(String map)
@@ -110,7 +110,7 @@ public final class Keyboard
 	
 	/**
 	 * Returns true the frame when the specified key is pressed 
-	 * @param key - The key
+	 * @param key The key
 	 * @return True if the key was pressed in this frame
 	 * @see Key
 	 */
@@ -121,7 +121,7 @@ public final class Keyboard
 	
 	/**
 	 * Returns true the frame when the specified key assigned to the map was released
-	 * @param map - The name of the map
+	 * @param map The name of the map
 	 * @return True if the key assigned to the map was released in this frame
 	 */
 	public static boolean onMapUp(String map)
@@ -136,7 +136,7 @@ public final class Keyboard
 	
 	/**
 	 * Returns true the frame when the specified key was released
-	 * @param key - The key
+	 * @param key The key
 	 * @return True if the key was released in this frame
 	 * @see Key
 	 */
@@ -147,7 +147,7 @@ public final class Keyboard
 
 	/**
 	 * Set the value of the Clipboard
-	 * @param string - The new value of the clipboard
+	 * @param string The new value of the clipboard
 	 */
 	public static void setClipboardString(String string)
 	{

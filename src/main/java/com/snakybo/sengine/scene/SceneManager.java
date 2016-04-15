@@ -48,7 +48,7 @@ public final class SceneManager
 	
 	/**
 	 * Load a new scene
-	 * @param scene - The new scene
+	 * @param scene The new scene
 	 */
 	public static void load(Scene scene)
 	{
@@ -57,7 +57,7 @@ public final class SceneManager
 	
 	/**
 	 * Find a {@link GameObject} with the specified name
-	 * @param name - The name of the {@link GameObject}
+	 * @param name The name of the {@link GameObject}
 	 * @return The {@link GameObject} with the specified name, or {@code null} if no {@link GameObject} was found
 	 */
 	public static GameObject find(String name)

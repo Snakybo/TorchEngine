@@ -54,8 +54,8 @@ public final class StandaloneCamera
 	
 	/**
 	 * Create a new camera
-	 * @param projection - The projection of the camera
-	 * @param clearFlags - The {@link CameraClearFlags} to use
+	 * @param projection The projection of the camera
+	 * @param clearFlags The {@link CameraClearFlags} to use
 	 */
 	public StandaloneCamera(Matrix4f projection, CameraClearFlags clearFlags)
 	{
@@ -64,9 +64,9 @@ public final class StandaloneCamera
 	
 	/**
 	 * Create a new camera
-	 * @param projection - The projection of the camera
-	 * @param clearFlags - The {@link CameraClearFlags} to use
-	 * @param clearColor - The clear color, only used in {@link CameraClearFlags#SolidColor}
+	 * @param projection The projection of the camera
+	 * @param clearFlags The {@link CameraClearFlags} to use
+	 * @param clearColor The clear color, only used in {@link CameraClearFlags#SolidColor}
 	 */
 	public StandaloneCamera(Matrix4f projection, CameraClearFlags clearFlags, Color clearColor)
 	{
@@ -113,7 +113,7 @@ public final class StandaloneCamera
 	
 	/**
 	 * Set the {@link CameraClearFlags} to use
-	 * @param clearFlags - The new clear flags
+	 * @param clearFlags The new clear flags
 	 */
 	public final void setClearFlags(CameraClearFlags clearFlags)
 	{
@@ -122,7 +122,7 @@ public final class StandaloneCamera
 	
 	/**
 	 * Set the projection of the camera
-	 * @param projection - The new projection
+	 * @param projection The new projection
 	 */
 	public final void setProjection(Matrix4f projection)
 	{
@@ -131,7 +131,7 @@ public final class StandaloneCamera
 	
 	/**
 	 * Set the transform of the camera
-	 * @param transform - The new transform
+	 * @param transform The new transform
 	 */
 	public final void setTransform(Transform transform)
 	{
@@ -140,7 +140,7 @@ public final class StandaloneCamera
 	
 	/**
 	 * Set the clear color of the camera, only used in {@link CameraClearFlags#SolidColor}
-	 * @param clearColor - The new clear color
+	 * @param clearColor The new clear color
 	 */
 	public final void setClearColor(Color clearColor)
 	{

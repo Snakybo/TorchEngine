@@ -112,6 +112,7 @@ public final class Transform
 	/**
 	 * Look at a position
 	 * @param position - The position in world space to look at
+	 * @param up - The up direction
 	 */
 	public final void lookAt(Vector3f position, Vector3f up)
 	{

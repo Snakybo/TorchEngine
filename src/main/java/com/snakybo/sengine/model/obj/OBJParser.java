@@ -57,7 +57,7 @@ final class OBJParser
 	
 	/**
 	 * Parse a model
-	 * @param lines - The lines of the target file
+	 * @param lines The lines of the target file
 	 */
 	public final void parse(List<String> lines)
 	{

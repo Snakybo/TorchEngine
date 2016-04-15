@@ -65,7 +65,7 @@ public final class OpenGLRenderer
 	
 	/**
 	 * Render a single object
-	 * @param gameObject - The object to render
+	 * @param gameObject The object to render
 	 */
 	public static void renderObject(GameObject gameObject)
 	{

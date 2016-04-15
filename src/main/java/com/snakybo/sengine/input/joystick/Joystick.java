@@ -45,7 +45,7 @@ public final class Joystick
 	}
 	
 	/**
-	 * Check if there is any joystick present
+	 * @return Whether or not there is any joystick present
 	 */
 	public static boolean isJoystickPresent()
 	{
@@ -54,7 +54,8 @@ public final class Joystick
 	
 	/**
 	 * Check if the specified joystick is present
-	 * @param joystick - The joystick ID to check
+	 * @param joystick The joystick ID to check
+	 * @return Whether or not the joystick with the specified ID is present
 	 */
 	public static boolean isJoystickPresent(int joystick)
 	{
@@ -63,7 +64,7 @@ public final class Joystick
 	
 	/**
 	 * Returns true if the specified button is currently being pressed on any joystick
-	 * @param button - The joystick button
+	 * @param button The joystick button
 	 * @return True if the button is currently being pressed
 	 */
 	public static boolean isButtonDown(int button)
@@ -81,8 +82,8 @@ public final class Joystick
 	
 	/**
 	 * Returns true if the specified button is currently being pressed on the specified joystick
-	 * @param joystick - The joystick to poll
-	 * @param button - The joystick button
+	 * @param joystick The joystick to poll
+	 * @param button The joystick button
 	 * @return True if the button is currently being pressed
 	 */
 	public static boolean isButtonDown(int joystick, int button)
@@ -100,7 +101,7 @@ public final class Joystick
 	
 	/**
 	 * Returns true the frame when the specified button was first pressed on any joystick
-	 * @param button - The joystick button
+	 * @param button The joystick button
 	 * @return True if the button was pressed in this frame
 	 */
 	public static boolean onButtonDown(int button)
@@ -118,8 +119,8 @@ public final class Joystick
 	
 	/**
 	 * Returns true the frame when the specified button was first pressed on the specified joystick
-	 * @param joystick - The joystick to poll
-	 * @param button - The joystick button
+	 * @param joystick The joystick to poll
+	 * @param button The joystick button
 	 * @return True if the button was pressed in this frame
 	 */
 	public static boolean onButtonDown(int joystick, int button)
@@ -137,7 +138,7 @@ public final class Joystick
 	
 	/**
 	 * Returns true the frame when the specified button was released on any joystick
-	 * @param button - The joystick button
+	 * @param button The joystick button
 	 * @return True if the button was released in this frame
 	 */
 	public static boolean onButtonUp(int button)
@@ -155,8 +156,8 @@ public final class Joystick
 	
 	/**
 	 * Returns true the frame when the specified button was released on the specified joystick
-	 * @param joystick - The joystick to poll
-	 * @param button - The joystick button
+	 * @param joystick The joystick to poll
+	 * @param button The joystick button
 	 * @return True if the button was released in this frame
 	 */
 	public static boolean onButtonUp(int joystick, int button)
@@ -174,8 +175,8 @@ public final class Joystick
 	
 	/**
 	 * Get the current value of a joystick axis
-	 * @param joystick - The joystick to poll
-	 * @param axis - The axis
+	 * @param joystick The joystick to poll
+	 * @param axis The axis
 	 * @return The current value of the axis
 	 */
 	public static float getAxis(int joystick, int axis)
@@ -192,7 +193,7 @@ public final class Joystick
 	}
 	
 	/**
-	 * @param joystick - The joystick to poll
+	 * @param joystick The joystick to poll
 	 * @return The amount of buttons on the joystick
 	 */
 	public static int getNumButtons(int joystick)
@@ -209,7 +210,7 @@ public final class Joystick
 	}
 	
 	/**
-	 * @param joystick - The joystick to poll
+	 * @param joystick The joystick to poll
 	 * @return The amount of axes on the joystick
 	 */
 	public static int getNumAxes(int joystick)
@@ -273,7 +274,7 @@ public final class Joystick
 	}
 	
 	/**
-	 * @param joystick - The joystick to poll
+	 * @param joystick The joystick to poll
 	 * @return The name of the specified joystick
 	 */
 	public static String getJoystickName(int joystick)

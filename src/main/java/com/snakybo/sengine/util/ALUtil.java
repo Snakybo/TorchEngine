@@ -54,7 +54,7 @@ public final class ALUtil
 	
 	/**
 	 * Convert an OpenAL error code to a string
-	 * @param error - The error code
+	 * @param error The error code
 	 * @return A string representation of the error code
 	 */
 	public static String getALErrorString(int error)

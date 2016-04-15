@@ -36,7 +36,7 @@ public final class Game
 	
 	/**
 	 * Create the engine
-	 * @param name - The name of the game
+	 * @param name The name of the game
 	 */
 	public static void create(String name)
 	{
@@ -62,7 +62,7 @@ public final class Game
 	
 	/**
 	 * Set the target frame rate
-	 * @param targetFrameRate - The new target frame rate
+	 * @param targetFrameRate The new target frame rate
 	 */
 	public static void setTargetFrameRate(int targetFrameRate)
 	{

@@ -40,9 +40,9 @@ public final class Color
 	
 	/**
 	 * Create a new color. Values are in the range of [0-1]
-	 * @param r - The red component
-	 * @param g - The green component
-	 * @param b - The blue component
+	 * @param r The red component
+	 * @param g The green component
+	 * @param b The blue component
 	 */
 	public Color(float r, float g, float b)
 	{
@@ -51,10 +51,10 @@ public final class Color
 	
 	/**
 	 * Create a new color. Values are in the range of [0-1]
-	 * @param r - The red component
-	 * @param g - The green component
-	 * @param b - The blue component
-	 * @param a - The alpha component
+	 * @param r The red component
+	 * @param g The green component
+	 * @param b The blue component
+	 * @param a The alpha component
 	 */
 	public Color(float r, float g, float b, float a)
 	{
@@ -75,7 +75,7 @@ public final class Color
 	
 	/**
 	 * Copy the value of another color
-	 * @param other - The color to copy
+	 * @param other The color to copy
 	 */
 	public Color(Color other)
 	{
@@ -102,7 +102,7 @@ public final class Color
 	
 	/**
 	 * Set the red component of the color. Accepted value is in the range of [0-1]
-	 * @param r - The red component
+	 * @param r The red component
 	 */
 	public final void setRed(float r)
 	{
@@ -114,7 +114,7 @@ public final class Color
 	
 	/**
 	 * Set the green component of the color. Accepted value is in the range of [0-1]
-	 * @param g - The green component
+	 * @param g The green component
 	 */
 	public final void setGreen(float g)
 	{
@@ -126,7 +126,7 @@ public final class Color
 	
 	/**
 	 * Set the blue component of the color. Accepted value is in the range of [0-1]
-	 * @param b - The blue component
+	 * @param b The blue component
 	 */
 	public final void setBlue(float b)
 	{
@@ -138,7 +138,7 @@ public final class Color
 	
 	/**
 	 * Set the alpha component of the color. Accepted value is in the range of [0-1]
-	 * @param a - The alpha component
+	 * @param a The alpha component
 	 */
 	public final void setAlpha(float a)
 	{

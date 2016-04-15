@@ -191,7 +191,7 @@ public final class AudioPlayer extends Component
 	
 	/**
 	 * Start playback
-	 * @param audioClip - The {@link AudioClip} to play
+	 * @param audioClip The {@link AudioClip} to play
 	 */
 	public final void play(AudioClip audioClip)
 	{
@@ -227,7 +227,7 @@ public final class AudioPlayer extends Component
 	
 	/**
 	 * Set the volume
-	 * @param volume - The new volume
+	 * @param volume The new volume
 	 */
 	public final void setVolume(float volume)
 	{
@@ -237,7 +237,7 @@ public final class AudioPlayer extends Component
 	
 	/**
 	 * Set the pitch
-	 * @param pitch - The new pitch
+	 * @param pitch The new pitch
 	 */
 	public final void setPitch(float pitch)
 	{
@@ -247,7 +247,7 @@ public final class AudioPlayer extends Component
 	
 	/**
 	 * Set whether or not we should loop playback
-	 * @param loop - Whether or not to loop
+	 * @param loop Whether or not to loop
 	 */
 	public final void setLooping(boolean loop)
 	{

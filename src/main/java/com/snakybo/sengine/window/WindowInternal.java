@@ -87,8 +87,8 @@ public final class WindowInternal
 	
 	/**
 	 * Create a windowed window
-	 * @param width - The width of the new window
-	 * @param height - The height of the new window
+	 * @param width The width of the new window
+	 * @param height The height of the new window
 	 */
 	public static void createWindowed(int width, int height)
 	{
@@ -105,7 +105,7 @@ public final class WindowInternal
 	
 	/**
 	 * Create a borderless fullscreen window
-	 * @param displayMode - The {@link DisplayMode} to use
+	 * @param displayMode The {@link DisplayMode} to use
 	 */
 	public static void createBorderlessFullscreen(DisplayMode displayMode)
 	{
@@ -129,8 +129,8 @@ public final class WindowInternal
 	
 	/**
 	 * Create a fullscreen window
-	 * @param monitor - The {@link Monitor} to display the window on
-	 * @param displayMode - The {@link DisplayMode} to use 
+	 * @param monitor The {@link Monitor} to display the window on
+	 * @param displayMode The {@link DisplayMode} to use 
 	 */
 	public static void createFullscreen(Monitor monitor, DisplayMode displayMode)
 	{
@@ -169,9 +169,9 @@ public final class WindowInternal
 	
 	/**
 	 * Actually create the window
-	 * @param width - The width of the window
-	 * @param height - The height of the window
-	 * @param monitor - The monitor to display the window on, {@code NULL} for anything other than fullscreen windows
+	 * @param width The width of the window
+	 * @param height The height of the window
+	 * @param monitor The monitor to display the window on, {@code NULL} for anything other than fullscreen windows
 	 */
 	private static void create(int width, int height, long monitor)
 	{

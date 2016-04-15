@@ -29,7 +29,7 @@ import java.util.zip.CRC32;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-/** Loads shared libraries from JAR files. Call {@link SharedLibraryLoader#load() to load the
+/** Loads shared libraries from JAR files. Call {@link SharedLibraryLoader#load()} to load the
  * required LWJGL 3 native shared libraries.
  * @author mzechner
  * @author Nathan Sweet */
@@ -79,7 +79,8 @@ public class SharedLibraryLoader {
 		load(false);
 	}
 
-	/** Extracts the LWJGL native libraries from the classpath and sets the "org.lwjgl.librarypath" system property. */
+	/** Extracts the LWJGL native libraries from the classpath and sets the "org.lwjgl.librarypath" system property.
+	 * @param disableOpenAL internal */
 	static public synchronized void load (boolean disableOpenAL) {		
 		if (!load) return;
 
@@ -113,12 +114,14 @@ public class SharedLibraryLoader {
 	}
 
 	/** Fetches the natives from the given natives jar file. Used for testing a shared lib on the fly.
-	 * @param nativesJar */
+	 * @param nativesJar internal */
 	public SharedLibraryLoader (String nativesJar) {
 		this.nativesJar = nativesJar;
 	}
 
-	/** Returns a CRC of the remaining bytes in the stream. */
+	/** Returns a CRC of the remaining bytes in the stream.
+	 * @param input internal
+	 * @return the crc */
 	public String crc (InputStream input) {
 		if (input == null) throw new IllegalArgumentException("input cannot be null.");
 		CRC32 crc = new CRC32();
@@ -140,7 +143,9 @@ public class SharedLibraryLoader {
 		return Long.toString(crc.getValue(), 16);
 	}
 
-	/** Maps a platform independent library name to a platform dependent name. */
+	/** Maps a platform independent library name to a platform dependent name.
+	 * @param libraryName internal
+	 * @return the library name */
 	public String mapLibraryName (String libraryName) {
 		if (isWindows) return libraryName + (is64Bit ? "64.dll" : ".dll");
 		if (isLinux) return "lib" + libraryName + (isARM ? "arm" + abi : "") + (is64Bit ? "64.so" : ".so");
@@ -199,7 +204,8 @@ public class SharedLibraryLoader {
 	 * extraction fails and the file exists at java.library.path, that file is returned.
 	 * @param sourcePath The file to extract from the classpath or JAR.
 	 * @param dirName The name of the subdirectory where the file will be extracted. If null, the file's CRC will be used.
-	 * @return The extracted file. */
+	 * @return The extracted file.
+	 * @throws IOException if error */
 	public File extractFile (String sourcePath, String dirName) throws IOException {
 		try {
 			String sourceCrc = crc(readFile(sourcePath));
@@ -215,7 +221,7 @@ public class SharedLibraryLoader {
 		}
 	}
 
-	/** Returns a path to a file that can be written. Tries multiple locations and verifies writing succeeds. */
+	/** @return a path to a file that can be written. Tries multiple locations and verifies writing succeeds. */
 	private File getExtractedFile (String dirName, String fileName) {
 		// Temp directory with username in path.
 		File idealFile = new File(System.getProperty("java.io.tmpdir") + "/libgdx" + System.getProperty("user.name") + "/"
@@ -243,7 +249,7 @@ public class SharedLibraryLoader {
 		return idealFile; // Will likely fail, but we did our best.
 	}
 
-	/** Returns true if the parent directories of the file can be created and the file can be written. */
+	/** @return true if the parent directories of the file can be created and the file can be written. */
 	private boolean canWrite (File file) {
 		File parent = file.getParentFile();
 		File testFile;

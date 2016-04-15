@@ -43,8 +43,8 @@ public final class Window
 	
 	/**
 	 * Set whether or not the {@link Window} shoud be fullscreen (or borderless fullscreen)
-	 * @param fullscreen - Whether or not to be fullscreen
-	 * @param borderless - Should the window be borderless fullscreen?
+	 * @param fullscreen Whether or not to be fullscreen
+	 * @param borderless Should the window be borderless fullscreen?
 	 */
 	public static void setFullscreen(boolean fullscreen, boolean borderless)
 	{
@@ -53,9 +53,9 @@ public final class Window
 	
 	/**
 	 * Set whether or not the {@link Window} shoud be fullscreen (or borderless fullscreen)
-	 * @param fullscreen - Whether or not to be fullscreen
-	 * @param borderless - Should the window be borderless fullscreen?
-	 * @param monitor - The monitor to display the fullscreen window on
+	 * @param fullscreen Whether or not to be fullscreen
+	 * @param borderless Should the window be borderless fullscreen?
+	 * @param monitor The monitor to display the fullscreen window on
 	 */
 	public static void setFullscreen(boolean fullscreen, boolean borderless, Monitor monitor)
 	{
@@ -64,10 +64,10 @@ public final class Window
 	
 	/**
 	 * Set whether or not the {@link Window} shoud be fullscreen (or borderless fullscreen)
-	 * @param fullscreen - Whether or not to be fullscreen
-	 * @param borderless - Should the window be borderless fullscreen?
-	 * @param monitor - The {@link Monitor} to display the fullscreen {@link Window} on
-	 * @param displayMode - The {@link DisplayMode} to use
+	 * @param fullscreen Whether or not to be fullscreen
+	 * @param borderless Should the window be borderless fullscreen?
+	 * @param monitor The {@link Monitor} to display the fullscreen {@link Window} on
+	 * @param displayMode The {@link DisplayMode} to use
 	 */
 	public static void setFullscreen(boolean fullscreen, boolean borderless, Monitor monitor, DisplayMode displayMode)
 	{
@@ -87,7 +87,7 @@ public final class Window
 	
 	/**
 	 * Set the width of the window
-	 * @param width - The new width
+	 * @param width The new width
 	 */
 	public static void setWidth(int width)
 	{
@@ -96,7 +96,7 @@ public final class Window
 	
 	/**
 	 * Set the height of the window
-	 * @param height - The new height
+	 * @param height The new height
 	 */
 	public static void setHeight(int height)
 	{

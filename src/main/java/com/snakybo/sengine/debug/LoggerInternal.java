@@ -35,8 +35,8 @@ public final class LoggerInternal
 	
 	/**
 	 * Debug.LOG_DEBUG version of {@link Logger#log(boolean, Object)}, for internal engine use only
-	 * @param b - The boolean to log
-	 * @param source - The source of the message, can also be a string
+	 * @param b The boolean to log
+	 * @param source The source of the message, can also be a string
 	 */
 	public static void log(boolean b, Object source)
 	{
@@ -48,8 +48,8 @@ public final class LoggerInternal
 	
 	/**
 	 * Debug.LOG_DEBUG version of {@link Logger#log(char, Object)}, for internal engine use only
-	 * @param c - The char to log
-	 * @param source - The source of the message, can also be a string
+	 * @param c The char to log
+	 * @param source The source of the message, can also be a string
 	 */
 	public static void log(char c, Object source)
 	{
@@ -61,8 +61,8 @@ public final class LoggerInternal
 	
 	/**
 	 * Debug.LOG_DEBUG version of {@link Logger#log(int, Object)}, for internal engine use only
-	 * @param i - The int to log
-	 * @param source - The source of the message, can also be a string
+	 * @param i The int to log
+	 * @param source The source of the message, can also be a string
 	 */
 	public static void log(int i, Object source)
 	{
@@ -74,8 +74,8 @@ public final class LoggerInternal
 	
 	/**
 	 * Debug.LOG_DEBUG version of {@link Logger#log(float, Object)}, for internal engine use only
-	 * @param f - The float to log
-	 * @param source - The source of the message, can also be a string
+	 * @param f The float to log
+	 * @param source The source of the message, can also be a string
 	 */
 	public static void log(float f, Object source)
 	{
@@ -87,8 +87,8 @@ public final class LoggerInternal
 	
 	/**
 	 * Debug.LOG_DEBUG version of {@link Logger#log(double, Object)}, for internal engine use only
-	 * @param d - The double to log
-	 * @param source - The source of the message, can also be a string
+	 * @param d The double to log
+	 * @param source The source of the message, can also be a string
 	 */
 	public static void log(double d, Object source)
 	{
@@ -100,8 +100,8 @@ public final class LoggerInternal
 	
 	/**
 	 * Debug.LOG_DEBUG version of {@link Logger#log(long, Object)}, for internal engine use only
-	 * @param l - The long to log
-	 * @param source - The source of the message, can also be a string
+	 * @param l The long to log
+	 * @param source The source of the message, can also be a string
 	 */
 	public static void log(long l, Object source)
 	{
@@ -113,8 +113,8 @@ public final class LoggerInternal
 	
 	/**
 	 * Debug.LOG_DEBUG version of {@link Logger#log(char[], Object)}, for internal engine use only
-	 * @param s - The char array to log
-	 * @param source - The source of the message, can also be a string
+	 * @param s The char array to log
+	 * @param source The source of the message, can also be a string
 	 */
 	public static void log(char[] s, Object source)
 	{
@@ -126,8 +126,8 @@ public final class LoggerInternal
 	
 	/**
 	 * Debug.LOG_DEBUG version of {@link Logger#log(String, Object)}, for internal engine use only
-	 * @param s - The string to log
-	 * @param source - The source of the message, can also be a string
+	 * @param s The string to log
+	 * @param source The source of the message, can also be a string
 	 */
 	public static void log(String s, Object source)
 	{		
@@ -139,8 +139,8 @@ public final class LoggerInternal
 	
 	/**
 	 * Debug.LOG_DEBUG version of {@link Logger#log(Object, Object)}, for internal engine use only
-	 * @param o - The object to log
-	 * @param source - The source of the message, can also be a string
+	 * @param o The object to log
+	 * @param source The source of the message, can also be a string
 	 */
 	public static void log(Object o, Object source)
 	{

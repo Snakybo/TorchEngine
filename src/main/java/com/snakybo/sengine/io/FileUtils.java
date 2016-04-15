@@ -41,7 +41,7 @@ public final class FileUtils
 	
 	/**
 	 * Get the file name and extension from a file
-	 * @param file - The file
+	 * @param file The file
 	 * @return The file extension
 	 */
 	public static String getFileNameAndExtension(String file)
@@ -58,7 +58,7 @@ public final class FileUtils
 	
 	/**
 	 * Get the file name from a file
-	 * @param file - The file
+	 * @param file The file
 	 * @return The file extension, if there was an error, it will return an empty string
 	 */
 	public static String getFileName(String file)
@@ -75,7 +75,7 @@ public final class FileUtils
 	
 	/**
 	 * Get the file extension from a file
-	 * @param file - The file
+	 * @param file The file
 	 * @return The file extension, if there was an error, it will return an empty string
 	 */
 	public static String getFileExtension(String file)

@@ -115,8 +115,8 @@ public final class Material implements IDestroyable
 	
 	/**
 	 * Set a {@link Vector2f} value
-	 * @param name - The name of the uniform in the shader
-	 * @param value - The value of the uniform
+	 * @param name The name of the uniform in the shader
+	 * @param value The value of the uniform
 	 */
 	public final void setVector2f(String name, Vector2f value)
 	{
@@ -125,8 +125,8 @@ public final class Material implements IDestroyable
 	
 	/**
 	 * Set a {@link Vector3f} value
-	 * @param name - The name of the uniform in the shader
-	 * @param value - The value of the uniform
+	 * @param name The name of the uniform in the shader
+	 * @param value The value of the uniform
 	 */
 	public final void setVector3f(String name, Vector3f value)
 	{
@@ -135,8 +135,8 @@ public final class Material implements IDestroyable
 	
 	/**
 	 * Set a {@link Vector4f} value
-	 * @param name - The name of the uniform in the shader
-	 * @param value - The value of the uniform
+	 * @param name The name of the uniform in the shader
+	 * @param value The value of the uniform
 	 */
 	public final void setVector4f(String name, Vector4f value)
 	{
@@ -145,8 +145,8 @@ public final class Material implements IDestroyable
 	
 	/**
 	 * Set a {@link Color} value
-	 * @param name - The name of the uniform in the shader
-	 * @param value - The value of the uniform
+	 * @param name The name of the uniform in the shader
+	 * @param value The value of the uniform
 	 */
 	public final void setColor(String name, Color value)
 	{
@@ -155,8 +155,8 @@ public final class Material implements IDestroyable
 	
 	/**
 	 * Set a {@link Color32} value
-	 * @param name - The name of the uniform in the shader
-	 * @param value - The value of the uniform
+	 * @param name The name of the uniform in the shader
+	 * @param value The value of the uniform
 	 */
 	public final void setColor(String name, Color32 value)
 	{
@@ -165,8 +165,8 @@ public final class Material implements IDestroyable
 	
 	/**
 	 * Set a {@link Texture} value
-	 * @param name - The name of the uniform in the shader
-	 * @param value - The value of the uniform
+	 * @param name The name of the uniform in the shader
+	 * @param value The value of the uniform
 	 */
 	public final void setTexture(String name, Texture value)
 	{
@@ -175,8 +175,8 @@ public final class Material implements IDestroyable
 	
 	/**
 	 * Set a float value
-	 * @param name - The name of the uniform in the shader
-	 * @param value - The value of the uniform
+	 * @param name The name of the uniform in the shader
+	 * @param value The value of the uniform
 	 */
 	public final void setFloat(String name, float value)
 	{
@@ -185,8 +185,8 @@ public final class Material implements IDestroyable
 	
 	/**
 	 * Set an integer value
-	 * @param name - The name of the uniform in the shader
-	 * @param value - The value of the uniform
+	 * @param name The name of the uniform in the shader
+	 * @param value The value of the uniform
 	 */
 	public final void setInt(String name, int value)
 	{
@@ -204,7 +204,7 @@ public final class Material implements IDestroyable
 	
 	/**
 	 * Get a {@link Vector2f} value
-	 * @param name - The name of the uniform in the shader
+	 * @param name The name of the uniform in the shader
 	 * @return The value of the uniform
 	 */
 	public final Vector2f getVector2f(String name)
@@ -214,7 +214,7 @@ public final class Material implements IDestroyable
 	
 	/**
 	 * Get a {@link Vector3f} value
-	 * @param name - The name of the uniform in the shader
+	 * @param name The name of the uniform in the shader
 	 * @return The value of the uniform
 	 */
 	public final Vector3f getVector3f(String name)
@@ -224,7 +224,7 @@ public final class Material implements IDestroyable
 	
 	/**
 	 * Get a {@link Vector4f} value
-	 * @param name - The name of the uniform in the shader
+	 * @param name The name of the uniform in the shader
 	 * @return The value of the uniform
 	 */
 	public final Vector4f getVector4f(String name)
@@ -234,7 +234,7 @@ public final class Material implements IDestroyable
 	
 	/**
 	 * Get a {@link Color} value
-	 * @param name - The name of the uniform in the shader
+	 * @param name The name of the uniform in the shader
 	 * @return The value of the uniform
 	 */
 	public final Color getColor(String name)
@@ -244,7 +244,7 @@ public final class Material implements IDestroyable
 	
 	/**
 	 * Get a {@link Texture} value
-	 * @param name - The name of the uniform in the shader
+	 * @param name The name of the uniform in the shader
 	 * @return The value of the uniform
 	 */
 	public final Texture getTexture(String name)
@@ -254,7 +254,7 @@ public final class Material implements IDestroyable
 	
 	/**
 	 * Get a float value
-	 * @param name - The name of the uniform in the shader
+	 * @param name The name of the uniform in the shader
 	 * @return The value of the uniform
 	 */
 	public final float getFloat(String name)
@@ -264,7 +264,7 @@ public final class Material implements IDestroyable
 	
 	/**
 	 * Get an integer value
-	 * @param name - The name of the uniform in the shader
+	 * @param name The name of the uniform in the shader
 	 * @return The value of the uniform
 	 */
 	public final int getInt(String name)
@@ -274,8 +274,8 @@ public final class Material implements IDestroyable
 	
 	/**
 	 * Convenience method to get values from the {@link #values} map
-	 * @param clazz - The type of the object to retrieve
-	 * @param name - The name of the object
+	 * @param clazz The type of the object to retrieve
+	 * @param name The name of the object
 	 * @return The object casted to {@code clazz}
 	 */
 	private final <T> T get(Class<T> clazz, String name)

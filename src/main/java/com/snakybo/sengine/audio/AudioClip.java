@@ -55,7 +55,7 @@ public final class AudioClip implements IDestroyable
 		
 		/**
 		 * Create a new {@link AudioClipResource}, it will automatically import the specified {@code clip}
-		 * @param clip - The clip to import
+		 * @param clip The clip to import
 		 */
 		AudioClipResource(String fileName, float duration, int numSamples, int sampleRate, int format, ByteBuffer pcm)
 		{
@@ -85,7 +85,7 @@ public final class AudioClip implements IDestroyable
 	/**
 	 * Create a new {@link AudioClip}. If the specified {@code clip} has already been imported,
 	 * it will reuse the imported {@link AudioClipResource}
-	 * @param clip - The clip to load
+	 * @param clip The clip to load
 	 */
 	public AudioClip(String clip)
 	{	
@@ -113,7 +113,7 @@ public final class AudioClip implements IDestroyable
 	
 	/**
 	 * Bind the {@link AudioClip} to a source
-	 * @param source - The source to bind to
+	 * @param source The source to bind to
 	 */
 	final void bind(int source)
 	{

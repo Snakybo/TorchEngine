@@ -49,7 +49,7 @@ public final class File
 	
 	/**
 	 * Create a new file
-	 * @param file - The path of the file to create
+	 * @param file The path of the file to create
 	 */
 	public static void create(String file)
 	{
@@ -69,7 +69,7 @@ public final class File
 	
 	/**
 	 * Create a new directory
-	 * @param directory - The path to the new directory
+	 * @param directory The path to the new directory
 	 */
 	public static void creatDirectory(String directory)
 	{
@@ -89,8 +89,8 @@ public final class File
 	
 	/**
 	 * Append bytes to a file
-	 * @param file - The path of the file
-	 * @param bytes - The bytes to append
+	 * @param file The path of the file
+	 * @param bytes The bytes to append
 	 */
 	public static void appendBytes(String file, byte[] bytes)
 	{
@@ -99,8 +99,8 @@ public final class File
 	
 	/**
 	 * Append to a file
-	 * @param file - The path of the file
-	 * @param lines - The lines to append
+	 * @param file The path of the file
+	 * @param lines The lines to append
 	 */
 	public static void appendLines(String file, Iterable<? extends CharSequence> lines)
 	{
@@ -109,8 +109,8 @@ public final class File
 	
 	/**
 	 * Truncate a file, and write bytes to it
-	 * @param file - The path of the file
-	 * @param bytes - The bytes to write
+	 * @param file The path of the file
+	 * @param bytes The bytes to write
 	 */
 	public static void writeBytes(String file, byte[] bytes)
 	{
@@ -119,8 +119,8 @@ public final class File
 	
 	/**
 	 * Truncate a file, and write to it
-	 * @param file - The path of the file
-	 * @param lines - The lines to write
+	 * @param file The path of the file
+	 * @param lines The lines to write
 	 */
 	public static void writeLines(String file, Iterable<? extends CharSequence> lines)
 	{
@@ -129,7 +129,7 @@ public final class File
 	
 	/**
 	 * Read binary contents from a file
-	 * @param file - The file to read
+	 * @param file The file to read
 	 * @return The binary contents of a file
 	 */
 	public static byte[] readBytes(String file)
@@ -148,7 +148,7 @@ public final class File
 	
 	/**
 	 * Read the contents of a file
-	 * @param file - The file to read
+	 * @param file The file to read
 	 * @return The contents of the file
 	 */
 	public static List<String> readLines(String file)
@@ -167,7 +167,7 @@ public final class File
 	
 	/**
 	 * Read the contents of a file, and merge them togheter in a single string
-	 * @param file - The file to read
+	 * @param file The file to read
 	 * @return The contents of the file
 	 */
 	public static String readLinesMerge(String file)
@@ -185,7 +185,7 @@ public final class File
 	
 	/**
 	 * Retrieve all files in a directory, and it's sub-directories
-	 * @param directory - The directory to walk
+	 * @param directory The directory to walk
 	 * @return A list containing all found files
 	 */
 	public static List<String> listDirectory(String directory)
@@ -208,7 +208,7 @@ public final class File
 	
 	/**
 	 * Clear a file
-	 * @param file - The path of the file
+	 * @param file The path of the file
 	 */
 	public static void truncate(String file)
 	{
@@ -217,7 +217,7 @@ public final class File
 	
 	/**
 	 * Delete a file or directory.
-	 * @param path - The file or directory to delete
+	 * @param path The file or directory to delete
 	 */
 	public static void delete(String path)
 	{
@@ -265,8 +265,8 @@ public final class File
 	
 	/**
 	 * Move or rename a file to a target file
-	 * @param from - The file to move or rename
-	 * @param to - The target location
+	 * @param from The file to move or rename
+	 * @param to The target location
 	 */
 	public static void move(String from, String to)
 	{
@@ -282,8 +282,8 @@ public final class File
 	
 	/**
 	 * Copy a file to the target file
-	 * @param from - The file to copy
-	 * @param to - The path to copy it to
+	 * @param from The file to copy
+	 * @param to The path to copy it to
 	 */
 	public static void copy(String from, String to)
 	{
@@ -299,7 +299,7 @@ public final class File
 	
 	/**
 	 * Check if a file exists
-	 * @param file - The file to check
+	 * @param file The file to check
 	 * @return Whether or not the file exists
 	 */
 	public static boolean exists(String file)
@@ -309,7 +309,7 @@ public final class File
 	
 	/**
 	 * Check if a file is a directory
-	 * @param file - The file to check
+	 * @param file The file to check
 	 * @return Whether or not the file is a directory
 	 */
 	public static boolean isDirectory(String file)
@@ -319,7 +319,7 @@ public final class File
 	
 	/**
 	 * Parse a {@link Path}
-	 * @param file - The path to the file
+	 * @param file The path to the file
 	 * @return The path of the file
 	 */
 	private static Path getPath(String file)
@@ -329,9 +329,9 @@ public final class File
 	
 	/**
 	 * Write binary contents to file
-	 * @param file - The target file
-	 * @param bytes - The bytes to write
-	 * @param openOptions - Optional open options
+	 * @param file The target file
+	 * @param bytes The bytes to write
+	 * @param openOptions Optional open options
 	 */
 	private static void write(String file, byte[] bytes, OpenOption... openOptions)
 	{
@@ -353,9 +353,9 @@ public final class File
 	
 	/**
 	 * Write a sequence of lines to a file
-	 * @param file - The target file
-	 * @param lines - The lines to write
-	 * @param openOptions - Optional open options
+	 * @param file The target file
+	 * @param lines The lines to write
+	 * @param openOptions Optional open options
 	 */
 	private static void write(String file, Iterable<? extends CharSequence> lines, OpenOption... openOptions)
 	{

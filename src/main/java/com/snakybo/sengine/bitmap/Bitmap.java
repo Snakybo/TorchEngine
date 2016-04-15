@@ -47,8 +47,8 @@ public final class Bitmap
 	
 	/**
 	 * Create a new bitmap
-	 * @param width - The width of the bitmap
-	 * @param height - The height of the bitmap
+	 * @param width The width of the bitmap
+	 * @param height The height of the bitmap
 	 */
 	public Bitmap(int width, int height)
 	{
@@ -57,7 +57,7 @@ public final class Bitmap
 	
 	/**
 	 * Load a bitmap from the disk
-	 * @param fileName - The filename of the bitmap
+	 * @param fileName The filename of the bitmap
 	 */
 	public Bitmap(String fileName)
 	{
@@ -93,8 +93,8 @@ public final class Bitmap
 	
 	/**
 	 * Save the bitmap to the disk
-	 * @param outputFile - The path to the output file
-	 * @param format - The format of the image
+	 * @param outputFile The path to the output file
+	 * @param format The format of the image
 	 */
 	public final void saveToDisk(String outputFile, BitmapOutputFormat format)
 	{
@@ -113,7 +113,7 @@ public final class Bitmap
 	
 	/**
 	 * Set all pixels of the bitmap
-	 * @param pixels - The new pixels
+	 * @param pixels The new pixels
 	 */
 	public final void setPixels(int[] pixels)
 	{
@@ -122,9 +122,9 @@ public final class Bitmap
 	
 	/**
 	 * Set the pixel at (x, y)
-	 * @param x - The X position of the pixel
-	 * @param y - The Y position of the pixel
-	 * @param pixel - The new pixel
+	 * @param x The X position of the pixel
+	 * @param y The Y position of the pixel
+	 * @param pixel The new pixel
 	 */
 	public final void setPixel(int x, int y, Color pixel)
 	{
@@ -133,9 +133,9 @@ public final class Bitmap
 	
 	/**
 	 * Set the pixel at (x, y)
-	 * @param x - The X position of the pixel
-	 * @param y - The Y position of the pixel
-	 * @param pixel - The new pixel
+	 * @param x The X position of the pixel
+	 * @param y The Y position of the pixel
+	 * @param pixel The new pixel
 	 */
 	public final void setPixel(int x, int y, Color32 pixel)
 	{
@@ -144,9 +144,9 @@ public final class Bitmap
 	
 	/**
 	 * Set the pixel at (x, y)
-	 * @param x - The X position of the pixel
-	 * @param y - The Y position of the pixel
-	 * @param pixel - The new pixel
+	 * @param x The X position of the pixel
+	 * @param y The Y position of the pixel
+	 * @param pixel The new pixel
 	 */
 	public final void setPixel(int x, int y, int pixel)
 	{
@@ -155,7 +155,6 @@ public final class Bitmap
 	
 	/**
 	 * Convert the bitmap to a ByteBuffer
-	 * @param bitmap - The bitmap to convert
 	 * @return The ByteBuffer
 	 */
 	public final ByteBuffer getByteByffer()
@@ -188,8 +187,8 @@ public final class Bitmap
 	}
 	
 	/**
-	 * @param x - The X position of the pixel
-	 * @param y - The Y position of the pixel
+	 * @param x The X position of the pixel
+	 * @param y The Y position of the pixel
 	 * @return The pixel at (x, y)
 	 */
 	public final int getPixel(int x, int y)

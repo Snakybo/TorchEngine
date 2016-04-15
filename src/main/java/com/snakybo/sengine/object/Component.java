@@ -91,7 +91,7 @@ public abstract class Component extends Object
 	
 	/**
 	 * Called when the cursor has entered or left the game window
-	 * @param enterMode - The enter mode
+	 * @param enterMode The enter mode
 	 */
 	protected void onCursorEnter(CursorEnterMode enterMode)
 	{
@@ -99,7 +99,7 @@ public abstract class Component extends Object
 	
 	/**
 	 * Called when a character on the keyboard has been pressed. Useful for text input
-	 * @param c - The char
+	 * @param c The char
 	 */
 	protected void onCharPressed(char c)
 	{
@@ -107,7 +107,7 @@ public abstract class Component extends Object
 	
 	/**
 	 * Add a component to the parent GameObject
-	 * @param component - The component to add
+	 * @param component The component to add
 	 */
 	public final void addComponent(Component component)
 	{
@@ -116,7 +116,8 @@ public abstract class Component extends Object
 	
 	/**
 	 * Attempt to retrieve a component of {@code type} from the parent GameObject
-	 * @param type - The type of component to retrieve
+	 * @param <T> The type of the component to retrieve
+	 * @param type The type of the component to retrieve 
 	 * @return The component, or {@code null} if no component of {@code type} was found
 	 * @see GameObject#getComponent(Class)
 	 */
@@ -127,7 +128,8 @@ public abstract class Component extends Object
 	
 	/**
 	 * Attempt to retrieve all components of {@code type} from the parent GameObject
-	 * @param type - The type of component to retrieve
+	 * @param <T> The type of the components to retrieve
+	 * @param type The type of components to retrieve
 	 * @return The components, it's empty if no components of {@code type} are found
 	 * @see GameObject#getComponents(Class)
 	 */

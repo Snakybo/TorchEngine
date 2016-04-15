@@ -45,9 +45,9 @@ public final class ResourceDatabase
 	
 	/**
 	 * Register a new resource, doing this will add the {@link Resource} to the database
-	 * @param resourceName - The name of the resource
-	 * @param resource - The resource to register
-	 * @param source - The source of the registration
+	 * @param resourceName The name of the resource
+	 * @param resource The resource to register
+	 * @param source The source of the registration
 	 * @return The {@link Resource}
 	 */
 	public static Resource register(String resourceName, Resource resource, Object source)
@@ -63,8 +63,8 @@ public final class ResourceDatabase
 	
 	/**
 	 * Link an object to an {@link Resource}, this will increase the usage-counter by 1
-	 * @param resourceName - The name of the resource
-	 * @param source - The object to link to the resource
+	 * @param resourceName The name of the resource
+	 * @param source The object to link to the resource
 	 * @return The {@link Resource} registered with the same {@code resourceName}
 	 */
 	public static Resource link(String resourceName, Object source)
@@ -83,7 +83,7 @@ public final class ResourceDatabase
 	
 	/**
 	 * Get the resource with the specified name
-	 * @param name - The name of the resource
+	 * @param name The name of the resource
 	 * @return The resource
 	 */
 	public static Resource get(String name)
@@ -99,8 +99,8 @@ public final class ResourceDatabase
 	/**
 	 * Unlink an object from an {@link Resource}, this will decrease the usage-counter by 1.
 	 * If the usage counter becomes 0 as a result of this operation, it will automatically destroy the resource
-	 * @param resourceName - The name of the resource
-	 * @param source - The object to unlink
+	 * @param resourceName The name of the resource
+	 * @param source The object to unlink
 	 */
 	public static void unlink(String resourceName, Object source)
 	{
@@ -146,7 +146,7 @@ public final class ResourceDatabase
 	
 	/**
 	 * Check whether or not an {@link Resource} has already been registered
-	 * @param resourceName - The name of the {@link Resource}
+	 * @param resourceName The name of the {@link Resource}
 	 * @return Whether or not the {@link Resource} has been registered
 	 */
 	public static boolean hasResource(String resourceName)

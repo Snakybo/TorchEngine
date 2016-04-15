@@ -40,9 +40,9 @@ public final class Color32
 	
 	/**
 	 * Create a new color. Values are in the range of [0-255]
-	 * @param r - The red component
-	 * @param g - The green component
-	 * @param b - The blue component
+	 * @param r The red component
+	 * @param g The green component
+	 * @param b The blue component
 	 */
 	public Color32(int r, int g, int b)
 	{
@@ -51,10 +51,10 @@ public final class Color32
 	
 	/**
 	 * Create a new color. Values are in the range of [0-255]
-	 * @param r - The red component
-	 * @param g - The green component
-	 * @param b - The blue component
-	 * @param a - The alpha component
+	 * @param r The red component
+	 * @param g The green component
+	 * @param b The blue component
+	 * @param a The alpha component
 	 */
 	public Color32(int r, int g, int b, int a)
 	{
@@ -72,7 +72,7 @@ public final class Color32
 	
 	/**
 	 * Copy the value of another color
-	 * @param other - The color to copy
+	 * @param other The color to copy
 	 */
 	public Color32(Color32 other)
 	{
@@ -99,7 +99,7 @@ public final class Color32
 	
 	/**
 	 * Set the red component of the color. Accepted value is in the range of [0-255]
-	 * @param r - The red component
+	 * @param r The red component
 	 */
 	public final void setRed(int r)
 	{
@@ -111,7 +111,7 @@ public final class Color32
 	
 	/**
 	 * Set the green component of the color. Accepted value is in the range of [0-255]
-	 * @param g - The green component
+	 * @param g The green component
 	 */
 	public final void setGreen(int g)
 	{
@@ -123,7 +123,7 @@ public final class Color32
 	
 	/**
 	 * Set the blue component of the color. Accepted value is in the range of [0-255]
-	 * @param b - The blue component
+	 * @param b The blue component
 	 */
 	public final void setBlue(int b)
 	{
@@ -135,7 +135,7 @@ public final class Color32
 	
 	/**
 	 * Set the alpha component of the color. Accepted value is in the range of [0-255]
-	 * @param a - The alpha component
+	 * @param a The alpha component
 	 */
 	public final void setAlpha(int a)
 	{

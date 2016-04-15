@@ -73,7 +73,7 @@ final class JoystickDevice
 	
 	/**
 	 * Returns true if the specified button is currently being pressed
-	 * @param button - The joystick button
+	 * @param button The joystick button
 	 * @return True if the button is currently being pressed
 	 */
 	public final boolean isButtonDown(int button)
@@ -88,7 +88,7 @@ final class JoystickDevice
 	
 	/**
 	 * Returns true the frame when the specified button was first pressed
-	 * @param button - The joystick button
+	 * @param button The joystick button
 	 * @return True if the button was pressed in this frame
 	 */
 	public final boolean onButtonDown(int button)
@@ -103,7 +103,7 @@ final class JoystickDevice
 	
 	/**
 	 * Returns true the frame when the specified button was released
-	 * @param button - The joystick button
+	 * @param button The joystick button
 	 * @return True if the button was released in this frame
 	 */
 	public final boolean onButtonUp(int button)
@@ -126,7 +126,7 @@ final class JoystickDevice
 	
 	/**
 	 * Get the current value of an axis
-	 * @param axis - The axis
+	 * @param axis The axis
 	 * @return The current value of the axis
 	 */
 	public final float getAxis(int axis)

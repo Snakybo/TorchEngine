@@ -48,7 +48,7 @@ public class Object
 	
 	/**
 	 * Set the name of the object
-	 * @param name - The new name
+	 * @param name The new name
 	 */
 	public void setName(String name)
 	{
@@ -71,7 +71,7 @@ public class Object
 	
 	/**
 	 * Destroy an object, can be used on any {@link GameObject} or {@link Component}
-	 * @param object - The object to destroy
+	 * @param object The object to destroy
 	 * @see GameObject
 	 * @see Component
 	 */

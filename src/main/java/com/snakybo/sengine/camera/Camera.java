@@ -41,7 +41,9 @@ public final class Camera extends Component
 	private final StandaloneCamera standaloneCamera;
 	
 	/**
-	 * @see StandaloneCamera#StandaloneCamera(Matrix4f, CameraClearFlags)
+	 * Create a new camera
+	 * @param projection The projection of the camera
+	 * @param clearFlags The {@link CameraClearFlags} to use
 	 */
 	public Camera(Matrix4f projection, CameraClearFlags clearFlags)
 	{
@@ -49,7 +51,10 @@ public final class Camera extends Component
 	}
 	
 	/**
-	 * @see StandaloneCamera#StandaloneCamera(Matrix4f, CameraClearFlags, Color)
+	 * Create a new camera
+	 * @param projection The projection of the camera
+	 * @param clearFlags The {@link CameraClearFlags} to use
+	 * @param clearColor The clear color, only used in {@link CameraClearFlags#SolidColor}
 	 */
 	public Camera(Matrix4f projection, CameraClearFlags clearFlags, Color clearColor)
 	{
@@ -79,7 +84,8 @@ public final class Camera extends Component
 	}
 	
 	/**
-	 * @see StandaloneCamera#setClearFlags(CameraClearFlags)
+	 * Set the {@link CameraClearFlags} to use
+	 * @param clearFlags The new clear flags
 	 */
 	public final void setClearFlags(CameraClearFlags clearFlags)
 	{
@@ -87,7 +93,8 @@ public final class Camera extends Component
 	}
 	
 	/**
-	 * @see StandaloneCamera#setProjection(Matrix4f)
+	 * Set the projection of the camera
+	 * @param projection The new projection
 	 */
 	public final void setProjection(Matrix4f projection)
 	{
@@ -95,7 +102,8 @@ public final class Camera extends Component
 	}
 	
 	/**
-	 * @see StandaloneCamera#setClearColor(Color)
+	 * Set the clear color of the camera, only used in {@link CameraClearFlags#SolidColor}
+	 * @param clearColor The new clear color
 	 */
 	public final void setClearColor(Color clearColor)
 	{
@@ -103,7 +111,7 @@ public final class Camera extends Component
 	}
 	
 	/**
-	 *	@see StandaloneCamera#getClearFlags()
+	 * @return The {@link CameraClearFlags} this camera is using
 	 */
 	public final CameraClearFlags getClearFlags()
 	{
@@ -111,7 +119,7 @@ public final class Camera extends Component
 	}
 	
 	/**
-	 * @see StandaloneCamera#getProjection()
+	 * @return The projection of the camera
 	 */
 	public final Matrix4f getProjection()
 	{
@@ -119,7 +127,7 @@ public final class Camera extends Component
 	}
 	
 	/**
-	 * @see StandaloneCamera#getViewProjection()
+	 * @return The view projection of the camera
 	 */
 	public final Matrix4f getViewProjection()
 	{
@@ -127,7 +135,7 @@ public final class Camera extends Component
 	}
 	
 	/**
-	 * @see StandaloneCamera#getClearColor()
+	 * @return The clear color of the camera
 	 */
 	public final Color getClearColor()
 	{

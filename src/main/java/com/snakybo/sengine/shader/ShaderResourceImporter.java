@@ -67,9 +67,9 @@ class ShaderResourceImporter extends ResourceImporter<ShaderResource>
 	
 	/**
 	 * Attempt to parse a single shader from a shader source
-	 * @param source - The entire source code
-	 * @param keyword - The keyword of the current shader 
-	 * @return - The source of the shader, or an empty string
+	 * @param source The entire source code
+	 * @param keyword The keyword of the current shader 
+	 * @return The source of the shader, or an empty string
 	 */
 	private final String parseShader(String source, String keyword)
 	{

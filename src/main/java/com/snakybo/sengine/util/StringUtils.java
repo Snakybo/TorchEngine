@@ -39,7 +39,7 @@ public final class StringUtils
 	
 	/**
 	 * Remove empty strings from a collection
-	 * @param data - The data
+	 * @param data The data
 	 * @return The data with empty entries removed
 	 */
 	public static String[] removeEmptyStrings(Collection<String> data)

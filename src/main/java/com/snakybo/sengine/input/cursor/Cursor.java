@@ -58,7 +58,7 @@ public final class Cursor
 	
 	/**
 	 * Set the {@link CursorLockMode}
-	 * @param lockMode - The new lock mode
+	 * @param lockMode The new lock mode
 	 * @see CursorLockMode
 	 */
 	public static void setLockMode(CursorLockMode lockMode)
@@ -68,7 +68,7 @@ public final class Cursor
 	
 	/**
 	 * Set whether or not the cursor should be visible
-	 * @param visible - Whether or not the cursor should be visible
+	 * @param visible Whether or not the cursor should be visible
 	 */
 	public static void setVisible(boolean visible)
 	{
@@ -125,7 +125,7 @@ public final class Cursor
 	
 	/**
 	 * Set a custom cursor shape
-	 * @param bitmap - The bitmap to use as cursor
+	 * @param bitmap The bitmap to use as cursor
 	 */
 	public static void setShape(Bitmap bitmap)
 	{
@@ -134,8 +134,8 @@ public final class Cursor
 	
 	/**
 	 * Set a custom cursor shape
-	 * @param bitmap - The bitmap to use as cursor
-	 * @param hot - The position that actually clicks
+	 * @param bitmap The bitmap to use as cursor
+	 * @param hot The position that actually clicks
 	 */
 	public static void setShape(Bitmap bitmap, Vector2f hot)
 	{
@@ -160,7 +160,7 @@ public final class Cursor
 	
 	/**
 	 * Set the shape of the cursor
-	 * @param shape - The new shape of the cursor
+	 * @param shape The new shape of the cursor
 	 */
 	private static void setShape(long shape)
 	{

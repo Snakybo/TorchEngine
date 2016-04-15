@@ -125,7 +125,7 @@ public final class Shader implements IDestroyable
 		
 		/**
 		 * Create and add shaders
-		 * @param shaders - A list of all shaders in the shader file
+		 * @param shaders A list of all shaders in the shader file
 		 */
 		private final void createShaders(Map<Integer, String> shaders)
 		{
@@ -181,8 +181,8 @@ public final class Shader implements IDestroyable
 		
 		/**
 		 * Find all uniforms and store them 
-		 * @param fileName - The source file name
-		 * @param source - The contents of the {@code fileName}
+		 * @param fileName The source file name
+		 * @param source The contents of the {@code fileName}
 		 */
 		private final void addUniforms(String fileName, String source)
 		{
@@ -253,7 +253,7 @@ public final class Shader implements IDestroyable
 	}
 	
 	/**
-	 * @param name - The name of the uniform
+	 * @param name The name of the uniform
 	 * @return Whether or not the shader has a uniform with the specified name
 	 */
 	public final boolean hasUniform(String name)
@@ -263,8 +263,8 @@ public final class Shader implements IDestroyable
 	
 	/**
 	 * Set an integer value
-	 * @param name - The name of the uniform
-	 * @param value - The value of the uniform
+	 * @param name The name of the uniform
+	 * @param value The value of the uniform
 	 */
 	public final void setUniform1i(String name, int value)
 	{
@@ -273,8 +273,8 @@ public final class Shader implements IDestroyable
 	
 	/**
 	 * Set a float value
-	 * @param name - The name of the uniform
-	 * @param value - The value of the uniform
+	 * @param name The name of the uniform
+	 * @param value The value of the uniform
 	 */
 	public final void setUniform1f(String name, float value)
 	{
@@ -283,8 +283,8 @@ public final class Shader implements IDestroyable
 	
 	/**
 	 * Set a {@link Vector2f} value
-	 * @param name - The name of the uniform
-	 * @param value - The value of the uniform
+	 * @param name The name of the uniform
+	 * @param value The value of the uniform
 	 */
 	public final void setUniform2f(String name, Vector2f value)
 	{
@@ -293,8 +293,8 @@ public final class Shader implements IDestroyable
 	
 	/**
 	 * Set a {@link Vector3f} value
-	 * @param name - The name of the uniform
-	 * @param value - The value of the uniform
+	 * @param name The name of the uniform
+	 * @param value The value of the uniform
 	 */
 	public final void setUniform3f(String name, Vector3f value)
 	{
@@ -303,8 +303,8 @@ public final class Shader implements IDestroyable
 	
 	/**
 	 * Set a {@link Vector4f} value
-	 * @param name - The name of the uniform
-	 * @param value - The value of the uniform
+	 * @param name The name of the uniform
+	 * @param value The value of the uniform
 	 */
 	public final void setUniform2f(String name, Vector4f value)
 	{
@@ -313,8 +313,8 @@ public final class Shader implements IDestroyable
 	
 	/**
 	 * Set a {@link Matrix3f} value
-	 * @param name - The name of the uniform
-	 * @param value - The value of the uniform
+	 * @param name The name of the uniform
+	 * @param value The value of the uniform
 	 */
 	public final void setUniform4fv(String name, Matrix3f value)
 	{
@@ -326,8 +326,8 @@ public final class Shader implements IDestroyable
 	
 	/**
 	 * Set a {@link Matrix4f} value
-	 * @param name - The name of the uniform
-	 * @param value - The value of the uniform
+	 * @param name The name of the uniform
+	 * @param value The value of the uniform
 	 */
 	public final void setUniform4fv(String name, Matrix4f value)
 	{
@@ -339,7 +339,7 @@ public final class Shader implements IDestroyable
 	
 	/**
 	 * Get the type of a uniform, returns {@code null} if the shader has no uniform with the specified name
-	 * @param name - The name of the uniform
+	 * @param name The name of the uniform
 	 * @return The type of the uniform, or {@code null}
 	 */
 	public final String getUniformType(String name)

@@ -113,8 +113,7 @@ public final class SceneUtilities
 	}
 	
 	/**
-	 * Render a single camera
-	 * @param camera - The camera to render
+	 * Render all {@link GameObject}s with the current camera
 	 */
 	public static void renderCamera()
 	{
@@ -126,7 +125,7 @@ public final class SceneUtilities
 	
 	/**
 	 * Register a {@link GameObject}, this will add the {@link GameObject} to the scene
-	 * @param gameObject - The {@link GameObject} to add
+	 * @param gameObject The {@link GameObject} to add
 	 * @see GameObject
 	 */
 	public static void register(GameObject gameObject)
@@ -136,7 +135,7 @@ public final class SceneUtilities
 	
 	/**
 	 * Unregister a {@link GameObject}, this will remove the {@link GameObject} from the scene
-	 * @param gameObject - The {@link GameObject} to remove
+	 * @param gameObject The {@link GameObject} to remove
 	 * @see GameObject
 	 */
 	public static void unregister(GameObject gameObject)
@@ -146,7 +145,7 @@ public final class SceneUtilities
 	
 	/**
 	 * Notify all GameObjects that the cursor has entered or left the game window
-	 * @param enterMode - The enter mode
+	 * @param enterMode The enter mode
 	 */
 	public static void notifyGameObjectsCursorEntered(CursorEnterMode enterMode)
 	{
@@ -158,7 +157,7 @@ public final class SceneUtilities
 	
 	/**
 	 * Notify all GameObjects that a character has been pressed on the keyboard
-	 * @param c - The character pressed
+	 * @param c The character pressed
 	 */
 	public static void notifyGameObjectsCharPressed(char c)
 	{

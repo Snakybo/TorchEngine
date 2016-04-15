@@ -48,7 +48,7 @@ public final class GameObject extends Object
 	
 	/**
 	 * Create a new {@link GameObject} with the specified name
-	 * @param name - The name of the {@link GameObject}
+	 * @param name The name of the {@link GameObject}
 	 */
 	public GameObject(String name)
 	{
@@ -66,7 +66,7 @@ public final class GameObject extends Object
 	
 	/**
 	 * Add a component to the GameObject
-	 * @param component - The component to add
+	 * @param component The component to add
 	 */
 	public final void addComponent(Component component)
 	{
@@ -79,7 +79,8 @@ public final class GameObject extends Object
 	
 	/**
 	 * Attempt to retrieve a component of {@code type} from the GameObject
-	 * @param type - The type of component to retrieve
+	 * @param <T> The type of the component to retrieve
+	 * @param type The type of component to retrieve
 	 * @return The component, or {@code null} if no component of {@code type} was found
 	 */
 	public final <T extends Component> T getComponent(Class<T> type)
@@ -97,7 +98,8 @@ public final class GameObject extends Object
 	
 	/**
 	 * Attempt to retrieve all components of {@code type} from the GameObject
-	 * @param type - The type of component to retrieve
+	 * @param <T> The type of the component to retrieve
+	 * @param type The type of component to retrieve
 	 * @return The components, it's empty if no components of {@code type} are found
 	 */
 	public final <T extends Component> Iterable<T> getComponents(Class<T> type)
