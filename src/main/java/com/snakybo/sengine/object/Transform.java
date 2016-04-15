@@ -73,7 +73,7 @@ public final class Transform
 	
 	/**
 	 * Translate the transform
-	 * @param direction - The direction to translate in
+	 * @param direction The direction to translate in
 	 */
 	public final void translate(Vector3f direction)
 	{
@@ -82,8 +82,8 @@ public final class Transform
 	
 	/**
 	 * Rotate the transform
-	 * @param axis - The axis to rotate on
-	 * @param angle - The angle to add to the rotation
+	 * @param axis The axis to rotate on
+	 * @param angle The angle to add to the rotation
 	 */
 	public final void rotate(Vector3f axis, double angle)
 	{
@@ -92,8 +92,8 @@ public final class Transform
 	
 	/**
 	 * Rotate the transform
-	 * @param axis - The axis to rotate on
-	 * @param angle - The angle to add to the rotation
+	 * @param axis The axis to rotate on
+	 * @param angle The angle to add to the rotation
 	 */
 	public final void rotate(Vector3f axis, float angle)
 	{
@@ -102,7 +102,7 @@ public final class Transform
 	
 	/**
 	 * Look at a position
-	 * @param position - The position in world space to look at
+	 * @param position The position in world space to look at
 	 */
 	public final void lookAt(Vector3f position)
 	{
@@ -111,8 +111,8 @@ public final class Transform
 	
 	/**
 	 * Look at a position
-	 * @param position - The position in world space to look at
-	 * @param up - The up direction
+	 * @param position The position in world space to look at
+	 * @param up The up direction
 	 */
 	public final void lookAt(Vector3f position, Vector3f up)
 	{
@@ -125,7 +125,7 @@ public final class Transform
 	
 	/**
 	 * Set the parent of the {@link Transform}
-	 * @param parent - The new parent
+	 * @param parent The new parent
 	 */
 	public final void setParent(Transform parent)
 	{
