@@ -13,4 +13,5 @@ sourceSets {
 
 dependencies {
 	compile project(":sengine-core")
+	compile project(":sengine-editor")
 }
