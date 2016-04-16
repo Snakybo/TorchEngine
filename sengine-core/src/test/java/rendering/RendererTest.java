@@ -71,4 +71,9 @@ public class RendererTest extends Game
 		box.getTransform().getPosition().set(0, 0, -1f);
 		box.getTransform().rotate(new Vector3f(0, 1, 0), 45f);
 	}
+	
+	public static void main(String[] args)
+	{
+		new RendererTest();
+	}
 }

@@ -1,0 +1,17 @@
+include "sengine-core"
+include "sengine-editor"
+include "sengine-editor-scene"
+/*
+include "sengine-editor-particle"
+include "sengine-editor-animation"
+include "sengine-editor-importer"
+include "sengine-editor-importer-mesh"
+include "sengine-editor-importer-texture"
+include "sengine-editor-object"
+include "sengine-editor-cinematics"
+include "sengine-editor-build"
+include "sengine-editor-profiler"
+*/
+include "sengine-examples"
+
+rootProject.name = 'SEngine2'
