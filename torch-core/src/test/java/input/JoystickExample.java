@@ -22,7 +22,7 @@
 
 package input;
 
-import com.snakybo.torch.Game;
+import com.snakybo.torch.TorchGame;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.input.joystick.Joystick;
 import com.snakybo.torch.object.Component;
@@ -32,7 +32,7 @@ import com.snakybo.torch.object.GameObject;
  * @author Snakybo
  * @since 1.0
  */
-public class JoystickExample extends Game
+public class JoystickExample extends TorchGame
 {
 	public JoystickExample()
 	{

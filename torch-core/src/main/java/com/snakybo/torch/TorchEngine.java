@@ -47,11 +47,11 @@ public final class TorchEngine
 	public static final int VERSION_PATCH = 0;
 	public static final String VERSION_STRING = VERSION_MAJOR + "." + VERSION_MINOR + "." + VERSION_PATCH;
 	
-	private Game game;
+	private TorchGame game;
 	
 	private boolean running;
 	
-	TorchEngine(Game game)
+	TorchEngine(TorchGame game)
 	{
 		LoggerInternal.log("Starting", this);
 		LoggerInternal.log("Engine version: " + VERSION_STRING, this);
@@ -74,7 +74,7 @@ public final class TorchEngine
 	}
 	
 	/**
-	 * Start the engine, called by {@link Game#start()}
+	 * Start the engine, called by {@link TorchGame#start()}
 	 */
 	private final void start()
 	{
@@ -88,7 +88,7 @@ public final class TorchEngine
 	}
 	
 	/**
-	 * Stop the engine, called by {@link Game#quit()}
+	 * Stop the engine, called by {@link TorchGame#quit()}
 	 */
 	public final void stop()
 	{

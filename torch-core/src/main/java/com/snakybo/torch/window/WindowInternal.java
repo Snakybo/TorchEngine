@@ -49,7 +49,7 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 
 import org.lwjgl.glfw.GLFWErrorCallback;
 
-import com.snakybo.torch.Game;
+import com.snakybo.torch.TorchGame;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
 
@@ -177,7 +177,7 @@ public final class WindowInternal
 		glfwWindowHint(GLFW_VISIBLE, GL_FALSE);
 		glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 		
-		window = glfwCreateWindow(width, height, Game.getName(), monitor, NULL);
+		window = glfwCreateWindow(width, height, TorchGame.getName(), monitor, NULL);
 		if(window == NULL)
 		{
 			Logger.logException(new RuntimeException("Unable to create GLFW window"), "Window");

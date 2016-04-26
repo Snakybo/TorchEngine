@@ -22,7 +22,7 @@
 
 package audio;
 
-import com.snakybo.torch.Game;
+import com.snakybo.torch.TorchGame;
 import com.snakybo.torch.audio.AudioClip;
 import com.snakybo.torch.audio.AudioListener;
 import com.snakybo.torch.audio.AudioPlayer;
@@ -32,7 +32,7 @@ import com.snakybo.torch.object.GameObject;
  * @author Snakybo
  * @since 1.0
  */
-public class AudioTest extends Game
+public class AudioTest extends TorchGame
 {
 	public AudioTest()
 	{

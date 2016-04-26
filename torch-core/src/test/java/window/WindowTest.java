@@ -22,14 +22,14 @@
 
 package window;
 
-import com.snakybo.torch.Game;
+import com.snakybo.torch.TorchGame;
 import com.snakybo.torch.object.GameObject;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public class WindowTest extends Game
+public class WindowTest extends TorchGame
 {
 	public WindowTest()
 	{

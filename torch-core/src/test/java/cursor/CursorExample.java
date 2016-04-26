@@ -22,7 +22,7 @@
 
 package cursor;
 
-import com.snakybo.torch.Game;
+import com.snakybo.torch.TorchGame;
 import com.snakybo.torch.bitmap.Bitmap;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.input.cursor.Cursor;
@@ -35,7 +35,7 @@ import com.snakybo.torch.object.GameObject;
  * @author Snakybo
  * @since 1.0
  */
-public class CursorExample extends Game
+public class CursorExample extends TorchGame
 {
 	private static class CursorManager extends Component
 	{

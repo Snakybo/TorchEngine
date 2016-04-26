@@ -31,7 +31,7 @@ import com.snakybo.torch.util.time.TimeInternal;
  * @author Snakybo
  * @since 1.0
  */
-public abstract class Game
+public abstract class TorchGame
 {
 	private static TorchEngine engine;
 	private static String name;
@@ -42,12 +42,12 @@ public abstract class Game
 	 * Create a game
 	 * @param name The name of the game
 	 */
-	public Game(String name)
+	public TorchGame(String name)
 	{
 		SharedLibraryLoader.load();
 		
-		Game.name = name;
-		Game.engine = new TorchEngine(this);
+		TorchGame.name = name;
+		TorchGame.engine = new TorchEngine(this);
 		
 		LoggerInternal.log("Game name: " + name, "Game");
 	}
@@ -74,7 +74,7 @@ public abstract class Game
 			return;
 		}
 		
-		Game.targetFrameRate = targetFrameRate;
+		TorchGame.targetFrameRate = targetFrameRate;
 		
 		// Update the frame time
 		TimeInternal.updateFrameTime();

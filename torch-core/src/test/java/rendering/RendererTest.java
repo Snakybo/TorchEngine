@@ -25,7 +25,7 @@ package rendering;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
-import com.snakybo.torch.Game;
+import com.snakybo.torch.TorchGame;
 import com.snakybo.torch.camera.Camera;
 import com.snakybo.torch.camera.CameraClearFlags;
 import com.snakybo.torch.mesh.Material;
@@ -40,7 +40,7 @@ import com.snakybo.torch.window.Window;
  * @author Snakybo
  * @since 1.0
  */
-public class RendererTest extends Game
+public class RendererTest extends TorchGame
 {
 	public RendererTest()
 	{
