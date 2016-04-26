@@ -1,17 +1,17 @@
-include "sengine-core"
-include "sengine-editor"
-include "sengine-editor-scene"
+include "torch-core"
 /*
-include "sengine-editor-particle"
-include "sengine-editor-animation"
-include "sengine-editor-importer"
-include "sengine-editor-importer-mesh"
-include "sengine-editor-importer-texture"
-include "sengine-editor-object"
-include "sengine-editor-cinematics"
-include "sengine-editor-build"
-include "sengine-editor-profiler"
+include "torch-editor"
+include "torch-editor-scene"
+include "torch-editor-particle"
+include "torch-editor-animation"
+include "torch-editor-importer"
+include "torch-editor-importer-mesh"
+include "torch-editor-importer-texture"
+include "torch-editor-object"
+include "torch-editor-cinematics"
+include "torch-editor-build"
+include "torch-editor-profiler"
 */
-include "sengine-examples"
+include "torch-examples"
 
-rootProject.name = 'SEngine2'
+rootProject.name = 'Torch Engine'

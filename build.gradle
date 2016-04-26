@@ -1,6 +1,6 @@
 allprojects {
 	apply plugin: "java"
-	group = "com.snakybo.sengine"
+	group = "com.snakybo.torch"
 	version = "1.0"
 	
 	sourceCompatibility = 1.8
@@ -23,9 +23,6 @@ allprojects {
 	}
 }
 
-apply plugin: "eclipse"
-
 task wrapper(type: Wrapper) {
     gradleVersion = "2.4"
 }
-
