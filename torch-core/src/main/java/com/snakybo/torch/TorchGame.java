@@ -24,7 +24,7 @@ package com.snakybo.torch;
 
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
-import com.snakybo.torch.util.SharedLibraryLoader;
+import com.snakybo.torch.lwjgl.SharedLibraryLoader;
 import com.snakybo.torch.util.time.TimeInternal;
 
 /**
