@@ -23,19 +23,28 @@
 package com.snakybo.torch.texture;
 
 import static org.lwjgl.opengl.GL11.GL_LINEAR;
+import static org.lwjgl.opengl.GL11.GL_RGB;
 import static org.lwjgl.opengl.GL11.GL_RGBA;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_MAG_FILTER;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_MIN_FILTER;
-import static org.lwjgl.opengl.GL11.GL_UNPACK_ALIGNMENT;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_WRAP_S;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_WRAP_T;
 import static org.lwjgl.opengl.GL11.GL_UNSIGNED_BYTE;
 import static org.lwjgl.opengl.GL11.glBindTexture;
 import static org.lwjgl.opengl.GL11.glDeleteTextures;
 import static org.lwjgl.opengl.GL11.glGenTextures;
-import static org.lwjgl.opengl.GL11.glPixelStorei;
 import static org.lwjgl.opengl.GL11.glTexImage2D;
 import static org.lwjgl.opengl.GL11.glTexParameteri;
+import static org.lwjgl.opengl.GL12.GL_CLAMP_TO_EDGE;
+import static org.lwjgl.opengl.GL12.GL_TEXTURE_WRAP_R;
 import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
+import static org.lwjgl.opengl.GL13.GL_TEXTURE_CUBE_MAP;
+import static org.lwjgl.opengl.GL13.GL_TEXTURE_CUBE_MAP_NEGATIVE_X;
+import static org.lwjgl.opengl.GL13.GL_TEXTURE_CUBE_MAP_NEGATIVE_Y;
+import static org.lwjgl.opengl.GL13.GL_TEXTURE_CUBE_MAP_NEGATIVE_Z;
+import static org.lwjgl.opengl.GL13.GL_TEXTURE_CUBE_MAP_POSITIVE_X;
+import static org.lwjgl.opengl.GL13.GL_TEXTURE_CUBE_MAP_POSITIVE_Y;
+import static org.lwjgl.opengl.GL13.GL_TEXTURE_CUBE_MAP_POSITIVE_Z;
 import static org.lwjgl.opengl.GL13.glActiveTexture;
 
 import com.snakybo.torch.bitmap.Bitmap;
@@ -46,32 +55,41 @@ import com.snakybo.torch.util.IDestroyable;
  * @author Snakybo
  * @since 1.0
  */
-public final class Texture implements IDestroyable
+public class CubeMap implements IDestroyable
 {
-	private int width;
-	private int height;
+	private static int[] CUBE_MAP_AXIS = new int[]
+	{
+		GL_TEXTURE_CUBE_MAP_POSITIVE_Z,
+		GL_TEXTURE_CUBE_MAP_NEGATIVE_Z,
+		GL_TEXTURE_CUBE_MAP_NEGATIVE_X,
+		GL_TEXTURE_CUBE_MAP_POSITIVE_X,
+		GL_TEXTURE_CUBE_MAP_POSITIVE_Y,
+		GL_TEXTURE_CUBE_MAP_NEGATIVE_Y
+	};
 	
 	private int id;
 	
-	public Texture(String fileName)
+	public CubeMap(String front, String back, String left, String right, String top, String bottom)
 	{
-		this(new Bitmap(fileName));
+		this(new Bitmap(front), new Bitmap(back), new Bitmap(left), new Bitmap(right), new Bitmap(top), new Bitmap(bottom));
 	}
 	
-	public Texture(Bitmap bitmap)
+	public CubeMap(Bitmap front, Bitmap back, Bitmap left, Bitmap right, Bitmap top, Bitmap bottom)
 	{
 		id = glGenTextures();
-		width = bitmap.getWidth();
-		height = bitmap.getHeight();
+		glBindTexture(GL_TEXTURE_CUBE_MAP, id);
 		
-		glBindTexture(GL_TEXTURE_2D, id);
-		
-		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-		
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, bitmap.getByteByffer());
-		
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		Bitmap[] textures = new Bitmap[] { front, back, left, right, top, bottom };		
+		for(int i = 0; i < CUBE_MAP_AXIS.length; i++)
+		{
+			glTexImage2D(CUBE_MAP_AXIS[i], 0, GL_RGB, textures[i].getWidth(), textures[i].getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, textures[i].getByteByffer());
+			
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+		}
 	}
 	
 	@Override
@@ -89,7 +107,7 @@ public final class Texture implements IDestroyable
 	}
 	
 	/**
-	 * Bind the texture to the specified unit
+	 * Bind the cube map to the specified unit
 	 * @param unit The unit to bind to
 	 */
 	public final void bind(int unit)
@@ -100,6 +118,6 @@ public final class Texture implements IDestroyable
 		}
 
 		glActiveTexture(GL_TEXTURE0 + unit);
-		glBindTexture(GL_TEXTURE_2D, id);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, id);
 	}
 }
