@@ -33,11 +33,6 @@ public final class LoggerInternal
 		throw new AssertionError();
 	}
 	
-	/**
-	 * Debug.LOG_DEBUG version of {@link Logger#log(boolean, Object)}, for internal engine use only
-	 * @param b The boolean to log
-	 * @param source The source of the message, can also be a string
-	 */
 	public static void log(boolean b, Object source)
 	{
 		if(Debug.LOG_DEBUG)
@@ -46,11 +41,6 @@ public final class LoggerInternal
 		}
 	}
 	
-	/**
-	 * Debug.LOG_DEBUG version of {@link Logger#log(char, Object)}, for internal engine use only
-	 * @param c The char to log
-	 * @param source The source of the message, can also be a string
-	 */
 	public static void log(char c, Object source)
 	{
 		if(Debug.LOG_DEBUG)
@@ -59,11 +49,6 @@ public final class LoggerInternal
 		}
 	}
 	
-	/**
-	 * Debug.LOG_DEBUG version of {@link Logger#log(int, Object)}, for internal engine use only
-	 * @param i The int to log
-	 * @param source The source of the message, can also be a string
-	 */
 	public static void log(int i, Object source)
 	{
 		if(Debug.LOG_DEBUG)
@@ -72,11 +57,6 @@ public final class LoggerInternal
 		}
 	}
 	
-	/**
-	 * Debug.LOG_DEBUG version of {@link Logger#log(float, Object)}, for internal engine use only
-	 * @param f The float to log
-	 * @param source The source of the message, can also be a string
-	 */
 	public static void log(float f, Object source)
 	{
 		if(Debug.LOG_DEBUG)
@@ -85,11 +65,6 @@ public final class LoggerInternal
 		}
 	}
 	
-	/**
-	 * Debug.LOG_DEBUG version of {@link Logger#log(double, Object)}, for internal engine use only
-	 * @param d The double to log
-	 * @param source The source of the message, can also be a string
-	 */
 	public static void log(double d, Object source)
 	{
 		if(Debug.LOG_DEBUG)
@@ -98,11 +73,6 @@ public final class LoggerInternal
 		}
 	}
 	
-	/**
-	 * Debug.LOG_DEBUG version of {@link Logger#log(long, Object)}, for internal engine use only
-	 * @param l The long to log
-	 * @param source The source of the message, can also be a string
-	 */
 	public static void log(long l, Object source)
 	{
 		if(Debug.LOG_DEBUG)
@@ -111,11 +81,6 @@ public final class LoggerInternal
 		}
 	}
 	
-	/**
-	 * Debug.LOG_DEBUG version of {@link Logger#log(char[], Object)}, for internal engine use only
-	 * @param s The char array to log
-	 * @param source The source of the message, can also be a string
-	 */
 	public static void log(char[] s, Object source)
 	{
 		if(Debug.LOG_DEBUG)
@@ -124,11 +89,6 @@ public final class LoggerInternal
 		}
 	}
 	
-	/**
-	 * Debug.LOG_DEBUG version of {@link Logger#log(String, Object)}, for internal engine use only
-	 * @param s The string to log
-	 * @param source The source of the message, can also be a string
-	 */
 	public static void log(String s, Object source)
 	{		
 		if(Debug.LOG_DEBUG)
@@ -137,11 +97,6 @@ public final class LoggerInternal
 		}
 	}
 	
-	/**
-	 * Debug.LOG_DEBUG version of {@link Logger#log(Object, Object)}, for internal engine use only
-	 * @param o The object to log
-	 * @param source The source of the message, can also be a string
-	 */
 	public static void log(Object o, Object source)
 	{
 		if(Debug.LOG_DEBUG)
@@ -150,11 +105,6 @@ public final class LoggerInternal
 		}
 	}
 	
-	/**
-	 * Debug.LOG_DEBUG version of {@link Logger#logWarning(boolean, Object)}, for internal engine use only
-	 * @param b The boolean to log
-	 * @param source The source of the message, can also be a string
-	 */
 	public static void logWarning(boolean b, Object source)
 	{
 		if(Debug.LOG_DEBUG)
@@ -163,11 +113,6 @@ public final class LoggerInternal
 		}
 	}
 	
-	/**
-	 * Debug.LOG_DEBUG version of {@link Logger#logWarning(char, Object)}, for internal engine use only
-	 * @param c The char to log
-	 * @param source The source of the message, can also be a string
-	 */
 	public static void logWarning(char c, Object source)
 	{
 		if(Debug.LOG_DEBUG)
@@ -176,11 +121,6 @@ public final class LoggerInternal
 		}
 	}
 	
-	/**
-	 * Debug.LOG_DEBUG version of {@link Logger#logWarning(int, Object)}, for internal engine use only
-	 * @param i The int to log
-	 * @param source The source of the message, can also be a string
-	 */
 	public static void logWarning(int i, Object source)
 	{
 		if(Debug.LOG_DEBUG)
@@ -189,11 +129,6 @@ public final class LoggerInternal
 		}
 	}
 	
-	/**
-	 * Debug.LOG_DEBUG version of {@link Logger#logWarning(float, Object)}, for internal engine use only
-	 * @param f The float to log
-	 * @param source The source of the message, can also be a string
-	 */
 	public static void logWarning(float f, Object source)
 	{
 		if(Debug.LOG_DEBUG)
@@ -202,11 +137,6 @@ public final class LoggerInternal
 		}
 	}
 	
-	/**
-	 * Debug.LOG_DEBUG version of {@link Logger#logWarning(double, Object)}, for internal engine use only
-	 * @param d The double to log
-	 * @param source The source of the message, can also be a string
-	 */
 	public static void logWarning(double d, Object source)
 	{
 		if(Debug.LOG_DEBUG)
@@ -215,11 +145,6 @@ public final class LoggerInternal
 		}
 	}
 	
-	/**
-	 * Debug.LOG_DEBUG version of {@link Logger#logWarning(long, Object)}, for internal engine use only
-	 * @param l The long to log
-	 * @param source The source of the message, can also be a string
-	 */
 	public static void logWarning(long l, Object source)
 	{
 		if(Debug.LOG_DEBUG)
@@ -228,11 +153,6 @@ public final class LoggerInternal
 		}
 	}
 	
-	/**
-	 * Debug.LOG_DEBUG version of {@link Logger#logWarning(char[], Object)}, for internal engine use only
-	 * @param s The char array to log
-	 * @param source The source of the message, can also be a string
-	 */
 	public static void logWarning(char[] s, Object source)
 	{
 		if(Debug.LOG_DEBUG)
@@ -241,11 +161,6 @@ public final class LoggerInternal
 		}
 	}
 	
-	/**
-	 * Debug.LOG_DEBUG version of {@link Logger#logWarning(String, Object)}, for internal engine use only
-	 * @param s The string to log
-	 * @param source The source of the message, can also be a string
-	 */
 	public static void logWarning(String s, Object source)
 	{		
 		if(Debug.LOG_DEBUG)
@@ -254,11 +169,6 @@ public final class LoggerInternal
 		}
 	}
 	
-	/**
-	 * Debug.LOG_DEBUG version of {@link Logger#logWarning(Object, Object)}, for internal engine use only
-	 * @param o The object to log
-	 * @param source The source of the message, can also be a string
-	 */
 	public static void logWarning(Object o, Object source)
 	{
 		if(Debug.LOG_DEBUG)
@@ -267,11 +177,6 @@ public final class LoggerInternal
 		}
 	}
 	
-	/**
-	 * Debug.LOG_DEBUG version of {@link Logger#logError(boolean, Object)}, for internal engine use only
-	 * @param b The boolean to log
-	 * @param source The source of the message, can also be a string
-	 */
 	public static void logError(boolean b, Object source)
 	{
 		if(Debug.LOG_DEBUG)
@@ -280,11 +185,6 @@ public final class LoggerInternal
 		}
 	}
 	
-	/**
-	 * Debug.LOG_DEBUG version of {@link Logger#logError(char, Object)}, for internal engine use only
-	 * @param c The char to log
-	 * @param source The source of the message, can also be a string
-	 */
 	public static void logError(char c, Object source)
 	{
 		if(Debug.LOG_DEBUG)
@@ -293,11 +193,6 @@ public final class LoggerInternal
 		}
 	}
 	
-	/**
-	 * Debug.LOG_DEBUG version of {@link Logger#logError(int, Object)}, for internal engine use only
-	 * @param i The int to log
-	 * @param source The source of the message, can also be a string
-	 */
 	public static void logError(int i, Object source)
 	{
 		if(Debug.LOG_DEBUG)
@@ -306,11 +201,6 @@ public final class LoggerInternal
 		}
 	}
 	
-	/**
-	 * Debug.LOG_DEBUG version of {@link Logger#logError(float, Object)}, for internal engine use only
-	 * @param f The float to log
-	 * @param source The source of the message, can also be a string
-	 */
 	public static void logError(float f, Object source)
 	{
 		if(Debug.LOG_DEBUG)
@@ -319,11 +209,6 @@ public final class LoggerInternal
 		}
 	}
 	
-	/**
-	 * Debug.LOG_DEBUG version of {@link Logger#logError(double, Object)}, for internal engine use only
-	 * @param d The double to log
-	 * @param source The source of the message, can also be a string
-	 */
 	public static void logError(double d, Object source)
 	{
 		if(Debug.LOG_DEBUG)
@@ -332,11 +217,6 @@ public final class LoggerInternal
 		}
 	}
 	
-	/**
-	 * Debug.LOG_DEBUG version of {@link Logger#logError(long, Object)}, for internal engine use only
-	 * @param l The long to log
-	 * @param source The source of the message, can also be a string
-	 */
 	public static void logError(long l, Object source)
 	{
 		if(Debug.LOG_DEBUG)
@@ -345,11 +225,6 @@ public final class LoggerInternal
 		}
 	}
 	
-	/**
-	 * Debug.LOG_DEBUG version of {@link Logger#logError(char[], Object)}, for internal engine use only
-	 * @param s The char array to log
-	 * @param source The source of the message, can also be a string
-	 */
 	public static void logError(char[] s, Object source)
 	{
 		if(Debug.LOG_DEBUG)
@@ -358,11 +233,6 @@ public final class LoggerInternal
 		}
 	}
 	
-	/**
-	 * Debug.LOG_DEBUG version of {@link Logger#logError(String, Object)}, for internal engine use only
-	 * @param s The string to log
-	 * @param source The source of the message, can also be a string
-	 */
 	public static void logError(String s, Object source)
 	{		
 		if(Debug.LOG_DEBUG)
@@ -371,11 +241,6 @@ public final class LoggerInternal
 		}
 	}
 	
-	/**
-	 * Debug.LOG_DEBUG version of {@link Logger#logError(Object, Object)}, for internal engine use only
-	 * @param o The object to log
-	 * @param source The source of the message, can also be a string
-	 */
 	public static void logError(Object o, Object source)
 	{
 		if(Debug.LOG_DEBUG)
@@ -384,10 +249,6 @@ public final class LoggerInternal
 		}
 	}
 	
-	/**
-	 * Debug.LOG_DEBUG version of {@link Logger#logException(Exception)}, for internal engine use only
-	 * @param e The exception to log
-	 */
 	public static void logException(Exception e)
 	{
 		if(Debug.LOG_DEBUG)
@@ -396,11 +257,6 @@ public final class LoggerInternal
 		}
 	}
 	
-	/**
-	 * Debug.LOG_DEBUG version of {@link Logger#logException(Exception, Object)}, for internal engine use only
-	 * @param e The exception to log
-	 * @param source The source of the exception, can also be a string
-	 */
 	public static void logException(Exception e, Object source)
 	{
 		if(Debug.LOG_DEBUG)

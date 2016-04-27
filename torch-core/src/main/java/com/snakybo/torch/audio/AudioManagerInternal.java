@@ -48,9 +48,6 @@ public final class AudioManagerInternal
 		throw new AssertionError();
 	}	
 	
-	/**
-	 * Create the audio manager
-	 */
 	public static void create()
 	{
 		LoggerInternal.log("Initializing OpenAL", "AudioManager");
@@ -74,9 +71,6 @@ public final class AudioManagerInternal
 		logOpenALInfo();
 	}
 	
-	/**
-	 * Destroy the audio manager
-	 */
 	public static void destroy()
 	{
 		LoggerInternal.log("Terminating OpenAL", "AudioManager");
@@ -85,9 +79,6 @@ public final class AudioManagerInternal
 		context.getDevice().destroy();
 	}
 	
-	/**
-	 * Log information about OpenAL
-	 */
 	private static void logOpenALInfo()
 	{
 		LoggerInternal.log("Vendor: " + alGetString(AL_VENDOR), "OpenAL");

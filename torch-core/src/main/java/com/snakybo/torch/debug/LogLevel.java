@@ -29,22 +29,22 @@ package com.snakybo.torch.debug;
 enum LogLevel
 {
 	/**
-	 * A standard message
+	 * A standard message.
 	 */
 	Message,
 	
 	/**
-	 * A warning
+	 * A warning.
 	 */
 	Warning,
 	
 	/**
-	 * An error
+	 * An error.
 	 */
 	Error,
 	
 	/**
-	 * An exception
+	 * An exception.
 	 */
 	Exception
 }

@@ -57,9 +57,9 @@ public final class Cursor
 	}
 	
 	/**
-	 * Set the {@link CursorLockMode}
-	 * @param lockMode The new lock mode
-	 * @see CursorLockMode
+	 * Set the {@link CursorLockMode}.
+	 * @param lockMode The new lock mode.
+	 * @see CursorLockMode.
 	 */
 	public static void setLockMode(CursorLockMode lockMode)
 	{
@@ -67,8 +67,8 @@ public final class Cursor
 	}
 	
 	/**
-	 * Set whether or not the cursor should be visible
-	 * @param visible Whether or not the cursor should be visible
+	 * Set whether or not the cursor should be visible.
+	 * @param visible Whether or not the cursor should be visible.
 	 */
 	public static void setVisible(boolean visible)
 	{
@@ -76,7 +76,7 @@ public final class Cursor
 	}
 	
 	/**
-	 * Set the cursor to a standard arrow shape
+	 * Set the cursor to a standard arrow shape.
 	 */
 	public static void setShapeArrow()
 	{
@@ -84,7 +84,7 @@ public final class Cursor
 	}
 	
 	/**
-	 * Set the cursor to a standard IBeam shape
+	 * Set the cursor to a standard IBeam shape.
 	 */
 	public static void setShapeIBeam()
 	{
@@ -92,7 +92,7 @@ public final class Cursor
 	}
 	
 	/**
-	 * Set the cursor to a standard crosshair shape
+	 * Set the cursor to a standard crosshair shape.
 	 */
 	public static void setShapeCrosshair()
 	{
@@ -100,7 +100,7 @@ public final class Cursor
 	}
 	
 	/**
-	 * Set the cursor to a standard hand shape
+	 * Set the cursor to a standard hand shape.
 	 */
 	public static void setShapeHand()
 	{
@@ -108,7 +108,7 @@ public final class Cursor
 	}
 	
 	/**
-	 * Set the cursor to a standard Horizontal Resize shape
+	 * Set the cursor to a standard Horizontal Resize shape.
 	 */
 	public static void setShapeHResize()
 	{
@@ -116,7 +116,7 @@ public final class Cursor
 	}
 	
 	/**
-	 * Set the cursor to a standard Vertical Resize shape
+	 * Set the cursor to a standard Vertical Resize shape.
 	 */
 	public static void setShapeVResize()
 	{
@@ -124,8 +124,8 @@ public final class Cursor
 	}
 	
 	/**
-	 * Set a custom cursor shape
-	 * @param bitmap The bitmap to use as cursor
+	 * Set a custom cursor shape.
+	 * @param bitmap The bitmap to use as cursor.
 	 */
 	public static void setShape(Bitmap bitmap)
 	{
@@ -133,9 +133,9 @@ public final class Cursor
 	}
 	
 	/**
-	 * Set a custom cursor shape
-	 * @param bitmap The bitmap to use as cursor
-	 * @param hot The position that actually clicks
+	 * Set a custom cursor shape.
+	 * @param bitmap The bitmap to use as cursor.
+	 * @param hot The position that actually clicks.
 	 */
 	public static void setShape(Bitmap bitmap, Vector2f hot)
 	{
@@ -159,8 +159,8 @@ public final class Cursor
 	}
 	
 	/**
-	 * Set the shape of the cursor
-	 * @param shape The new shape of the cursor
+	 * Set the shape of the cursor.
+	 * @param shape The new shape of the cursor.
 	 */
 	private static void setShape(long shape)
 	{

@@ -53,10 +53,6 @@ public final class AudioClip implements IDestroyable
 		int numSamples;
 		int sampleRate;
 		
-		/**
-		 * Create a new {@link AudioClipResource}, it will automatically import the specified {@code clip}
-		 * @param clip The clip to import
-		 */
 		AudioClipResource(String fileName, float duration, int numSamples, int sampleRate, int format, ByteBuffer pcm)
 		{
 			super(fileName);
@@ -74,7 +70,7 @@ public final class AudioClip implements IDestroyable
 		}
 		
 		@Override
-		public void destroy()
+		public final void destroy()
 		{
 			alDeleteBuffers(buffer);
 		}
@@ -84,8 +80,8 @@ public final class AudioClip implements IDestroyable
 	
 	/**
 	 * Create a new {@link AudioClip}. If the specified {@code clip} has already been imported,
-	 * it will reuse the imported {@link AudioClipResource}
-	 * @param clip The clip to load
+	 * it will reuse the imported buffer.
+	 * @param clip The clip to load.
 	 */
 	public AudioClip(String clip)
 	{	
@@ -105,6 +101,9 @@ public final class AudioClip implements IDestroyable
 		}
 	}
 	
+	/**
+	 * Destroy the AudioClip, if there are no more references to the linked clip, it's destroyed as well.
+	 */
 	@Override
 	public void destroy()
 	{
@@ -112,8 +111,8 @@ public final class AudioClip implements IDestroyable
 	}
 	
 	/**
-	 * Bind the {@link AudioClip} to a source
-	 * @param source The source to bind to
+	 * Bind the {@link AudioClip} to a source.
+	 * @param source The source to bind to.
 	 */
 	final void bind(int source)
 	{
@@ -122,7 +121,8 @@ public final class AudioClip implements IDestroyable
 	}
 	
 	/**
-	 * @return The duration in seconds
+	 * Get the duration of the clip in seconds.
+	 * @return The duration in seconds.
 	 */
 	public final float getDuration()
 	{
@@ -130,7 +130,8 @@ public final class AudioClip implements IDestroyable
 	}
 	
 	/**
-	 * @return The number of samples
+	 * Get the number of samples the clip has.
+	 * @return The number of samples.
 	 */
 	public final int getNumSamples()
 	{
@@ -138,7 +139,8 @@ public final class AudioClip implements IDestroyable
 	}
 	
 	/**
-	 * @return The sample rate
+	 * Get the sample rate of the clip.
+	 * @return The sample rate.
 	 */
 	public final int getSampleRate()
 	{

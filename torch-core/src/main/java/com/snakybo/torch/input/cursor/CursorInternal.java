@@ -56,25 +56,16 @@ public class CursorInternal
 		throw new AssertionError();
 	}
 	
-	/**
-	 * Unused
-	 */
 	public static void create()
 	{
 		glfwSetCursorEnterCallback(WindowInternal.window, glfwCursorEnterCallback = new CursorEnterCallback());
 	}
 	
-	/**
-	 * Unused
-	 */
 	public static void destroy()
 	{
 		glfwCursorEnterCallback.release();
 	}
 	
-	/**
-	 * Update the cursor. Applies the {@link CursorLockMode} set by {@link Cursor#setLockMode(CursorLockMode)}
-	 */
 	public static void update()
 	{
 		// If shift+escape is pressed, always unlock the cursor
@@ -98,18 +89,12 @@ public class CursorInternal
 		}
 	}
 	
-	/**
-	 * Behaviour for {@link CursorLockMode#Locked}
-	 */
 	private static void handleLockedCursor()
 	{
 		Vector2f center = Window.getCenter();
 		Mouse.setCursorPosition((int)center.x, (int)center.y);
 	}
 	
-	/**
-	 * Behaviour for {@link CursorLockMode#Confined}
-	 */
 	private static void handleConfinedCursor()
 	{
 		Vector2f cursorPosition = Mouse.getCursorPosition();

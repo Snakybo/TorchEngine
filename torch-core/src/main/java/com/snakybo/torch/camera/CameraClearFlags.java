@@ -29,22 +29,22 @@ package com.snakybo.torch.camera;
 public enum CameraClearFlags
 {
 	/**
-	 * Make the camera render a skybox
+	 * Make the camera render a skybox.
 	 */
 	Skybox,
 	
 	/**
-	 * Make the camera only render the depth component
+	 * Make the camera only render the depth component.
 	 */
 	DepthOnly,
 	
 	/**
-	 * Make the camera render a solid color
+	 * Make the camera render a solid color.
 	 */
 	SolidColor,
 	
 	/**
-	 * Don't clear at all
+	 * Don't clear at all.
 	 */
 	NoClear
 }

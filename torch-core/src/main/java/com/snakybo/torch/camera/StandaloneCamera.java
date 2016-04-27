@@ -53,9 +53,9 @@ public final class StandaloneCamera
 	private Color clearColor;
 	
 	/**
-	 * Create a new camera
-	 * @param projection The projection of the camera
-	 * @param clearFlags The {@link CameraClearFlags} to use
+	 * Create a new camera.
+	 * @param projection The projection of the camera.
+	 * @param clearFlags The {@link CameraClearFlags} to use.
 	 */
 	public StandaloneCamera(Matrix4f projection, CameraClearFlags clearFlags)
 	{
@@ -63,10 +63,10 @@ public final class StandaloneCamera
 	}
 	
 	/**
-	 * Create a new camera
-	 * @param projection The projection of the camera
-	 * @param clearFlags The {@link CameraClearFlags} to use
-	 * @param clearColor The clear color, only used in {@link CameraClearFlags#SolidColor}
+	 * Create a new camera.
+	 * @param projection The projection of the camera.
+	 * @param clearFlags The {@link CameraClearFlags} to use.
+	 * @param clearColor The clear color, only used in {@link CameraClearFlags#SolidColor}.
 	 */
 	public StandaloneCamera(Matrix4f projection, CameraClearFlags clearFlags, Color clearColor)
 	{
@@ -79,13 +79,16 @@ public final class StandaloneCamera
 		cameras.add(this);
 	}
 	
-	public void destroy()
+	/**
+	 * Destroy the camera.
+	 */
+	public final void destroy()
 	{
 		cameras.remove(this);
 	}
 	
 	/**
-	 * Make the camera render now
+	 * Make the camera render now.
 	 */
 	public final void render()
 	{
@@ -112,8 +115,8 @@ public final class StandaloneCamera
 	}
 	
 	/**
-	 * Set the {@link CameraClearFlags} to use
-	 * @param clearFlags The new clear flags
+	 * Set the {@link CameraClearFlags} to use.
+	 * @param clearFlags The new clear flags.
 	 */
 	public final void setClearFlags(CameraClearFlags clearFlags)
 	{
@@ -121,8 +124,8 @@ public final class StandaloneCamera
 	}
 	
 	/**
-	 * Set the projection of the camera
-	 * @param projection The new projection
+	 * Set the projection of the camera.
+	 * @param projection The new projection.
 	 */
 	public final void setProjection(Matrix4f projection)
 	{
@@ -130,8 +133,8 @@ public final class StandaloneCamera
 	}
 	
 	/**
-	 * Set the transform of the camera
-	 * @param transform The new transform
+	 * Set the transform of the camera.
+	 * @param transform The new transform.
 	 */
 	public final void setTransform(Transform transform)
 	{
@@ -139,8 +142,8 @@ public final class StandaloneCamera
 	}
 	
 	/**
-	 * Set the clear color of the camera, only used in {@link CameraClearFlags#SolidColor}
-	 * @param clearColor The new clear color
+	 * Set the clear color of the camera, only used in {@link CameraClearFlags#SolidColor}.
+	 * @param clearColor The new clear color.
 	 */
 	public final void setClearColor(Color clearColor)
 	{
@@ -148,7 +151,8 @@ public final class StandaloneCamera
 	}
 	
 	/**
-	 * @return The {@link CameraClearFlags} this camera is using
+	 * Get the {@link CameraClearFlags} this camera is using.
+	 * @return The {@link CameraClearFlags} this camera is using.
 	 */
 	public final CameraClearFlags getClearFlags()
 	{
@@ -156,7 +160,8 @@ public final class StandaloneCamera
 	}
 	
 	/**
-	 * @return The projection of the camera
+	 * Get the projection of this camera.
+	 * @return The projection of the camera.
 	 */
 	public final Matrix4f getProjection()
 	{
@@ -164,7 +169,8 @@ public final class StandaloneCamera
 	}
 	
 	/**
-	 * @return The view projection of the camera
+	 * Get the view projection of this camera.
+	 * @return The view projection of the camera.
 	 */
 	public final Matrix4f getViewProjection()
 	{
@@ -179,7 +185,8 @@ public final class StandaloneCamera
 	}
 	
 	/**
-	 * @return The clear color of the camera
+	 * Get the clear color of this camera.
+	 * @return The clear color of the camera.
 	 */
 	public final Color getClearColor()
 	{
@@ -187,7 +194,8 @@ public final class StandaloneCamera
 	}
 	
 	/**
-	 * @return A collection of all cameras
+	 * Get all cameras.
+	 * @return All cameras.
 	 */
 	public static Iterable<StandaloneCamera> getCameras()
 	{
@@ -195,8 +203,8 @@ public final class StandaloneCamera
 	}
 	
 	/**
-	 * Get the current camera, use {@link Camera#getCurrentCamera()} unless you have to access internal cameras
-	 * @return The current camera
+	 * Get the current camera, use {@link Camera#getCurrentCamera()} unless you have to access internal cameras.
+	 * @return The current camera.
 	 */
 	public static StandaloneCamera getCurrentCamera()
 	{

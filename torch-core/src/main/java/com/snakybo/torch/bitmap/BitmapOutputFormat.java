@@ -29,12 +29,12 @@ package com.snakybo.torch.bitmap;
 public enum BitmapOutputFormat
 {
 	/**
-	 * Save the bitmap as a JPG file
+	 * Save the bitmap as a JPG file.
 	 */
 	JPG("jpg"),
 	
 	/**
-	 * Save the bitmap as a PNG file
+	 * Save the bitmap as a PNG file.
 	 */
 	PNG("png");
 	
@@ -46,9 +46,11 @@ public enum BitmapOutputFormat
 	}
 	
 	/**
-	 * @return The format of the image as a String
+	 * Get the format of the bitmap as a String.
+	 * @return The format of the bitmap as a String.
 	 */
-	public final String asString()
+	@Override
+	public final String toString()
 	{
 		return format;
 	}

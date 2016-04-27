@@ -41,9 +41,9 @@ public final class Camera extends Component
 	private final StandaloneCamera standaloneCamera;
 	
 	/**
-	 * Create a new camera
-	 * @param projection The projection of the camera
-	 * @param clearFlags The {@link CameraClearFlags} to use
+	 * Create a new camera.
+	 * @param projection The projection of the camera.
+	 * @param clearFlags The {@link CameraClearFlags} to use.
 	 */
 	public Camera(Matrix4f projection, CameraClearFlags clearFlags)
 	{
@@ -51,10 +51,10 @@ public final class Camera extends Component
 	}
 	
 	/**
-	 * Create a new camera
-	 * @param projection The projection of the camera
-	 * @param clearFlags The {@link CameraClearFlags} to use
-	 * @param clearColor The clear color, only used in {@link CameraClearFlags#SolidColor}
+	 * Create a new camera.
+	 * @param projection The projection of the camera.
+	 * @param clearFlags The {@link CameraClearFlags} to use.
+	 * @param clearColor The clear color, only used in {@link CameraClearFlags#SolidColor}.
 	 */
 	public Camera(Matrix4f projection, CameraClearFlags clearFlags, Color clearColor)
 	{
@@ -76,7 +76,7 @@ public final class Camera extends Component
 	}
 	
 	/**
-	 * @see StandaloneCamera#render()
+	 * Make the camera render now.
 	 */
 	public final void render()
 	{
@@ -84,8 +84,8 @@ public final class Camera extends Component
 	}
 	
 	/**
-	 * Set the {@link CameraClearFlags} to use
-	 * @param clearFlags The new clear flags
+	 * Set the {@link CameraClearFlags} to use.
+	 * @param clearFlags The new clear flags.
 	 */
 	public final void setClearFlags(CameraClearFlags clearFlags)
 	{
@@ -93,8 +93,8 @@ public final class Camera extends Component
 	}
 	
 	/**
-	 * Set the projection of the camera
-	 * @param projection The new projection
+	 * Set the projection of the camera.
+	 * @param projection The new projection.
 	 */
 	public final void setProjection(Matrix4f projection)
 	{
@@ -102,8 +102,8 @@ public final class Camera extends Component
 	}
 	
 	/**
-	 * Set the clear color of the camera, only used in {@link CameraClearFlags#SolidColor}
-	 * @param clearColor The new clear color
+	 * Set the clear color of the camera, only used in {@link CameraClearFlags#SolidColor}.
+	 * @param clearColor The new clear color.
 	 */
 	public final void setClearColor(Color clearColor)
 	{
@@ -111,7 +111,8 @@ public final class Camera extends Component
 	}
 	
 	/**
-	 * @return The {@link CameraClearFlags} this camera is using
+	 * Get the {@link CameraClearFlags} this camera is using.
+	 * @return The {@link CameraClearFlags} this camera is using.
 	 */
 	public final CameraClearFlags getClearFlags()
 	{
@@ -119,7 +120,8 @@ public final class Camera extends Component
 	}
 	
 	/**
-	 * @return The projection of the camera
+	 * Get the projection of this camera.
+	 * @return The projection of the camera.
 	 */
 	public final Matrix4f getProjection()
 	{
@@ -127,7 +129,8 @@ public final class Camera extends Component
 	}
 	
 	/**
-	 * @return The view projection of the camera
+	 * Get the view projection of this camera.
+	 * @return The view projection of the camera.
 	 */
 	public final Matrix4f getViewProjection()
 	{
@@ -135,7 +138,8 @@ public final class Camera extends Component
 	}
 	
 	/**
-	 * @return The clear color of the camera
+	 * Get the clear color of this camera.
+	 * @return The clear color of the camera.
 	 */
 	public final Color getClearColor()
 	{
@@ -143,7 +147,8 @@ public final class Camera extends Component
 	}
 	
 	/**
-	 * @return A collection of all cameras
+	 * Get all cameras.
+	 * @return All cameras.
 	 */
 	public static Iterable<Camera> getCameras()
 	{
@@ -151,8 +156,8 @@ public final class Camera extends Component
 	}
 	
 	/**
-	 * Get the current camera, this will return {@code null} if the engine is rendering a {@link StandaloneCamera}
-	 * @return The current camera or null
+	 * Get the current camera, this will return {@code null} if the engine is rendering a {@link StandaloneCamera}.
+	 * @return The current camera or null.
 	 */
 	public static Camera getCurrentCamera()
 	{

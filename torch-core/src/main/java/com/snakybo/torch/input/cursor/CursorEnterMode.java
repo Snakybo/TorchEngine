@@ -29,12 +29,12 @@ package com.snakybo.torch.input.cursor;
 public enum CursorEnterMode
 {
 	/**
-	 * The cursor has entered the game window
+	 * The cursor has entered the game window.
 	 */
 	Entered,
 	
 	/**
-	 * The cursor has left the game window
+	 * The cursor has left the game window.
 	 */
 	Left
 }

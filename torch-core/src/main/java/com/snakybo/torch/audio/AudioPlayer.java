@@ -68,16 +68,31 @@ public final class AudioPlayer extends Component
 	
 	private boolean autoPlay;
 	
+	/**
+	 * Create a new {@link AudioPlayer}.
+	 * @param audioClip The {@link AudioClip} to play.
+	 */
 	public AudioPlayer(AudioClip audioClip)
 	{
 		this(audioClip, false);
 	}
 	
+	/**
+	 * Create a new {@link AudioPlayer}.
+	 * @param audioClip The {@link AudioClip} to play.
+	 * @param looping Whether or not the {@link AudioClip} should loop.
+	 */
 	public AudioPlayer(AudioClip audioClip, boolean looping)
 	{
 		this(audioClip, looping, true);
 	}
 	
+	/**
+	 * Create a new {@link AudioPlayer}.
+	 * @param audioClip The {@link AudioClip} to play.
+	 * @param looping Whether or not the {@link AudioClip} should loop.
+	 * @param autoPlay Whether or not playback should start automatically.
+	 */
 	public AudioPlayer(AudioClip audioClip, boolean looping, boolean autoPlay)
 	{
 		this.source = BufferUtils.createIntBuffer(1);
@@ -152,7 +167,7 @@ public final class AudioPlayer extends Component
 	}
 	
 	/**
-	 * Pause playback
+	 * Pause playback.
 	 */
 	public final void pause()
 	{
@@ -161,7 +176,7 @@ public final class AudioPlayer extends Component
 	}
 	
 	/**
-	 * Resume playback
+	 * Resume playback.
 	 */
 	public final void resume()
 	{
@@ -170,7 +185,7 @@ public final class AudioPlayer extends Component
 	}
 	
 	/**
-	 * Stop playback
+	 * Stop playback.
 	 */
 	public final void stop()
 	{
@@ -179,7 +194,7 @@ public final class AudioPlayer extends Component
 	}
 	
 	/**
-	 * Start playback
+	 * Start or restart playback of the current {@link AudioClip}.
 	 */
 	public final void play()
 	{
@@ -190,8 +205,8 @@ public final class AudioPlayer extends Component
 	}
 	
 	/**
-	 * Start playback
-	 * @param audioClip The {@link AudioClip} to play
+	 * Start playback of an {@link AudioClip}.
+	 * @param audioClip The {@link AudioClip} to play.
 	 */
 	public final void play(AudioClip audioClip)
 	{
@@ -202,7 +217,8 @@ public final class AudioPlayer extends Component
 	}
 	
 	/**
-	 * @return Whether or not we're currently playing something
+	 * Check whether or not the {@link AudioPlayer} is currently playing something.
+	 * @return Whether or not the {@link AudioPlayer} is currently playing something.
 	 */
 	public final boolean isPlaying()
 	{
@@ -210,7 +226,8 @@ public final class AudioPlayer extends Component
 	}
 	
 	/**
-	 * @return Whether or not playback has been paused
+	 * Check whether or not playback is currently paused.
+	 * @return Whether or not playback has been paused.
 	 */
 	public final boolean isPaused()
 	{
@@ -218,7 +235,8 @@ public final class AudioPlayer extends Component
 	}
 	
 	/**
-	 * @return Whether or not we're set to loop
+	 * Check whether or not the {@link AudioPlayer} is looping.
+	 * @return Whether or not the {@link AudioPlayer} is set to loop.
 	 */
 	public final boolean isLooping()
 	{
@@ -226,8 +244,8 @@ public final class AudioPlayer extends Component
 	}
 	
 	/**
-	 * Set the volume
-	 * @param volume The new volume
+	 * Set the volume.
+	 * @param volume The new volume.
 	 */
 	public final void setVolume(float volume)
 	{
@@ -236,8 +254,8 @@ public final class AudioPlayer extends Component
 	}
 	
 	/**
-	 * Set the pitch
-	 * @param pitch The new pitch
+	 * Set the pitch.
+	 * @param pitch The new pitch.
 	 */
 	public final void setPitch(float pitch)
 	{
@@ -256,7 +274,8 @@ public final class AudioPlayer extends Component
 	}
 
 	/**
-	 * @return The current {@link AudioClip}
+	 * Get the current {@link AudioClip}.
+	 * @return The current {@link AudioClip}.
 	 */
 	public final AudioClip getAudioClip()
 	{
@@ -264,7 +283,8 @@ public final class AudioPlayer extends Component
 	}
 	
 	/**
-	 * @return The current volume
+	 * Get the current volume of the audio player.
+	 * @return The current volume.
 	 */
 	public final float getVolume()
 	{
@@ -272,7 +292,8 @@ public final class AudioPlayer extends Component
 	}
 	
 	/**
-	 * @return The current pitch
+	 * Get the current pitch of the audio player.
+	 * @return The current pitch.
 	 */
 	public final float getPitch()
 	{

@@ -39,8 +39,8 @@ public abstract class TorchGame
 	private static int targetFrameRate = 60;
 	
 	/**
-	 * Create a game
-	 * @param name The name of the game
+	 * Create a game.
+	 * @param name The name of the game.
 	 */
 	public TorchGame(String name)
 	{
@@ -52,10 +52,13 @@ public abstract class TorchGame
 		LoggerInternal.log("Game name: " + name, "Game");
 	}
 	
+	/**
+	 * Called after the engine has been initialized, construct your scene here.
+	 */
 	protected abstract void onCreate();
 	
 	/**
-	 * Quit the game
+	 * Quit the game.
 	 */
 	public static void quit()
 	{
@@ -63,8 +66,8 @@ public abstract class TorchGame
 	}
 	
 	/**
-	 * Set the target frame rate
-	 * @param targetFrameRate The new target frame rate
+	 * Set the target frame rate of the game.
+	 * @param targetFrameRate The new target frame rate.
 	 */
 	public static void setTargetFrameRate(int targetFrameRate)
 	{
@@ -81,7 +84,8 @@ public abstract class TorchGame
 	}
 	
 	/**
-	 * @return The name of the game
+	 * Get the name of the game.
+	 * @return The name of the game.
 	 */
 	public static String getName()
 	{
@@ -89,7 +93,8 @@ public abstract class TorchGame
 	}
 	
 	/**
-	 * @return The target frame rate
+	 * Get the target frame rate specified.
+	 * @return The target frame rate.
 	 */
 	public static int getTargetFrameRate()
 	{

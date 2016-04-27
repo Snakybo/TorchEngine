@@ -36,8 +36,8 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs a message to the console
-	 * @param b The boolean to log
+	 * Logs a message to the console.
+	 * @param b The boolean to log.
 	 */
 	public static void log(boolean b)
 	{
@@ -45,9 +45,9 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs a message to the console
-	 * @param b The boolean to log
-	 * @param source The source of the message, can also be a string
+	 * Logs a message to the console.
+	 * @param b The boolean to log.
+	 * @param source The source of the message, can also be a string.
 	 */
 	public static void log(boolean b, Object source)
 	{
@@ -56,8 +56,8 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs a message to the console
-	 * @param c The char to log
+	 * Logs a message to the console.
+	 * @param c The char to log.
 	 */
 	public static void log(char c)
 	{
@@ -65,9 +65,9 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs a message to the console
-	 * @param c The char to log
-	 * @param source The source of the message, can also be a string
+	 * Logs a message to the console.
+	 * @param c The char to log.
+	 * @param source The source of the message, can also be a string.
 	 */
 	public static void log(char c, Object source)
 	{
@@ -76,8 +76,8 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs a message to the console
-	 * @param i The int to log
+	 * Logs a message to the console.
+	 * @param i The int to log.
 	 */
 	public static void log(int i)
 	{
@@ -85,9 +85,9 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs a message to the console
-	 * @param i The int to log
-	 * @param source The source of the message, can also be a string
+	 * Logs a message to the console.
+	 * @param i The int to log.
+	 * @param source The source of the message, can also be a string.
 	 */
 	public static void log(int i, Object source)
 	{
@@ -96,8 +96,8 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs a message to the console
-	 * @param f The float to log
+	 * Logs a message to the console.
+	 * @param f The float to log.
 	 */
 	public static void log(float f)
 	{
@@ -105,9 +105,9 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs a message to the console
-	 * @param f The float to log
-	 * @param source The source of the message, can also be a string
+	 * Logs a message to the console.
+	 * @param f The float to log.
+	 * @param source The source of the message, can also be a string.
 	 */
 	public static void log(float f, Object source)
 	{
@@ -116,8 +116,8 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs a message to the console
-	 * @param d The double to log
+	 * Logs a message to the console.
+	 * @param d The double to log.
 	 */
 	public static void log(double d)
 	{
@@ -125,9 +125,9 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs a message to the console
-	 * @param d The double to log
-	 * @param source The source of the message, can also be a string
+	 * Logs a message to the console.
+	 * @param d The double to log.
+	 * @param source The source of the message, can also be a string.
 	 */
 	public static void log(double d, Object source)
 	{
@@ -136,8 +136,8 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs a message to the console
-	 * @param l The long to log
+	 * Logs a message to the console.
+	 * @param l The long to log.
 	 */
 	public static void log(long l)
 	{
@@ -145,9 +145,9 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs a message to the console
-	 * @param l The long to log
-	 * @param source The source of the message, can also be a string
+	 * Logs a message to the console.
+	 * @param l The long to log.
+	 * @param source The source of the message, can also be a string.
 	 */
 	public static void log(long l, Object source)
 	{
@@ -156,8 +156,8 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs a message to the console
-	 * @param s The char array to log
+	 * Logs a message to the console.
+	 * @param s The char array to log.
 	 */
 	public static void log(char[] s)
 	{
@@ -165,9 +165,9 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs a message to the console
-	 * @param s The char array to log
-	 * @param source The source of the message, can also be a string
+	 * Logs a message to the console.
+	 * @param s The char array to log.
+	 * @param source The source of the message, can also be a string.
 	 */
 	public static void log(char[] s, Object source)
 	{
@@ -176,8 +176,8 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs a message to the console
-	 * @param s The string to log
+	 * Logs a message to the console.
+	 * @param s The string to log.
 	 */
 	public static void log(String s)
 	{		
@@ -185,9 +185,9 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs a message to the console
-	 * @param s The string to log
-	 * @param source The source of the message, can also be a string
+	 * Logs a message to the console.
+	 * @param s The string to log.
+	 * @param source The source of the message, can also be a string.
 	 */
 	public static void log(String s, Object source)
 	{		
@@ -196,8 +196,8 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs a message to the console
-	 * @param o The object to log
+	 * Logs a message to the console.
+	 * @param o The object to log.
 	 */
 	public static void log(Object o)
 	{
@@ -205,9 +205,9 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs a message to the console
-	 * @param o The object to log
-	 * @param source The source of the message, can also be a string
+	 * Logs a message to the console.
+	 * @param o The object to log.
+	 * @param source The source of the message, can also be a string.
 	 */
 	public static void log(Object o, Object source)
 	{
@@ -216,8 +216,8 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs a warning to the console
-	 * @param b The boolean to log
+	 * Logs a warning to the console.
+	 * @param b The boolean to log.
 	 */
 	public static void logWarning(boolean b)
 	{
@@ -225,9 +225,9 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs a warning to the console
-	 * @param b The boolean to log
-	 * @param source The source of the warning, can also be a string
+	 * Logs a warning to the console.
+	 * @param b The boolean to log.
+	 * @param source The source of the warning, can also be a string.
 	 */
 	public static void logWarning(boolean b, Object source)
 	{
@@ -236,8 +236,8 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs a warning to the console
-	 * @param c The char to log
+	 * Logs a warning to the console.
+	 * @param c The char to log.
 	 */
 	public static void logWarning(char c)
 	{
@@ -245,9 +245,9 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs a warning to the console
-	 * @param c The char to log
-	 * @param source The source of the warning, can also be a string
+	 * Logs a warning to the console.
+	 * @param c The char to log.
+	 * @param source The source of the warning, can also be a string.
 	 */
 	public static void logWarning(char c, Object source)
 	{
@@ -256,8 +256,8 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs a warning to the console
-	 * @param i The int to log
+	 * Logs a warning to the console.
+	 * @param i The int to log.
 	 */
 	public static void logWarning(int i)
 	{
@@ -265,9 +265,9 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs a warning to the console
-	 * @param i The int to log
-	 * @param source The source of the warning, can also be a string
+	 * Logs a warning to the console.
+	 * @param i The int to log.
+	 * @param source The source of the warning, can also be a string.
 	 */
 	public static void logWarning(int i, Object source)
 	{
@@ -276,8 +276,8 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs a warning to the console
-	 * @param f The float to log
+	 * Logs a warning to the console.
+	 * @param f The float to log.
 	 */
 	public static void logWarning(float f)
 	{
@@ -285,9 +285,9 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs a warning to the console
-	 * @param f The float to log
-	 * @param source The source of the warning, can also be a string
+	 * Logs a warning to the console.
+	 * @param f The float to log.
+	 * @param source The source of the warning, can also be a string.
 	 */
 	public static void logWarning(float f, Object source)
 	{
@@ -296,8 +296,8 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs a warning to the console
-	 * @param d The double to log
+	 * Logs a warning to the console.
+	 * @param d The double to log.
 	 */
 	public static void logWarning(double d)
 	{
@@ -305,9 +305,9 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs a warning to the console
-	 * @param d The double to log
-	 * @param source The source of the warning, can also be a string
+	 * Logs a warning to the console.
+	 * @param d The double to log.
+	 * @param source The source of the warning, can also be a string.
 	 */
 	public static void logWarning(double d, Object source)
 	{
@@ -316,8 +316,8 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs a warning to the console
-	 * @param l The long to log
+	 * Logs a warning to the console.
+	 * @param l The long to log.
 	 */
 	public static void logWarning(long l)
 	{
@@ -325,9 +325,9 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs a warning to the console
-	 * @param l The long to log
-	 * @param source The source of the warning, can also be a string
+	 * Logs a warning to the console.
+	 * @param l The long to log.
+	 * @param source The source of the warning, can also be a string.
 	 */
 	public static void logWarning(long l, Object source)
 	{
@@ -336,8 +336,8 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs a warning to the console
-	 * @param s The char array to log
+	 * Logs a warning to the console.
+	 * @param s The char array to log.
 	 */
 	public static void logWarning(char[] s)
 	{
@@ -345,9 +345,9 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs a warning to the console
-	 * @param s The char array to log
-	 * @param source The source of the warning, can also be a string
+	 * Logs a warning to the console.
+	 * @param s The char array to log.
+	 * @param source The source of the warning, can also be a string.
 	 */
 	public static void logWarning(char[] s, Object source)
 	{
@@ -356,8 +356,8 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs a warning to the console
-	 * @param s The string to log
+	 * Logs a warning to the console.
+	 * @param s The string to log.
 	 */
 	public static void logWarning(String s)
 	{		
@@ -365,9 +365,9 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs a warning to the console
-	 * @param s The string to log
-	 * @param source The source of the warning, can also be a string
+	 * Logs a warning to the console.
+	 * @param s The string to log.
+	 * @param source The source of the warning, can also be a string.
 	 */
 	public static void logWarning(String s, Object source)
 	{		
@@ -376,8 +376,8 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs a warning to the console
-	 * @param o The object to log
+	 * Logs a warning to the console.
+	 * @param o The object to log.
 	 */
 	public static void logWarning(Object o)
 	{
@@ -385,9 +385,9 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs a warning to the console
-	 * @param o The object to log
-	 * @param source The source of the warning, can also be a string
+	 * Logs a warning to the console.
+	 * @param o The object to log.
+	 * @param source The source of the warning, can also be a string.
 	 */
 	public static void logWarning(Object o, Object source)
 	{
@@ -396,8 +396,8 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs an error to the console
-	 * @param b The boolean to log
+	 * Logs an error to the console.
+	 * @param b The boolean to log.
 	 */
 	public static void logError(boolean b)
 	{
@@ -405,9 +405,9 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs an error to the console
-	 * @param b The boolean to log
-	 * @param source The source of the error, can also be a string
+	 * Logs an error to the console.
+	 * @param b The boolean to log.
+	 * @param source The source of the error, can also be a string.
 	 */
 	public static void logError(boolean b, Object source)
 	{
@@ -416,8 +416,8 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs an error to the console
-	 * @param c The char to log
+	 * Logs an error to the console.
+	 * @param c The char to log.
 	 */
 	public static void logError(char c)
 	{
@@ -425,9 +425,9 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs an error to the console
-	 * @param c The char to log
-	 * @param source The source of the error, can also be a string
+	 * Logs an error to the console.
+	 * @param c The char to log.
+	 * @param source The source of the error, can also be a string.
 	 */
 	public static void logError(char c, Object source)
 	{
@@ -436,8 +436,8 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs an error to the console
-	 * @param i The int to log
+	 * Logs an error to the console.
+	 * @param i The int to log.
 	 */
 	public static void logError(int i)
 	{
@@ -445,9 +445,9 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs an error to the console
-	 * @param i The int to log
-	 * @param source The source of the error, can also be a string
+	 * Logs an error to the console.
+	 * @param i The int to log.
+	 * @param source The source of the error, can also be a string.
 	 */
 	public static void logError(int i, Object source)
 	{
@@ -456,8 +456,8 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs an error to the console
-	 * @param f The float to log
+	 * Logs an error to the console.
+	 * @param f The float to log.
 	 */
 	public static void logError(float f)
 	{
@@ -465,9 +465,9 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs an error to the console
-	 * @param f The float to log
-	 * @param source The source of the error, can also be a string
+	 * Logs an error to the console.
+	 * @param f The float to log.
+	 * @param source The source of the error, can also be a string.
 	 */
 	public static void logError(float f, Object source)
 	{
@@ -476,8 +476,8 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs an error to the console
-	 * @param d The double to log
+	 * Logs an error to the console.
+	 * @param d The double to log.
 	 */
 	public static void logError(double d)
 	{
@@ -485,9 +485,9 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs an error to the console
-	 * @param d The double to log
-	 * @param source The source of the error, can also be a string
+	 * Logs an error to the console.
+	 * @param d The double to log.
+	 * @param source The source of the error, can also be a string.
 	 */
 	public static void logError(double d, Object source)
 	{
@@ -496,8 +496,8 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs an error to the console
-	 * @param l The long to log
+	 * Logs an error to the console.
+	 * @param l The long to log.
 	 */
 	public static void logError(long l)
 	{
@@ -505,9 +505,9 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs an error to the console
-	 * @param l The long to log
-	 * @param source The source of the error, can also be a string
+	 * Logs an error to the console.
+	 * @param l The long to log.
+	 * @param source The source of the error, can also be a string.
 	 */
 	public static void logError(long l, Object source)
 	{
@@ -516,8 +516,8 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs an error to the console
-	 * @param s The char array to log
+	 * Logs an error to the console.
+	 * @param s The char array to log.
 	 */
 	public static void logError(char[] s)
 	{
@@ -525,9 +525,9 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs an error to the console
-	 * @param s The char array to log
-	 * @param source The source of the error, can also be a string
+	 * Logs an error to the console.
+	 * @param s The char array to log.
+	 * @param source The source of the error, can also be a string.
 	 */
 	public static void logError(char[] s, Object source)
 	{
@@ -536,8 +536,8 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs an error to the console
-	 * @param s The string to log
+	 * Logs an error to the console.
+	 * @param s The string to log.
 	 */
 	public static void logError(String s)
 	{		
@@ -545,9 +545,9 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs an error to the console
-	 * @param s The string to log
-	 * @param source The source of the error, can also be a string
+	 * Logs an error to the console.
+	 * @param s The string to log.
+	 * @param source The source of the error, can also be a string.
 	 */
 	public static void logError(String s, Object source)
 	{		
@@ -565,9 +565,9 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs an error to the console
-	 * @param o The object to log
-	 * @param source The source of the error, can also be a string
+	 * Logs an error to the console.
+	 * @param o The object to log.
+	 * @param source The source of the error, can also be a string.
 	 */
 	public static void logError(Object o, Object source)
 	{
@@ -576,8 +576,8 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs an exception
-	 * @param e The exception to log
+	 * Logs an exception.
+	 * @param e The exception to log.
 	 */
 	public static void logException(Exception e)
 	{
@@ -585,9 +585,9 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs an exception
-	 * @param e The exception to log
-	 * @param source The source of the exception, can also be a string
+	 * Logs an exception.
+	 * @param e The exception to log.
+	 * @param source The source of the exception, can also be a string.
 	 */
 	public static void logException(Exception e, Object source)
 	{
@@ -596,10 +596,10 @@ public final class Logger
 	}
 	
 	/**
-	 * Log the prefix
-	 * @param level The desired log level, {@link LogLevel#Message}, {@link LogLevel#Warning}, {@link LogLevel#Error} or {@link LogLevel#Exception}
-	 * @param source The source of the log
-	 * @param ps The {@link PrintStream} to use
+	 * Log the prefix.
+	 * @param level The desired log level, {@link LogLevel#Message}, {@link LogLevel#Warning}, {@link LogLevel#Error} or {@link LogLevel#Exception}.
+	 * @param source The source of the log.
+	 * @param ps The {@link PrintStream} to use.
 	 * @see LogLevel
 	 */
 	private static void logPrefix(LogLevel level, Object source, PrintStream ps)

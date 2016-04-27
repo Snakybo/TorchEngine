@@ -55,10 +55,10 @@ class CursorShape
 	}
 	
 	/**
-	 * Check whether or not the specified cursor has been registered already
-	 * @param bitmap The image of the cursor
-	 * @param hot The hotzone of the cursor
-	 * @return Whether or not the specified cursor has already been registered
+	 * Check whether or not the specified cursor has been registered already.
+	 * @param bitmap The image of the cursor.
+	 * @param hot The hotzone of the cursor.
+	 * @return Whether or not the specified cursor has already been registered.
 	 */
 	static boolean hasCursor(Bitmap bitmap, Vector2f hot)
 	{
@@ -74,10 +74,10 @@ class CursorShape
 	}
 	
 	/**
-	 * Add a new cursor shape to the cache
-	 * @param bitmap The image of the cursor
-	 * @param hot The hotzone of the cursor
-	 * @param cursor The GLFW generated ID of the cursor shape
+	 * Add a new cursor shape to the cache.
+	 * @param bitmap The image of the cursor.
+	 * @param hot The hotzone of the cursor.
+	 * @param cursor The GLFW generated ID of the cursor shape.
 	 */
 	static void addCursor(Bitmap bitmap, Vector2f hot, long cursor)
 	{
@@ -88,10 +88,10 @@ class CursorShape
 	}
 	
 	/**
-	 * Get the cursor ID from the specified bitmap and hot
-	 * @param bitmap The image of the cursor
-	 * @param hot The hotzone of the cursor
-	 * @return The GLFW generated ID of the cursor shape
+	 * Get the cursor ID from the specified bitmap and hot.
+	 * @param bitmap The image of the cursor.
+	 * @param hot The hotzone of the cursor.
+	 * @return The GLFW generated ID of the cursor shape.
 	 */
 	static long getCursor(Bitmap bitmap, Vector2f hot)
 	{

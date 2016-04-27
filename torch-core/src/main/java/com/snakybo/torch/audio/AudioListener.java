@@ -84,7 +84,7 @@ public class AudioListener extends Component
 	}
 	
 	/**
-	 * Set the position of the listener
+	 * Set the position of the listener.
 	 */
 	private void setPosition()
 	{
@@ -96,7 +96,7 @@ public class AudioListener extends Component
 	}
 	
 	/**
-	 * Set the velocity of the listener
+	 * Set the velocity of the listener.
 	 */
 	private void setVelocity()
 	{
@@ -112,7 +112,7 @@ public class AudioListener extends Component
 	}
 	
 	/**
-	 * Set the orientation of the listener
+	 * Set the orientation of the listener.
 	 */
 	private void setOrientation()
 	{
@@ -135,7 +135,8 @@ public class AudioListener extends Component
 	}
 	
 	/**
-	 * @return Whether or not an {@link AudioListener} is present in the game scene
+	 * Check whether or not there is an {@link AudioListener} present in the game scene.
+	 * @return Whether or not an {@link AudioListener} is present in the game scene.
 	 */
 	public static boolean isPresent()
 	{

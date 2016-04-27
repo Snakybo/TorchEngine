@@ -41,16 +41,35 @@ import com.snakybo.torch.window.WindowInternal;
  * @since 1.0
  */
 public final class TorchEngine
-{	
+{
+	/**
+	 * The major version of the engine.
+	 */
 	public static final int VERSION_MAJOR = 1;
+	
+	/**
+	 * The minor version of the engine.
+	 */
 	public static final int VERSION_MINOR = 0;
+	
+	/**
+	 * The patch version of the engine.
+	 */
 	public static final int VERSION_PATCH = 0;
+	
+	/**
+	 * The version of the engine as a String, in the format {@link #VERSION_MAJOR}.{@link #VERSION_MINOR}.{@link #VERSION_PATCH}.
+	 */
 	public static final String VERSION_STRING = VERSION_MAJOR + "." + VERSION_MINOR + "." + VERSION_PATCH;
 	
 	private TorchGame game;
 	
 	private boolean running;
 	
+	/**
+	 * Create an instance of the engine, called by {@link TorchGame#TorchGame(String)}.
+	 * @param game The instance of the game to play.
+	 */
 	TorchEngine(TorchGame game)
 	{
 		LoggerInternal.log("Starting", this);
@@ -74,7 +93,7 @@ public final class TorchEngine
 	}
 	
 	/**
-	 * Start the engine, called by {@link TorchGame#start()}
+	 * Start the engine, called by {@link TorchGame#start()}.
 	 */
 	private final void start()
 	{
@@ -88,7 +107,7 @@ public final class TorchEngine
 	}
 	
 	/**
-	 * Stop the engine, called by {@link TorchGame#quit()}
+	 * Stop the engine, called by {@link TorchGame#quit()}.
 	 */
 	public final void stop()
 	{
@@ -101,7 +120,7 @@ public final class TorchEngine
 	}
 	
 	/**
-	 * The main loop of the engine
+	 * The main loop of the engine.
 	 */
 	private final void mainLoop()
 	{
@@ -158,7 +177,7 @@ public final class TorchEngine
 	}
 	
 	/**
-	 * Run a single update cycle
+	 * Run a single update cycle.
 	 */
 	private final void updateCycle()
 	{
@@ -172,7 +191,7 @@ public final class TorchEngine
 	}
 	
 	/**
-	 * Run a single render cycle
+	 * Run a single render cycle.
 	 */
 	private final void renderCycle()
 	{
@@ -180,7 +199,7 @@ public final class TorchEngine
 	}
 	
 	/**
-	 * Destroy all engine systems
+	 * Destroy all engine systems.
 	 */
 	private final void destroy()
 	{
@@ -194,7 +213,7 @@ public final class TorchEngine
 	}
 	
 	/**
-	 * Log information about LWJGL
+	 * Log information about LWJGL.
 	 */
 	private final void logLWJGLInfo()
 	{

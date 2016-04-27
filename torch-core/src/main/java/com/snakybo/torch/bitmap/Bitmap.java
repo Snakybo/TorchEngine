@@ -46,9 +46,9 @@ public final class Bitmap
 	BufferedImage bufferedImage;
 	
 	/**
-	 * Create a new bitmap
-	 * @param width The width of the bitmap
-	 * @param height The height of the bitmap
+	 * Create a new bitmap.
+	 * @param width The width of the bitmap.
+	 * @param height The height of the bitmap.
 	 */
 	public Bitmap(int width, int height)
 	{
@@ -56,8 +56,8 @@ public final class Bitmap
 	}
 	
 	/**
-	 * Load a bitmap from the disk
-	 * @param fileName The filename of the bitmap
+	 * Load a bitmap from the disk.
+	 * @param fileName The filename of the bitmap.
 	 */
 	public Bitmap(String fileName)
 	{
@@ -92,9 +92,9 @@ public final class Bitmap
 	}
 	
 	/**
-	 * Save the bitmap to the disk
-	 * @param outputFile The path to the output file
-	 * @param format The format of the image
+	 * Save the bitmap to the disk.
+	 * @param outputFile The path to the output file.
+	 * @param format The format of the image.
 	 */
 	public final void saveToDisk(String outputFile, BitmapOutputFormat format)
 	{
@@ -103,7 +103,7 @@ public final class Bitmap
 			LoggerInternal.log("Saving bitmap to: " + outputFile + "." + format, this);
 			
 			File file = new File(outputFile + "." + format);
-			ImageIO.write(bufferedImage, format.asString(), file);
+			ImageIO.write(bufferedImage, format.toString(), file);
 		}
 		catch(IOException e)
 		{
@@ -112,8 +112,8 @@ public final class Bitmap
 	}
 	
 	/**
-	 * Set all pixels of the bitmap
-	 * @param pixels The new pixels
+	 * Set all pixels of the bitmap.
+	 * @param pixels The new pixels.
 	 */
 	public final void setPixels(int[] pixels)
 	{
@@ -121,10 +121,10 @@ public final class Bitmap
 	}
 	
 	/**
-	 * Set the pixel at (x, y)
-	 * @param x The X position of the pixel
-	 * @param y The Y position of the pixel
-	 * @param pixel The new pixel
+	 * Set the pixel at (x, y).
+	 * @param x The X position of the pixel.
+	 * @param y The Y position of the pixel.
+	 * @param pixel The new pixel.
 	 */
 	public final void setPixel(int x, int y, Color pixel)
 	{
@@ -132,10 +132,10 @@ public final class Bitmap
 	}
 	
 	/**
-	 * Set the pixel at (x, y)
-	 * @param x The X position of the pixel
-	 * @param y The Y position of the pixel
-	 * @param pixel The new pixel
+	 * Set the pixel at (x, y).
+	 * @param x The X position of the pixel.
+	 * @param y The Y position of the pixel.
+	 * @param pixel The new pixel.
 	 */
 	public final void setPixel(int x, int y, Color32 pixel)
 	{
@@ -143,10 +143,10 @@ public final class Bitmap
 	}
 	
 	/**
-	 * Set the pixel at (x, y)
-	 * @param x The X position of the pixel
-	 * @param y The Y position of the pixel
-	 * @param pixel The new pixel
+	 * Set the pixel at (x, y).
+	 * @param x The X position of the pixel.
+	 * @param y The Y position of the pixel.
+	 * @param pixel The new pixel.
 	 */
 	public final void setPixel(int x, int y, int pixel)
 	{
@@ -154,8 +154,8 @@ public final class Bitmap
 	}
 	
 	/**
-	 * Convert the bitmap to a ByteBuffer
-	 * @return The ByteBuffer
+	 * Convert the bitmap to a ByteBuffer.
+	 * @return The {@link ByteBuffer} representation of the bitmap.
 	 */
 	public final ByteBuffer getByteByffer()
 	{
@@ -179,7 +179,8 @@ public final class Bitmap
 	}
 	
 	/**
-	 * @return The pixels of the bitmap
+	 * Get all pixels of the bitmap.
+	 * @return The pixels of the bitmap.
 	 */
 	public final int[] getPixels()
 	{
@@ -187,9 +188,10 @@ public final class Bitmap
 	}
 	
 	/**
-	 * @param x The X position of the pixel
-	 * @param y The Y position of the pixel
-	 * @return The pixel at (x, y)
+	 * Get the pixel at the specified coordinates.
+	 * @param x The X position of the pixel.
+	 * @param y The Y position of the pixel.
+	 * @return The pixel at (x, y).
 	 */
 	public final int getPixel(int x, int y)
 	{
@@ -197,7 +199,8 @@ public final class Bitmap
 	}
 	
 	/**
-	 * @return The width of the bitmap
+	 * Get the width of the bitmap in pixels.
+	 * @return The width of the bitmap.
 	 */
 	public final int getWidth()
 	{
@@ -205,7 +208,8 @@ public final class Bitmap
 	}
 	
 	/**
-	 * @return The height of the bitmap
+	 * Get the height of the bitmap in pixels.
+	 * @return The height of the bitmap.
 	 */
 	public final int getHeight()
 	{
@@ -213,7 +217,8 @@ public final class Bitmap
 	}
 	
 	/**
-	 * @return Whether or not the bitmap contains an alpha channel
+	 * Check whether or not the bitmap has an alpha channel.
+	 * @return Whether or not the bitmap contains an alpha channel.
 	 */
 	public final boolean hasAlpha()
 	{

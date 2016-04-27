@@ -28,8 +28,16 @@ package com.snakybo.torch.debug;
  */
 public final class Debug
 {
+	/**
+	 * Whether or not to log the current FPS in the console.
+	 * @deprecated To be replaced by UI.
+	 */
+	@Deprecated
 	public static boolean LOG_FPS;
 	
+	/**
+	 * Whether or not to log debug/internal logs of the engine.
+	 */
 	public static boolean LOG_DEBUG;
 	
 	static
