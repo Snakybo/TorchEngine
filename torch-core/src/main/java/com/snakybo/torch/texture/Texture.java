@@ -37,20 +37,8 @@ import static org.lwjgl.opengl.GL11.glTexImage2D;
 import static org.lwjgl.opengl.GL11.glTexParameteri;
 import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
 import static org.lwjgl.opengl.GL13.glActiveTexture;
-import static org.lwjgl.opengl.GL30.glGenerateMipmap;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.ByteBuffer;
-
-import javax.imageio.ImageIO;
-
-import org.lwjgl.BufferUtils;
-
-import com.snakybo.torch.debug.Logger;
-import com.snakybo.torch.debug.LoggerInternal;
+import com.snakybo.torch.bitmap.Bitmap;
 import com.snakybo.torch.util.IDestroyable;
 
 /**
@@ -66,19 +54,23 @@ public final class Texture implements IDestroyable
 	
 	public Texture(String fileName)
 	{
-		ByteBuffer data = loadTexture(fileName);
-		
+		this(new Bitmap(fileName));
+	}
+	
+	public Texture(Bitmap bitmap)
+	{
 		id = glGenTextures();
+		width = bitmap.getWidth();
+		height = bitmap.getHeight();
+		
 		glBindTexture(GL_TEXTURE_2D, id);
 		
 		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 		
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, bitmap.getByteByffer());
 		
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		
-		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 	
 	@Override
@@ -92,56 +84,5 @@ public final class Texture implements IDestroyable
 		glActiveTexture(GL_TEXTURE0);
 		
 		glBindTexture(GL_TEXTURE_2D, id);
-	}
-	
-	private final ByteBuffer loadTexture(String fileName)
-	{
-		ByteBuffer data = null;
-		
-		try
-		{
-			LoggerInternal.log("Loading Texture from: " + fileName, this);
-			
-			File file = new File(fileName);			
-			if(!file.exists())
-			{
-				throw new FileNotFoundException(fileName + " cannot be found");
-			}
-			
-			BufferedImage image = ImageIO.read(file);
-			
-			width = image.getWidth();
-			height = image.getHeight();
-			
-			int[] pixels = image.getRGB(0, 0, width, height, null, 0, width);
-	
-			data = BufferUtils.createByteBuffer(height * width * 4);
-			
-			boolean hasAlpha = image.getColorModel().hasAlpha();
-	
-			// Put each pixel in a Byte Buffer
-			for(int y = 0; y < height; y++)
-			{
-				for(int x = 0; x < width; x++)
-				{
-					int pixel = pixels[y * width + x];
-	
-					byte alphaByte = hasAlpha ? (byte)((pixel >> 24) & 0xFF) : (byte)(0xFF);
-	
-					data.put((byte)((pixel >> 16) & 0xFF));
-					data.put((byte)((pixel >> 8) & 0xFF));
-					data.put((byte)((pixel) & 0xFF));
-					data.put(alphaByte);
-				}
-			}
-	
-			data.flip();
-		}
-		catch(IOException e)
-		{
-			Logger.logException(e);
-		}
-		
-		return data;
 	}
 }
