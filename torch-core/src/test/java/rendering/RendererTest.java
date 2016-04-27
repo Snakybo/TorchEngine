@@ -33,6 +33,7 @@ import com.snakybo.torch.mesh.Mesh;
 import com.snakybo.torch.mesh.MeshRenderer;
 import com.snakybo.torch.object.Component;
 import com.snakybo.torch.object.GameObject;
+import com.snakybo.torch.renderer.Skybox;
 import com.snakybo.torch.texture.Texture;
 import com.snakybo.torch.window.Window;
 
@@ -52,6 +53,14 @@ public class RendererTest extends TorchGame
 	{
 		GameObject camera = new GameObject("Camera");
 		camera.addComponent(new Camera(new Matrix4f().perspective((float)Math.toRadians(90f), Window.getAspectRatio(), 0.01f, 1000), CameraClearFlags.SolidColor));
+		camera.addComponent(new Component()
+		{
+			@Override
+			protected void update()
+			{
+				getTransform().rotate(new Vector3f(0, 1, 0), 0.003f);
+			}
+		});
 		
 		Material material = new Material("./src/test/resources/shaders/test.glsl");
 		material.setTexture("diffuse", new Texture("./src/test/resources/grassblock.png"));
@@ -70,6 +79,9 @@ public class RendererTest extends TorchGame
 		box.getTransform().getLocalScale().set(0.25f);
 		box.getTransform().getPosition().set(0, 0, -1f);
 		box.getTransform().rotate(new Vector3f(0, 1, 0), 45f);
+		
+		GameObject skybox = new GameObject();
+		skybox.addComponent(new Skybox(new Texture("./src/test/resources/skybox.png")));
 	}
 	
 	public static void main(String[] args)
