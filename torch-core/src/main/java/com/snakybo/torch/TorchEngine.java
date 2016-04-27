@@ -24,7 +24,6 @@ package com.snakybo.torch;
 
 import org.lwjgl.Version;
 
-import com.snakybo.torch.audio.AudioManagerInternal;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.input.cursor.CursorInternal;
@@ -80,7 +79,6 @@ public final class TorchEngine
 		// Initialize engine systems
 		WindowInternal.createWindowed(1280, 720);
 		OpenGLRenderer.create();
-		AudioManagerInternal.create();
 		
 		KeyboardInternal.create();
 		MouseInternal.create();
@@ -208,7 +206,6 @@ public final class TorchEngine
 		MouseInternal.destroy();
 		KeyboardInternal.destroy();		
 		
-		AudioManagerInternal.destroy();
 		WindowInternal.destroy();
 	}
 	
