@@ -41,52 +41,54 @@ public final class FileUtils
 	
 	/**
 	 * Get the file name and extension from a file
-	 * @param file The file
-	 * @return The file extension
+	 * @param file The file.
+	 * @return The file extension.
 	 */
 	public static String getFileNameAndExtension(String file)
 	{
-		if(File.exists(file) && !File.isDirectory(file))
+		Path path = Paths.get(file);
+		Path fileName = path.getFileName();
+		
+		if(fileName != null)
 		{
-			Path path = Paths.get(file);
-			return path.getFileName().toString();
+			return fileName.toString();
 		}
 		
 		Logger.logException(new FileNotFoundException(file), "FileUtils");
-		return "";
+		return null;
 	}
 	
 	/**
-	 * Get the file name from a file
-	 * @param file The file
-	 * @return The file extension, if there was an error, it will return an empty string
+	 * Get the file name from a file.
+	 * @param file The file.
+	 * @return The file extension, if there was an error, it will return an empty string.
 	 */
 	public static String getFileName(String file)
 	{
 		String fileName = getFileNameAndExtension(file);
 		
-		if(fileName.length() > 0)
+		if(fileName != null)
 		{
 			return fileName.substring(0, fileName.lastIndexOf('.'));
 		}
 		
-		return "";
+		return null;
 	}
 	
 	/**
-	 * Get the file extension from a file
-	 * @param file The file
-	 * @return The file extension, if there was an error, it will return an empty string
+	 * Get the file extension from a file.
+	 * @param file The file.
+	 * @return The file extension, if there was an error, it will return an empty string.
 	 */
 	public static String getFileExtension(String file)
 	{
 		String fileName = getFileNameAndExtension(file);
 		
-		if(fileName.length() > 0)
+		if(fileName != null)
 		{
 			return fileName.substring(fileName.lastIndexOf('.') + 1);
 		}
 		
-		return "";
+		return null;
 	}
 }

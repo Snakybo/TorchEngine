@@ -22,8 +22,12 @@
 
 package com.snakybo.torch.model;
 
+import java.io.IOException;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +37,6 @@ import org.lwjgl.BufferUtils;
 
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
-import com.snakybo.torch.io.File;
 import com.snakybo.torch.io.FileUtils;
 import com.snakybo.torch.model.obj.OBJModel;
 import com.snakybo.torch.resource.Resource;
@@ -371,6 +374,7 @@ public final class Model extends Resource
 	 * Attempt to load a model, if it's been loaded before; it won't load it again
 	 * @param fileName The path to the model
 	 * @return The imported model
+	 * @throws IOException 
 	 */
 	public static Model load(String fileName)
 	{
@@ -381,32 +385,42 @@ public final class Model extends Resource
 		}
 		else
 		{
-			LoggerInternal.log("Importing " + fileName, "ModelLoader");
-			
-			if(!File.exists(fileName))
+			try
 			{
-				Logger.logError("No model found at: " + fileName, "ModelLoader");
-				return null;
+				LoggerInternal.log("Importing " + fileName, "ModelLoader");
+				
+				Path path = Paths.get(fileName);
+				if(!Files.exists(path))
+				{
+					Logger.logError("No model found at: " + fileName, "ModelLoader");
+					return null;
+				}
+				
+				String extension = FileUtils.getFileExtension(fileName);
+				
+				List<String> lines = Files.readAllLines(path);
+				IModelLoader loader = null;
+				
+				switch(extension)
+				{
+				case "obj":
+					loader = new OBJModel(lines);
+					break;
+				default:
+					Logger.logError("Unsupported model format: " + extension, "ModelLoader");
+					return null;
+				}
+				
+				Model result = loader.toModel();
+				ResourceDatabase.register(fileName, result, null);
+				return result;
 			}
-			
-			String extension = FileUtils.getFileExtension(fileName);
-			
-			List<String> lines = File.readLines(fileName);
-			IModelLoader loader = null;
-			
-			switch(extension)
+			catch(IOException e)
 			{
-			case "obj":
-				loader = new OBJModel(lines);
-				break;
-			default:
-				Logger.logError("Unsupported model format: " + extension, "ModelLoader");
-				return null;
+				Logger.logException(e, "Model");
 			}
-			
-			Model result = loader.toModel();
-			ResourceDatabase.register(fileName, result, null);
-			return result;
 		}
+		
+		return null;
 	}
 }

@@ -29,10 +29,15 @@ import static org.lwjgl.opengl.GL40.GL_TESS_CONTROL_SHADER;
 import static org.lwjgl.opengl.GL40.GL_TESS_EVALUATION_SHADER;
 import static org.lwjgl.opengl.GL43.GL_COMPUTE_SHADER;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import com.snakybo.torch.io.File;
+import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.resource.ResourceImporter;
 import com.snakybo.torch.shader.Shader.ShaderResource;
 
@@ -52,17 +57,35 @@ class ShaderResourceImporter extends ResourceImporter<ShaderResource>
 	@Override
 	protected final ShaderResource importResource()
 	{
-		Map<Integer, String> result = new HashMap<Integer, String>();
-		String source = File.readLinesMerge(fileName);
+		try
+		{
+			Map<Integer, String> result = new HashMap<Integer, String>();
+			
+			Path path = Paths.get(fileName);
+			List<String> sourceLines = Files.readAllLines(path);
+			
+			StringBuilder stringBuilder = new StringBuilder();		
+			for(String line : sourceLines)
+			{
+				stringBuilder.append(line).append("\n");
+			}
+			
+			String source = stringBuilder.toString();		
+			result.put(GL_VERTEX_SHADER, parseShader(source, "VERTEX_PASS"));
+			result.put(GL_FRAGMENT_SHADER, parseShader(source, "FRAGMENT_PASS"));
+			result.put(GL_GEOMETRY_SHADER, parseShader(source, "GEOMETRY_PASS"));
+			result.put(GL_COMPUTE_SHADER, parseShader(source, "COMPUTE_PASS"));
+			result.put(GL_TESS_CONTROL_SHADER, parseShader(source, "TESS_CONTROL_PASS"));
+			result.put(GL_TESS_EVALUATION_SHADER, parseShader(source, "TESS_EVAL_PASS"));
+			
+			return new ShaderResource(fileName, source, result);
+		}
+		catch(IOException e)
+		{
+			Logger.logException(e, this);
+		}
 		
-		result.put(GL_VERTEX_SHADER, parseShader(source, "VERTEX_PASS"));
-		result.put(GL_FRAGMENT_SHADER, parseShader(source, "FRAGMENT_PASS"));
-		result.put(GL_GEOMETRY_SHADER, parseShader(source, "GEOMETRY_PASS"));
-		result.put(GL_COMPUTE_SHADER, parseShader(source, "COMPUTE_PASS"));
-		result.put(GL_TESS_CONTROL_SHADER, parseShader(source, "TESS_CONTROL_PASS"));
-		result.put(GL_TESS_EVALUATION_SHADER, parseShader(source, "TESS_EVAL_PASS"));
-		
-		return new ShaderResource(fileName, source, result);
+		return null;
 	}
 	
 	/**
