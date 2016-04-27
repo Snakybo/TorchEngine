@@ -43,9 +43,9 @@ public class CursorInternal
 	private static class CursorEnterCallback extends GLFWCursorEnterCallback
 	{
 		@Override
-		public void invoke(long window, int entered)
+		public void invoke(long window, boolean entered)
 		{
-			SceneUtilities.notifyGameObjectsCursorEntered(entered == 1 ? CursorEnterMode.Entered : CursorEnterMode.Left);
+			SceneUtilities.notifyGameObjectsCursorEntered(entered ? CursorEnterMode.Entered : CursorEnterMode.Left);
 		}
 	}
 	
@@ -63,7 +63,7 @@ public class CursorInternal
 	
 	public static void destroy()
 	{
-		glfwCursorEnterCallback.release();
+		glfwCursorEnterCallback.free();
 	}
 	
 	public static void update()

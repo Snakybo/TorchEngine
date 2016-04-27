@@ -67,7 +67,7 @@ public final class KeyboardInternal
 	 */
 	public static void destroy()
 	{
-		glfwCharCallback.release();
+		glfwCharCallback.free();
 	}
 	
 	/**

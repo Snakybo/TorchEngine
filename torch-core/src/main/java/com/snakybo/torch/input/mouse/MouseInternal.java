@@ -74,7 +74,7 @@ public final class MouseInternal
 	 */
 	public static void destroy()
 	{
-		glfwScrollCallback.release();
+		glfwScrollCallback.free();
 	}
 	
 	/**

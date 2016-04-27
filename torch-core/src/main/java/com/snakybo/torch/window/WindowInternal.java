@@ -45,7 +45,6 @@ import static org.lwjgl.glfw.GLFW.glfwTerminate;
 import static org.lwjgl.glfw.GLFW.glfwWindowHint;
 import static org.lwjgl.glfw.GLFW.glfwWindowShouldClose;
 import static org.lwjgl.opengl.GL11.GL_FALSE;
-import static org.lwjgl.opengl.GL11.GL_TRUE;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 import org.lwjgl.glfw.GLFWErrorCallback;
@@ -65,9 +64,9 @@ public final class WindowInternal
 	private static class WindowIconifyCallback extends GLFWWindowIconifyCallback
 	{
 		@Override
-		public void invoke(long window, int iconified)
+		public void invoke(long window, boolean iconified)
 		{
-			SceneUtilities.notifyGameObjectsWindowIconified(iconified == 1 ? WindowIconifyMode.Iconified : WindowIconifyMode.Restored);
+			SceneUtilities.notifyGameObjectsWindowIconified(iconified ? WindowIconifyMode.Iconified : WindowIconifyMode.Restored);
 		}
 	}
 	
@@ -84,7 +83,7 @@ public final class WindowInternal
 		
 		glfwSetErrorCallback(errorCallback = GLFWErrorCallback.createPrint(System.err));
 		
-		if(glfwInit() != GL_TRUE)
+		if(!glfwInit())
 		{
 			Logger.logException(new RuntimeException("Unable to initialize GLFW"), "Window");
 		}
@@ -176,8 +175,8 @@ public final class WindowInternal
 		glfwDestroyWindow(window);
 		glfwTerminate();
 		
-		glfwWindowIconifyCallback.release();
-		errorCallback.release();
+		glfwWindowIconifyCallback.free();
+		errorCallback.free();
 	}
 	
 	/**
@@ -219,7 +218,7 @@ public final class WindowInternal
 	 */
 	public static boolean isCloseRequested()
 	{
-		return glfwWindowShouldClose(window) == 0 ? false : true;
+		return glfwWindowShouldClose(window);
 	}
 	
 	/**
