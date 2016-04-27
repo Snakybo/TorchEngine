@@ -59,7 +59,7 @@ public final class Cursor
 	/**
 	 * Set the {@link CursorLockMode}.
 	 * @param lockMode The new lock mode.
-	 * @see CursorLockMode.
+	 * @see CursorLockMode
 	 */
 	public static void setLockMode(CursorLockMode lockMode)
 	{
