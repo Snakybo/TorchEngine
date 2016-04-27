@@ -31,6 +31,7 @@ import com.snakybo.torch.object.Component;
 import com.snakybo.torch.object.GameObject;
 import com.snakybo.torch.object.GameObjectUtilities;
 import com.snakybo.torch.renderer.OpenGLRenderer;
+import com.snakybo.torch.window.WindowIconifyMode;
 
 /**
  * @author Snakybo
@@ -164,6 +165,18 @@ public final class SceneUtilities
 		for(GameObject gameObject : frameQueue)
 		{
 			GameObjectUtilities.notifyCharPressed(gameObject, c);
+		}
+	}
+	
+	/**
+	 * Notify all GameObjects that the game window has been iconified or restored
+	 * @param iconifyMode The current iconify mode
+	 */
+	public static void notifyGameObjectsWindowIconified(WindowIconifyMode iconifyMode)
+	{
+		for(GameObject gameObject : frameQueue)
+		{
+			GameObjectUtilities.notifyWindowIconified(gameObject, iconifyMode);
 		}
 	}
 }

@@ -37,6 +37,7 @@ import static org.lwjgl.glfw.GLFW.glfwInit;
 import static org.lwjgl.glfw.GLFW.glfwMakeContextCurrent;
 import static org.lwjgl.glfw.GLFW.glfwPollEvents;
 import static org.lwjgl.glfw.GLFW.glfwSetErrorCallback;
+import static org.lwjgl.glfw.GLFW.glfwSetWindowIconifyCallback;
 import static org.lwjgl.glfw.GLFW.glfwShowWindow;
 import static org.lwjgl.glfw.GLFW.glfwSwapBuffers;
 import static org.lwjgl.glfw.GLFW.glfwSwapInterval;
@@ -48,10 +49,12 @@ import static org.lwjgl.opengl.GL11.GL_TRUE;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 import org.lwjgl.glfw.GLFWErrorCallback;
+import org.lwjgl.glfw.GLFWWindowIconifyCallback;
 
 import com.snakybo.torch.TorchGame;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
+import com.snakybo.torch.scene.SceneUtilities;
 
 /**
  * @author Snakybo
@@ -59,6 +62,16 @@ import com.snakybo.torch.debug.LoggerInternal;
  */
 public final class WindowInternal
 {
+	private static class WindowIconifyCallback extends GLFWWindowIconifyCallback
+	{
+		@Override
+		public void invoke(long window, int iconified)
+		{
+			SceneUtilities.notifyGameObjectsWindowIconified(iconified == 1 ? WindowIconifyMode.Iconified : WindowIconifyMode.Restored);
+		}
+	}
+	
+	private static GLFWWindowIconifyCallback glfwWindowIconifyCallback;	
 	private static GLFWErrorCallback errorCallback;
 	
 	private static WindowMode windowMode;
@@ -163,6 +176,7 @@ public final class WindowInternal
 		glfwDestroyWindow(window);
 		glfwTerminate();
 		
+		glfwWindowIconifyCallback.release();
 		errorCallback.release();
 	}
 	
@@ -183,6 +197,8 @@ public final class WindowInternal
 			Logger.logException(new RuntimeException("Unable to create GLFW window"), "Window");
 			return;
 		}
+		
+		glfwSetWindowIconifyCallback(WindowInternal.window, glfwWindowIconifyCallback = new WindowIconifyCallback());
 		
 		glfwMakeContextCurrent(window);
 		glfwShowWindow(window);

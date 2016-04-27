@@ -24,6 +24,7 @@ package com.snakybo.torch.object;
 
 import com.snakybo.torch.input.cursor.CursorEnterMode;
 import com.snakybo.torch.scene.SceneUtilities;
+import com.snakybo.torch.window.WindowIconifyMode;
 
 /**
  * @author Snakybo
@@ -64,6 +65,22 @@ public final class GameObjectUtilities
 			if(component.started)
 			{
 				component.onCharPressed(c);
+			}
+		}
+	}
+	
+	/**
+	 * Notify a GameObject that the game window has been iconified or restored
+	 * @param gameObject The GameObject to notify
+	 * @param iconifyMode The current mode of the window 
+	 */
+	public static void notifyWindowIconified(GameObject gameObject, WindowIconifyMode iconifyMode)
+	{
+		for(Component component : gameObject.frameQueue)
+		{
+			if(component.started)
+			{
+				component.onWindowIconified(iconifyMode);
 			}
 		}
 	}

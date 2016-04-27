@@ -23,6 +23,7 @@
 package com.snakybo.torch.object;
 
 import com.snakybo.torch.input.cursor.CursorEnterMode;
+import com.snakybo.torch.window.WindowIconifyMode;
 
 /**
  * @author Snakybo
@@ -111,6 +112,14 @@ public abstract class Component extends Object
 	 * @param c The char
 	 */
 	protected void onCharPressed(char c)
+	{
+	}
+	
+	/**
+	 * Called when the game window was iconified or restored
+	 * @param iconifyMode Whether or not the game window has been iconified or restored
+	 */
+	protected void onWindowIconified(WindowIconifyMode iconifyMode)
 	{
 	}
 	
