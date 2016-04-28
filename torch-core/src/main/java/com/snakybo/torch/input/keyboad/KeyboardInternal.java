@@ -25,11 +25,7 @@ package com.snakybo.torch.input.keyboad;
 import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 import static org.lwjgl.glfw.GLFW.GLFW_REPEAT;
 import static org.lwjgl.glfw.GLFW.glfwGetKey;
-import static org.lwjgl.glfw.GLFW.glfwSetCharCallback;
 
-import org.lwjgl.glfw.GLFWCharCallback;
-
-import com.snakybo.torch.scene.SceneUtilities;
 import com.snakybo.torch.window.WindowInternal;
 
 /**
@@ -38,36 +34,9 @@ import com.snakybo.torch.window.WindowInternal;
  */
 public final class KeyboardInternal
 {
-	private static class CharCallback extends GLFWCharCallback
-	{
-		@Override
-		public void invoke(long window, int codepoint)
-		{
-			SceneUtilities.notifyGameObjectsCharPressed(Character.toChars(codepoint)[0]);
-		}
-	}
-	
-	private static GLFWCharCallback glfwCharCallback;
-	
 	private KeyboardInternal()
 	{
 		throw new AssertionError();
-	}
-	
-	/**
-	 * Create callbacks
-	 */
-	public static void create()
-	{
-		glfwSetCharCallback(WindowInternal.window, glfwCharCallback = new CharCallback());
-	}
-	
-	/**
-	 * Release callbacks
-	 */
-	public static void destroy()
-	{
-		glfwCharCallback.free();
 	}
 	
 	/**

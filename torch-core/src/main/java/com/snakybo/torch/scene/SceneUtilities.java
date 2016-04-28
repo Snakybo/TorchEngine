@@ -26,12 +26,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.snakybo.torch.camera.Camera;
-import com.snakybo.torch.input.cursor.CursorEnterMode;
 import com.snakybo.torch.object.Component;
 import com.snakybo.torch.object.GameObject;
 import com.snakybo.torch.object.GameObjectUtilities;
 import com.snakybo.torch.renderer.OpenGLRenderer;
-import com.snakybo.torch.window.WindowIconifyMode;
 
 /**
  * @author Snakybo
@@ -144,39 +142,11 @@ public final class SceneUtilities
 		SceneManager.currentScene.gameObjects.remove(gameObject);
 	}
 	
-	/**
-	 * Notify all GameObjects that the cursor has entered or left the game window
-	 * @param enterMode The enter mode
-	 */
-	public static void notifyGameObjectsCursorEntered(CursorEnterMode enterMode)
+	public static void notify(String method, Class<?>[] parameterTypes, Object[] parameters)
 	{
 		for(GameObject gameObject : frameQueue)
 		{
-			GameObjectUtilities.notifyCursorEnter(gameObject, enterMode);
-		}
-	}
-	
-	/**
-	 * Notify all GameObjects that a character has been pressed on the keyboard
-	 * @param c The character pressed
-	 */
-	public static void notifyGameObjectsCharPressed(char c)
-	{
-		for(GameObject gameObject : frameQueue)
-		{
-			GameObjectUtilities.notifyCharPressed(gameObject, c);
-		}
-	}
-	
-	/**
-	 * Notify all GameObjects that the game window has been iconified or restored
-	 * @param iconifyMode The current iconify mode
-	 */
-	public static void notifyGameObjectsWindowIconified(WindowIconifyMode iconifyMode)
-	{
-		for(GameObject gameObject : frameQueue)
-		{
-			GameObjectUtilities.notifyWindowIconified(gameObject, iconifyMode);
+			GameObjectUtilities.notify(gameObject, method, parameterTypes, parameters);
 		}
 	}
 }

@@ -22,9 +22,6 @@
 
 package com.snakybo.torch.object;
 
-import com.snakybo.torch.input.cursor.CursorEnterMode;
-import com.snakybo.torch.window.WindowIconifyMode;
-
 /**
  * @author Snakybo
  * @since 1.0
@@ -100,26 +97,34 @@ public abstract class Component extends Object
 	}
 	
 	/**
-	 * Called when the cursor has entered or left the game window
-	 * @param enterMode The enter mode
+	 * Called when the cursor has entered or left the game window.
+	 * @param entered Whether or not the cursor entered the game window.
 	 */
-	protected void onCursorEnter(CursorEnterMode enterMode)
+	protected void onCursorEnter(boolean entered)
 	{
 	}
 	
 	/**
 	 * Called when a character on the keyboard has been pressed. Useful for text input
-	 * @param c The char
+	 * @param c The char that has been pressed.
 	 */
 	protected void onCharPressed(char c)
 	{
 	}
 	
 	/**
-	 * Called when the game window was iconified or restored
-	 * @param iconifyMode Whether or not the game window has been iconified or restored
+	 * Called when the window lost or gained focus.
+	 * @param focus Whether or not the window gained focus.
 	 */
-	protected void onWindowIconified(WindowIconifyMode iconifyMode)
+	protected void onWindowFocus(boolean focus)
+	{
+	}
+	
+	/**
+	 * Called when the game window was iconified or restored.
+	 * @param iconified Whether or not the game window has been iconified.
+	 */
+	protected void onWindowIconify(boolean iconified)
 	{
 	}
 	

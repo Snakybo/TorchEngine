@@ -43,20 +43,6 @@ public final class JoystickInternal
 	}
 	
 	/**
-	 * Unused
-	 */
-	public static void create()
-	{
-	}
-	
-	/**
-	 * Unused
-	 */
-	public static void destroy()
-	{
-	}
-	
-	/**
 	 * Update the state of all joysticks
 	 */
 	public static void update()

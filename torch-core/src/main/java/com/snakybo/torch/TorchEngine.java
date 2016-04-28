@@ -80,11 +80,6 @@ public final class TorchEngine
 		WindowInternal.createWindowed(1280, 720);
 		OpenGLRenderer.create();
 		
-		KeyboardInternal.create();
-		MouseInternal.create();
-		CursorInternal.create();
-		JoystickInternal.create();
-		
 		this.game = game;
 		
 		start();
@@ -201,11 +196,6 @@ public final class TorchEngine
 	 */
 	private final void destroy()
 	{
-		JoystickInternal.destroy();
-		CursorInternal.destroy();
-		MouseInternal.destroy();
-		KeyboardInternal.destroy();		
-		
 		WindowInternal.destroy();
 	}
 	

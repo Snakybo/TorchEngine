@@ -26,13 +26,11 @@ import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 import static org.lwjgl.glfw.GLFW.GLFW_REPEAT;
 import static org.lwjgl.glfw.GLFW.glfwGetCursorPos;
 import static org.lwjgl.glfw.GLFW.glfwGetMouseButton;
-import static org.lwjgl.glfw.GLFW.glfwSetScrollCallback;
 
 import java.nio.DoubleBuffer;
 
 import org.joml.Vector2f;
 import org.lwjgl.BufferUtils;
-import org.lwjgl.glfw.GLFWScrollCallback;
 
 import com.snakybo.torch.window.WindowInternal;
 
@@ -42,45 +40,17 @@ import com.snakybo.torch.window.WindowInternal;
  */
 public final class MouseInternal
 {
-	private static class ScrollCallback extends GLFWScrollCallback
+	static
 	{
-		@Override
-		public void invoke(long window, double xoffset, double yoffset)
-		{
-			Mouse.scrollDelta = new Vector2f((float)xoffset, (float)yoffset);
-		}
+		Mouse.mousePositionDelta = new Vector2f();
+		Mouse.mousePosition = getCursorPosition();
 	}
-	
-	private static GLFWScrollCallback glfwScrollCallback;
 	
 	private MouseInternal()
 	{
 		throw new AssertionError();
 	}
 	
-	/**
-	 * Initialize the mouse position and delta
-	 */
-	public static void create()
-	{
-		glfwSetScrollCallback(WindowInternal.window, glfwScrollCallback = new ScrollCallback());
-		
-		Mouse.mousePositionDelta = new Vector2f();
-		Mouse.mousePosition = getCursorPosition();
-	}
-	
-	/**
-	 * Release callbacks
-	 */
-	public static void destroy()
-	{
-		glfwScrollCallback.free();
-	}
-	
-	/**
-	 * Update the mouse button states, sets the last mouse button states to the current, and polls GLFW for the current states.
-	 * Also updates the cursor's position and delta
-	 */
 	public static void update()
 	{
 		Mouse.scrollDelta = new Vector2f(0, 0);
@@ -106,9 +76,6 @@ public final class MouseInternal
 		updateCursorPosition();
 	}
 	
-	/**
-	 * Update the cursor position and calculate the delta
-	 */
 	private static void updateCursorPosition()
 	{
 		Vector2f pos = getCursorPosition();
@@ -120,10 +87,11 @@ public final class MouseInternal
 		Mouse.mousePositionDelta = new Vector2f(xDelta, yDelta);
 	}
 	
-	/**
-	 * Polls GLFW for the current cursor position
-	 * @return The current cursor position
-	 */
+	public static void setScrollDelta(float x, float y)
+	{
+		Mouse.scrollDelta = new Vector2f(x, y);
+	}
+	
 	private static Vector2f getCursorPosition()
 	{
 		DoubleBuffer xBuffer = BufferUtils.createDoubleBuffer(1);

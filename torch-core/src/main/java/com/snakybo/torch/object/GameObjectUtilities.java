@@ -22,9 +22,10 @@
 
 package com.snakybo.torch.object;
 
-import com.snakybo.torch.input.cursor.CursorEnterMode;
+import java.lang.reflect.Method;
+
+import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.scene.SceneUtilities;
-import com.snakybo.torch.window.WindowIconifyMode;
 
 /**
  * @author Snakybo
@@ -37,51 +38,23 @@ public final class GameObjectUtilities
 		throw new AssertionError();
 	}
 	
-	/**
-	 * Notify a GameObject that the cursor has entered or left the game window
-	 * @param gameObject The GameObject to notify
-	 * @param enterMode The enter mode
-	 */
-	public static void notifyCursorEnter(GameObject gameObject, CursorEnterMode enterMode)
+	public static void notify(GameObject gameObject, String method, Class<?>[] parameterTypes, java.lang.Object[] parameters)
 	{
-		for(Component component : gameObject.frameQueue)
+		try
 		{
-			if(component.started)
+			Method target = Component.class.getDeclaredMethod(method, parameterTypes);
+			
+			for(Component component : gameObject.frameQueue)
 			{
-				component.onCursorEnter(enterMode);
+				if(component.started)
+				{
+					target.invoke(component, parameters);
+				}
 			}
 		}
-	}
-	
-	/**
-	 * Notify a GameObject that a character has been pressed on the keyboard
-	 * @param gameObject The GameObject to notify
-	 * @param c The character pressed
-	 */
-	public static void notifyCharPressed(GameObject gameObject, char c)
-	{
-		for(Component component : gameObject.frameQueue)
+		catch(Exception e)
 		{
-			if(component.started)
-			{
-				component.onCharPressed(c);
-			}
-		}
-	}
-	
-	/**
-	 * Notify a GameObject that the game window has been iconified or restored
-	 * @param gameObject The GameObject to notify
-	 * @param iconifyMode The current mode of the window 
-	 */
-	public static void notifyWindowIconified(GameObject gameObject, WindowIconifyMode iconifyMode)
-	{
-		for(Component component : gameObject.frameQueue)
-		{
-			if(component.started)
-			{
-				component.onWindowIconified(iconifyMode);
-			}
+			Logger.logException(e, "GameObjectInternal");
 		}
 	}
 	

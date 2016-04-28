@@ -22,17 +22,12 @@
 
 package com.snakybo.torch.input.cursor;
 
-import static org.lwjgl.glfw.GLFW.glfwSetCursorEnterCallback;
-
 import org.joml.Vector2f;
-import org.lwjgl.glfw.GLFWCursorEnterCallback;
 
 import com.snakybo.torch.input.keyboad.Key;
 import com.snakybo.torch.input.keyboad.Keyboard;
 import com.snakybo.torch.input.mouse.Mouse;
-import com.snakybo.torch.scene.SceneUtilities;
 import com.snakybo.torch.window.Window;
-import com.snakybo.torch.window.WindowInternal;
 
 /**
  * @author Snakybo
@@ -40,30 +35,9 @@ import com.snakybo.torch.window.WindowInternal;
  */
 public class CursorInternal
 {
-	private static class CursorEnterCallback extends GLFWCursorEnterCallback
-	{
-		@Override
-		public void invoke(long window, boolean entered)
-		{
-			SceneUtilities.notifyGameObjectsCursorEntered(entered ? CursorEnterMode.Entered : CursorEnterMode.Left);
-		}
-	}
-	
-	private static GLFWCursorEnterCallback glfwCursorEnterCallback;
-	
 	private CursorInternal()
 	{
 		throw new AssertionError();
-	}
-	
-	public static void create()
-	{
-		glfwSetCursorEnterCallback(WindowInternal.window, glfwCursorEnterCallback = new CursorEnterCallback());
-	}
-	
-	public static void destroy()
-	{
-		glfwCursorEnterCallback.free();
 	}
 	
 	public static void update()
@@ -75,7 +49,7 @@ public class CursorInternal
 			Cursor.setVisible(true);
 		}
 		
-		// Handle the cursor's behaviour
+		// Handle the cursor's behavior
 		switch(Cursor.lockMode)
 		{
 		case Locked:

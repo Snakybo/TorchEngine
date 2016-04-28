@@ -37,7 +37,6 @@ import static org.lwjgl.glfw.GLFW.glfwInit;
 import static org.lwjgl.glfw.GLFW.glfwMakeContextCurrent;
 import static org.lwjgl.glfw.GLFW.glfwPollEvents;
 import static org.lwjgl.glfw.GLFW.glfwSetErrorCallback;
-import static org.lwjgl.glfw.GLFW.glfwSetWindowIconifyCallback;
 import static org.lwjgl.glfw.GLFW.glfwShowWindow;
 import static org.lwjgl.glfw.GLFW.glfwSwapBuffers;
 import static org.lwjgl.glfw.GLFW.glfwSwapInterval;
@@ -48,12 +47,11 @@ import static org.lwjgl.opengl.GL11.GL_FALSE;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 import org.lwjgl.glfw.GLFWErrorCallback;
-import org.lwjgl.glfw.GLFWWindowIconifyCallback;
 
 import com.snakybo.torch.TorchGame;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
-import com.snakybo.torch.scene.SceneUtilities;
+import com.snakybo.torch.glfw.GLFWCallbacks;
 
 /**
  * @author Snakybo
@@ -61,18 +59,6 @@ import com.snakybo.torch.scene.SceneUtilities;
  */
 public final class WindowInternal
 {
-	private static class WindowIconifyCallback extends GLFWWindowIconifyCallback
-	{
-		@Override
-		public void invoke(long window, boolean iconified)
-		{
-			SceneUtilities.notifyGameObjectsWindowIconified(iconified ? WindowIconifyMode.Iconified : WindowIconifyMode.Restored);
-		}
-	}
-	
-	private static GLFWWindowIconifyCallback glfwWindowIconifyCallback;	
-	private static GLFWErrorCallback errorCallback;
-	
 	private static WindowMode windowMode;
 	
 	public static long window;
@@ -81,7 +67,8 @@ public final class WindowInternal
 	{
 		LoggerInternal.log("Initializing GLFW", "Window");
 		
-		glfwSetErrorCallback(errorCallback = GLFWErrorCallback.createPrint(System.err));
+		GLFWErrorCallback errorCB = GLFWErrorCallback.createPrint(System.err);
+		glfwSetErrorCallback(errorCB);
 		
 		if(!glfwInit())
 		{
@@ -172,11 +159,11 @@ public final class WindowInternal
 	{
 		LoggerInternal.log("Terminating GLFW", "Window");
 		
-		glfwDestroyWindow(window);
-		glfwTerminate();
+		GLFWCallbacks.destroy();
 		
-		glfwWindowIconifyCallback.free();
-		errorCallback.free();
+		glfwDestroyWindow(window);
+		glfwTerminate();		
+		glfwSetErrorCallback(null).free();
 	}
 	
 	/**
@@ -197,7 +184,7 @@ public final class WindowInternal
 			return;
 		}
 		
-		glfwSetWindowIconifyCallback(WindowInternal.window, glfwWindowIconifyCallback = new WindowIconifyCallback());
+		GLFWCallbacks.initialize();
 		
 		glfwMakeContextCurrent(window);
 		glfwShowWindow(window);
