@@ -25,7 +25,7 @@ package com.snakybo.torch.object;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.snakybo.torch.scene.SceneUtilities;
+import com.snakybo.torch.scene.SceneInternal;
 
 /**
  * @author Snakybo
@@ -55,7 +55,7 @@ public final class GameObject extends Object
 		super(name);
 		
 		// Register the GameObject
-		SceneUtilities.register(this);
+		SceneInternal.register(this);
 		
 		components = new HashSet<Component>();
 		frameQueue = new HashSet<Component>();

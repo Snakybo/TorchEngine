@@ -28,18 +28,18 @@ import java.util.Set;
 import com.snakybo.torch.camera.Camera;
 import com.snakybo.torch.object.Component;
 import com.snakybo.torch.object.GameObject;
-import com.snakybo.torch.object.GameObjectUtilities;
+import com.snakybo.torch.object.GameObjectInternal;
 import com.snakybo.torch.renderer.OpenGLRenderer;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class SceneUtilities
+public final class SceneInternal
 {
 	private static Set<GameObject> frameQueue = new HashSet<GameObject>();
 	
-	private SceneUtilities()
+	private SceneInternal()
 	{
 		throw new AssertionError();
 	}
@@ -54,7 +54,7 @@ public final class SceneUtilities
 	
 	/**
 	 * Construct the frame queue, the frame queue contains all {@link GameObject}s which will receive updates this frame.
-	 * It will also call {@link GameObjectUtilities#constructFrameQueue(GameObject)} for those {@link GameObject}s
+	 * It will also call {@link GameObjectInternal#constructFrameQueue(GameObject)} for those {@link GameObject}s
 	 */
 	public static void constructFrameQueue()
 	{
@@ -64,7 +64,7 @@ public final class SceneUtilities
 		// Construct the frame queue for all GameObjects in the frame queue
 		for(GameObject gameObject : frameQueue)
 		{
-			GameObjectUtilities.constructFrameQueue(gameObject);
+			GameObjectInternal.constructFrameQueue(gameObject);
 		}
 	}
 	
@@ -81,19 +81,19 @@ public final class SceneUtilities
 		// Call start() all GameObjects in the frame queue if neccecary
 		for(GameObject gameObject : frameQueue)
 		{
-			GameObjectUtilities.start(gameObject);
+			GameObjectInternal.start(gameObject);
 		}
 		
 		// Call update() all GameObjects in the frame queue
 		for(GameObject gameObject : frameQueue)
 		{
-			GameObjectUtilities.update(gameObject);
+			GameObjectInternal.update(gameObject);
 		}
 		
 		// Call postUpdate() on all GameObjects in the frame queue
 		for(GameObject gameObject : frameQueue)
 		{
-			GameObjectUtilities.postUpdate(gameObject);
+			GameObjectInternal.postUpdate(gameObject);
 		}
 	}
 	
@@ -146,7 +146,7 @@ public final class SceneUtilities
 	{
 		for(GameObject gameObject : frameQueue)
 		{
-			GameObjectUtilities.notify(gameObject, method, parameterTypes, parameters);
+			GameObjectInternal.notify(gameObject, method, parameterTypes, parameters);
 		}
 	}
 }

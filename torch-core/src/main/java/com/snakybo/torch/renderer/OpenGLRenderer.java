@@ -37,7 +37,7 @@ import static org.lwjgl.opengl.GL11.glGetString;
 
 import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.object.GameObject;
-import com.snakybo.torch.object.GameObjectUtilities;
+import com.snakybo.torch.object.GameObjectInternal;
 
 /**
  * @author Snakybo
@@ -75,8 +75,8 @@ public final class OpenGLRenderer
 	 */
 	public static void renderObject(GameObject gameObject)
 	{
-		GameObjectUtilities.preRenderObject(gameObject);
-		GameObjectUtilities.renderObject(gameObject);
-		GameObjectUtilities.postRenderObject(gameObject);
+		GameObjectInternal.preRenderObject(gameObject);
+		GameObjectInternal.renderObject(gameObject);
+		GameObjectInternal.postRenderObject(gameObject);
 	}
 }

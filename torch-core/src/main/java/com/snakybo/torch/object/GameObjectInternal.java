@@ -25,15 +25,15 @@ package com.snakybo.torch.object;
 import java.lang.reflect.Method;
 
 import com.snakybo.torch.debug.Logger;
-import com.snakybo.torch.scene.SceneUtilities;
+import com.snakybo.torch.scene.SceneInternal;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class GameObjectUtilities
+public final class GameObjectInternal
 {
-	private GameObjectUtilities()
+	private GameObjectInternal()
 	{
 		throw new AssertionError();
 	}
@@ -159,7 +159,7 @@ public final class GameObjectUtilities
 	
 	/**
 	 * Call {@link Component#destroy()} on all components in the frame queue of a {@link GameObject},
-	 * and call {@link SceneUtilities#unregister(GameObject)}
+	 * and call {@link SceneInternal#unregister(GameObject)}
 	 * @param gameObject The target {@link GameObject}
 	 * @see Component#destroy()
 	 */
@@ -178,7 +178,7 @@ public final class GameObjectUtilities
 		}
 		
 		// Unregister the GameObject
-		SceneUtilities.unregister(gameObject);
+		SceneInternal.unregister(gameObject);
 	}
 	
 	/**

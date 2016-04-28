@@ -31,7 +31,7 @@ import com.snakybo.torch.input.joystick.JoystickInternal;
 import com.snakybo.torch.input.keyboad.KeyboardInternal;
 import com.snakybo.torch.input.mouse.MouseInternal;
 import com.snakybo.torch.renderer.OpenGLRenderer;
-import com.snakybo.torch.scene.SceneUtilities;
+import com.snakybo.torch.scene.SceneInternal;
 import com.snakybo.torch.util.time.TimeInternal;
 import com.snakybo.torch.window.WindowInternal;
 
@@ -61,8 +61,7 @@ public final class TorchEngine
 	 */
 	public static final String VERSION_STRING = VERSION_MAJOR + "." + VERSION_MINOR + "." + VERSION_PATCH;
 	
-	private TorchGame game;
-	
+	private TorchGame game;	
 	private boolean running;
 	
 	/**
@@ -127,11 +126,11 @@ public final class TorchEngine
 			unprocessedTime += TimeInternal.getPassedTime();
 			
 			// Load the new scene if the user scheduled a scene load via SceneManager.load
-			SceneUtilities.loadScene();
+			SceneInternal.loadScene();
 			
 			// Construct the frame queue
 			// Might have to be moved to updateCycle()
-			SceneUtilities.constructFrameQueue();
+			SceneInternal.constructFrameQueue();
 			
 			while(unprocessedTime > TimeInternal.getFrameTime())
 			{
@@ -174,7 +173,7 @@ public final class TorchEngine
 	 */
 	private final void updateCycle()
 	{
-		SceneUtilities.runUpdateCycle();
+		SceneInternal.runUpdateCycle();
 		
 		// Update input
 		KeyboardInternal.update();
@@ -188,7 +187,7 @@ public final class TorchEngine
 	 */
 	private final void renderCycle()
 	{
-		SceneUtilities.runRenderCycle();
+		SceneInternal.runRenderCycle();
 	}
 	
 	/**

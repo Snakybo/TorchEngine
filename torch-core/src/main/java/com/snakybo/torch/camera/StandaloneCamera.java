@@ -34,7 +34,7 @@ import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 import com.snakybo.torch.object.Transform;
-import com.snakybo.torch.scene.SceneUtilities;
+import com.snakybo.torch.scene.SceneInternal;
 import com.snakybo.torch.util.Color;
 
 /**
@@ -109,7 +109,7 @@ public final class StandaloneCamera
 			break;
 		}
 		
-		SceneUtilities.renderCamera();
+		SceneInternal.renderCamera();
 		
 		current = null;
 	}

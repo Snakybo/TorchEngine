@@ -79,12 +79,12 @@ public class Object
 	{
 		if(object instanceof GameObject)
 		{
-			GameObjectUtilities.destroy((GameObject)object);
+			GameObjectInternal.destroy((GameObject)object);
 		}
 		else if(object instanceof Component)
 		{
 			Component c = (Component)object;
-			GameObjectUtilities.removeComponent(c.gameObject, c);
+			GameObjectInternal.removeComponent(c.gameObject, c);
 		}
 	}
 }

@@ -31,7 +31,7 @@ import static org.lwjgl.glfw.GLFW.glfwSetWindowIconifyCallback;
 import org.lwjgl.glfw.Callbacks;
 
 import com.snakybo.torch.input.mouse.MouseInternal;
-import com.snakybo.torch.scene.SceneUtilities;
+import com.snakybo.torch.scene.SceneInternal;
 import com.snakybo.torch.window.WindowInternal;
 
 /**
@@ -49,12 +49,12 @@ public final class GLFWCallbacks
 	{
 		long w = WindowInternal.window;
 		
-		glfwSetWindowFocusCallback(w, (window, focus) -> SceneUtilities.notify("onWindowFocus", new Class<?>[]{boolean.class}, new Object[]{focus}));
-		glfwSetWindowIconifyCallback(w, (window, iconified) -> SceneUtilities.notify("onWindowIconify", new Class<?>[]{boolean.class}, new Object[]{iconified}));
+		glfwSetWindowFocusCallback(w, (window, focus) -> SceneInternal.notify("onWindowFocus", new Class<?>[]{boolean.class}, new Object[]{focus}));
+		glfwSetWindowIconifyCallback(w, (window, iconified) -> SceneInternal.notify("onWindowIconify", new Class<?>[]{boolean.class}, new Object[]{iconified}));
 		
-		glfwSetCharCallback(w, (window, codepoint) -> SceneUtilities.notify("onCharPressed", new Class<?>[]{char.class}, new Object[]{(char)codepoint}));
+		glfwSetCharCallback(w, (window, codepoint) -> SceneInternal.notify("onCharPressed", new Class<?>[]{char.class}, new Object[]{(char)codepoint}));
 		
-		glfwSetCursorEnterCallback(w, (window, entered) -> SceneUtilities.notify("onCursorEnter", new Class<?>[]{boolean.class}, new Object[]{entered}));
+		glfwSetCursorEnterCallback(w, (window, entered) -> SceneInternal.notify("onCursorEnter", new Class<?>[]{boolean.class}, new Object[]{entered}));
 		glfwSetScrollCallback(w, (window, x, y) -> MouseInternal.setScrollDelta((float)x, (float)y));
 	}
 	
