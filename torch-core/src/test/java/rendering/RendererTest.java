@@ -26,6 +26,7 @@ import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
 import com.snakybo.torch.TorchGame;
+import com.snakybo.torch.bitmap.Bitmap;
 import com.snakybo.torch.camera.Camera;
 import com.snakybo.torch.camera.CameraClearFlags;
 import com.snakybo.torch.mesh.Material;
@@ -34,7 +35,7 @@ import com.snakybo.torch.mesh.MeshRenderer;
 import com.snakybo.torch.object.Component;
 import com.snakybo.torch.object.GameObject;
 import com.snakybo.torch.renderer.Skybox;
-import com.snakybo.torch.texture.Texture;
+import com.snakybo.torch.texture.Texture2D;
 import com.snakybo.torch.window.Window;
 
 /**
@@ -63,7 +64,7 @@ public class RendererTest extends TorchGame
 		});
 		
 		Material material = new Material("./src/test/resources/shaders/test.glsl");
-		material.setTexture("diffuse", new Texture("./src/test/resources/grassblock.png"));
+		material.setTexture("diffuse", new Texture2D(new Bitmap("./src/test/resources/grassblock.png")));
 		
 		GameObject box = new GameObject();
 		box.addComponent(new Mesh("./src/test/resources/cube.obj"));
@@ -81,7 +82,7 @@ public class RendererTest extends TorchGame
 		box.getTransform().rotate(new Vector3f(0, 1, 0), 45f);
 		
 		GameObject skybox = new GameObject();
-		skybox.addComponent(new Skybox(new Texture("./src/test/resources/skybox.png")));
+		skybox.addComponent(new Skybox(new Texture2D(new Bitmap("./src/test/resources/skybox.png"))));
 	}
 	
 	public static void main(String[] args)

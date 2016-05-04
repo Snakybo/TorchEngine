@@ -31,8 +31,6 @@ import static org.lwjgl.opengl.GL11.GL_TEXTURE_WRAP_S;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_WRAP_T;
 import static org.lwjgl.opengl.GL11.GL_UNSIGNED_BYTE;
 import static org.lwjgl.opengl.GL11.glBindTexture;
-import static org.lwjgl.opengl.GL11.glDeleteTextures;
-import static org.lwjgl.opengl.GL11.glGenTextures;
 import static org.lwjgl.opengl.GL11.glTexImage2D;
 import static org.lwjgl.opengl.GL11.glTexParameteri;
 import static org.lwjgl.opengl.GL12.GL_CLAMP_TO_EDGE;
@@ -49,13 +47,12 @@ import static org.lwjgl.opengl.GL13.glActiveTexture;
 
 import com.snakybo.torch.bitmap.Bitmap;
 import com.snakybo.torch.debug.Logger;
-import com.snakybo.torch.interfaces.IDestroyable;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public class CubeMap implements IDestroyable
+public final class CubeMap extends Texture
 {
 	private static int[] CUBE_MAP_AXIS = new int[]
 	{
@@ -67,8 +64,6 @@ public class CubeMap implements IDestroyable
 		GL_TEXTURE_CUBE_MAP_NEGATIVE_Y
 	};
 	
-	private int id;
-	
 	public CubeMap(String front, String back, String left, String right, String top, String bottom)
 	{
 		this(new Bitmap(front), new Bitmap(back), new Bitmap(left), new Bitmap(right), new Bitmap(top), new Bitmap(bottom));
@@ -76,8 +71,9 @@ public class CubeMap implements IDestroyable
 	
 	public CubeMap(Bitmap front, Bitmap back, Bitmap left, Bitmap right, Bitmap top, Bitmap bottom)
 	{
-		id = glGenTextures();
-		glBindTexture(GL_TEXTURE_CUBE_MAP, id);
+		super(null, 1);
+		
+		glBindTexture(GL_TEXTURE_CUBE_MAP, id.get(0));
 		
 		Bitmap[] textures = new Bitmap[] { front, back, left, right, top, bottom };		
 		for(int i = 0; i < CUBE_MAP_AXIS.length; i++)
@@ -92,20 +88,6 @@ public class CubeMap implements IDestroyable
 		}
 	}
 	
-	@Override
-	public final void destroy()
-	{
-		glDeleteTextures(id);
-	}
-	
-	/**
-	 * Bind the cube map
-	 */
-	public final void bind()
-	{
-		bind(0);
-	}
-	
 	/**
 	 * Bind the cube map to the specified unit
 	 * @param unit The unit to bind to
@@ -118,6 +100,19 @@ public class CubeMap implements IDestroyable
 		}
 
 		glActiveTexture(GL_TEXTURE0 + unit);
-		glBindTexture(GL_TEXTURE_CUBE_MAP, id);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, id.get(0));
+	}
+	
+	// TODO: CubeMap width and height implementation
+	@Override
+	public int getWidth()
+	{
+		return 0;
+	}
+	
+	@Override
+	public int getHeight()
+	{
+		return 0;
 	}
 }

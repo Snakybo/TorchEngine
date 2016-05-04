@@ -22,60 +22,42 @@
 
 package com.snakybo.torch.texture;
 
-import static org.lwjgl.opengl.GL11.GL_LINEAR;
-import static org.lwjgl.opengl.GL11.GL_RGBA;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_MAG_FILTER;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_MIN_FILTER;
-import static org.lwjgl.opengl.GL11.GL_UNPACK_ALIGNMENT;
-import static org.lwjgl.opengl.GL11.GL_UNSIGNED_BYTE;
-import static org.lwjgl.opengl.GL11.glBindTexture;
 import static org.lwjgl.opengl.GL11.glDeleteTextures;
 import static org.lwjgl.opengl.GL11.glGenTextures;
-import static org.lwjgl.opengl.GL11.glPixelStorei;
-import static org.lwjgl.opengl.GL11.glTexImage2D;
-import static org.lwjgl.opengl.GL11.glTexParameteri;
-import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
-import static org.lwjgl.opengl.GL13.glActiveTexture;
+
+import java.nio.IntBuffer;
+
+import org.lwjgl.BufferUtils;
 
 import com.snakybo.torch.bitmap.Bitmap;
-import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.interfaces.IDestroyable;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class Texture implements IDestroyable
+public abstract class Texture implements IDestroyable
 {
-	private int width;
-	private int height;
+	protected IntBuffer id;
 	
-	private int id;
+	private Bitmap bitmap;
 	
-	public Texture(String fileName)
+	public Texture(Bitmap bitmap, int size)
 	{
-		this(new Bitmap(fileName));
+		this.bitmap = bitmap;
+		this.id = BufferUtils.createIntBuffer(size);
+		
+		glGenTextures(id);
 	}
 	
-	public Texture(Bitmap bitmap)
-	{
-		id = glGenTextures();
-		width = bitmap.getWidth();
-		height = bitmap.getHeight();
-		
-		glBindTexture(GL_TEXTURE_2D, id);
-		
-		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-		
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, bitmap.getByteByffer());
-		
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	}
-	
+	/**
+	 * Bind the texture to the specified unit
+	 * @param unit The unit to bind to
+	 */
+	public abstract void bind(int unit);
+
 	@Override
-	public final void destroy()
+	public void destroy()
 	{
 		glDeleteTextures(id);
 	}
@@ -88,18 +70,13 @@ public final class Texture implements IDestroyable
 		bind(0);
 	}
 	
-	/**
-	 * Bind the texture to the specified unit
-	 * @param unit The unit to bind to
-	 */
-	public final void bind(int unit)
+	public int getWidth()
 	{
-		if(unit < 0 || unit >= 32)
-		{
-			Logger.logException(new IllegalArgumentException("The unit: " + unit + " is out of bounds"), this);
-		}
-
-		glActiveTexture(GL_TEXTURE0 + unit);
-		glBindTexture(GL_TEXTURE_2D, id);
+		return bitmap.getWidth();
+	}
+	
+	public int getHeight()
+	{
+		return bitmap.getHeight();
 	}
 }
