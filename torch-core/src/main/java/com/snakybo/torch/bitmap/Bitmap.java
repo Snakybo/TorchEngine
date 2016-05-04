@@ -32,10 +32,10 @@ import javax.imageio.ImageIO;
 
 import org.lwjgl.BufferUtils;
 
+import com.snakybo.torch.color.Color;
+import com.snakybo.torch.color.Color32;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
-import com.snakybo.torch.util.Color;
-import com.snakybo.torch.util.Color32;
 
 /**
  * @author Snakybo

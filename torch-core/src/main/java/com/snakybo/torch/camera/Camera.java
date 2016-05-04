@@ -27,8 +27,8 @@ import java.util.Set;
 
 import org.joml.Matrix4f;
 
+import com.snakybo.torch.color.Color;
 import com.snakybo.torch.object.Component;
-import com.snakybo.torch.util.Color;
 
 /**
  * @author Snakybo

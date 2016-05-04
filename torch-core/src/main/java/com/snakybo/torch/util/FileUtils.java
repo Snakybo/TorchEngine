@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.io;
+package com.snakybo.torch.util;
 
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
@@ -42,9 +42,9 @@ public final class FileUtils
 	/**
 	 * Get the file name and extension from a file
 	 * @param file The file.
-	 * @return The file extension.
+	 * @return The file name and extension.
 	 */
-	public static String getFileNameAndExtension(String file)
+	public static String getName(String file)
 	{
 		Path path = Paths.get(file);
 		Path fileName = path.getFileName();
@@ -63,9 +63,9 @@ public final class FileUtils
 	 * @param file The file.
 	 * @return The file extension, if there was an error, it will return an empty string.
 	 */
-	public static String getFileName(String file)
+	public static String getSimpleName(String file)
 	{
-		String fileName = getFileNameAndExtension(file);
+		String fileName = getName(file);
 		
 		if(fileName != null)
 		{
@@ -80,9 +80,9 @@ public final class FileUtils
 	 * @param file The file.
 	 * @return The file extension, if there was an error, it will return an empty string.
 	 */
-	public static String getFileExtension(String file)
+	public static String getExtension(String file)
 	{
-		String fileName = getFileNameAndExtension(file);
+		String fileName = getName(file);
 		
 		if(fileName != null)
 		{

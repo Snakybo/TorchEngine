@@ -40,7 +40,7 @@ import static org.lwjgl.opengl.GL13.glActiveTexture;
 
 import com.snakybo.torch.bitmap.Bitmap;
 import com.snakybo.torch.debug.Logger;
-import com.snakybo.torch.util.IDestroyable;
+import com.snakybo.torch.interfaces.IDestroyable;
 
 /**
  * @author Snakybo

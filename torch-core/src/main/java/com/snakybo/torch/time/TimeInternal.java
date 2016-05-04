@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.util.time;
+package com.snakybo.torch.time;
 
 import static org.lwjgl.glfw.GLFW.glfwGetTime;
 

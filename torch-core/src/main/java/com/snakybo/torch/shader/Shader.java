@@ -64,9 +64,9 @@ import org.lwjgl.BufferUtils;
 
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
+import com.snakybo.torch.interfaces.IDestroyable;
 import com.snakybo.torch.resource.Resource;
 import com.snakybo.torch.resource.ResourceDatabase;
-import com.snakybo.torch.util.IDestroyable;
 
 /**
  * @author Snakybo

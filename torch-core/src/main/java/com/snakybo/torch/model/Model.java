@@ -37,10 +37,10 @@ import org.lwjgl.BufferUtils;
 
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
-import com.snakybo.torch.io.FileUtils;
 import com.snakybo.torch.model.obj.OBJModel;
 import com.snakybo.torch.resource.Resource;
 import com.snakybo.torch.resource.ResourceDatabase;
+import com.snakybo.torch.util.FileUtils;
 
 /**
  * @author Snakybo
@@ -396,7 +396,7 @@ public final class Model extends Resource
 					return null;
 				}
 				
-				String extension = FileUtils.getFileExtension(fileName);
+				String extension = FileUtils.getExtension(fileName);
 				
 				List<String> lines = Files.readAllLines(path);
 				IModelLoader loader = null;

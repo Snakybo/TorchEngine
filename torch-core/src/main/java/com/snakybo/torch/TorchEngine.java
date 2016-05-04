@@ -32,7 +32,7 @@ import com.snakybo.torch.input.keyboad.KeyboardInternal;
 import com.snakybo.torch.input.mouse.MouseInternal;
 import com.snakybo.torch.renderer.OpenGLRenderer;
 import com.snakybo.torch.scene.SceneInternal;
-import com.snakybo.torch.util.time.TimeInternal;
+import com.snakybo.torch.time.TimeInternal;
 import com.snakybo.torch.window.WindowInternal;
 
 /**

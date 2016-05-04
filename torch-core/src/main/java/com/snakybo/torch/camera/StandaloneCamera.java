@@ -33,9 +33,9 @@ import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
+import com.snakybo.torch.color.Color;
 import com.snakybo.torch.object.Transform;
 import com.snakybo.torch.scene.SceneInternal;
-import com.snakybo.torch.util.Color;
 
 /**
  * @author Snakybo

@@ -22,7 +22,7 @@
 
 package com.snakybo.torch.resource;
 
-import com.snakybo.torch.util.IDestroyable;
+import com.snakybo.torch.interfaces.IDestroyable;
 
 /**
  * @author Snakybo

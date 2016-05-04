@@ -31,13 +31,13 @@ import org.joml.Vector3f;
 import org.joml.Vector4f;
 
 import com.snakybo.torch.camera.Camera;
+import com.snakybo.torch.color.Color;
+import com.snakybo.torch.color.Color32;
 import com.snakybo.torch.debug.Logger;
+import com.snakybo.torch.interfaces.IDestroyable;
 import com.snakybo.torch.object.GameObject;
 import com.snakybo.torch.shader.Shader;
 import com.snakybo.torch.texture.Texture;
-import com.snakybo.torch.util.Color;
-import com.snakybo.torch.util.Color32;
-import com.snakybo.torch.util.IDestroyable;
 
 /**
  * @author Snakybo
