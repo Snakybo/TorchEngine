@@ -24,7 +24,6 @@ package com.snakybo.torch.input.joystick;
 
 import static org.lwjgl.glfw.GLFW.GLFW_JOYSTICK_1;
 import static org.lwjgl.glfw.GLFW.GLFW_JOYSTICK_LAST;
-import static org.lwjgl.glfw.GLFW.GLFW_TRUE;
 import static org.lwjgl.glfw.GLFW.glfwGetJoystickName;
 import static org.lwjgl.glfw.GLFW.glfwJoystickPresent;
 
@@ -59,7 +58,7 @@ public final class Joystick
 	 */
 	public static boolean isJoystickPresent(int joystick)
 	{
-		return glfwJoystickPresent(joystick) == GLFW_TRUE ? true : false;
+		return glfwJoystickPresent(joystick) ? true : false;
 	}
 	
 	/**
