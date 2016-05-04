@@ -33,29 +33,17 @@ import com.snakybo.torch.object.GameObject;
  */
 public final class Scene
 {
-	Set<GameObject> gameObjects;
+	static Set<GameObject> gameObjects = new HashSet<GameObject>();
 	
-	private final String name;
-	
-	public Scene(String name)
+	private Scene()
 	{
-		gameObjects = new HashSet<GameObject>();
-		
-		this.name = name;
-	}
-	
-	/**
-	 * @return The name of the scene
-	 */
-	public final String getName()
-	{
-		return name;
+		throw new AssertionError();
 	}
 	
 	/**
 	 * @return The number of {@link GameObject}s in the scene
 	 */
-	public final int getSceneSize()
+	public static final int getSceneSize()
 	{
 		return gameObjects.size();
 	}

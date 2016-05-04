@@ -125,9 +125,6 @@ public final class TorchEngine
 			TimeInternal.update();
 			unprocessedTime += TimeInternal.getPassedTime();
 			
-			// Load the new scene if the user scheduled a scene load via SceneManager.load
-			SceneInternal.loadScene();
-			
 			// Construct the frame queue
 			// Might have to be moved to updateCycle()
 			SceneInternal.constructFrameQueue();
