@@ -24,7 +24,6 @@ package com.snakybo.torch;
 
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
-import com.snakybo.torch.lwjgl.SharedLibraryLoader;
 import com.snakybo.torch.time.TimeInternal;
 
 /**
@@ -44,8 +43,6 @@ public abstract class TorchGame
 	 */
 	public TorchGame(String name)
 	{
-		SharedLibraryLoader.load();
-		
 		TorchGame.name = name;
 		TorchGame.engine = new TorchEngine(this);
 		
