@@ -23,6 +23,7 @@
 package com.snakybo.torch.util;
 
 import java.io.FileNotFoundException;
+import java.net.URI;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -40,13 +41,67 @@ public final class FileUtils
 	}
 	
 	/**
-	 * Get the file name and extension from a file
-	 * @param file The file.
+	 * Get the name and extension of a file
+	 * @param uri The path to the file.
 	 * @return The file name and extension.
 	 */
-	public static String getName(String file)
+	public static String getName(URI uri)
 	{
-		Path path = Paths.get(file);
+		return getName(Paths.get(uri));
+	}
+	
+	/**
+	 * Get the name and extension of a file
+	 * @param path The path to the file.
+	 * @return The file name and extension.
+	 */
+	public static String getName(String path)
+	{
+		return getName(Paths.get(path));
+	}
+	
+	/**
+	 * Get the name of a file
+	 * @param uri The path to the file.
+	 * @return The file name.
+	 */
+	public static String getSimpleName(URI uri)
+	{
+		return getSimpleName(Paths.get(uri));
+	}
+	
+	/**
+	 * Get the name of a file
+	 * @param path The path to the file.
+	 * @return The file name.
+	 */
+	public static String getSimpleName(String path)
+	{
+		return getSimpleName(Paths.get(path));
+	}
+	
+	/**
+	 * Get the extension of a file
+	 * @param uri The path to the file.
+	 * @return The file extension.
+	 */
+	public static String getExtension(URI uri)
+	{
+		return getExtension(Paths.get(uri));
+	}
+	
+	/**
+	 * Get the extension of a file
+	 * @param path The path to the file.
+	 * @return The file extension.
+	 */
+	public static String getExtension(String path)
+	{
+		return getExtension(Paths.get(path));
+	}
+	
+	private static String getName(Path path)
+	{
 		Path fileName = path.getFileName();
 		
 		if(fileName != null)
@@ -54,18 +109,13 @@ public final class FileUtils
 			return fileName.toString();
 		}
 		
-		Logger.logException(new FileNotFoundException(file), "FileUtils");
+		Logger.logException(new FileNotFoundException(path.toString()), "FileUtils");
 		return null;
 	}
-	
-	/**
-	 * Get the file name from a file.
-	 * @param file The file.
-	 * @return The file extension, if there was an error, it will return an empty string.
-	 */
-	public static String getSimpleName(String file)
+
+	private static String getSimpleName(Path path)
 	{
-		String fileName = getName(file);
+		String fileName = getName(path);
 		
 		if(fileName != null)
 		{
@@ -74,15 +124,10 @@ public final class FileUtils
 		
 		return null;
 	}
-	
-	/**
-	 * Get the file extension from a file.
-	 * @param file The file.
-	 * @return The file extension, if there was an error, it will return an empty string.
-	 */
-	public static String getExtension(String file)
+
+	private static String getExtension(Path path)
 	{
-		String fileName = getName(file);
+		String fileName = getName(path);
 		
 		if(fileName != null)
 		{
