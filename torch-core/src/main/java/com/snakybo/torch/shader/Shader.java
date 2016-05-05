@@ -22,23 +22,10 @@
 
 package com.snakybo.torch.shader;
 
-import static org.lwjgl.opengl.GL20.GL_COMPILE_STATUS;
-import static org.lwjgl.opengl.GL20.GL_LINK_STATUS;
-import static org.lwjgl.opengl.GL20.GL_VALIDATE_STATUS;
-import static org.lwjgl.opengl.GL20.glAttachShader;
-import static org.lwjgl.opengl.GL20.glCompileShader;
 import static org.lwjgl.opengl.GL20.glCreateProgram;
-import static org.lwjgl.opengl.GL20.glCreateShader;
 import static org.lwjgl.opengl.GL20.glDeleteProgram;
 import static org.lwjgl.opengl.GL20.glDeleteShader;
 import static org.lwjgl.opengl.GL20.glDetachShader;
-import static org.lwjgl.opengl.GL20.glGetProgramInfoLog;
-import static org.lwjgl.opengl.GL20.glGetProgrami;
-import static org.lwjgl.opengl.GL20.glGetShaderInfoLog;
-import static org.lwjgl.opengl.GL20.glGetShaderi;
-import static org.lwjgl.opengl.GL20.glGetUniformLocation;
-import static org.lwjgl.opengl.GL20.glLinkProgram;
-import static org.lwjgl.opengl.GL20.glShaderSource;
 import static org.lwjgl.opengl.GL20.glUniform1f;
 import static org.lwjgl.opengl.GL20.glUniform1i;
 import static org.lwjgl.opengl.GL20.glUniform2f;
@@ -47,8 +34,9 @@ import static org.lwjgl.opengl.GL20.glUniform4f;
 import static org.lwjgl.opengl.GL20.glUniformMatrix3fv;
 import static org.lwjgl.opengl.GL20.glUniformMatrix4fv;
 import static org.lwjgl.opengl.GL20.glUseProgram;
-import static org.lwjgl.opengl.GL20.glValidateProgram;
+import static org.lwjgl.system.MemoryUtil.NULL;
 
+import java.io.IOException;
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,10 +51,8 @@ import org.joml.Vector4f;
 import org.lwjgl.BufferUtils;
 
 import com.snakybo.torch.debug.Logger;
-import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.interfaces.IDestroyable;
 import com.snakybo.torch.resource.Resource;
-import com.snakybo.torch.resource.ResourceDatabase;
 
 /**
  * @author Snakybo
@@ -74,147 +60,34 @@ import com.snakybo.torch.resource.ResourceDatabase;
  */
 public final class Shader implements IDestroyable
 {
-	static class ShaderResource extends Resource
-	{
-		Map<String, Integer> uniforms;
-		Map<String, String> uniformTypes;
-		
-		List<Integer> attachedShaders;
-		
-		int programId;
-		
-		public ShaderResource(String fileName, String source, Map<Integer, String> shaders)
-		{
-			super(fileName);
-			
-			programId = glCreateProgram();
-			
-			uniforms = new HashMap<String, Integer>();
-			uniformTypes = new HashMap<String, String>();
-			
-			if(programId == 0)
-			{
-				Logger.logError("Unable to create shader program", this);
-				return;
-			}
-			
-			createShaders(shaders);
-			link();
-			addUniforms(fileName, source);
-		}
-		
-		@Override
-		public final void destroy()
-		{
-			if(programId != 0)
-			{
-				glUseProgram(0);
-				
-				for(Integer shader : attachedShaders)
-				{
-					glDetachShader(programId, shader);
-					glDeleteShader(shader);
-				}			
-				
-				glDeleteProgram(programId);
-				
-				programId = 0;
-				attachedShaders.clear();
-			}
-		}
-		
-		/**
-		 * Create and add shaders
-		 * @param shaders A list of all shaders in the shader file
-		 */
-		private final void createShaders(Map<Integer, String> shaders)
-		{
-			attachedShaders = new ArrayList<Integer>();
-			
-			for(Map.Entry<Integer, String> shader : shaders.entrySet())
-			{
-				if(shader.getValue().length() > 0)
-				{				
-					int id = glCreateShader(shader.getKey());
-					
-					if(id == 0)
-					{
-						Logger.logError("Unable to create shader", this);
-						return;
-					}
-					
-					glShaderSource(id, shader.getValue());
-					glCompileShader(id);
-					
-					if(glGetShaderi(id, GL_COMPILE_STATUS) == 0)
-					{
-						Logger.logError("Unable to compile shader source: " + glGetShaderInfoLog(id, 1024), this);
-						return;
-					}
-					
-					glAttachShader(programId, id);
-					
-					attachedShaders.add(id);
-				}
-			}
-		}
-		
-		/**
-		 * Link the program
-		 */
-		private final void link()
-		{
-			glLinkProgram(programId);
-			if(glGetProgrami(programId, GL_LINK_STATUS) == 0)
-			{
-				Logger.logError("Unable to link shader program: " + glGetProgramInfoLog(programId, 1024), this);
-				return;
-			}
-			
-			glValidateProgram(programId);
-			if(glGetProgrami(programId, GL_VALIDATE_STATUS) == 0)
-			{
-				Logger.logError("Unable to validate shader program: " + glGetProgramInfoLog(programId, 1024), this);
-				return;
-			}
-		}
-		
-		/**
-		 * Find all uniforms and store them 
-		 * @param fileName The source file name
-		 * @param source The contents of the {@code fileName}
-		 */
-		private final void addUniforms(String fileName, String source)
-		{
-			String[] lines = source.split("\n");
-			
-			for(String line : lines)
-			{
-				if(line.startsWith("uniform "))
-				{
-					String[] segments = line.substring("uniform ".length(), line.length() - 1).split(" ");
-					int location = glGetUniformLocation(programId, segments[1]);
-					
-					if(location < 0)
-					{
-						Logger.logError("Unable to find uniform: " + segments[1], this);
-						continue;
-					}
-					
-					this.uniforms.put(segments[1], location);
-					this.uniformTypes.put(segments[1], segments[0]);
-					
-					LoggerInternal.log("Added uniform: (" + segments[0] + ") " + segments[1] + " to: " + fileName, this);
-				}
-			}
-		}
-	}
+	Map<String, Integer> uniforms;
+	Map<String, String> uniformTypes;
 	
-	private ShaderResource resource;
+	List<Integer> attachedShaders;
+	
+	int programId;
 	
 	public Shader(String fileName)
 	{
-		resource = ResourceDatabase.load(ShaderResource.class, fileName, this, new ShaderResourceImporter(fileName));
+		try
+		{
+			uniforms = new HashMap<String, Integer>();
+			uniformTypes = new HashMap<String, String>();
+			
+			attachedShaders = new ArrayList<Integer>();
+			
+			programId = glCreateProgram();
+			if(programId == NULL)
+			{
+				Logger.logError("Unable to create shader program", this);
+			}
+			
+			ShaderLoader.load(this, Resource.get(fileName));
+		}
+		catch(IOException e)
+		{
+			Logger.logException(e);
+		}
 	}
 	
 	@Override
@@ -233,7 +106,21 @@ public final class Shader implements IDestroyable
 	@Override
 	public final void destroy()
 	{
-		resource.destroy();
+		if(programId != NULL)
+		{
+			glUseProgram(0);
+			
+			for(Integer shader : attachedShaders)
+			{
+				glDetachShader(programId, shader);
+				glDeleteShader(shader);
+			}			
+			
+			glDeleteProgram(programId);
+			
+			programId = (int)NULL;
+			attachedShaders.clear();
+		}
 	}
 	
 	/**
@@ -241,7 +128,7 @@ public final class Shader implements IDestroyable
 	 */
 	public final void bind()
 	{
-		glUseProgram(resource.programId);
+		glUseProgram(programId);
 	}
 	
 	/**
@@ -258,7 +145,7 @@ public final class Shader implements IDestroyable
 	 */
 	public final boolean hasUniform(String name)
 	{
-		return resource.uniforms.containsKey(name);
+		return uniforms.containsKey(name);
 	}
 	
 	/**
@@ -268,7 +155,7 @@ public final class Shader implements IDestroyable
 	 */
 	public final void setUniform1i(String name, int value)
 	{
-		glUniform1i(resource.uniforms.get(name), value);
+		glUniform1i(uniforms.get(name), value);
 	}
 	
 	/**
@@ -278,7 +165,7 @@ public final class Shader implements IDestroyable
 	 */
 	public final void setUniform1f(String name, float value)
 	{
-		glUniform1f(resource.uniforms.get(name), value);
+		glUniform1f(uniforms.get(name), value);
 	}
 	
 	/**
@@ -288,7 +175,7 @@ public final class Shader implements IDestroyable
 	 */
 	public final void setUniform2f(String name, Vector2f value)
 	{
-		glUniform2f(resource.uniforms.get(name), value.x, value.y);
+		glUniform2f(uniforms.get(name), value.x, value.y);
 	}
 	
 	/**
@@ -298,7 +185,7 @@ public final class Shader implements IDestroyable
 	 */
 	public final void setUniform3f(String name, Vector3f value)
 	{
-		glUniform3f(resource.uniforms.get(name), value.x, value.y, value.z);
+		glUniform3f(uniforms.get(name), value.x, value.y, value.z);
 	}
 	
 	/**
@@ -308,7 +195,7 @@ public final class Shader implements IDestroyable
 	 */
 	public final void setUniform2f(String name, Vector4f value)
 	{
-		glUniform4f(resource.uniforms.get(name), value.x, value.y, value.z, value.w);
+		glUniform4f(uniforms.get(name), value.x, value.y, value.z, value.w);
 	}
 	
 	/**
@@ -321,7 +208,7 @@ public final class Shader implements IDestroyable
 		FloatBuffer buffer = BufferUtils.createFloatBuffer(9);
 		value.get(buffer);
 		
-		glUniformMatrix3fv(resource.uniforms.get(name), false, buffer);
+		glUniformMatrix3fv(uniforms.get(name), false, buffer);
 	}
 	
 	/**
@@ -334,7 +221,7 @@ public final class Shader implements IDestroyable
 		FloatBuffer buffer = BufferUtils.createFloatBuffer(16);
 		value.get(buffer);
 		
-		glUniformMatrix4fv(resource.uniforms.get(name), false, buffer);
+		glUniformMatrix4fv(uniforms.get(name), false, buffer);
 	}
 	
 	/**
@@ -346,7 +233,7 @@ public final class Shader implements IDestroyable
 	{
 		if(hasUniform(name))
 		{
-			return resource.uniformTypes.get(name);
+			return uniformTypes.get(name);
 		}
 		
 		return null;

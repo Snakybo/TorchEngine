@@ -43,10 +43,10 @@ public abstract class TorchGame
 	 */
 	public TorchGame(String name)
 	{
+		LoggerInternal.log("Game name: " + name, "TorchGame");
+		
 		TorchGame.name = name;
 		TorchGame.engine = new TorchEngine(this);
-		
-		LoggerInternal.log("Game name: " + name, "Game");
 	}
 	
 	/**

@@ -26,7 +26,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URI;
 import java.nio.ByteBuffer;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import javax.imageio.ImageIO;
 
@@ -36,6 +39,7 @@ import com.snakybo.torch.color.Color;
 import com.snakybo.torch.color.Color32;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
+import com.snakybo.torch.resource.Resource;
 
 /**
  * @author Snakybo
@@ -63,15 +67,15 @@ public final class Bitmap
 	{
 		try
 		{
-			LoggerInternal.log("Loading Bitmap from: " + fileName, "Bitmap");
+			LoggerInternal.log("Loading Bitmap: " + fileName, "Bitmap");
+			URI uri = Resource.get(fileName);
 			
-			File file = new File(fileName);			
-			if(!file.exists())
+			if(!Files.exists(Paths.get(uri)))
 			{
 				throw new FileNotFoundException(fileName + " cannot be found");
 			}
 			
-			bufferedImage = ImageIO.read(file);
+			bufferedImage = ImageIO.read(new File(uri));
 		}
 		catch(IOException e)
 		{

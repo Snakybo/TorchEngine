@@ -22,29 +22,41 @@
 
 package com.snakybo.torch.resource;
 
-import com.snakybo.torch.interfaces.IDestroyable;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+
+import com.snakybo.torch.debug.Logger;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public abstract class Resource implements IDestroyable
+public final class Resource
 {
-	private final String name;
-	
-	public Resource(String name)
+	private Resource()
 	{
-		this.name = name;
+		throw new AssertionError();
 	}
 	
-	@Override
-	public abstract void destroy();
-	
-	/**
-	 * @return The name of the resource
-	 */
-	public final String getName()
+	public static URI get(String path)
 	{
-		return name;
+		try
+		{
+			URL resource = Resource.class.getResource("/" + path);
+			if(resource != null)
+			{
+				return resource.toURI();
+			}
+			
+			Logger.logError("Unable to find a resource at: " + path);
+			return null;
+		}
+		catch(URISyntaxException e)
+		{
+			Logger.logException(e);
+		}
+		
+		return null;
 	}
 }

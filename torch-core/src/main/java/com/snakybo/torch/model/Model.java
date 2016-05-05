@@ -23,6 +23,7 @@
 package com.snakybo.torch.model;
 
 import java.io.IOException;
+import java.net.URI;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.nio.file.Files;
@@ -39,14 +40,13 @@ import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.model.obj.OBJModel;
 import com.snakybo.torch.resource.Resource;
-import com.snakybo.torch.resource.ResourceDatabase;
 import com.snakybo.torch.util.FileUtils;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class Model extends Resource
+public final class Model
 {
 	private List<Vector3f> vertices;
 	private List<Vector2f> texCoords;
@@ -54,29 +54,17 @@ public final class Model extends Resource
 	private List<Vector3f> tangents;
 	private List<Integer> indices;
 	
-	public Model()
-	{
-		this("");
-	}
-	
 	/**
 	 * Create a new model
 	 * @param name The name of the model
 	 */
-	public Model(String name)
+	public Model()
 	{
-		super(name);
-		
 		vertices = new ArrayList<Vector3f>();
 		texCoords = new ArrayList<Vector2f>();
 		normals = new ArrayList<Vector3f>();
 		tangents = new ArrayList<Vector3f>();
 		indices = new ArrayList<Integer>();
-	}
-	
-	@Override
-	public final void destroy()
-	{
 	}
 	
 	/**
@@ -378,47 +366,38 @@ public final class Model extends Resource
 	 */
 	public static Model load(String fileName)
 	{
-		if(ResourceDatabase.hasResource(fileName))
+		try
 		{
-			LoggerInternal.log("Already imported " + fileName, "ModelLoader");
-			return (Model)ResourceDatabase.get(fileName);
+			LoggerInternal.log("Importing " + fileName, "Model");
+			
+			URI resource = Resource.get(fileName);
+			Path path = Paths.get(resource);
+			if(!Files.exists(path))
+			{
+				Logger.logError("No model found at: " + fileName, "Model");
+				return null;
+			}
+			
+			String extension = FileUtils.getExtension(fileName);
+			
+			List<String> lines = Files.readAllLines(path);
+			IModelLoader loader = null;
+			
+			switch(extension)
+			{
+			case "obj":
+				loader = new OBJModel(lines);
+				break;
+			default:
+				Logger.logError("Unsupported model format: " + extension, "Model");
+				return null;
+			}
+			
+			return loader.toModel();
 		}
-		else
+		catch(IOException e)
 		{
-			try
-			{
-				LoggerInternal.log("Importing " + fileName, "ModelLoader");
-				
-				Path path = Paths.get(fileName);
-				if(!Files.exists(path))
-				{
-					Logger.logError("No model found at: " + fileName, "ModelLoader");
-					return null;
-				}
-				
-				String extension = FileUtils.getExtension(fileName);
-				
-				List<String> lines = Files.readAllLines(path);
-				IModelLoader loader = null;
-				
-				switch(extension)
-				{
-				case "obj":
-					loader = new OBJModel(lines);
-					break;
-				default:
-					Logger.logError("Unsupported model format: " + extension, "ModelLoader");
-					return null;
-				}
-				
-				Model result = loader.toModel();
-				ResourceDatabase.register(fileName, result, null);
-				return result;
-			}
-			catch(IOException e)
-			{
-				Logger.logException(e, "Model");
-			}
+			Logger.logException(e, "Model");
 		}
 		
 		return null;

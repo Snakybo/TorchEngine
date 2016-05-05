@@ -63,11 +63,11 @@ public class RendererTest extends TorchGame
 			}
 		});
 		
-		Material material = new Material("./src/test/resources/shaders/test.glsl");
-		material.setTexture("diffuse", new Texture2D(new Bitmap("./src/test/resources/grassblock.png")));
+		Material material = new Material("shaders/unlit.glsl");
+		material.setTexture("diffuse", new Texture2D(new Bitmap("grassblock.png")));
 		
 		GameObject box = new GameObject();
-		box.addComponent(new Mesh("./src/test/resources/cube.obj"));
+		box.addComponent(new Mesh("models/cube.obj"));
 		box.addComponent(new MeshRenderer(material));
 		box.addComponent(new Component()
 		{
@@ -82,7 +82,7 @@ public class RendererTest extends TorchGame
 		box.getTransform().rotate(new Vector3f(0, 1, 0), 45f);
 		
 		GameObject skybox = new GameObject();
-		skybox.addComponent(new Skybox(new Texture2D(new Bitmap("./src/test/resources/skybox.png"))));
+		skybox.addComponent(new Skybox(new Texture2D(new Bitmap("textures/skybox.png"))));
 	}
 	
 	public static void main(String[] args)

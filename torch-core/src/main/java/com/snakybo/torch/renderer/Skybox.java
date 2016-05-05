@@ -41,14 +41,14 @@ public final class Skybox extends Component
 	
 	public Skybox(Texture texture)
 	{
-		material = new Material("./src/test/resources/shaders/skybox.glsl");
+		material = new Material("shaders/skybox.glsl");
 		material.setTexture("skybox", texture);
 	}
 	
 	@Override
 	protected void start()
 	{
-		addComponent(new Mesh("./src/test/resources/skybox.obj"));
+		addComponent(new Mesh("models/skybox.obj"));
 		addComponent(new MeshRenderer(material));
 		
 		getTransform().getLocalScale().set(20);
