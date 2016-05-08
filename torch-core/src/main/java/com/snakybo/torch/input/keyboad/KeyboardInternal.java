@@ -39,9 +39,6 @@ public final class KeyboardInternal
 		throw new AssertionError();
 	}
 	
-	/**
-	 * Update the key states, sets the last key states to the current, and polls GLFW for the current states
-	 */
 	public static void update()
 	{
 		for(int i = 0; i < Keyboard.last.length; i++)

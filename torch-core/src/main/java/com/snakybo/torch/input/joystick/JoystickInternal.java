@@ -42,9 +42,6 @@ public final class JoystickInternal
 		throw new AssertionError();
 	}
 	
-	/**
-	 * Update the state of all joysticks
-	 */
 	public static void update()
 	{
 		// Check if joysticks have been added or removed

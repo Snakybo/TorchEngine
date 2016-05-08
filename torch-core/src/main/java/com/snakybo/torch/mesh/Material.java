@@ -59,8 +59,7 @@ public final class Material implements IDestroyable
 	@Override
 	public final void destroy()
 	{
-		values.clear();
-		
+		values.clear();		
 		shader.destroy();
 	}
 	
