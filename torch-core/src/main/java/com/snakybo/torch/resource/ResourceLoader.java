@@ -23,79 +23,47 @@
 package com.snakybo.torch.resource;
 
 import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 
+import com.snakybo.torch.bitmap.BitmapLoader;
 import com.snakybo.torch.debug.Logger;
-import com.snakybo.torch.util.FileUtils;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class Resource
+public final class ResourceLoader
 {
-	private Resource()
-	{
-		throw new AssertionError();
-	}
+	private static Map<String, IResourceLoader> loaders = new HashMap<String, IResourceLoader>();
 	
-	/**
-	 * Get the path to a resource as an URI.
-	 * @param path The path to the resource.
-	 * @return An URI of the resource.
-	 */
-	public static URI get(String path)
+	static
 	{
-		try
-		{
-			URL resource = Resource.class.getResource("/" + path);
-			if(resource != null)
-			{
-				return resource.toURI();
-			}
-			
-			Logger.logError("Unable to find a resource at: " + path);
-			return null;
-		}
-		catch(URISyntaxException e)
-		{
-			Logger.logException(e);
-		}
+		IResourceLoader bitmapLoader = new BitmapLoader();
 		
-		return null;
+		loaders.put("png", bitmapLoader);
+		loaders.put("jpg", bitmapLoader);
+	}
+	
+	private ResourceLoader()
+	{
 	}
 	
 	/**
-	 * Load a resource from the specified path.
+	 * Load a resource, the type determines what {@link IResourceLoader} to use.
 	 * @param path The path to the resource.
+	 * @param type The type of the resource, usually the file extension.
 	 * @return The resource, can be anything as
 	 * long as the receiving class knows what to do with the data.
 	 */
-	public static Object load(String path)
+	public static Object load(URI path, String type)
 	{
-		return load(get(path));
-	}
-	
-	/**
-	 * Load a resource from the specified URI.
-	 * @param path The path to the resource.
-	 * @return The resource, can be anything as
-	 * long as the receiving class knows what to do with the data.
-	 */
-	public static Object load(URI path)
-	{
-		Path p = Paths.get(path);
-		
-		if(Files.exists(p))
+		if(loaders.containsKey(type))
 		{
-			return ResourceLoader.load(path, FileUtils.getExtension(path));
+			return loaders.get(type).load(path);
 		}
 		
-		Logger.logWarning("No resource found at: " + p);
+		Logger.logWarning("Unknown resource type: " + type);
 		return null;
 	}
 }
