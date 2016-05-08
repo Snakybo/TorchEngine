@@ -24,12 +24,8 @@ package com.snakybo.torch.bitmap;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URI;
 import java.nio.ByteBuffer;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 import javax.imageio.ImageIO;
 
@@ -65,22 +61,7 @@ public final class Bitmap
 	 */
 	public Bitmap(String fileName)
 	{
-		try
-		{
-			LoggerInternal.log("Loading Bitmap: " + fileName, "Bitmap");
-			URI uri = Resource.get(fileName);
-			
-			if(!Files.exists(Paths.get(uri)))
-			{
-				throw new FileNotFoundException(fileName + " cannot be found");
-			}
-			
-			bufferedImage = ImageIO.read(new File(uri));
-		}
-		catch(IOException e)
-		{
-			Logger.logException(e, this);
-		}
+		bufferedImage = (BufferedImage)Resource.load(fileName);
 	}
 	
 	@Override
