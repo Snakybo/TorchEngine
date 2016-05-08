@@ -41,8 +41,8 @@ public final class Skybox extends Component
 	
 	public Skybox(Texture texture)
 	{
-		material = new Material("shaders/skybox.glsl");
-		material.setTexture("skybox", texture);
+		material = new Material("shaders/unlit.glsl");
+		material.setTexture("diffuse", texture);
 	}
 	
 	@Override
