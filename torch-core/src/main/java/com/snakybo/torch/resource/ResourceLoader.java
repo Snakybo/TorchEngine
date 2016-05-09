@@ -29,8 +29,6 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.naming.OperationNotSupportedException;
-
 import com.snakybo.torch.bitmap.BitmapResourceLoader;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.model.ModelResourceLoader;
@@ -63,7 +61,7 @@ public final class ResourceLoader
 		
 		if(rld == null)
 		{
-			Logger.logException(new OperationNotSupportedException("A resource loader must have a ResourceLoaderData annotation"), "ResourceLoader");
+			Logger.logError("A resource loader must have a ResourceLoaderData annotation");
 			return;
 		}
 		

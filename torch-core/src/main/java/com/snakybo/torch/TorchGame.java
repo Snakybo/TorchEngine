@@ -22,7 +22,6 @@
 
 package com.snakybo.torch;
 
-import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.time.TimeInternal;
 
@@ -70,8 +69,7 @@ public abstract class TorchGame
 	{
 		if(targetFrameRate <= 0)
 		{
-			Logger.logException(new IllegalArgumentException("Target frame rate must be above 0"));
-			return;
+			throw new IllegalArgumentException("Target frame rate must be above 0");
 		}
 		
 		TorchGame.targetFrameRate = targetFrameRate;

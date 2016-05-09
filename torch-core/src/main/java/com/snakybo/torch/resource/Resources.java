@@ -59,7 +59,7 @@ public final class Resources
 		}
 		catch(URISyntaxException e)
 		{
-			Logger.logException(e);
+			e.printStackTrace();
 		}
 		
 		return null;

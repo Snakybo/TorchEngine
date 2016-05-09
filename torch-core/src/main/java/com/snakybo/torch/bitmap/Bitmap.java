@@ -33,7 +33,6 @@ import org.lwjgl.BufferUtils;
 
 import com.snakybo.torch.color.Color;
 import com.snakybo.torch.color.Color32;
-import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
 
 /**
@@ -91,7 +90,7 @@ public final class Bitmap
 		}
 		catch(IOException e)
 		{
-			Logger.logException(e, this);
+			e.printStackTrace();
 		}
 	}
 	

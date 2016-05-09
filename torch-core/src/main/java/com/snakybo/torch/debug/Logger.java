@@ -576,26 +576,6 @@ public final class Logger
 	}
 	
 	/**
-	 * Logs an exception.
-	 * @param e The exception to log.
-	 */
-	public static void logException(Exception e)
-	{
-		logException(e, null);
-	}
-	
-	/**
-	 * Logs an exception.
-	 * @param e The exception to log.
-	 * @param source The source of the exception, can also be a string.
-	 */
-	public static void logException(Exception e, Object source)
-	{
-		logPrefix(LogLevel.Exception, source, System.err);
-		e.printStackTrace();
-	}
-	
-	/**
 	 * Log the prefix.
 	 * @param level The desired log level, {@link LogLevel#Message}, {@link LogLevel#Warning}, {@link LogLevel#Error} or {@link LogLevel#Exception}.
 	 * @param source The source of the log.

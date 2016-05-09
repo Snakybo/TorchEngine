@@ -22,7 +22,6 @@
 
 package com.snakybo.torch.util;
 
-import java.io.FileNotFoundException;
 import java.net.URI;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -109,7 +108,7 @@ public final class FileUtils
 			return fileName.toString();
 		}
 		
-		Logger.logException(new FileNotFoundException(path.toString()), "FileUtils");
+		Logger.logError(path.toString());
 		return null;
 	}
 

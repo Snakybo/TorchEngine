@@ -25,7 +25,6 @@ package com.snakybo.torch;
 import org.lwjgl.Version;
 
 import com.snakybo.torch.debug.Debug;
-import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.input.cursor.CursorInternal;
 import com.snakybo.torch.input.joystick.JoystickInternal;
@@ -158,7 +157,7 @@ public final class TorchEngine
 				}
 				catch(InterruptedException e)
 				{
-					Logger.logException(e, this);
+					e.printStackTrace();
 				}
 			}
 		}

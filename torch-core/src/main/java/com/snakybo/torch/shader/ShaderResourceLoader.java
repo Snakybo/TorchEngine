@@ -84,8 +84,7 @@ public final class ShaderResourceLoader implements IResourceLoader
 		}
 		catch(IOException e)
 		{
-			Logger.logException(e, this);
-			return null;
+			e.printStackTrace();
 		}
 		
 		Shader shader = new Shader();

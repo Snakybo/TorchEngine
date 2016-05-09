@@ -28,7 +28,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
-import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.model.obj.OBJModel;
 import com.snakybo.torch.resource.IResourceLoader;
@@ -65,7 +64,7 @@ public final class ModelResourceLoader implements IResourceLoader
 		}
 		catch(IOException e)
 		{
-			Logger.logException(e, this);
+			e.printStackTrace();
 		}
 		
 		return null;

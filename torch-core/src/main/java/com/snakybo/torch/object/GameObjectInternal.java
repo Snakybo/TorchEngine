@@ -24,7 +24,6 @@ package com.snakybo.torch.object;
 
 import java.lang.reflect.Method;
 
-import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.scene.SceneInternal;
 
 /**
@@ -54,7 +53,7 @@ public final class GameObjectInternal
 		}
 		catch(Exception e)
 		{
-			Logger.logException(e, "GameObjectInternal");
+			e.printStackTrace();
 		}
 	}
 	

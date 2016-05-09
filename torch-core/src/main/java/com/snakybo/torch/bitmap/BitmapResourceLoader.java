@@ -28,7 +28,6 @@ import java.net.URI;
 
 import javax.imageio.ImageIO;
 
-import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.resource.IResourceLoader;
 import com.snakybo.torch.resource.ResourceLoaderData;
@@ -52,7 +51,7 @@ public final class BitmapResourceLoader implements IResourceLoader
 		}
 		catch(IOException e)
 		{
-			Logger.logException(e);
+			e.printStackTrace();
 		}
 		
 		return null;

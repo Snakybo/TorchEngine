@@ -248,20 +248,4 @@ public final class LoggerInternal
 			Logger.logError(o, source);
 		}
 	}
-	
-	public static void logException(Exception e)
-	{
-		if(Debug.LOG_DEBUG)
-		{
-			Logger.logException(e);
-		}
-	}
-	
-	public static void logException(Exception e, Object source)
-	{
-		if(Debug.LOG_DEBUG)
-		{
-			Logger.logException(e, source);
-		}
-	}
 }

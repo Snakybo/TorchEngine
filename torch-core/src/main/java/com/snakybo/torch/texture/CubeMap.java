@@ -46,7 +46,6 @@ import static org.lwjgl.opengl.GL13.GL_TEXTURE_CUBE_MAP_POSITIVE_Z;
 import static org.lwjgl.opengl.GL13.glActiveTexture;
 
 import com.snakybo.torch.bitmap.Bitmap;
-import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.resource.Resources;
 
 /**
@@ -102,7 +101,7 @@ public final class CubeMap extends Texture
 	{
 		if(unit < 0 || unit >= 32)
 		{
-			Logger.logException(new IllegalArgumentException("The unit: " + unit + " is out of bounds"), this);
+			throw new IllegalArgumentException("The texture unit " + unit + " is out of bounds");
 		}
 
 		glActiveTexture(GL_TEXTURE0 + unit);

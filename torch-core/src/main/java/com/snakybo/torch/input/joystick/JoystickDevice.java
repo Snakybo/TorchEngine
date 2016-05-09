@@ -28,8 +28,6 @@ import static org.lwjgl.glfw.GLFW.glfwGetJoystickButtons;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 
-import com.snakybo.torch.debug.Logger;
-
 /**
  * @author Snakybo
  * @since 1.0
@@ -52,8 +50,7 @@ final class JoystickDevice
 	{
 		if(!Joystick.isJoystickPresent(joystick))
 		{
-			Logger.logException(new IllegalArgumentException("Joystick with ID: " + joystick + " is not connected"), this);
-			return;
+			throw new IllegalArgumentException("Joystick with ID: " + joystick + " is not connected");
 		}
 		
 		this.name = Joystick.getJoystickName(joystick);

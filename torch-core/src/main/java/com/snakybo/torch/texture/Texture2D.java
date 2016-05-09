@@ -51,7 +51,6 @@ import static org.lwjgl.opengl.GL13.glActiveTexture;
 import static org.lwjgl.opengl.GL30.glGenerateMipmap;
 
 import com.snakybo.torch.bitmap.Bitmap;
-import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.util.MathUtils;
 
 /**
@@ -127,7 +126,7 @@ public final class Texture2D extends Texture
 	{
 		if(unit < 0 || unit >= 32)
 		{
-			Logger.logException(new IllegalArgumentException("The unit: " + unit + " is out of bounds"), this);
+			throw new IllegalArgumentException("The texture unit " + unit + " is out of bounds");
 		}
 
 		glActiveTexture(GL_TEXTURE0 + unit);
