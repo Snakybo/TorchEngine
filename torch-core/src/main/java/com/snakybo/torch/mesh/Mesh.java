@@ -33,11 +33,6 @@ public final class Mesh extends Component
 {
 	private Model model;
 	
-	public Mesh(String fileName)
-	{
-		model = Model.load(fileName);
-	}
-	
 	public Mesh(Model model)
 	{
 		this.model = model;

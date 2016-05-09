@@ -47,6 +47,7 @@ import static org.lwjgl.opengl.GL13.glActiveTexture;
 
 import com.snakybo.torch.bitmap.Bitmap;
 import com.snakybo.torch.debug.Logger;
+import com.snakybo.torch.resource.Resources;
 
 /**
  * @author Snakybo
@@ -66,7 +67,12 @@ public final class CubeMap extends Texture
 	
 	public CubeMap(String front, String back, String left, String right, String top, String bottom)
 	{
-		this(new Bitmap(front), new Bitmap(back), new Bitmap(left), new Bitmap(right), new Bitmap(top), new Bitmap(bottom));
+		this(Resources.load(Bitmap.class, front),
+				Resources.load(Bitmap.class, back),
+				Resources.load(Bitmap.class, left),
+				Resources.load(Bitmap.class, right),
+				Resources.load(Bitmap.class, top),
+				Resources.load(Bitmap.class, bottom));
 	}
 	
 	public CubeMap(Bitmap front, Bitmap back, Bitmap left, Bitmap right, Bitmap top, Bitmap bottom)

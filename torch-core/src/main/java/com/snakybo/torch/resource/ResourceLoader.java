@@ -23,11 +23,18 @@
 package com.snakybo.torch.resource;
 
 import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.snakybo.torch.bitmap.BitmapLoader;
+import javax.naming.OperationNotSupportedException;
+
+import com.snakybo.torch.bitmap.BitmapResourceLoader;
 import com.snakybo.torch.debug.Logger;
+import com.snakybo.torch.model.ModelResourceLoader;
+import com.snakybo.torch.util.FileUtils;
 
 /**
  * @author Snakybo
@@ -39,31 +46,67 @@ public final class ResourceLoader
 	
 	static
 	{
-		IResourceLoader bitmapLoader = new BitmapLoader();
-		
-		loaders.put("png", bitmapLoader);
-		loaders.put("jpg", bitmapLoader);
+		registerResourceLoader(new BitmapResourceLoader());
+		registerResourceLoader(new ModelResourceLoader());
 	}
 	
 	private ResourceLoader()
 	{
+		throw new AssertionError();
+	}
+	
+	private static void registerResourceLoader(IResourceLoader rl)
+	{
+		ResourceLoaderData rld = rl.getClass().getAnnotation(ResourceLoaderData.class);
+		
+		if(rld == null)
+		{
+			Logger.logException(new OperationNotSupportedException("A resource loader must have a ResourceLoaderData annotation"), "ResourceLoader");
+			return;
+		}
+		
+		String types = "";
+		for(int i = 0; i < rld.types().length; i++)
+		{
+			String type = rld.types()[i];
+			
+			types += type;
+			
+			if(i < rld.types().length - 1)
+			{
+				types += ", ";
+			}
+			
+			loaders.put(type, rl);
+		}
+		
+		Logger.log("Registered resource loader: " + rl.getClass().getSimpleName() + " (" + types + ")", "ResourceLoader");
 	}
 	
 	/**
-	 * Load a resource, the type determines what {@link IResourceLoader} to use.
+	 * Load a resource from the specified URI.
 	 * @param path The path to the resource.
-	 * @param type The type of the resource, usually the file extension.
 	 * @return The resource, can be anything as
 	 * long as the receiving class knows what to do with the data.
 	 */
-	public static Object load(URI path, String type)
+	public static Object load(URI path)
 	{
-		if(loaders.containsKey(type))
+		Path p = Paths.get(path);
+		
+		if(Files.exists(p))
 		{
-			return loaders.get(type).load(path);
+			String type = FileUtils.getExtension(path);
+			
+			if(loaders.containsKey(type))
+			{
+				return loaders.get(type).load(path);
+			}
+			
+			Logger.logWarning("Unknown resource type: " + type, "ResourceLoader");
+			return null;
 		}
 		
-		Logger.logWarning("Unknown resource type: " + type);
+		Logger.logWarning("No resource found at: " + p, "ResourceLoader");
 		return null;
 	}
 }

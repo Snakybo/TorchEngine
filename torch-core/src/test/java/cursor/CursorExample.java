@@ -30,6 +30,7 @@ import com.snakybo.torch.input.mouse.Mouse;
 import com.snakybo.torch.input.mouse.MouseButton;
 import com.snakybo.torch.object.Component;
 import com.snakybo.torch.object.GameObject;
+import com.snakybo.torch.resource.Resources;
 
 /**
  * @author Snakybo
@@ -47,7 +48,7 @@ public class CursorExample extends TorchGame
 		@Override
 		protected void start()
 		{
-			custom = new Bitmap("examples/cursor/custom.png");
+			custom = Resources.load(Bitmap.class, "examples/cursor/custom.png");
 			
 			setStandardCursor();
 			

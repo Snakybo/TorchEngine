@@ -22,25 +22,14 @@
 
 package com.snakybo.torch.model;
 
-import java.io.IOException;
-import java.net.URI;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.lwjgl.BufferUtils;
-
-import com.snakybo.torch.debug.Logger;
-import com.snakybo.torch.debug.LoggerInternal;
-import com.snakybo.torch.model.obj.OBJModel;
-import com.snakybo.torch.resource.Resource;
-import com.snakybo.torch.util.FileUtils;
 
 /**
  * @author Snakybo
@@ -356,50 +345,5 @@ public final class Model
 	public final int getNumTriangles()
 	{
 		return indices.size() / 3;
-	}
-	
-	/**
-	 * Attempt to load a model, if it's been loaded before; it won't load it again
-	 * @param fileName The path to the model
-	 * @return The imported model
-	 * @throws IOException 
-	 */
-	public static Model load(String fileName)
-	{
-		try
-		{
-			LoggerInternal.log("Importing " + fileName, "Model");
-			
-			URI resource = Resource.get(fileName);
-			Path path = Paths.get(resource);
-			if(!Files.exists(path))
-			{
-				Logger.logError("No model found at: " + fileName, "Model");
-				return null;
-			}
-			
-			String extension = FileUtils.getExtension(fileName);
-			
-			List<String> lines = Files.readAllLines(path);
-			IModelLoader loader = null;
-			
-			switch(extension)
-			{
-			case "obj":
-				loader = new OBJModel(lines);
-				break;
-			default:
-				Logger.logError("Unsupported model format: " + extension, "Model");
-				return null;
-			}
-			
-			return loader.toModel();
-		}
-		catch(IOException e)
-		{
-			Logger.logException(e, "Model");
-		}
-		
-		return null;
 	}
 }

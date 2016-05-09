@@ -22,19 +22,21 @@
 
 package com.snakybo.torch.resource;
 
-import java.net.URI;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public interface IResourceLoader
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+public @interface ResourceLoaderData
 {	
 	/**
-	 * Load a resource from an URI.
-	 * @param path The path of the resource.
-	 * @return The resource, can be anything as
-	 * long as the receiving class knows what to do with the data.
+	 * @return All file types this {@link IResourceLoader} should handle.
 	 */
-	Object load(URI path);
+	String[] types();
 }

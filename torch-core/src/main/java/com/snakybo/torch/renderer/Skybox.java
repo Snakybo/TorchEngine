@@ -28,7 +28,9 @@ import com.snakybo.torch.camera.Camera;
 import com.snakybo.torch.mesh.Material;
 import com.snakybo.torch.mesh.Mesh;
 import com.snakybo.torch.mesh.MeshRenderer;
+import com.snakybo.torch.model.Model;
 import com.snakybo.torch.object.Component;
+import com.snakybo.torch.resource.Resources;
 import com.snakybo.torch.texture.Texture;
 
 /**
@@ -48,7 +50,7 @@ public final class Skybox extends Component
 	@Override
 	protected void start()
 	{
-		addComponent(new Mesh("models/skybox.obj"));
+		addComponent(new Mesh(Resources.load(Model.class, "models/skybox.obj")));
 		addComponent(new MeshRenderer(material));
 		
 		getTransform().getLocalScale().set(20);

@@ -31,21 +31,24 @@ import javax.imageio.ImageIO;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.resource.IResourceLoader;
+import com.snakybo.torch.resource.ResourceLoaderData;
+import com.snakybo.torch.util.FileUtils;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class BitmapLoader implements IResourceLoader
+@ResourceLoaderData(types={"jpg", "png"})
+public final class BitmapResourceLoader implements IResourceLoader
 {
 	@Override
 	public Object load(URI path)
 	{
-		LoggerInternal.log("Loading Bitmap: " + path, this);
+		LoggerInternal.log("Loading Bitmap: " + FileUtils.getName(path), this);
 		
 		try
 		{
-			return ImageIO.read(new File(path));
+			return new Bitmap(ImageIO.read(new File(path)));
 		}
 		catch(IOException e)
 		{

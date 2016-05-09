@@ -25,20 +25,16 @@ package com.snakybo.torch.resource;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import com.snakybo.torch.debug.Logger;
-import com.snakybo.torch.util.FileUtils;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class Resource
+public final class Resources
 {
-	private Resource()
+	private Resources()
 	{
 		throw new AssertionError();
 	}
@@ -52,13 +48,13 @@ public final class Resource
 	{
 		try
 		{
-			URL resource = Resource.class.getResource("/" + path);
+			URL resource = Resources.class.getResource("/" + path);
 			if(resource != null)
 			{
 				return resource.toURI();
 			}
 			
-			Logger.logError("Unable to find a resource at: " + path);
+			Logger.logError("Unable to find a resource at: " + path, "Resources");
 			return null;
 		}
 		catch(URISyntaxException e)
@@ -67,6 +63,18 @@ public final class Resource
 		}
 		
 		return null;
+	}
+	
+	/**
+	 * Load a resource from the specified path.
+	 * @param type The type of the class to cast the result to.
+	 * @param path The path to the resource.
+	 * @return The resource, can be anything as
+	 * long as the receiving class knows what to do with the data.
+	 */
+	public static <T> T load(Class<T> type, String path)
+	{
+		return type.cast(load(path));
 	}
 	
 	/**
@@ -82,20 +90,24 @@ public final class Resource
 	
 	/**
 	 * Load a resource from the specified URI.
+	 * @param type The type of the class to cast the result to.
+	 * @param path The path to the resource.
+	 * @return The resource, can be anything as
+	 * long as the receiving class knows what to do with the data.
+	 */
+	public static <T> T load(Class<T> type, URI path)
+	{
+		return type.cast(load(path));
+	}
+	
+	/**
+	 * Load a resource from the specified URI.
 	 * @param path The path to the resource.
 	 * @return The resource, can be anything as
 	 * long as the receiving class knows what to do with the data.
 	 */
 	public static Object load(URI path)
 	{
-		Path p = Paths.get(path);
-		
-		if(Files.exists(p))
-		{
-			return ResourceLoader.load(path, FileUtils.getExtension(path));
-		}
-		
-		Logger.logWarning("No resource found at: " + p);
-		return null;
+		return ResourceLoader.load(path);
 	}
 }

@@ -52,7 +52,7 @@ import org.lwjgl.BufferUtils;
 
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.interfaces.IDestroyable;
-import com.snakybo.torch.resource.Resource;
+import com.snakybo.torch.resource.Resources;
 
 /**
  * @author Snakybo
@@ -82,7 +82,7 @@ public final class Shader implements IDestroyable
 				Logger.logError("Unable to create shader program", this);
 			}
 			
-			ShaderLoader.load(this, Resource.get(fileName));
+			ShaderLoader.load(this, Resources.get(fileName));
 		}
 		catch(IOException e)
 		{

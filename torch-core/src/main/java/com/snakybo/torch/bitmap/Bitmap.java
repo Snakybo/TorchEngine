@@ -35,7 +35,6 @@ import com.snakybo.torch.color.Color;
 import com.snakybo.torch.color.Color32;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
-import com.snakybo.torch.resource.Resource;
 
 /**
  * @author Snakybo
@@ -56,12 +55,12 @@ public final class Bitmap
 	}
 	
 	/**
-	 * Load a bitmap from the disk.
-	 * @param fileName The filename of the bitmap.
+	 * Create a bitmap from a BufferedImage.
+	 * @param bufferedImage The BufferedImage to load.
 	 */
-	public Bitmap(String fileName)
+	public Bitmap(BufferedImage bufferedImage)
 	{
-		bufferedImage = (BufferedImage)Resource.load(fileName);
+		this.bufferedImage = bufferedImage;
 	}
 	
 	@Override

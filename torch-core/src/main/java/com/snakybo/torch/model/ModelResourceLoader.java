@@ -20,21 +20,54 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.resource;
+package com.snakybo.torch.model;
 
+import java.io.IOException;
 import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
+
+import com.snakybo.torch.debug.Logger;
+import com.snakybo.torch.debug.LoggerInternal;
+import com.snakybo.torch.model.obj.OBJModel;
+import com.snakybo.torch.resource.IResourceLoader;
+import com.snakybo.torch.resource.ResourceLoaderData;
+import com.snakybo.torch.util.FileUtils;
 
 /**
- * @author Snakybo
- * @since 1.0
+ * @author Kevin
+ *
  */
-public interface IResourceLoader
+@ResourceLoaderData(types={"obj"})
+public class ModelResourceLoader implements IResourceLoader
 {	
-	/**
-	 * Load a resource from an URI.
-	 * @param path The path of the resource.
-	 * @return The resource, can be anything as
-	 * long as the receiving class knows what to do with the data.
-	 */
-	Object load(URI path);
+	@Override
+	public Object load(URI path)
+	{
+		try
+		{
+			LoggerInternal.log("Importing " + FileUtils.getName(path), this);
+			
+			String extension = FileUtils.getExtension(path);
+			
+			List<String> lines = Files.readAllLines(Paths.get(path));
+			IModelLoader loader = null;
+			
+			switch(extension)
+			{
+			case "obj":
+				loader = new OBJModel(lines);
+				break;
+			}
+			
+			return loader.toModel();
+		}
+		catch(IOException e)
+		{
+			Logger.logException(e, this);
+		}
+		
+		return null;
+	}
 }
