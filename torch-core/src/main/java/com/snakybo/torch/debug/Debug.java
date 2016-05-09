@@ -33,17 +33,23 @@ public final class Debug
 	 * @deprecated To be replaced by UI.
 	 */
 	@Deprecated
-	public static boolean LOG_FPS;
+	public static final boolean LOG_FPS;
 	
 	/**
 	 * Whether or not to log debug/internal logs of the engine.
 	 */
-	public static boolean LOG_DEBUG;
+	public static final boolean LOG_DEBUG;
+	
+	/**
+	 * Whether or not to log library information.
+	 */
+	public static final boolean LOG_LIBRARY_INFO;
 	
 	static
 	{
 		LOG_FPS = Boolean.parseBoolean(System.getenv("LOG_FPS"));
 		LOG_DEBUG = Boolean.parseBoolean(System.getenv("DEBUG"));
+		LOG_LIBRARY_INFO = Boolean.parseBoolean(System.getenv("DEBUG_LIBRARY"));
 	}
 	
 	private Debug()

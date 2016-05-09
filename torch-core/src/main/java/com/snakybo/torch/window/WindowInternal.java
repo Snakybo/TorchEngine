@@ -49,6 +49,7 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 import org.lwjgl.glfw.GLFWErrorCallback;
 
 import com.snakybo.torch.TorchGame;
+import com.snakybo.torch.debug.Debug;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.glfw.GLFWCallbacks;
@@ -72,7 +73,7 @@ public final class WindowInternal
 		
 		if(!glfwInit())
 		{
-			Logger.logException(new RuntimeException("Unable to initialize GLFW"), "Window");
+			Logger.logException(new RuntimeException("Unable to initialize GLFW"), "WindowInternal");
 		}
 		
 		logGLFWInfo();
@@ -157,7 +158,7 @@ public final class WindowInternal
 	 */
 	public static void destroy()
 	{
-		LoggerInternal.log("Terminating GLFW", "Window");
+		LoggerInternal.log("Terminating GLFW", "WindowInternal");
 		
 		GLFWCallbacks.destroy();
 		
@@ -180,7 +181,7 @@ public final class WindowInternal
 		window = glfwCreateWindow(width, height, TorchGame.getName(), monitor, NULL);
 		if(window == NULL)
 		{
-			Logger.logException(new RuntimeException("Unable to create GLFW window"), "Window");
+			Logger.logException(new RuntimeException("Unable to create GLFW window"), "WindowInternal");
 			return;
 		}
 		
@@ -197,7 +198,10 @@ public final class WindowInternal
 	 */
 	private static void logGLFWInfo()
 	{
-		LoggerInternal.log("Version: " + glfwGetVersionString(), "GLFW");
+		if(Debug.LOG_LIBRARY_INFO)
+		{
+			LoggerInternal.log("Version: " + glfwGetVersionString(), "GLFW");
+		}
 	}
 	
 	/**

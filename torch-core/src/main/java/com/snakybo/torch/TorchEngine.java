@@ -24,6 +24,7 @@ package com.snakybo.torch;
 
 import org.lwjgl.Version;
 
+import com.snakybo.torch.debug.Debug;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.input.cursor.CursorInternal;
@@ -200,6 +201,9 @@ public final class TorchEngine
 	 */
 	private final void logLWJGLInfo()
 	{
-		LoggerInternal.log("Version: " + Version.getVersion(), "LWJGL");
+		if(Debug.LOG_LIBRARY_INFO)
+		{
+			LoggerInternal.log("Version: " + Version.getVersion(), "LWJGL");	
+		}
 	}
 }

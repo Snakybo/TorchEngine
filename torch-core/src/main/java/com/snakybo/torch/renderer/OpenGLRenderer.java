@@ -35,6 +35,7 @@ import static org.lwjgl.opengl.GL11.glCullFace;
 import static org.lwjgl.opengl.GL11.glEnable;
 import static org.lwjgl.opengl.GL11.glGetString;
 
+import com.snakybo.torch.debug.Debug;
 import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.object.GameObject;
 import com.snakybo.torch.object.GameObjectInternal;
@@ -57,10 +58,13 @@ public final class OpenGLRenderer
 	{
 		createCapabilities();
 		
-		LoggerInternal.log("Vendor: " + glGetString(GL_VENDOR), "OpenGL");
-		LoggerInternal.log("Renderer: " + glGetString(GL_RENDERER), "OpenGL");
-		LoggerInternal.log("Version: " + glGetString(GL_VERSION), "OpenGL");
-		LoggerInternal.log("Extensions: " + glGetString(GL_EXTENSIONS), "OpenGL");
+		if(Debug.LOG_LIBRARY_INFO)
+		{
+			LoggerInternal.log("Vendor: " + glGetString(GL_VENDOR), "OpenGL");
+			LoggerInternal.log("Renderer: " + glGetString(GL_RENDERER), "OpenGL");
+			LoggerInternal.log("Version: " + glGetString(GL_VERSION), "OpenGL");
+			LoggerInternal.log("Extensions: " + glGetString(GL_EXTENSIONS), "OpenGL");
+		}
 		
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_TEXTURE_2D);
