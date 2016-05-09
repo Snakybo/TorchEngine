@@ -53,26 +53,42 @@ import java.util.List;
 
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
+import com.snakybo.torch.resource.IResourceLoader;
+import com.snakybo.torch.resource.ResourceLoaderData;
 import com.snakybo.torch.util.FileUtils;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-class ShaderLoader
+@ResourceLoaderData(types={"glsl"})
+public final class ShaderResourceLoader implements IResourceLoader
 {
-	static void load(Shader shader, URI uri) throws IOException
+	@Override
+	public final Object load(URI path)
 	{
-		Path path = Paths.get(uri);
-		List<String> sourceLines = Files.readAllLines(path);
+		String source = null;
 		
-		StringBuilder stringBuilder = new StringBuilder();		
-		for(String line : sourceLines)
+		try
 		{
-			stringBuilder.append(line).append("\n");
+			Path p = Paths.get(path);
+			List<String> sourceLines = Files.readAllLines(p);
+			
+			StringBuilder stringBuilder = new StringBuilder();		
+			for(String line : sourceLines)
+			{
+				stringBuilder.append(line).append("\n");
+			}
+			
+			source = stringBuilder.toString();
+		}
+		catch(IOException e)
+		{
+			Logger.logException(e, this);
+			return null;
 		}
 		
-		String source = stringBuilder.toString();		
+		Shader shader = new Shader();
 		createShader(shader, GL_VERTEX_SHADER, parseShader(source, "VERTEX_PASS"));
 		createShader(shader, GL_FRAGMENT_SHADER, parseShader(source, "FRAGMENT_PASS"));
 		createShader(shader, GL_GEOMETRY_SHADER, parseShader(source, "GEOMETRY_PASS"));
@@ -81,10 +97,12 @@ class ShaderLoader
 		createShader(shader, GL_TESS_EVALUATION_SHADER, parseShader(source, "TESS_EVAL_PASS"));
 		
 		link(shader);
-		addUniforms(shader, uri, source);
+		addUniforms(shader, path, source);
+		
+		return shader;
 	}
 	
-	private static void createShader(Shader shader, int type, String source)
+	private final void createShader(Shader shader, int type, String source)
 	{
 		if(source.length() > 0)
 		{				
@@ -109,7 +127,7 @@ class ShaderLoader
 		}
 	}
 	
-	private static void link(Shader shader)
+	private final void link(Shader shader)
 	{
 		glLinkProgram(shader.programId);
 		if(glGetProgrami(shader.programId, GL_LINK_STATUS) == NULL)
@@ -126,7 +144,7 @@ class ShaderLoader
 		}
 	}
 	
-	private static void addUniforms(Shader shader, URI uri, String source)
+	private final void addUniforms(Shader shader, URI uri, String source)
 	{
 		String[] lines = source.split("\n");
 		
@@ -151,7 +169,7 @@ class ShaderLoader
 		}
 	}
 	
-	private static String parseShader(String source, String keyword)
+	private final String parseShader(String source, String keyword)
 	{
 		if(source.contains("#ifdef " + keyword))
 		{

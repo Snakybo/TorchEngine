@@ -36,7 +36,6 @@ import static org.lwjgl.opengl.GL20.glUniformMatrix4fv;
 import static org.lwjgl.opengl.GL20.glUseProgram;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
-import java.io.IOException;
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,7 +51,6 @@ import org.lwjgl.BufferUtils;
 
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.interfaces.IDestroyable;
-import com.snakybo.torch.resource.Resources;
 
 /**
  * @author Snakybo
@@ -67,39 +65,17 @@ public final class Shader implements IDestroyable
 	
 	int programId;
 	
-	public Shader(String fileName)
+	Shader()
 	{
-		try
+		uniforms = new HashMap<String, Integer>();
+		uniformTypes = new HashMap<String, String>();
+		
+		attachedShaders = new ArrayList<Integer>();
+		
+		programId = glCreateProgram();
+		if(programId == NULL)
 		{
-			uniforms = new HashMap<String, Integer>();
-			uniformTypes = new HashMap<String, String>();
-			
-			attachedShaders = new ArrayList<Integer>();
-			
-			programId = glCreateProgram();
-			if(programId == NULL)
-			{
-				Logger.logError("Unable to create shader program", this);
-			}
-			
-			ShaderLoader.load(this, Resources.get(fileName));
-		}
-		catch(IOException e)
-		{
-			Logger.logException(e);
-		}
-	}
-	
-	@Override
-	protected final void finalize() throws Throwable
-	{
-		try
-		{
-			destroy();
-		}
-		finally
-		{
-			super.finalize();
+			Logger.logError("Unable to create shader program", this);
 		}
 	}
 	
