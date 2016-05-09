@@ -29,6 +29,7 @@ import com.snakybo.torch.TorchGame;
 import com.snakybo.torch.bitmap.Bitmap;
 import com.snakybo.torch.camera.Camera;
 import com.snakybo.torch.camera.CameraClearFlags;
+import com.snakybo.torch.camera.CameraFreeLook;
 import com.snakybo.torch.camera.CameraFreeMove;
 import com.snakybo.torch.mesh.Material;
 import com.snakybo.torch.mesh.MeshFilter;
@@ -66,6 +67,7 @@ public class RendererTest extends TorchGame
 			}
 		});*/
 		camera.addComponent(new CameraFreeMove());
+		camera.addComponent(new CameraFreeLook());
 		
 		Material material = new Material("shaders/unlit.glsl");
 		material.setTexture("diffuse", new Texture2D(Resources.load(Bitmap.class, "grassblock.png")));
