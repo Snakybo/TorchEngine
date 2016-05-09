@@ -23,9 +23,6 @@
 package com.snakybo.torch.resource;
 
 import java.net.URI;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -91,22 +88,14 @@ public final class ResourceLoader
 	 */
 	public static Object load(URI path)
 	{
-		Path p = Paths.get(path);
-		
-		if(Files.exists(p))
+		String type = FileUtils.getExtension(path);
+			
+		if(loaders.containsKey(type))
 		{
-			String type = FileUtils.getExtension(path);
-			
-			if(loaders.containsKey(type))
-			{
-				return loaders.get(type).load(path);
-			}
-			
-			Logger.logError("Unknown resource type: " + type, "ResourceLoader");
-			return null;
+			return loaders.get(type).load(path);
 		}
 		
-		Logger.logError("No resource found at: " + p, "ResourceLoader");
+		Logger.logError("Unknown resource type: " + type, "ResourceLoader");
 		return null;
 	}
 }
