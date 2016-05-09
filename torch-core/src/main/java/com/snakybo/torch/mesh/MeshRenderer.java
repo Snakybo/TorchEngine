@@ -59,7 +59,7 @@ public class MeshRenderer extends Component
 	private static final int LAST_VBO = INDEX_VBO;
 	
 	private Material material;
-	private Mesh mesh;
+	private MeshFilter meshFilter;
 	
 	private IntBuffer vao;
 	private IntBuffer vbo;
@@ -72,7 +72,7 @@ public class MeshRenderer extends Component
 	@Override
 	protected void start()
 	{
-		mesh = getComponent(Mesh.class);
+		meshFilter = getComponent(MeshFilter.class);
 		material.setGameObject(getGameObject());
 		
 		vao = BufferUtils.createIntBuffer(1);
@@ -84,19 +84,19 @@ public class MeshRenderer extends Component
 		glGenBuffers(vbo);
 		
 		glBindBuffer(GL_ARRAY_BUFFER, vbo.get(POSITION_VBO));		
-		glBufferData(GL_ARRAY_BUFFER, mesh.getModel().getVertexBuffer(), GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, meshFilter.getModel().getVertexBuffer(), GL_STATIC_DRAW);
 		glVertexAttribPointer(POSITION_VBO, 3, GL_FLOAT, false, 0, 0);
 		
 		glBindBuffer(GL_ARRAY_BUFFER, vbo.get(TEXCOORD_VBO));
-		glBufferData(GL_ARRAY_BUFFER, mesh.getModel().getTexCoordBuffer(), GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, meshFilter.getModel().getTexCoordBuffer(), GL_STATIC_DRAW);
 		glVertexAttribPointer(TEXCOORD_VBO, 2, GL_FLOAT, false, 0, 0);
 		
 		glBindBuffer(GL_ARRAY_BUFFER, vbo.get(NORMAL_VBO));
-		glBufferData(GL_ARRAY_BUFFER, mesh.getModel().getNormalBuffer(), GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, meshFilter.getModel().getNormalBuffer(), GL_STATIC_DRAW);
 		glVertexAttribPointer(NORMAL_VBO, 3, GL_FLOAT, false, 0, 0);
 		
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo.get(INDEX_VBO));
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, mesh.getModel().getIndexBuffer(), GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, meshFilter.getModel().getIndexBuffer(), GL_STATIC_DRAW);
 		
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glBindVertexArray(0);
@@ -114,7 +114,7 @@ public class MeshRenderer extends Component
 		glEnableVertexAttribArray(1);
 		glEnableVertexAttribArray(2);
 		
-		glDrawElements(GL_TRIANGLES, mesh.getModel().getNumIndices(), GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, meshFilter.getModel().getNumIndices(), GL_UNSIGNED_INT, 0);
 		
 		glDisableVertexAttribArray(2);
 		glDisableVertexAttribArray(1);

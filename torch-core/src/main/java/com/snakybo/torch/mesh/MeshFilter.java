@@ -24,22 +24,33 @@ package com.snakybo.torch.mesh;
 
 import com.snakybo.torch.model.Model;
 import com.snakybo.torch.object.Component;
+import com.snakybo.torch.object.GameObject;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class Mesh extends Component
+public final class MeshFilter extends Component
 {
 	private Model model;
 	
-	public Mesh(Model model)
+	public MeshFilter(Model model)
 	{
 		this.model = model;
 	}
 	
 	/**
-	 * @return The model assigned to this mesh
+	 * Set the model of this {@link GameObject}.
+	 * @param model The new model.
+	 */
+	public final void setModel(Model model)
+	{
+		this.model = model;
+	}
+	
+	/**
+	 * Get the model of this {@link GameObject}.
+	 * @return The model of the {@link GameObject}.
 	 */
 	public final Model getModel()
 	{

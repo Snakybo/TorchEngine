@@ -30,7 +30,7 @@ import com.snakybo.torch.bitmap.Bitmap;
 import com.snakybo.torch.camera.Camera;
 import com.snakybo.torch.camera.CameraClearFlags;
 import com.snakybo.torch.mesh.Material;
-import com.snakybo.torch.mesh.Mesh;
+import com.snakybo.torch.mesh.MeshFilter;
 import com.snakybo.torch.mesh.MeshRenderer;
 import com.snakybo.torch.model.Model;
 import com.snakybo.torch.object.Component;
@@ -69,7 +69,7 @@ public class RendererTest extends TorchGame
 		material.setTexture("diffuse", new Texture2D(Resources.load(Bitmap.class, "grassblock.png")));
 		
 		GameObject box = new GameObject();
-		box.addComponent(new Mesh(Resources.load(Model.class, "models/cube.obj")));
+		box.addComponent(new MeshFilter(Resources.load(Model.class, "models/cube.obj")));
 		box.addComponent(new MeshRenderer(material));
 		box.addComponent(new Component()
 		{

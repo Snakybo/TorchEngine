@@ -34,6 +34,7 @@ import javax.naming.OperationNotSupportedException;
 import com.snakybo.torch.bitmap.BitmapResourceLoader;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.model.ModelResourceLoader;
+import com.snakybo.torch.shader.ShaderResourceLoader;
 import com.snakybo.torch.util.FileUtils;
 
 /**
@@ -48,6 +49,7 @@ public final class ResourceLoader
 	{
 		registerResourceLoader(new BitmapResourceLoader());
 		registerResourceLoader(new ModelResourceLoader());
+		registerResourceLoader(new ShaderResourceLoader());
 	}
 	
 	private ResourceLoader()
@@ -102,11 +104,11 @@ public final class ResourceLoader
 				return loaders.get(type).load(path);
 			}
 			
-			Logger.logWarning("Unknown resource type: " + type, "ResourceLoader");
+			Logger.logError("Unknown resource type: " + type, "ResourceLoader");
 			return null;
 		}
 		
-		Logger.logWarning("No resource found at: " + p, "ResourceLoader");
+		Logger.logError("No resource found at: " + p, "ResourceLoader");
 		return null;
 	}
 }

@@ -42,7 +42,7 @@ import com.snakybo.torch.debug.LoggerInternal;
  */
 public final class Bitmap
 {
-	BufferedImage bufferedImage;
+	private BufferedImage bufferedImage;
 	
 	/**
 	 * Create a new bitmap.
@@ -58,7 +58,7 @@ public final class Bitmap
 	 * Create a bitmap from a BufferedImage.
 	 * @param bufferedImage The BufferedImage to load.
 	 */
-	public Bitmap(BufferedImage bufferedImage)
+	Bitmap(BufferedImage bufferedImage)
 	{
 		this.bufferedImage = bufferedImage;
 	}

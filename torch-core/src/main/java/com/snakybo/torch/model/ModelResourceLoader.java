@@ -40,10 +40,10 @@ import com.snakybo.torch.util.FileUtils;
  *
  */
 @ResourceLoaderData(types={"obj"})
-public class ModelResourceLoader implements IResourceLoader
+public final class ModelResourceLoader implements IResourceLoader
 {	
 	@Override
-	public Object load(URI path)
+	public final Object load(URI path)
 	{
 		try
 		{

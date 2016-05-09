@@ -42,7 +42,7 @@ import com.snakybo.torch.util.FileUtils;
 public final class BitmapResourceLoader implements IResourceLoader
 {
 	@Override
-	public Object load(URI path)
+	public final Object load(URI path)
 	{
 		LoggerInternal.log("Loading Bitmap: " + FileUtils.getName(path), this);
 		
