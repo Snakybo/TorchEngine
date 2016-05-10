@@ -26,7 +26,6 @@ import org.joml.Vector3f;
 
 import com.snakybo.torch.camera.Camera;
 import com.snakybo.torch.mesh.Material;
-import com.snakybo.torch.mesh.MeshFilter;
 import com.snakybo.torch.mesh.MeshRenderer;
 import com.snakybo.torch.model.Model;
 import com.snakybo.torch.object.Component;
@@ -50,8 +49,7 @@ public final class Skybox extends Component
 	@Override
 	protected void start()
 	{
-		addComponent(new MeshFilter(Resources.load(Model.class, "models/skybox.obj")));
-		addComponent(new MeshRenderer(material));
+		addComponent(new MeshRenderer(Resources.load(Model.class, "models/skybox.obj"), material));
 		
 		getTransform().getLocalScale().set(20);
 	}

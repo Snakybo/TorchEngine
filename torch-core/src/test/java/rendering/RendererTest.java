@@ -29,10 +29,7 @@ import com.snakybo.torch.TorchGame;
 import com.snakybo.torch.bitmap.Bitmap;
 import com.snakybo.torch.camera.Camera;
 import com.snakybo.torch.camera.CameraClearFlags;
-import com.snakybo.torch.camera.CameraFreeLook;
-import com.snakybo.torch.camera.CameraFreeMove;
 import com.snakybo.torch.mesh.Material;
-import com.snakybo.torch.mesh.MeshFilter;
 import com.snakybo.torch.mesh.MeshRenderer;
 import com.snakybo.torch.model.Model;
 import com.snakybo.torch.object.Component;
@@ -58,23 +55,22 @@ public class RendererTest extends TorchGame
 	{
 		GameObject camera = new GameObject("Camera");
 		camera.addComponent(new Camera(new Matrix4f().perspective((float)Math.toRadians(90f), Window.getAspectRatio(), 0.01f, 1000), CameraClearFlags.SolidColor));
-		/*camera.addComponent(new Component()
+		camera.addComponent(new Component()
 		{
 			@Override
 			protected void update()
 			{
 				getTransform().rotate(new Vector3f(0, 1, 0), 0.003f);
 			}
-		});*/
-		camera.addComponent(new CameraFreeMove());
-		camera.addComponent(new CameraFreeLook());
+		});
+		//camera.addComponent(new CameraFreeMove());
+		//camera.addComponent(new CameraFreeLook());
 		
 		Material material = new Material("shaders/unlit.glsl");
 		material.setTexture("diffuse", new Texture2D(Resources.load(Bitmap.class, "grassblock.png")));
 		
 		GameObject box = new GameObject();
-		box.addComponent(new MeshFilter(Resources.load(Model.class, "models/cube.obj")));
-		box.addComponent(new MeshRenderer(material));
+		box.addComponent(new MeshRenderer(Resources.load(Model.class, "models/cube.obj"), material));
 		box.addComponent(new Component()
 		{
 			@Override

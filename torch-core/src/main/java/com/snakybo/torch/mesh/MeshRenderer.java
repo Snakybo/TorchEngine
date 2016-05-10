@@ -44,6 +44,7 @@ import java.nio.IntBuffer;
 
 import org.lwjgl.BufferUtils;
 
+import com.snakybo.torch.model.Model;
 import com.snakybo.torch.object.Component;
 
 /**
@@ -59,20 +60,20 @@ public class MeshRenderer extends Component
 	private static final int LAST_VBO = INDEX_VBO;
 	
 	private Material material;
-	private MeshFilter meshFilter;
+	private Model model;
 	
 	private IntBuffer vao;
 	private IntBuffer vbo;
 	
-	public MeshRenderer(Material material)
+	public MeshRenderer(Model model, Material material)
 	{
+		this.model = model;
 		this.material = material;
 	}
 	
 	@Override
 	protected void start()
 	{
-		meshFilter = getComponent(MeshFilter.class);
 		material.setGameObject(getGameObject());
 		
 		vao = BufferUtils.createIntBuffer(1);
@@ -84,19 +85,19 @@ public class MeshRenderer extends Component
 		glGenBuffers(vbo);
 		
 		glBindBuffer(GL_ARRAY_BUFFER, vbo.get(POSITION_VBO));		
-		glBufferData(GL_ARRAY_BUFFER, meshFilter.getModel().getVertexBuffer(), GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, model.getVertexBuffer(), GL_STATIC_DRAW);
 		glVertexAttribPointer(POSITION_VBO, 3, GL_FLOAT, false, 0, 0);
 		
 		glBindBuffer(GL_ARRAY_BUFFER, vbo.get(TEXCOORD_VBO));
-		glBufferData(GL_ARRAY_BUFFER, meshFilter.getModel().getTexCoordBuffer(), GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, model.getTexCoordBuffer(), GL_STATIC_DRAW);
 		glVertexAttribPointer(TEXCOORD_VBO, 2, GL_FLOAT, false, 0, 0);
 		
 		glBindBuffer(GL_ARRAY_BUFFER, vbo.get(NORMAL_VBO));
-		glBufferData(GL_ARRAY_BUFFER, meshFilter.getModel().getNormalBuffer(), GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, model.getNormalBuffer(), GL_STATIC_DRAW);
 		glVertexAttribPointer(NORMAL_VBO, 3, GL_FLOAT, false, 0, 0);
 		
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo.get(INDEX_VBO));
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, meshFilter.getModel().getIndexBuffer(), GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, model.getIndexBuffer(), GL_STATIC_DRAW);
 		
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glBindVertexArray(0);
@@ -114,7 +115,7 @@ public class MeshRenderer extends Component
 		glEnableVertexAttribArray(1);
 		glEnableVertexAttribArray(2);
 		
-		glDrawElements(GL_TRIANGLES, meshFilter.getModel().getNumIndices(), GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, model.getNumIndices(), GL_UNSIGNED_INT, 0);
 		
 		glDisableVertexAttribArray(2);
 		glDisableVertexAttribArray(1);
