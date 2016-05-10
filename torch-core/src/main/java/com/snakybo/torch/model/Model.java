@@ -45,7 +45,6 @@ public final class Model
 	
 	/**
 	 * Create a new model
-	 * @param name The name of the model
 	 */
 	public Model()
 	{

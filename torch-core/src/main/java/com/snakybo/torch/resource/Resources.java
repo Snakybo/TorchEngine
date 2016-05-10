@@ -67,6 +67,7 @@ public final class Resources
 	
 	/**
 	 * Load a resource from the specified path.
+	 * @param <T> The type of the class to cast the result to.
 	 * @param type The type of the class to cast the result to.
 	 * @param path The path to the resource.
 	 * @return The resource, can be anything as
@@ -90,6 +91,7 @@ public final class Resources
 	
 	/**
 	 * Load a resource from the specified URI.
+	 * @param <T> The type of the class to cast the result to.
 	 * @param type The type of the class to cast the result to.
 	 * @param path The path to the resource.
 	 * @return The resource, can be anything as
