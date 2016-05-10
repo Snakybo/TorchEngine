@@ -38,7 +38,7 @@ public class Object
 	}
 	
 	/**
-	 * @see #getName()
+	 * @return The name of the object.
 	 */
 	@Override
 	public String toString()
@@ -47,8 +47,8 @@ public class Object
 	}
 	
 	/**
-	 * Set the name of the object
-	 * @param name The new name
+	 * Set the name of the object.
+	 * @param name The new name.
 	 */
 	public void setName(String name)
 	{
@@ -62,7 +62,7 @@ public class Object
 	}
 	
 	/**
-	 * @return The name of the object
+	 * @return The name of the object.
 	 */
 	public String getName()
 	{
@@ -70,8 +70,8 @@ public class Object
 	}
 	
 	/**
-	 * Destroy an object, can be used on any {@link GameObject} or {@link Component}
-	 * @param object The object to destroy
+	 * Destroy an object, can be used on any {@link GameObject} or {@link Component}.
+	 * @param object The object to destroy.
 	 * @see GameObject
 	 * @see Component
 	 */
