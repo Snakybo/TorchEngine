@@ -42,7 +42,6 @@ public final class MouseInternal
 {
 	static
 	{
-		Mouse.mousePositionDelta = new Vector2f();
 		Mouse.mousePosition = getCursorPosition();
 	}
 	

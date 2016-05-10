@@ -42,10 +42,10 @@ public final class Mouse
 	static boolean[] current = new boolean[LAST];
 	static boolean[] last = new boolean[LAST];
 	
-	static Vector2f mousePositionDelta;
-	static Vector2f mousePosition;
+	static Vector2f mousePositionDelta = new Vector2f();
+	static Vector2f mousePosition = new Vector2f();
 	
-	static Vector2f scrollDelta;
+	static Vector2f scrollDelta = new Vector2f();
 	
 	private static Map<String, MouseButton> inputMapping = new HashMap<String, MouseButton>();
 	
