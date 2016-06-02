@@ -20,61 +20,59 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package input;
+package com.snakybo.torch.module;
+
+import com.snakybo.torch.debug.LoggerInternal;
+import com.snakybo.torch.renderer.IRenderer;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-/*public class JoystickExample extends TorchGame
+public abstract class RenderModule extends Module
 {
-	public JoystickExample()
+	private static RenderModule instance;
+	
+	protected IRenderer renderer;
+	
+	protected RenderModule()
 	{
-		super("Joystick Test");
+		if(instance != null)
+		{
+			throw new RuntimeException("There can't be more as one RenderModule");
+		}
+		
+		LoggerInternal.log("Created RenderModule", this);
+		
+		instance = this;
 	}
 	
 	@Override
-	protected void onCreate()
+	public void create()
 	{
-		GameObject joystickManager = new GameObject();
-		joystickManager.addComponent(new Component()
-		{
-			@Override
-			protected void update()
-			{
-				Logger.log("=========================");
-				Logger.log("Num joysticks present: " + Joystick.getNumJoysticksPresent());
-				
-				for(int i : Joystick.getJoysticksPresent())
-				{
-					Logger.log(" Name: " + Joystick.getJoystickName(i));
-					Logger.log("   Num buttons: " + Joystick.getNumButtons(i));
-					
-					for(int j = 0; j < Joystick.getNumButtons(i); j++)
-					{
-						if(Joystick.onButtonDown(i, j))
-						{
-							Logger.log("    onButtonDown: " + j);
-						}
-						
-						if(Joystick.isButtonDown(i, j))
-						{
-							Logger.log("    isButtonDown: " + j);
-						}
-						
-						if(Joystick.onButtonUp(i, j))
-						{
-							Logger.log("    onButtonUp: " + j);
-						}
-					}
-					
-					Logger.log("   Num axes: " + Joystick.getNumAxes(i));
-					for(int j = 0; j < Joystick.getNumAxes(i); j++)
-					{
-						Logger.log("    Axis " + j + ": " + Joystick.getAxis(i, j));
-					}
-				}
-			}
-		});
 	}
-}*/
+	
+	@Override
+	public void destroy()
+	{
+	}
+	
+	public final IRenderer getRenderer()
+	{
+		return renderer;
+	}
+	
+	/**
+	 * Get the instance of the active module.
+	 * @return The instance of the active module.
+	 */
+	public static RenderModule getInstance()
+	{
+		if(instance == null)
+		{
+			throw new RuntimeException("No module found");
+		}
+		
+		return instance;
+	}
+}

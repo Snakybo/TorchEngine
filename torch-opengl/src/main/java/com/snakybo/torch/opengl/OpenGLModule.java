@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.renderer;
+package com.snakybo.torch.opengl;
 
 import static org.lwjgl.opengl.GL.createCapabilities;
 import static org.lwjgl.opengl.GL11.GL_BACK;
@@ -37,24 +37,26 @@ import static org.lwjgl.opengl.GL11.glGetString;
 
 import com.snakybo.torch.debug.Debug;
 import com.snakybo.torch.debug.LoggerInternal;
-import com.snakybo.torch.object.GameObject;
-import com.snakybo.torch.object.GameObjectInternal;
+import com.snakybo.torch.module.RenderModule;
+import com.snakybo.torch.opengl.renderer.OpenGLRenderer;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class OpenGLRenderer
+public final class OpenGLModule extends RenderModule
 {
-	private OpenGLRenderer()
+	public OpenGLModule()
 	{
-		throw new AssertionError();
+		super();
+		
+		LoggerInternal.log("Creating OpenGL module", this);
+		
+		renderer = new OpenGLRenderer();
 	}
 	
-	/**
-	 * Create the OpenGL renderer
-	 */
-	public static void create()
+	@Override
+	public void create()
 	{
 		createCapabilities();
 		
@@ -71,16 +73,5 @@ public final class OpenGLRenderer
 		
 		glEnable(GL_CULL_FACE);
 		glCullFace(GL_BACK);
-	}
-	
-	/**
-	 * Render a single object
-	 * @param gameObject The object to render
-	 */
-	public static void renderObject(GameObject gameObject)
-	{
-		GameObjectInternal.preRenderObject(gameObject);
-		GameObjectInternal.renderObject(gameObject);
-		GameObjectInternal.postRenderObject(gameObject);
 	}
 }

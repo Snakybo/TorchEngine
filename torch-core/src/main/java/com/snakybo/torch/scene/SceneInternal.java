@@ -29,7 +29,7 @@ import com.snakybo.torch.camera.Camera;
 import com.snakybo.torch.object.Component;
 import com.snakybo.torch.object.GameObject;
 import com.snakybo.torch.object.GameObjectInternal;
-import com.snakybo.torch.renderer.OpenGLRenderer;
+import com.snakybo.torch.renderer.Renderer;
 
 /**
  * @author Snakybo
@@ -110,7 +110,7 @@ public final class SceneInternal
 	{
 		for(GameObject gameObject : frameQueue)
 		{
-			OpenGLRenderer.renderObject(gameObject);
+			Renderer.render(gameObject);
 		}
 	}
 	

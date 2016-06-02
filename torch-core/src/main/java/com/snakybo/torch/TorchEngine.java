@@ -26,6 +26,7 @@ import org.lwjgl.Version;
 
 import com.snakybo.torch.debug.Debug;
 import com.snakybo.torch.debug.LoggerInternal;
+import com.snakybo.torch.module.RenderModule;
 import com.snakybo.torch.module.WindowModule;
 import com.snakybo.torch.scene.SceneInternal;
 import com.snakybo.torch.time.TimeInternal;
@@ -86,6 +87,8 @@ public final class TorchEngine
 			running = true;
 			
 			WindowModule.getInstance().create();
+			RenderModule.getInstance().create();
+			
 			game.onCreate();
 			mainLoop();
 		}

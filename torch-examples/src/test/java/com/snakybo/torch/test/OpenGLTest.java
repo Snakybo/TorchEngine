@@ -20,24 +20,49 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package rendering;
+package com.snakybo.torch.test;
+
+import org.joml.Matrix4f;
+import org.joml.Vector3f;
+
+import com.snakybo.torch.TorchGame;
+import com.snakybo.torch.bitmap.Bitmap;
+import com.snakybo.torch.camera.Camera;
+import com.snakybo.torch.camera.CameraClearFlags;
+import com.snakybo.torch.glfw.GLFWModule;
+import com.snakybo.torch.glfw.window.GLFWMonitor;
+import com.snakybo.torch.glfw.window.GLFWWindowMode;
+import com.snakybo.torch.mesh.Material;
+import com.snakybo.torch.mesh.MeshRenderer;
+import com.snakybo.torch.model.Model;
+import com.snakybo.torch.object.Component;
+import com.snakybo.torch.object.GameObject;
+import com.snakybo.torch.opengl.OpenGLModule;
+import com.snakybo.torch.renderer.Skybox;
+import com.snakybo.torch.resource.Resources;
+import com.snakybo.torch.texture.Texture2D;
+import com.snakybo.torch.window.Window;
+import com.snakybo.torch.window.WindowMode;
 
 /**
- * @author Snakybo
- * @since 1.0
+ * @author Kevin
+ *
  */
-/*public class RendererTest extends TorchGame
+public class OpenGLTest extends TorchGame
 {
-	public RendererTest()
+	public OpenGLTest()
 	{
-		super("Renderer Test");
+		super("OpenGL Test");
+		
+		new GLFWModule();
+		new OpenGLModule();
 	}
 	
 	@Override
 	protected void onCreate()
 	{
 		GameObject camera = new GameObject("Camera");
-		camera.addComponent(new Camera(new Matrix4f().perspective((float)Math.toRadians(90f), Mouse.getAspectRatio(), 0.01f, 1000), CameraClearFlags.SolidColor));
+		camera.addComponent(new Camera(new Matrix4f().perspective((float)Math.toRadians(90f), Window.getAspectRatio(), 0.01f, 1000), CameraClearFlags.SolidColor));
 		camera.addComponent(new Component()
 		{
 			@Override
@@ -67,11 +92,16 @@ package rendering;
 		box.getTransform().rotate(new Vector3f(0, 1, 0), 45f);
 		
 		GameObject skybox = new GameObject();
-		skybox.addComponent(new Skybox(new Texture2D(Resources.load(Bitmap.class, "textures/skybox.png"))));
+		skybox.addComponent(new Skybox(new Texture2D(Resources.load(Bitmap.class, "skybox.png"))));
 	}
 	
 	public static void main(String[] args)
 	{
-		new RendererTest();
+		TorchGame game = new OpenGLTest();
+		
+		GLFWMonitor monitor = GLFWMonitor.getPrimaryMonitor();		
+		Window.create(new GLFWWindowMode(monitor.getNativeId(), 1280, 720), WindowMode.Mode.Windowed);
+		
+		game.start();
 	}
-}*/
+}

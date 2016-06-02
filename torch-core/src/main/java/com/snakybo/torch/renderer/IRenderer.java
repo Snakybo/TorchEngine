@@ -20,42 +20,19 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import com.snakybo.torch.TorchGame;
-import com.snakybo.torch.glfw.GLFWModule;
-import com.snakybo.torch.glfw.window.GLFWMonitor;
-import com.snakybo.torch.glfw.window.GLFWWindowMode;
+package com.snakybo.torch.renderer;
+
 import com.snakybo.torch.object.GameObject;
-import com.snakybo.torch.window.Window;
-import com.snakybo.torch.window.WindowMode;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public class GLFWWindowTest extends TorchGame
+public interface IRenderer
 {
-	public GLFWWindowTest()
-	{
-		super("GLFW Windowing Test");
-		
-		new GLFWModule();
-	}
-
-	@Override
-	protected void onCreate()
-	{
-		GameObject obj = new GameObject();
-		obj.addComponent(new GLFWInputListener());
-		obj.addComponent(new GLFWCallbackListener());
-	}
-	
-	public static void main(String[] args)
-	{
-		TorchGame game = new GLFWWindowTest();
-		
-		GLFWMonitor monitor = GLFWMonitor.getPrimaryMonitor();		
-		Window.create(new GLFWWindowMode(monitor.getNativeId(), 1280, 720), WindowMode.Mode.Windowed);
-		
-		game.start();
-	}
+	/**
+	 * Render a single {@link GameObject}.
+	 * @param gameObject The {@link GameObject} to render.
+	 */
+	void render(GameObject gameObject);
 }

@@ -23,7 +23,6 @@
 package com.snakybo.torch;
 
 import com.snakybo.torch.debug.LoggerInternal;
-import com.snakybo.torch.module.WindowModule;
 import com.snakybo.torch.time.TimeInternal;
 
 /**
@@ -39,24 +38,14 @@ public abstract class TorchGame
 	
 	/**
 	 * Create a game.
-	 * @param module The module to use.
 	 * @param name The name of the game.
 	 */
-	public <T extends WindowModule> TorchGame(Class<T> module, String name)
+	public TorchGame(String name)
 	{
 		LoggerInternal.log("Game name: " + name, "TorchGame");
 		
 		TorchGame.name = name;
 		TorchGame.engine = new TorchEngine(this);
-		
-		try
-		{
-			module.newInstance();
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
 	}
 	
 	/**
