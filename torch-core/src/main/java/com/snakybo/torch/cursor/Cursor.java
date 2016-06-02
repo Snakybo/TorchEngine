@@ -25,7 +25,7 @@ package com.snakybo.torch.cursor;
 import org.joml.Vector2f;
 
 import com.snakybo.torch.bitmap.Bitmap;
-import com.snakybo.torch.module.Module;
+import com.snakybo.torch.module.WindowModule;
 
 /**
  * @author Snakybo
@@ -40,56 +40,56 @@ public final class Cursor
 	
 	public static boolean isVisible()
 	{
-		return Module.getInstance().getCursor().isVisible();
+		return WindowModule.getInstance().getCursor().isVisible();
 	}
 
 	public static void setLockMode(CursorLockMode cursorLockMode)
 	{
-		Module.getInstance().getCursor().setLockMode(cursorLockMode);
+		WindowModule.getInstance().getCursor().setLockMode(cursorLockMode);
 	}
 	
 	public static void setVisible(boolean visible)
 	{
-		Module.getInstance().getCursor().setVisible(visible);
+		WindowModule.getInstance().getCursor().setVisible(visible);
 	}
 	
 	public static void setShapeArrow()
 	{
-		Module.getInstance().getCursor().setShapeArrow();
+		WindowModule.getInstance().getCursor().setShapeArrow();
 	}
 	
 	public static void setShapeIBeam()
 	{
-		Module.getInstance().getCursor().setShapeIBeam();
+		WindowModule.getInstance().getCursor().setShapeIBeam();
 	}
 	
 	public static void setShapeCrosshair()
 	{
-		Module.getInstance().getCursor().setShapeCrosshair();
+		WindowModule.getInstance().getCursor().setShapeCrosshair();
 	}
 	
 	public static void setShapeHand()
 	{
-		Module.getInstance().getCursor().setShapeHand();
+		WindowModule.getInstance().getCursor().setShapeHand();
 	}
 	
 	public static void setShapeHResize()
 	{
-		Module.getInstance().getCursor().setShapeHResize();
+		WindowModule.getInstance().getCursor().setShapeHResize();
 	}
 	
 	public static void setShapeVResize()
 	{
-		Module.getInstance().getCursor().setShapeVResize();
+		WindowModule.getInstance().getCursor().setShapeVResize();
 	}
 	
 	public static void setShape(Bitmap bitmap, Vector2f hot)
 	{
-		Module.getInstance().getCursor().setShape(bitmap, hot);
+		WindowModule.getInstance().getCursor().setShape(bitmap, hot);
 	}
 	
 	public static CursorLockMode getLockMode()
 	{
-		return Module.getInstance().getCursor().getLockMode();
+		return WindowModule.getInstance().getCursor().getLockMode();
 	}
 }

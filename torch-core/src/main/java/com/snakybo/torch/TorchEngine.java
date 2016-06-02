@@ -26,7 +26,7 @@ import org.lwjgl.Version;
 
 import com.snakybo.torch.debug.Debug;
 import com.snakybo.torch.debug.LoggerInternal;
-import com.snakybo.torch.module.Module;
+import com.snakybo.torch.module.WindowModule;
 import com.snakybo.torch.scene.SceneInternal;
 import com.snakybo.torch.time.TimeInternal;
 import com.snakybo.torch.window.Window;
@@ -85,7 +85,7 @@ public final class TorchEngine
 			
 			running = true;
 			
-			Module.getInstance().create();
+			WindowModule.getInstance().create();
 			game.onCreate();
 			mainLoop();
 		}
@@ -139,7 +139,7 @@ public final class TorchEngine
 			{
 				renderCycle();
 				
-				Module.getInstance().getWindowController().update();
+				WindowModule.getInstance().getWindowController().update();
 				TimeInternal.updateFrameCount();
 			}
 			else
@@ -166,7 +166,7 @@ public final class TorchEngine
 		SceneInternal.runUpdateCycle();
 		
 		// Update input
-		Module module = Module.getInstance();
+		WindowModule module = WindowModule.getInstance();
 		module.getKeyboardController().update();
 		module.getMouseController().update();
 		module.getCursorController().update();
@@ -186,7 +186,7 @@ public final class TorchEngine
 	 */
 	private final void destroy()
 	{
-		Module.getInstance().destroy();
+		WindowModule.getInstance().destroy();
 	}
 	
 	/**

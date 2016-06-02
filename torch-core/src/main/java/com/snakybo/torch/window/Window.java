@@ -24,7 +24,7 @@ package com.snakybo.torch.window;
 
 import org.joml.Vector2f;
 
-import com.snakybo.torch.module.Module;
+import com.snakybo.torch.module.WindowModule;
 
 /**
  * @author Snakybo
@@ -48,7 +48,7 @@ public final class Window
 	 */
 	public static void create(WindowMode windowMode, WindowMode.Mode displayMode)
 	{
-		Module.getInstance().getWindow().create(windowMode, displayMode);
+		WindowModule.getInstance().getWindow().create(windowMode, displayMode);
 	}
 	
 	/**
@@ -60,7 +60,7 @@ public final class Window
 	 */
 	public static void destroy()
 	{
-		Module.getInstance().getWindow().destroy();
+		WindowModule.getInstance().getWindow().destroy();
 	}
 	
 	/**
@@ -73,7 +73,7 @@ public final class Window
 	 */
 	public static boolean isCloseRequested()
 	{
-		return Module.getInstance().getWindow().isCloseRequested();
+		return WindowModule.getInstance().getWindow().isCloseRequested();
 	}
 	
 	/**
@@ -86,7 +86,7 @@ public final class Window
 	 */
 	public static boolean isVSyncEnabled()
 	{
-		return Module.getInstance().getWindow().isVSyncEnabled();
+		return WindowModule.getInstance().getWindow().isVSyncEnabled();
 	}
 	
 	/**
@@ -99,7 +99,7 @@ public final class Window
 	 */
 	public static void setSize(Vector2f size)
 	{
-		Module.getInstance().getWindow().setSize(size);
+		WindowModule.getInstance().getWindow().setSize(size);
 	}
 	
 	/**
@@ -112,7 +112,7 @@ public final class Window
 	 */
 	public static void setVSyncEnabled(boolean enabled)
 	{
-		Module.getInstance().getWindow().setVSyncEnabled(enabled);
+		WindowModule.getInstance().getWindow().setVSyncEnabled(enabled);
 	}
 	
 	/**
@@ -125,7 +125,7 @@ public final class Window
 	 */
 	public static Vector2f getSize()
 	{
-		return Module.getInstance().getWindow().getSize();
+		return WindowModule.getInstance().getWindow().getSize();
 	}
 	
 	/**
@@ -138,7 +138,7 @@ public final class Window
 	 */
 	public static float getAspectRatio()
 	{
-		return Module.getInstance().getWindow().getAspectRatio();
+		return WindowModule.getInstance().getWindow().getAspectRatio();
 	}
 	
 	/**
@@ -151,7 +151,7 @@ public final class Window
 	 */
 	public static Vector2f getCenter()
 	{
-		return Module.getInstance().getWindow().getCenter();
+		return WindowModule.getInstance().getWindow().getCenter();
 	}
 	
 	/**
@@ -164,6 +164,6 @@ public final class Window
 	 */
 	public static long getNativeId()
 	{
-		return Module.getInstance().getWindow().getNativeId();
+		return WindowModule.getInstance().getWindow().getNativeId();
 	}
 }

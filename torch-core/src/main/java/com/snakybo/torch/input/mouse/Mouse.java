@@ -24,7 +24,7 @@ package com.snakybo.torch.input.mouse;
 
 import org.joml.Vector2f;
 
-import com.snakybo.torch.module.Module;
+import com.snakybo.torch.module.WindowModule;
 
 /**
  * @author Snakybo
@@ -48,7 +48,7 @@ public final class Mouse
 	 */
 	public static boolean isDown(MouseButton id)
 	{
-		return Module.getInstance().getMouse().isDown(id);
+		return WindowModule.getInstance().getMouse().isDown(id);
 	}
 	
 	/**
@@ -62,7 +62,7 @@ public final class Mouse
 	 */
 	public static boolean isUp(MouseButton id)
 	{
-		return Module.getInstance().getMouse().isUp(id);
+		return WindowModule.getInstance().getMouse().isUp(id);
 	}
 	
 	/**
@@ -76,7 +76,7 @@ public final class Mouse
 	 */
 	public static boolean onDown(MouseButton id)
 	{
-		return Module.getInstance().getMouse().onDown(id);
+		return WindowModule.getInstance().getMouse().onDown(id);
 	}
 	
 	/**
@@ -90,7 +90,7 @@ public final class Mouse
 	 */
 	public static boolean onUp(MouseButton id)
 	{
-		return Module.getInstance().getMouse().onUp(id);
+		return WindowModule.getInstance().getMouse().onUp(id);
 	}
 	
 	/**
@@ -103,7 +103,7 @@ public final class Mouse
 	 */
 	public static void setCursorPosition(Vector2f position)
 	{
-		Module.getInstance().getMouse().setCursorPosition(position);
+		WindowModule.getInstance().getMouse().setCursorPosition(position);
 	}
 	
 	/**
@@ -116,7 +116,7 @@ public final class Mouse
 	 */
 	public static Vector2f getScrollDelta()
 	{
-		return Module.getInstance().getMouse().getScrollDelta();
+		return WindowModule.getInstance().getMouse().getScrollDelta();
 	}
 	
 	/**
@@ -129,7 +129,7 @@ public final class Mouse
 	 */
 	public static Vector2f getCursorPosition()
 	{
-		return Module.getInstance().getMouse().getCursorPosition();
+		return WindowModule.getInstance().getMouse().getCursorPosition();
 	}
 	
 	/**
@@ -142,6 +142,6 @@ public final class Mouse
 	 */
 	public static Vector2f getCursorPositionDelta()
 	{
-		return Module.getInstance().getMouse().getCursorPositionDelta();
+		return WindowModule.getInstance().getMouse().getCursorPositionDelta();
 	}
 }

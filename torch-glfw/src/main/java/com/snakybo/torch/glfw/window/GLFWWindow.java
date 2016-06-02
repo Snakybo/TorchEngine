@@ -39,6 +39,7 @@ import static org.lwjgl.glfw.GLFW.glfwSetCursorEnterCallback;
 import static org.lwjgl.glfw.GLFW.glfwSetScrollCallback;
 import static org.lwjgl.glfw.GLFW.glfwSetWindowFocusCallback;
 import static org.lwjgl.glfw.GLFW.glfwSetWindowIconifyCallback;
+import static org.lwjgl.glfw.GLFW.glfwSetWindowSize;
 import static org.lwjgl.glfw.GLFW.glfwShowWindow;
 import static org.lwjgl.glfw.GLFW.glfwSwapInterval;
 import static org.lwjgl.glfw.GLFW.glfwWindowHint;
@@ -55,7 +56,7 @@ import org.lwjgl.glfw.Callbacks;
 import com.snakybo.torch.TorchGame;
 import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.glfw.input.mouse.GLFWMouseController;
-import com.snakybo.torch.module.Module;
+import com.snakybo.torch.module.WindowModule;
 import com.snakybo.torch.scene.SceneInternal;
 import com.snakybo.torch.window.IWindow;
 import com.snakybo.torch.window.WindowMode;
@@ -67,7 +68,6 @@ import com.snakybo.torch.window.WindowMode;
 public class GLFWWindow implements IWindow
 {
 	private WindowMode windowMode;
-	private WindowMode.Mode displayMode;
 	
 	private long windowId;
 	
@@ -123,7 +123,7 @@ public class GLFWWindow implements IWindow
 		glfwSetCharCallback(windowId, (window, codepoint) -> SceneInternal.notify("onCharPressed", new Class<?>[]{char.class}, new Object[]{(char)codepoint}));
 		
 		glfwSetCursorEnterCallback(windowId, (window, entered) -> SceneInternal.notify("onCursorEnter", new Class<?>[]{boolean.class}, new Object[]{entered}));
-		glfwSetScrollCallback(windowId, (window, x, y) -> ((GLFWMouseController)Module.getInstance().getMouseController()).setScrollDelta((float)x, (float)y));
+		glfwSetScrollCallback(windowId, (window, x, y) -> ((GLFWMouseController)WindowModule.getInstance().getMouseController()).setScrollDelta((float)x, (float)y));
 		
 		glfwMakeContextCurrent(windowId);
 		glfwShowWindow(windowId);

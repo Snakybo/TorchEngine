@@ -36,13 +36,13 @@ import com.snakybo.torch.glfw.input.joystick.GLFWJoystickController;
 import com.snakybo.torch.glfw.input.keyboad.GLFWKeyboardController;
 import com.snakybo.torch.glfw.input.mouse.GLFWMouseController;
 import com.snakybo.torch.glfw.window.GLFWWindowController;
-import com.snakybo.torch.module.Module;
+import com.snakybo.torch.module.WindowModule;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class GLFWModule extends Module
+public final class GLFWModule extends WindowModule
 {
 	private GLFWErrorCallback glfwErrorCallback;
 	

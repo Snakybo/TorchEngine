@@ -36,9 +36,9 @@ import com.snakybo.torch.window.IWindowController;
  * @author Snakybo
  * @since 1.0
  */
-public abstract class Module
+public abstract class WindowModule
 {
-	private static Module instance;
+	private static WindowModule instance;
 	
 	protected IInputController<IKeyboard> keyboard;
 	protected IInputController<IMouse> mouse;
@@ -48,7 +48,7 @@ public abstract class Module
 	
 	protected ICursorController cursor;
 	
-	protected Module()
+	protected WindowModule()
 	{
 		if(instance != null)
 		{
@@ -179,7 +179,7 @@ public abstract class Module
 	 * Get the instance of the active module.
 	 * @return The instance of the active module.
 	 */
-	public static Module getInstance()
+	public static WindowModule getInstance()
 	{
 		if(instance == null)
 		{

@@ -23,7 +23,7 @@
 package com.snakybo.torch;
 
 import com.snakybo.torch.debug.LoggerInternal;
-import com.snakybo.torch.module.Module;
+import com.snakybo.torch.module.WindowModule;
 import com.snakybo.torch.time.TimeInternal;
 
 /**
@@ -42,7 +42,7 @@ public abstract class TorchGame
 	 * @param module The module to use.
 	 * @param name The name of the game.
 	 */
-	public <T extends Module> TorchGame(Class<T> module, String name)
+	public <T extends WindowModule> TorchGame(Class<T> module, String name)
 	{
 		LoggerInternal.log("Game name: " + name, "TorchGame");
 		

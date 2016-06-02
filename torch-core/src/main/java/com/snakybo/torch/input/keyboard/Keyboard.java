@@ -22,7 +22,7 @@
 
 package com.snakybo.torch.input.keyboard;
 
-import com.snakybo.torch.module.Module;
+import com.snakybo.torch.module.WindowModule;
 
 /**
  * @author Snakybo
@@ -46,7 +46,7 @@ public final class Keyboard
 	 */
 	public static boolean isDown(Key id)
 	{
-		return Module.getInstance().getKeyboard().isDown(id);
+		return WindowModule.getInstance().getKeyboard().isDown(id);
 	}
 	
 	/**
@@ -60,7 +60,7 @@ public final class Keyboard
 	 */
 	public static boolean isUp(Key id)
 	{
-		return Module.getInstance().getKeyboard().isUp(id);
+		return WindowModule.getInstance().getKeyboard().isUp(id);
 	}
 	
 	/**
@@ -74,7 +74,7 @@ public final class Keyboard
 	 */
 	public static boolean onDown(Key id)
 	{
-		return Module.getInstance().getKeyboard().onDown(id);
+		return WindowModule.getInstance().getKeyboard().onDown(id);
 	}
 	
 	/**
@@ -88,7 +88,7 @@ public final class Keyboard
 	 */
 	public static boolean onUp(Key id)
 	{
-		return Module.getInstance().getKeyboard().onUp(id);
+		return WindowModule.getInstance().getKeyboard().onUp(id);
 	}
 	
 	/**
@@ -101,7 +101,7 @@ public final class Keyboard
 	 */
 	public static void setClipboardString(String string)
 	{
-		Module.getInstance().getKeyboard().setClipboardString(string);
+		WindowModule.getInstance().getKeyboard().setClipboardString(string);
 	}
 	
 	/**
@@ -114,6 +114,6 @@ public final class Keyboard
 	 */
 	public static String getClipboardString()
 	{
-		return Module.getInstance().getKeyboard().getClipboardString();
+		return WindowModule.getInstance().getKeyboard().getClipboardString();
 	}
 }

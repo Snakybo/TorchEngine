@@ -22,7 +22,7 @@
 
 package com.snakybo.torch.input.joystick;
 
-import com.snakybo.torch.module.Module;
+import com.snakybo.torch.module.WindowModule;
 
 /**
  * @author Snakybo
@@ -45,7 +45,7 @@ public final class Joystick
 	 */
 	public static boolean isJoystickPresent()
 	{
-		return Module.getInstance().getJoystick().isJoystickPresent();
+		return WindowModule.getInstance().getJoystick().isJoystickPresent();
 	}
 	
 	/**
@@ -58,7 +58,7 @@ public final class Joystick
 	 */
 	public static IJoystickDevice getJoystick()
 	{
-		return Module.getInstance().getJoystick().getJoystick();
+		return WindowModule.getInstance().getJoystick().getJoystick();
 	}
 	
 	/**
@@ -71,7 +71,7 @@ public final class Joystick
 	 */
 	public static IJoystickDevice[] getJoysticks()
 	{
-		return Module.getInstance().getJoystick().getJoysticks();
+		return WindowModule.getInstance().getJoystick().getJoysticks();
 	}
 	
 	/**
@@ -84,6 +84,6 @@ public final class Joystick
 	 */
 	public static int getNumJoysticksPresent()
 	{
-		return Module.getInstance().getJoystick().getNumJoysticksPresent();
+		return WindowModule.getInstance().getJoystick().getNumJoysticksPresent();
 	}
 }
