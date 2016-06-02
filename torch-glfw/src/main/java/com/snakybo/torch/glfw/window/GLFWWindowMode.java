@@ -20,41 +20,32 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.debug;
+package com.snakybo.torch.glfw.window;
+
+import com.snakybo.torch.window.WindowMode;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class Debug
-{
-	/**
-	 * Whether or not to log the current FPS in the console.
-	 * @deprecated To be replaced by UI.
-	 */
-	@Deprecated
-	public static final boolean LOG_FPS;
+public final class GLFWWindowMode extends WindowMode
+{	
+	private long monitor;
 	
-	/**
-	 * Whether or not to log debug/internal logs of the engine.
-	 */
-	public static final boolean LOG_DEBUG;
-	
-	/**
-	 * Whether or not to log library information.
-	 */
-	public static final boolean LOG_LIBRARY_INFO;
-	
-	static
+	public GLFWWindowMode(long monitor, int width, int height)
 	{
-		LOG_FPS = Boolean.parseBoolean(System.getenv("LOG_FPS"));
-		//LOG_DEBUG = Boolean.parseBoolean(System.getenv("DEBUG"));
-		LOG_DEBUG = true;
-		LOG_LIBRARY_INFO = Boolean.parseBoolean(System.getenv("DEBUG_LIBRARY"));
+		this(monitor, width, height, 0, 0);
 	}
 	
-	private Debug()
+	public GLFWWindowMode(long monitor, int width, int height, int bpp, int freq)
 	{
-		throw new AssertionError();
+		super(width, height, bpp, freq);
+		
+		this.monitor = monitor;
+	}
+	
+	public final long getMonitor()
+	{
+		return monitor;
 	}
 }

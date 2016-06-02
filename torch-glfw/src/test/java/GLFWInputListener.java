@@ -20,69 +20,81 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.camera;
-
-import org.joml.Vector2f;
-import org.joml.Vector3f;
-
-import com.snakybo.torch.cursor.Cursor;
-import com.snakybo.torch.cursor.CursorLockMode;
+import com.snakybo.torch.debug.Logger;
+import com.snakybo.torch.input.keyboard.Key;
+import com.snakybo.torch.input.keyboard.Keyboard;
 import com.snakybo.torch.input.mouse.Mouse;
+import com.snakybo.torch.input.mouse.MouseButton;
 import com.snakybo.torch.object.Component;
-import com.snakybo.torch.window.Window;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public class CameraFreeLook extends Component
+public class GLFWInputListener extends Component
 {
-	private float sensitivity;
-	
-	public CameraFreeLook()
-	{
-		this(0.5f);
-	}
-	
-	public CameraFreeLook(float sensitivity)
-	{
-		this.sensitivity = sensitivity;
-	}
-	
-	@Override
-	protected void start()
-	{
-		Mouse.setCursorPosition(Window.getCenter());
-		
-		Cursor.setLockMode(CursorLockMode.Locked);
-		Cursor.setVisible(false);
-	}
-	
-	@Override
-	protected void destroy()
-	{
-		Cursor.setLockMode(CursorLockMode.None);
-		Cursor.setVisible(true);
-	}
-	
 	@Override
 	protected void update()
 	{
-		Vector2f delta = Mouse.getCursorPositionDelta();
-		
-		if(delta.x != 0)
+		if(Keyboard.onDown(Key.W))
 		{
-			rotate(new Vector3f(0, 1, 0), delta.x);
+			Logger.log("Pressed W", this);
 		}
 		
-		if(delta.y != 0)
+		if(Keyboard.onUp(Key.W))
 		{
-			rotate(getTransform().getRight(), delta.y);
+			Logger.log("Released W", this);
+		}
+		
+		if(Keyboard.onDown(Key.A))
+		{
+			Logger.log("Pressed A", this);
+		}
+		
+		if(Keyboard.onUp(Key.A))
+		{
+			Logger.log("Released A", this);
+		}
+		
+		if(Keyboard.onDown(Key.S))
+		{
+			Logger.log("Pressed S", this);
+		}
+		
+		if(Keyboard.onUp(Key.S))
+		{
+			Logger.log("Released S", this);
+		}
+		
+		if(Keyboard.onDown(Key.D))
+		{
+			Logger.log("Pressed D", this);
+		}
+		
+		if(Keyboard.onUp(Key.D))
+		{
+			Logger.log("Released D", this);
+		}
+		
+		if(Mouse.onDown(MouseButton.LEFT))
+		{
+			Logger.log("Pressed left mouse button", this);
+		}
+		
+		if(Mouse.onUp(MouseButton.LEFT))
+		{
+			Logger.log("Released left mouse button", this);
+		}
+		
+		if(Mouse.getScrollDelta().x != 0 || Mouse.getScrollDelta().y != 0)
+		{
+			Logger.log("Mouse scroll delta: " + Mouse.getScrollDelta(), this);
 		}
 	}
 	
-	private final void rotate(Vector3f axis, float amount)
+	@Override
+	protected void onCharPressed(char c)
 	{
-		getTransform().rotate(axis, -amount * sensitivity);
+		Logger.log("Received char: " + c, this);
 	}
 }

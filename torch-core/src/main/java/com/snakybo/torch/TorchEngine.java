@@ -26,14 +26,10 @@ import org.lwjgl.Version;
 
 import com.snakybo.torch.debug.Debug;
 import com.snakybo.torch.debug.LoggerInternal;
-import com.snakybo.torch.input.cursor.CursorInternal;
-import com.snakybo.torch.input.joystick.JoystickInternal;
-import com.snakybo.torch.input.keyboad.KeyboardInternal;
-import com.snakybo.torch.input.mouse.MouseInternal;
-import com.snakybo.torch.renderer.OpenGLRenderer;
+import com.snakybo.torch.module.Module;
 import com.snakybo.torch.scene.SceneInternal;
 import com.snakybo.torch.time.TimeInternal;
-import com.snakybo.torch.window.WindowInternal;
+import com.snakybo.torch.window.Window;
 
 /**
  * @author Snakybo
@@ -70,29 +66,26 @@ public final class TorchEngine
 	 */
 	TorchEngine(TorchGame game)
 	{
-		LoggerInternal.log("Starting", this);
+		this.game = game;
+		
+		LoggerInternal.log("Creating", this);
 		LoggerInternal.log("Engine version: " + VERSION_STRING, this);
 		
 		logLWJGLInfo();
-		
-		// Initialize engine systems
-		WindowInternal.createWindowed(1280, 720);
-		OpenGLRenderer.create();
-		
-		this.game = game;
-		
-		start();
 	}
 	
 	/**
 	 * Start the engine, called by {@link TorchGame#start()}.
 	 */
-	private final void start()
+	protected final void start()
 	{
 		if(!running)
 		{
+			LoggerInternal.log("Starting", this);
+			
 			running = true;
 			
+			Module.getInstance().create();
 			game.onCreate();
 			mainLoop();
 		}
@@ -101,7 +94,7 @@ public final class TorchEngine
 	/**
 	 * Stop the engine, called by {@link TorchGame#quit()}.
 	 */
-	public final void stop()
+	protected final void stop()
 	{
 		if(running)
 		{
@@ -131,7 +124,7 @@ public final class TorchEngine
 			
 			while(unprocessedTime > TimeInternal.getFrameTime())
 			{
-				if(WindowInternal.isCloseRequested())
+				if(Window.isCloseRequested())
 				{
 					stop();
 				}
@@ -146,7 +139,7 @@ public final class TorchEngine
 			{
 				renderCycle();
 				
-				WindowInternal.update();
+				Module.getInstance().getWindowController().update();
 				TimeInternal.updateFrameCount();
 			}
 			else
@@ -173,10 +166,11 @@ public final class TorchEngine
 		SceneInternal.runUpdateCycle();
 		
 		// Update input
-		KeyboardInternal.update();
-		MouseInternal.update();
-		CursorInternal.update();
-		JoystickInternal.update();
+		Module module = Module.getInstance();
+		module.getKeyboardController().update();
+		module.getMouseController().update();
+		module.getCursorController().update();
+		module.getJoystickController().update();
 	}
 	
 	/**
@@ -192,7 +186,7 @@ public final class TorchEngine
 	 */
 	private final void destroy()
 	{
-		WindowInternal.destroy();
+		Module.getInstance().destroy();
 	}
 	
 	/**

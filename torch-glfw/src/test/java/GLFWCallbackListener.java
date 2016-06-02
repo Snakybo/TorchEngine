@@ -20,61 +20,30 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package input;
+import com.snakybo.torch.debug.Logger;
+import com.snakybo.torch.object.Component;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-/*public class JoystickExample extends TorchGame
+public class GLFWCallbackListener extends Component
 {
-	public JoystickExample()
+	@Override
+	protected void onWindowFocus(boolean focus)
 	{
-		super("Joystick Test");
+		Logger.log("Window focus: " + focus, this);
 	}
 	
 	@Override
-	protected void onCreate()
+	protected void onWindowIconify(boolean iconified)
 	{
-		GameObject joystickManager = new GameObject();
-		joystickManager.addComponent(new Component()
-		{
-			@Override
-			protected void update()
-			{
-				Logger.log("=========================");
-				Logger.log("Num joysticks present: " + Joystick.getNumJoysticksPresent());
-				
-				for(int i : Joystick.getJoysticksPresent())
-				{
-					Logger.log(" Name: " + Joystick.getJoystickName(i));
-					Logger.log("   Num buttons: " + Joystick.getNumButtons(i));
-					
-					for(int j = 0; j < Joystick.getNumButtons(i); j++)
-					{
-						if(Joystick.onButtonDown(i, j))
-						{
-							Logger.log("    onButtonDown: " + j);
-						}
-						
-						if(Joystick.isButtonDown(i, j))
-						{
-							Logger.log("    isButtonDown: " + j);
-						}
-						
-						if(Joystick.onButtonUp(i, j))
-						{
-							Logger.log("    onButtonUp: " + j);
-						}
-					}
-					
-					Logger.log("   Num axes: " + Joystick.getNumAxes(i));
-					for(int j = 0; j < Joystick.getNumAxes(i); j++)
-					{
-						Logger.log("    Axis " + j + ": " + Joystick.getAxis(i, j));
-					}
-				}
-			}
-		});
+		Logger.log("Window iconified: " + iconified, this);
 	}
-}*/
+	
+	@Override
+	protected void onCursorEnter(boolean entered)
+	{
+		Logger.log("Cursor enter: " + entered, this);
+	}
+}

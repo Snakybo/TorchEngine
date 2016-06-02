@@ -20,61 +20,40 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package input;
+import com.snakybo.torch.TorchGame;
+import com.snakybo.torch.glfw.GLFWModule;
+import com.snakybo.torch.glfw.window.GLFWMonitor;
+import com.snakybo.torch.glfw.window.GLFWWindowMode;
+import com.snakybo.torch.object.GameObject;
+import com.snakybo.torch.window.Window;
+import com.snakybo.torch.window.WindowMode;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-/*public class JoystickExample extends TorchGame
+public class GLFWWindowTest extends TorchGame
 {
-	public JoystickExample()
+	public GLFWWindowTest()
 	{
-		super("Joystick Test");
+		super(GLFWModule.class, "GLFW Windowing Test");
 	}
-	
+
 	@Override
 	protected void onCreate()
 	{
-		GameObject joystickManager = new GameObject();
-		joystickManager.addComponent(new Component()
-		{
-			@Override
-			protected void update()
-			{
-				Logger.log("=========================");
-				Logger.log("Num joysticks present: " + Joystick.getNumJoysticksPresent());
-				
-				for(int i : Joystick.getJoysticksPresent())
-				{
-					Logger.log(" Name: " + Joystick.getJoystickName(i));
-					Logger.log("   Num buttons: " + Joystick.getNumButtons(i));
-					
-					for(int j = 0; j < Joystick.getNumButtons(i); j++)
-					{
-						if(Joystick.onButtonDown(i, j))
-						{
-							Logger.log("    onButtonDown: " + j);
-						}
-						
-						if(Joystick.isButtonDown(i, j))
-						{
-							Logger.log("    isButtonDown: " + j);
-						}
-						
-						if(Joystick.onButtonUp(i, j))
-						{
-							Logger.log("    onButtonUp: " + j);
-						}
-					}
-					
-					Logger.log("   Num axes: " + Joystick.getNumAxes(i));
-					for(int j = 0; j < Joystick.getNumAxes(i); j++)
-					{
-						Logger.log("    Axis " + j + ": " + Joystick.getAxis(i, j));
-					}
-				}
-			}
-		});
+		GameObject obj = new GameObject();
+		obj.addComponent(new GLFWInputListener());
+		obj.addComponent(new GLFWCallbackListener());
 	}
-}*/
+	
+	public static void main(String[] args)
+	{
+		TorchGame game = new GLFWWindowTest();
+		
+		GLFWMonitor monitor = GLFWMonitor.getPrimaryMonitor();		
+		Window.create(new GLFWWindowMode(monitor.getNativeId(), 1280, 720), WindowMode.Mode.Windowed);
+		
+		game.start();
+	}
+}

@@ -20,61 +20,48 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package input;
+package com.snakybo.torch.glfw.window;
+
+import static org.lwjgl.glfw.GLFW.glfwPollEvents;
+import static org.lwjgl.glfw.GLFW.glfwSwapBuffers;
+
+import com.snakybo.torch.window.IWindow;
+import com.snakybo.torch.window.IWindowController;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-/*public class JoystickExample extends TorchGame
+public final class GLFWWindowController implements IWindowController
 {
-	public JoystickExample()
+	private final GLFWWindow window;
+	
+	public GLFWWindowController()
 	{
-		super("Joystick Test");
+		window = new GLFWWindow();
 	}
 	
 	@Override
-	protected void onCreate()
+	public void create()
 	{
-		GameObject joystickManager = new GameObject();
-		joystickManager.addComponent(new Component()
-		{
-			@Override
-			protected void update()
-			{
-				Logger.log("=========================");
-				Logger.log("Num joysticks present: " + Joystick.getNumJoysticksPresent());
-				
-				for(int i : Joystick.getJoysticksPresent())
-				{
-					Logger.log(" Name: " + Joystick.getJoystickName(i));
-					Logger.log("   Num buttons: " + Joystick.getNumButtons(i));
-					
-					for(int j = 0; j < Joystick.getNumButtons(i); j++)
-					{
-						if(Joystick.onButtonDown(i, j))
-						{
-							Logger.log("    onButtonDown: " + j);
-						}
-						
-						if(Joystick.isButtonDown(i, j))
-						{
-							Logger.log("    isButtonDown: " + j);
-						}
-						
-						if(Joystick.onButtonUp(i, j))
-						{
-							Logger.log("    onButtonUp: " + j);
-						}
-					}
-					
-					Logger.log("   Num axes: " + Joystick.getNumAxes(i));
-					for(int j = 0; j < Joystick.getNumAxes(i); j++)
-					{
-						Logger.log("    Axis " + j + ": " + Joystick.getAxis(i, j));
-					}
-				}
-			}
-		});
 	}
-}*/
+	
+	@Override
+	public final void update()
+	{
+		glfwSwapBuffers(window.getNativeId());
+		glfwPollEvents();
+	}
+
+	@Override
+	public final void destroy()
+	{
+		window.destroy();
+	}
+	
+	@Override
+	public IWindow get()
+	{
+		return window;
+	}
+}

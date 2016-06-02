@@ -20,69 +20,72 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.camera;
+package com.snakybo.torch.glfw.input.keyboad;
 
-import org.joml.Vector2f;
-import org.joml.Vector3f;
+import static org.lwjgl.glfw.GLFW.glfwGetClipboardString;
+import static org.lwjgl.glfw.GLFW.glfwSetClipboardString;
 
-import com.snakybo.torch.cursor.Cursor;
-import com.snakybo.torch.cursor.CursorLockMode;
-import com.snakybo.torch.input.mouse.Mouse;
-import com.snakybo.torch.object.Component;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.snakybo.torch.input.keyboard.IKeyboard;
+import com.snakybo.torch.input.keyboard.Key;
 import com.snakybo.torch.window.Window;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public class CameraFreeLook extends Component
-{
-	private float sensitivity;
+public final class GLFWKeyboard implements IKeyboard
+{	
+	Map<Integer, Boolean> current;
+	Map<Integer, Boolean> last;
 	
-	public CameraFreeLook()
+	public GLFWKeyboard()
 	{
-		this(0.5f);
-	}
-	
-	public CameraFreeLook(float sensitivity)
-	{
-		this.sensitivity = sensitivity;
-	}
-	
-	@Override
-	protected void start()
-	{
-		Mouse.setCursorPosition(Window.getCenter());
+		current = new HashMap<Integer, Boolean>();
+		last = new HashMap<Integer, Boolean>();
 		
-		Cursor.setLockMode(CursorLockMode.Locked);
-		Cursor.setVisible(false);
-	}
-	
-	@Override
-	protected void destroy()
-	{
-		Cursor.setLockMode(CursorLockMode.None);
-		Cursor.setVisible(true);
-	}
-	
-	@Override
-	protected void update()
-	{
-		Vector2f delta = Mouse.getCursorPositionDelta();
-		
-		if(delta.x != 0)
+		for(Key key : Key.class.getEnumConstants())
 		{
-			rotate(new Vector3f(0, 1, 0), delta.x);
-		}
-		
-		if(delta.y != 0)
-		{
-			rotate(getTransform().getRight(), delta.y);
+			current.put(key.id, false);
+			last.put(key.id, false);
 		}
 	}
 	
-	private final void rotate(Vector3f axis, float amount)
+	@Override
+	public final boolean isDown(Key id)
 	{
-		getTransform().rotate(axis, -amount * sensitivity);
+		return current.get(id.id);
+	}
+	
+	@Override
+	public final boolean isUp(Key id)
+	{
+		return !current.get(id.id);
+	}
+	
+	@Override
+	public final boolean onDown(Key id)
+	{
+		return current.get(id.id) && !last.get(id.id);
+	}
+	
+	@Override
+	public final boolean onUp(Key id)
+	{
+		return !current.get(id.id) && last.get(id.id);
+	}
+
+	@Override
+	public final void setClipboardString(String string)
+	{
+		glfwSetClipboardString(Window.getNativeId(), string);
+	}
+
+	@Override
+	public final String getClipboardString()
+	{
+		return glfwGetClipboardString(Window.getNativeId());
 	}
 }

@@ -20,41 +20,39 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.debug;
+package com.snakybo.torch.input.mouse;
+
+import org.joml.Vector2f;
+
+import com.snakybo.torch.input.IInput;
 
 /**
- * @author Snakybo
+ * @author Kevin
  * @since 1.0
  */
-public final class Debug
+public interface IMouse extends IInput<MouseButton>
 {
 	/**
-	 * Whether or not to log the current FPS in the console.
-	 * @deprecated To be replaced by UI.
+	 * Set the cursor position.
+	 * @param position The new position of the cursor.
 	 */
-	@Deprecated
-	public static final boolean LOG_FPS;
+	void setCursorPosition(Vector2f position);
 	
 	/**
-	 * Whether or not to log debug/internal logs of the engine.
+	 * Get the mouse scroll wheel delta.
+	 * @return The mouse scroll wheel delta.
 	 */
-	public static final boolean LOG_DEBUG;
+	Vector2f getScrollDelta();
 	
 	/**
-	 * Whether or not to log library information.
+	 * Get the cursor position.
+	 * @return The cursor position.
 	 */
-	public static final boolean LOG_LIBRARY_INFO;
+	Vector2f getCursorPosition();
 	
-	static
-	{
-		LOG_FPS = Boolean.parseBoolean(System.getenv("LOG_FPS"));
-		//LOG_DEBUG = Boolean.parseBoolean(System.getenv("DEBUG"));
-		LOG_DEBUG = true;
-		LOG_LIBRARY_INFO = Boolean.parseBoolean(System.getenv("DEBUG_LIBRARY"));
-	}
-	
-	private Debug()
-	{
-		throw new AssertionError();
-	}
+	/**
+	 * Get the cursor position delta.
+	 * @return The cursor position delta.
+	 */
+	Vector2f getCursorPositionDelta();
 }

@@ -20,41 +20,44 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.debug;
+package com.snakybo.torch.input.joystick;
+
+import com.snakybo.torch.input.IInput;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class Debug
+public interface IJoystickDevice extends IInput<Integer>
 {
 	/**
-	 * Whether or not to log the current FPS in the console.
-	 * @deprecated To be replaced by UI.
+	 * Get the name of this joystick.
+	 * @return The name of this joystick.
 	 */
-	@Deprecated
-	public static final boolean LOG_FPS;
+	String getName();
 	
 	/**
-	 * Whether or not to log debug/internal logs of the engine.
+	 * Get the value of an axis.
+	 * @param id The id of the axis.
+	 * @return The value of the axis.
 	 */
-	public static final boolean LOG_DEBUG;
+	float getAxis(int id);
 	
 	/**
-	 * Whether or not to log library information.
+	 * Get the number of buttons on the joystick.
+	 * @return The number of buttons on the joystick.
 	 */
-	public static final boolean LOG_LIBRARY_INFO;
+	int getNumButtons();
 	
-	static
-	{
-		LOG_FPS = Boolean.parseBoolean(System.getenv("LOG_FPS"));
-		//LOG_DEBUG = Boolean.parseBoolean(System.getenv("DEBUG"));
-		LOG_DEBUG = true;
-		LOG_LIBRARY_INFO = Boolean.parseBoolean(System.getenv("DEBUG_LIBRARY"));
-	}
+	/**
+	 * Get the number of axes on the joystick.
+	 * @return The number of axis on the joystick.
+	 */
+	int getNumAxes();
 	
-	private Debug()
-	{
-		throw new AssertionError();
-	}
+	/**
+	 * Get the native ID of the joystick.
+	 * @return The native Id of the joystick.
+	 */
+	long getNativeId();
 }

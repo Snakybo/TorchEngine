@@ -26,20 +26,117 @@ package com.snakybo.torch.window;
  * @author Snakybo
  * @since 1.0
  */
-public enum WindowMode
+public class WindowMode
 {
-	/**
-	 * The {@link Window} is windowed
-	 */
-	Windowed,
+	public enum Mode
+	{
+		/**
+		 * Windowed.
+		 */
+		Windowed,
+		
+		/**
+		 * Borderless fullscreen.
+		 */
+		Borderless,
+		
+		/**
+		 * Fullscreen.
+		 */
+		Fullscreen
+	}
+	
+	private int width;
+	private int height;
+	
+	private int bpp;
+	private int freq;
 	
 	/**
-	 * The {@link Window} is fullscreen
+	 * Create a new window mode.
+	 * @param width The width.
+	 * @param height The height.
 	 */
-	Fullscreen,
+	public WindowMode(int width, int height)
+	{
+		this(width, height, 0, 0);
+	}
 	
 	/**
-	 * The {@link Window} is borderless fullscreen
+	 * Create a new window mode.
+	 * @param width The width.
+	 * @param height The height.
+	 * @param bpp The number of bits per pixel.
+	 * @param freq The refresh rate.
 	 */
-	Borderless
+	public WindowMode(int width, int height, int bpp, int freq)
+	{
+		this.width = width;
+		this.height = height;
+		this.bpp = bpp;
+		this.freq = freq;
+	}
+	
+	@Override
+	public final String toString()
+	{
+		return width + "x" + height + "x" + bpp + " @" + freq + "Hz";
+	}
+	
+	@Override
+	public final int hashCode()
+	{
+		return width ^ height ^ bpp ^ freq;
+	}
+	
+	@Override
+	public final boolean equals(Object obj)
+	{
+		if(obj == null || !(obj instanceof WindowMode))
+		{
+			return false;
+		}
+		
+		WindowMode dm = (WindowMode)obj;
+		return dm.width == width
+				&& dm.height == height
+				&& dm.bpp == bpp
+				&& dm.freq == freq;
+	}
+	
+	/**
+	 * Get the width.
+	 * @return The width.
+	 */
+	public final int getWidth()
+	{
+		return width;
+	}
+	
+	/**
+	 * Get the height.
+	 * @return The height.
+	 */
+	public final int getHeight()
+	{
+		return height;
+	}
+	
+	/**
+	 * Get the number of bits per pixel.
+	 * @return The number of bits per pixel.
+	 */
+	public final int getBitsPerPixel()
+	{
+		return bpp;
+	}
+	
+	/**
+	 * Get the refresh rate.
+	 * @return The refresh rate.
+	 */
+	public final int getFrequency()
+	{
+		return freq;
+	}
 }

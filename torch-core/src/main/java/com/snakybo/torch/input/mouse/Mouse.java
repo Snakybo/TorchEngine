@@ -22,14 +22,9 @@
 
 package com.snakybo.torch.input.mouse;
 
-import static org.lwjgl.glfw.GLFW.glfwSetCursorPos;
-
-import java.util.HashMap;
-import java.util.Map;
-
 import org.joml.Vector2f;
 
-import com.snakybo.torch.window.WindowInternal;
+import com.snakybo.torch.module.Module;
 
 /**
  * @author Snakybo
@@ -37,162 +32,116 @@ import com.snakybo.torch.window.WindowInternal;
  */
 public final class Mouse
 {
-	private static final int LAST = MouseButton.BUTTON_8.id;
-	
-	static boolean[] current = new boolean[LAST];
-	static boolean[] last = new boolean[LAST];
-	
-	static Vector2f mousePositionDelta = new Vector2f();
-	static Vector2f mousePosition = new Vector2f();
-	
-	static Vector2f scrollDelta = new Vector2f();
-	
-	private static Map<String, MouseButton> inputMapping = new HashMap<String, MouseButton>();
-	
 	private Mouse()
 	{
 		throw new AssertionError();
 	}
 	
 	/**
-	 * Register a new input map
-	 * @param name The name of the map
-	 * @param mouseButton The mouse button to assign to the map
+	 * Check if the {@link MouseButton} is currently being pressed.
+	 * <p>
+	 * Shortcut to {@code Module.getMouse().isDown(MouseButton)}
+	 * </p>
+	 * @param id The {@link MouseButton} to check.
+	 * @return True if the specified {@link MouseButton} is currently being pressed.
+	 * @see IMouse#isDown(MouseButton)
 	 */
-	public static void addInputMapping(String name, MouseButton mouseButton)
+	public static boolean isDown(MouseButton id)
 	{
-		inputMapping.put(name, mouseButton);
+		return Module.getInstance().getMouse().isDown(id);
 	}
 	
 	/**
-	 * Unregister an input map
-	 * @param name The name of the map to unassign
+	 * Check if the {@link MouseButton} is currently not being pressed.
+	 * <p>
+	 * Shortcut to {@code Module.getMouse().isUp(MouseButton)}
+	 * </p>
+	 * @param id The {@link MouseButton} to check.
+	 * @return True if the specified {@link MouseButton} is currently not being pressed.
+	 * @see IMouse#isUp(MouseButton)
 	 */
-	public static void removeInputMapping(String name)
+	public static boolean isUp(MouseButton id)
 	{
-		inputMapping.remove(name);
+		return Module.getInstance().getMouse().isUp(id);
 	}
 	
 	/**
-	 * Set the cursor position
-	 * @param position The new position
-	 * @see #setCursorPosition(int, int)
+	 * Check if the {@link MouseButton} is currently being pressed.
+	 * <p>
+	 * Shortcut to {@code Module.getMouse().onDown(MouseButton)}
+	 * </p>
+	 * @param id The {@link MouseButton} to check.
+	 * @return True the first frame {@link MouseButton} is being pressed.
+	 * @see IMouse#onDown(MouseButton)
+	 */
+	public static boolean onDown(MouseButton id)
+	{
+		return Module.getInstance().getMouse().onDown(id);
+	}
+	
+	/**
+	 * Check if the {@link MouseButton} is currently not being pressed.
+	 * <p>
+	 * Shortcut to {@code Module.getMouse().onUp(MouseButton)}
+	 * </p>
+	 * @param id The {@link MouseButton} to check.
+	 * @return True the first frame {@link MouseButton} has been released.
+	 * @see IMouse#onUp(MouseButton)
+	 */
+	public static boolean onUp(MouseButton id)
+	{
+		return Module.getInstance().getMouse().onUp(id);
+	}
+	
+	/**
+	 * Set the cursor position.
+	 * <p>
+	 * Shortcut to {@code Module.getMouse().setCursorPosition(Vector2f)}
+	 * </p>
+	 * @param position The new position of the cursor.
+	 * @see IMouse#setCursorPosition(Vector2f)
 	 */
 	public static void setCursorPosition(Vector2f position)
 	{
-		setCursorPosition((int)position.x, (int)position.y);
+		Module.getInstance().getMouse().setCursorPosition(position);
 	}
 	
 	/**
-	 * Set the cursor position
-	 * @param x The X position
-	 * @param y The Y position
-	 * @see #setCursorPosition(Vector2f)
-	 */
-	public static void setCursorPosition(int x, int y)
-	{
-		glfwSetCursorPos(WindowInternal.window, x, y);
-	}
-	
-	/**
-	 * @return The position of the cursor
-	 */
-	public static Vector2f getCursorPosition()
-	{
-		return new Vector2f(mousePosition);
-	}
-	
-	/**
-	 * @return The delta of the cursors position
-	 */
-	public static Vector2f getCursorPositionDelta()
-	{
-		return new Vector2f(mousePositionDelta);
-	}
-	
-	/**
-	 * @return Return the scroll-wheel delta
+	 * Get the mouse scroll wheel delta.
+	 * <p>
+	 * Shortcut to {@code Module.getMouse().getScrollDelta()}
+	 * </p>
+	 * @return The mouse scroll wheel delta.
+	 * @see IMouse#getScrollDelta()
 	 */
 	public static Vector2f getScrollDelta()
 	{
-		return scrollDelta;
+		return Module.getInstance().getMouse().getScrollDelta();
 	}
 	
 	/**
-	 * Returns true if the mouse button assigned to the specified map is currently held down
-	 * @param map The name of the map
-	 * @return True if the mouse button assigned to the map is currently held down
+	 * Get the cursor position.
+	 * <p>
+	 * Shortcut to {@code Module.getMouse().getCursorPosition()}
+	 * </p>
+	 * @return The cursor position.
+	 * @see IMouse#getCursorPosition()
 	 */
-	public static boolean isMapDown(String map)
+	public static Vector2f getCursorPosition()
 	{
-		if(!inputMapping.containsKey(map))
-		{
-			return false;
-		}
-		
-		return isMouseDown(inputMapping.get(map));
+		return Module.getInstance().getMouse().getCursorPosition();
 	}
 	
 	/**
-	 * Returns true if the specified mouse button is currently held down
-	 * @param mouseButton The mouse button
-	 * @return True if the mouse button is currently held down
-	 * @see MouseButton
+	 * Get the cursor position delta.
+	 * <p>
+	 * Shortcut to {@code Module.getMouse().getCursorPositionDelta()}
+	 * </p>
+	 * @return The cursor position delta.
+	 * @see IMouse#getCursorPositionDelta()
 	 */
-	public static boolean isMouseDown(MouseButton mouseButton)
+	public static Vector2f getCursorPositionDelta()
 	{
-		return current[mouseButton.id];
-	}
-	
-	/**
-	 * Returns true the frame when the specified mouse button assigned to the map is pressed 
-	 * @param map The name of the map
-	 * @return True if the mouse button assigned to the map was pressed in this frame
-	 */
-	public static boolean onMapDown(String map)
-	{
-		if(!inputMapping.containsKey(map))
-		{
-			return false;
-		}
-		
-		return onMouseDown(inputMapping.get(map));
-	}
-	
-	/**
-	 * Returns true the frame when the specified mouse button is pressed 
-	 * @param mouseButton The mouse button
-	 * @return True if the mouse button was pressed in this frame
-	 * @see MouseButton
-	 */
-	public static boolean onMouseDown(MouseButton mouseButton)
-	{
-		return current[mouseButton.id] && !last[mouseButton.id];
-	}
-	
-	/**
-	 * Returns true the frame when the specified mouse button assigned to the map was released
-	 * @param map The name of the map
-	 * @return True if the mouse button assigned to the map was released in this frame
-	 */
-	public static boolean onMapUp(String map)
-	{
-		if(!inputMapping.containsKey(map))
-		{
-			return false;
-		}
-		
-		return onMouseUp(inputMapping.get(map));
-	}
-	
-	/**
-	 * Returns true the frame when the specified mouse button was released
-	 * @param mouseButton The mouse button
-	 * @return True if the mouse button was released in this frame
-	 * @see MouseButton
-	 */
-	public static boolean onMouseUp(MouseButton mouseButton)
-	{
-		return !current[mouseButton.id] && last[mouseButton.id];
+		return Module.getInstance().getMouse().getCursorPositionDelta();
 	}
 }

@@ -1,17 +1,4 @@
 include "torch-core"
-/*
-include "torch-editor"
-include "torch-editor-scene"
-include "torch-editor-particle"
-include "torch-editor-animation"
-include "torch-editor-importer"
-include "torch-editor-importer-mesh"
-include "torch-editor-importer-texture"
-include "torch-editor-object"
-include "torch-editor-cinematics"
-include "torch-editor-build"
-include "torch-editor-profiler"
-*/
-include "torch-examples"
+include "torch-glfw"
 
 rootProject.name = 'Torch Engine'

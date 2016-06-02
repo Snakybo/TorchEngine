@@ -20,41 +20,32 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.debug;
+package com.snakybo.torch.module;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class Debug
+public interface IModuleController<T>
 {
 	/**
-	 * Whether or not to log the current FPS in the console.
-	 * @deprecated To be replaced by UI.
+	 * Called when the module is first created.
 	 */
-	@Deprecated
-	public static final boolean LOG_FPS;
+	void create();
 	
 	/**
-	 * Whether or not to log debug/internal logs of the engine.
+	 * Called whenever the module should be updated.
 	 */
-	public static final boolean LOG_DEBUG;
+	void update();
 	
 	/**
-	 * Whether or not to log library information.
+	 * Called when the module should be destroyed.
 	 */
-	public static final boolean LOG_LIBRARY_INFO;
+	void destroy();
 	
-	static
-	{
-		LOG_FPS = Boolean.parseBoolean(System.getenv("LOG_FPS"));
-		//LOG_DEBUG = Boolean.parseBoolean(System.getenv("DEBUG"));
-		LOG_DEBUG = true;
-		LOG_LIBRARY_INFO = Boolean.parseBoolean(System.getenv("DEBUG_LIBRARY"));
-	}
-	
-	private Debug()
-	{
-		throw new AssertionError();
-	}
+	/**
+	 * Get the implementation of the module.
+	 * @return
+	 */
+	T get();
 }

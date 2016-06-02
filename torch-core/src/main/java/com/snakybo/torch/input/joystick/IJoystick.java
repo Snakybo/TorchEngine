@@ -22,68 +22,33 @@
 
 package com.snakybo.torch.input.joystick;
 
-import com.snakybo.torch.module.Module;
-
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class Joystick
+public interface IJoystick
 {
-	private Joystick()
-	{
-		throw new AssertionError();
-	}
-	
 	/**
 	 * Check whether or not a joystick is present.
-	 * <p>
-	 * Shortcut to {@code Module.getInstance().getJoystick().isJoystickPresent()}
-	 * </p>
 	 * @return Whether or not a joystick is present.
-	 * @see IJoystick#isJoystickPresent()
 	 */
-	public static boolean isJoystickPresent()
-	{
-		return Module.getInstance().getJoystick().isJoystickPresent();
-	}
+	boolean isJoystickPresent();
 	
 	/**
 	 * Get the first available joystick.
-	 * <p>
-	 * Shortcut to {@code Module.getInstance().getJoystick().getJoystick()}
-	 * </p>
 	 * @return The first available joystick.
-	 * @see IJoystick#getJoystick()
 	 */
-	public static IJoystickDevice getJoystick()
-	{
-		return Module.getInstance().getJoystick().getJoystick();
-	}
+	IJoystickDevice getJoystick();
 	
 	/**
 	 * Get all available joysticks.
-	 * <p>
-	 * Shortcut to {@code Module.getInstance().getJoystick().getJoysticks()}
-	 * </p>
 	 * @return All available joysticks.
-	 * @see IJoystick#getJoysticks()
 	 */
-	public static IJoystickDevice[] getJoysticks()
-	{
-		return Module.getInstance().getJoystick().getJoysticks();
-	}
+	IJoystickDevice[] getJoysticks();
 	
 	/**
 	 * Get the number of joysticks present.
-	 * <p>
-	 * Shortcut to {@code Module.getInstance().getJoystick().getNumJoysticksPresent()}
-	 * </p>
 	 * @return The number of joysticks present.
-	 * @see IJoystick#getNumJoysticksPresent()
 	 */
-	public static int getNumJoysticksPresent()
-	{
-		return Module.getInstance().getJoystick().getNumJoysticksPresent();
-	}
+	int getNumJoysticksPresent();
 }

@@ -24,8 +24,8 @@ package com.snakybo.torch.camera;
 
 import org.joml.Vector3f;
 
-import com.snakybo.torch.input.keyboad.Key;
-import com.snakybo.torch.input.keyboad.Keyboard;
+import com.snakybo.torch.input.keyboard.Key;
+import com.snakybo.torch.input.keyboard.Keyboard;
 import com.snakybo.torch.object.Component;
 
 /**
@@ -93,20 +93,20 @@ public class CameraFreeMove extends Component
 	{
 		Vector3f direction = new Vector3f();
 		
-		if(Keyboard.isKeyDown(forward))
+		if(Keyboard.isDown(forward))
 		{
 			direction.z = -1;
 		}
-		else if(Keyboard.isKeyDown(back))
+		else if(Keyboard.isDown(back))
 		{
 			direction.z = 1;
 		}
 		
-		if(Keyboard.isKeyDown(left))
+		if(Keyboard.isDown(left))
 		{
 			direction.x = -1;
 		}
-		else if(Keyboard.isKeyDown(right))
+		else if(Keyboard.isDown(right))
 		{
 			direction.x = 1;
 		}

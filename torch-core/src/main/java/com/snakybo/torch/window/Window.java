@@ -22,132 +22,148 @@
 
 package com.snakybo.torch.window;
 
-import static org.lwjgl.glfw.GLFW.glfwGetWindowSize;
-import static org.lwjgl.glfw.GLFW.glfwSetWindowSize;
-
-import java.nio.IntBuffer;
-
 import org.joml.Vector2f;
-import org.lwjgl.BufferUtils;
+
+import com.snakybo.torch.module.Module;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
 public final class Window
-{	
+{
 	private Window()
 	{
 		throw new AssertionError();
 	}
 	
 	/**
-	 * Set whether or not the {@link Window} shoud be fullscreen (or borderless fullscreen)
-	 * @param fullscreen Whether or not to be fullscreen
-	 * @param borderless Should the window be borderless fullscreen?
+	 * Create a new window.
+	 * <p>
+	 * Shortcut to {@code Module.getWindow().create(WindowMode, WindowMode.Mode)}
+	 * </p>
+	 * @param windowMode The window mode.
+	 * @param displayMode The display mode.
+	 * @see IWindow#create(WindowMode, com.snakybo.torch.window.WindowMode.Mode)
 	 */
-	public static void setFullscreen(boolean fullscreen, boolean borderless)
+	public static void create(WindowMode windowMode, WindowMode.Mode displayMode)
 	{
-		setFullscreen(fullscreen, borderless, Monitor.getPrimaryMonitor());
+		Module.getInstance().getWindow().create(windowMode, displayMode);
 	}
 	
 	/**
-	 * Set whether or not the {@link Window} shoud be fullscreen (or borderless fullscreen)
-	 * @param fullscreen Whether or not to be fullscreen
-	 * @param borderless Should the window be borderless fullscreen?
-	 * @param monitor The monitor to display the fullscreen window on
+	 * Destroy the active window.
+	 * <p>
+	 * Shortcut to {@code Module.getWindow().destroy()}
+	 * </p>
+	 * @see IWindow#destroy()
 	 */
-	public static void setFullscreen(boolean fullscreen, boolean borderless, Monitor monitor)
+	public static void destroy()
 	{
-		setFullscreen(fullscreen, borderless, monitor, monitor.getNativeDisplayMode());
+		Module.getInstance().getWindow().destroy();
 	}
 	
 	/**
-	 * Set whether or not the {@link Window} shoud be fullscreen (or borderless fullscreen)
-	 * @param fullscreen Whether or not to be fullscreen
-	 * @param borderless Should the window be borderless fullscreen?
-	 * @param monitor The {@link Monitor} to display the fullscreen {@link Window} on
-	 * @param displayMode The {@link DisplayMode} to use
+	 * Check whether or not the window wants to close.
+	 * <p>
+	 * Shortcut to {@code Module.getWindow().isCloseRequested()}
+	 * </p>
+	 * @return Whether or not the window wants to close.
+	 * @see IWindow#isCloseRequested()
 	 */
-	public static void setFullscreen(boolean fullscreen, boolean borderless, Monitor monitor, DisplayMode displayMode)
+	public static boolean isCloseRequested()
 	{
-		if(fullscreen && !borderless)
-		{
-			WindowInternal.createFullscreen(monitor, displayMode);
-		}
-		else if(fullscreen && borderless)
-		{
-			WindowInternal.createBorderlessFullscreen(displayMode);
-		}
-		else if(!fullscreen)
-		{
-			WindowInternal.createWindowed(1280, 720);
-		}
+		return Module.getInstance().getWindow().isCloseRequested();
 	}
 	
 	/**
-	 * Set the width of the window
-	 * @param width The new width
+	 * Check whether or not vsync is enabled.
+	 * <p>
+	 * Shortcut to {@code Module.getWindow().isVSyncEnabled()}
+	 * </p>
+	 * @return Whether or not vsync is enabled.
+	 * @see IWindow#isVSyncEnabled()
 	 */
-	public static void setWidth(int width)
+	public static boolean isVSyncEnabled()
 	{
-		glfwSetWindowSize(WindowInternal.window, width, getHeight());
+		return Module.getInstance().getWindow().isVSyncEnabled();
 	}
 	
 	/**
-	 * Set the height of the window
-	 * @param height The new height
+	 * Set the size of the window.
+	 * <p>
+	 * Shortcut to {@code Module.getWindow().setSize(Vector2f)}
+	 * </p>
+	 * @param size The new size of the window.
+	 * @see IWindow#setSize(Vector2f)
 	 */
-	public static void setHeight(int height)
+	public static void setSize(Vector2f size)
 	{
-		glfwSetWindowSize(WindowInternal.window, getWidth(), height);
+		Module.getInstance().getWindow().setSize(size);
 	}
 	
 	/**
-	 * @return The {@link WindowMode}
+	 * Enable or disable vsync.
+	 * <p>
+	 * Shortcut to {@code Module.getWindow().setVSyncEnabled(boolean)}
+	 * </p>
+	 * @param enabled Whether or not to enable vsync
+	 * @see IWindow#setVSyncEnabled(boolean)
 	 */
-	public static WindowMode getWindowMode()
+	public static void setVSyncEnabled(boolean enabled)
 	{
-		return WindowInternal.getWindowMode();
-	}
-
-	/**
-	 * @return The center of the window
-	 */
-	public static Vector2f getCenter()
-	{
-		return new Vector2f(getWidth() / 2f, getHeight() / 2f);
+		Module.getInstance().getWindow().setVSyncEnabled(enabled);
 	}
 	
 	/**
-	 * @return The aspect ratio of the window
+	 * Set the size of the window.
+	 * <p>
+	 * Shortcut to {@code Module.getWindow().getSize()}
+	 * </p>
+	 * @param size The new size of the window.
+	 * @see IWindow#getSize()
+	 */
+	public static Vector2f getSize()
+	{
+		return Module.getInstance().getWindow().getSize();
+	}
+	
+	/**
+	 * Get the aspect ratio of the window.
+	 * <p>
+	 * Shortcut to {@code Module.getWindow().getAspectRatio()}
+	 * </p>
+	 * @return The aspect ratio of the window.
+	 * @see IWindow#getAspectRatio()
 	 */
 	public static float getAspectRatio()
 	{
-		return (float)getWidth() / (float)getHeight();
+		return Module.getInstance().getWindow().getAspectRatio();
 	}
 	
 	/**
-	 * @return The width of the window
+	 * Get the center of the window.
+	 * <p>
+	 * Shortcut to {@code Module.getWindow().getCenter()}
+	 * </p>
+	 * @return The center of the window.
+	 * @see IWindow#getCenter()
 	 */
-	public static int getWidth()
+	public static Vector2f getCenter()
 	{
-		IntBuffer width = BufferUtils.createIntBuffer(1);
-		IntBuffer height = BufferUtils.createIntBuffer(1);
-		
-		glfwGetWindowSize(WindowInternal.window, width, height);
-		return width.get();
+		return Module.getInstance().getWindow().getCenter();
 	}
 	
 	/**
-	 * @return The height of the window
+	 * Get the native ID of the window.
+	 *  <p>
+	 * Shortcut to {@code Module.getWindow().getNativeId()}
+	 * </p>
+	 * @return The native ID of the window.
+	 * @see IWindow#getNativeId()
 	 */
-	public static int getHeight()
+	public static long getNativeId()
 	{
-		IntBuffer width = BufferUtils.createIntBuffer(1);
-		IntBuffer height = BufferUtils.createIntBuffer(1);
-		
-		glfwGetWindowSize(WindowInternal.window, width, height);
-		return height.get();
+		return Module.getInstance().getWindow().getNativeId();
 	}
 }

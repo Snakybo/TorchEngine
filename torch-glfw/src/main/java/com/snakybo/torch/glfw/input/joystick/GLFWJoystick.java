@@ -20,69 +20,72 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.camera;
+package com.snakybo.torch.glfw.input.joystick;
 
-import org.joml.Vector2f;
-import org.joml.Vector3f;
+import static org.lwjgl.glfw.GLFW.GLFW_JOYSTICK_1;
+import static org.lwjgl.glfw.GLFW.GLFW_JOYSTICK_LAST;
+import static org.lwjgl.glfw.GLFW.glfwJoystickPresent;
 
-import com.snakybo.torch.cursor.Cursor;
-import com.snakybo.torch.cursor.CursorLockMode;
-import com.snakybo.torch.input.mouse.Mouse;
-import com.snakybo.torch.object.Component;
-import com.snakybo.torch.window.Window;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.snakybo.torch.input.joystick.IJoystick;
+import com.snakybo.torch.input.joystick.IJoystickDevice;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public class CameraFreeLook extends Component
+public final class GLFWJoystick implements IJoystick
 {
-	private float sensitivity;
+	List<GLFWJoystickDevice> devices;
 	
-	public CameraFreeLook()
+	public GLFWJoystick()
 	{
-		this(0.5f);
-	}
-	
-	public CameraFreeLook(float sensitivity)
-	{
-		this.sensitivity = sensitivity;
-	}
-	
-	@Override
-	protected void start()
-	{
-		Mouse.setCursorPosition(Window.getCenter());
+		devices = new ArrayList<GLFWJoystickDevice>();
 		
-		Cursor.setLockMode(CursorLockMode.Locked);
-		Cursor.setVisible(false);
-	}
-	
-	@Override
-	protected void destroy()
-	{
-		Cursor.setLockMode(CursorLockMode.None);
-		Cursor.setVisible(true);
-	}
-	
-	@Override
-	protected void update()
-	{
-		Vector2f delta = Mouse.getCursorPositionDelta();
-		
-		if(delta.x != 0)
+		for(int i = GLFW_JOYSTICK_1; i < GLFW_JOYSTICK_LAST; i++)
 		{
-			rotate(new Vector3f(0, 1, 0), delta.x);
-		}
-		
-		if(delta.y != 0)
-		{
-			rotate(getTransform().getRight(), delta.y);
+			if(glfwJoystickPresent(i))
+			{
+				devices.add(new GLFWJoystickDevice(i));
+			}
 		}
 	}
 	
-	private final void rotate(Vector3f axis, float amount)
+	@Override
+	public boolean isJoystickPresent()
 	{
-		getTransform().rotate(axis, -amount * sensitivity);
+		return devices.size() > 0;
+	}
+
+	@Override
+	public IJoystickDevice getJoystick()
+	{
+		if(isJoystickPresent())
+		{
+			return devices.get(0);
+		}
+		
+		return null;
+	}
+
+	@Override
+	public IJoystickDevice[] getJoysticks()
+	{
+		List<IJoystickDevice> result = new ArrayList<IJoystickDevice>();
+		
+		for(IJoystickDevice joystick : devices)
+		{
+			result.add(joystick);
+		}
+		
+		return result.toArray(new IJoystickDevice[result.size()]);
+	}
+
+	@Override
+	public int getNumJoysticksPresent()
+	{
+		return devices.size();
 	}
 }

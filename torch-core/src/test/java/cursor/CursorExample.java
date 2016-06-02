@@ -22,21 +22,11 @@
 
 package cursor;
 
-import com.snakybo.torch.TorchGame;
-import com.snakybo.torch.bitmap.Bitmap;
-import com.snakybo.torch.debug.Logger;
-import com.snakybo.torch.input.cursor.Cursor;
-import com.snakybo.torch.input.mouse.Mouse;
-import com.snakybo.torch.input.mouse.MouseButton;
-import com.snakybo.torch.object.Component;
-import com.snakybo.torch.object.GameObject;
-import com.snakybo.torch.resource.Resources;
-
 /**
  * @author Snakybo
  * @since 1.0
  */
-public class CursorExample extends TorchGame
+/*public class CursorExample extends TorchGame
 {
 	private static class CursorManager extends Component
 	{
@@ -112,3 +102,4 @@ public class CursorExample extends TorchGame
 		cursorManager.addComponent(new CursorManager());
 	}
 }
+*/

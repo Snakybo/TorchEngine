@@ -28,19 +28,40 @@ package com.snakybo.torch.input.mouse;
  */
 public enum MouseButton
 {
+	/** Mouse button. */
 	BUTTON_1      (0x0),
+	
+	/** Mouse button. */
 	BUTTON_2      (0x1),
+	
+	/** Mouse button. */
 	BUTTON_3      (0x2),
+	
+	/** Mouse button. */
 	BUTTON_4      (0x3),
+	
+	/** Mouse button. */
 	BUTTON_5      (0x4),
+	
+	/** Mouse button. */
 	BUTTON_6      (0x5),
+	
+	/** Mouse button. */
 	BUTTON_7      (0x6),
+	
+	/** Mouse button. */
 	BUTTON_8      (0x7),
+	
+	/** The same as {@link #BUTTON_1} */
 	LEFT          (BUTTON_1),
+	
+	/** The same as {@link #BUTTON_2} */
 	RIGHT         (BUTTON_2),
+	
+	/** The same as {@link #BUTTON_3} */
 	MIDDLE        (BUTTON_3);
 	
-	final int id;
+	public final int id;
 	
 	private MouseButton(MouseButton mouseButton)
 	{

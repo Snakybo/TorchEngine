@@ -20,41 +20,26 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.debug;
+package com.snakybo.torch.cursor;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class Debug
+public enum CursorLockMode
 {
 	/**
-	 * Whether or not to log the current FPS in the console.
-	 * @deprecated To be replaced by UI.
+	 * No restrictions on the cursor.
 	 */
-	@Deprecated
-	public static final boolean LOG_FPS;
+	None,
 	
 	/**
-	 * Whether or not to log debug/internal logs of the engine.
+	 * Lock the cursor to the center of the window.
 	 */
-	public static final boolean LOG_DEBUG;
+	Locked,
 	
 	/**
-	 * Whether or not to log library information.
+	 * Prevent the cursor from leaving the window.
 	 */
-	public static final boolean LOG_LIBRARY_INFO;
-	
-	static
-	{
-		LOG_FPS = Boolean.parseBoolean(System.getenv("LOG_FPS"));
-		//LOG_DEBUG = Boolean.parseBoolean(System.getenv("DEBUG"));
-		LOG_DEBUG = true;
-		LOG_LIBRARY_INFO = Boolean.parseBoolean(System.getenv("DEBUG_LIBRARY"));
-	}
-	
-	private Debug()
-	{
-		throw new AssertionError();
-	}
+	Confined
 }

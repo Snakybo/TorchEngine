@@ -20,41 +20,37 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.debug;
+package com.snakybo.torch.cursor;
+
+import org.joml.Vector2f;
+
+import com.snakybo.torch.bitmap.Bitmap;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class Debug
+public interface ICursor
 {
-	/**
-	 * Whether or not to log the current FPS in the console.
-	 * @deprecated To be replaced by UI.
-	 */
-	@Deprecated
-	public static final boolean LOG_FPS;
+	boolean isVisible();
+
+	void setLockMode(CursorLockMode cursorLockMode);
 	
-	/**
-	 * Whether or not to log debug/internal logs of the engine.
-	 */
-	public static final boolean LOG_DEBUG;
+	void setVisible(boolean visible);
 	
-	/**
-	 * Whether or not to log library information.
-	 */
-	public static final boolean LOG_LIBRARY_INFO;
+	void setShapeArrow();
 	
-	static
-	{
-		LOG_FPS = Boolean.parseBoolean(System.getenv("LOG_FPS"));
-		//LOG_DEBUG = Boolean.parseBoolean(System.getenv("DEBUG"));
-		LOG_DEBUG = true;
-		LOG_LIBRARY_INFO = Boolean.parseBoolean(System.getenv("DEBUG_LIBRARY"));
-	}
+	void setShapeIBeam();
 	
-	private Debug()
-	{
-		throw new AssertionError();
-	}
+	void setShapeCrosshair();
+	
+	void setShapeHand();
+	
+	void setShapeHResize();
+	
+	void setShapeVResize();
+	
+	void setShape(Bitmap bitmap, Vector2f hot);
+	
+	CursorLockMode getLockMode();
 }

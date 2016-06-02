@@ -20,41 +20,49 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.debug;
+package com.snakybo.torch.input;
+
+import com.snakybo.torch.input.mouse.MouseButton;
 
 /**
- * @author Snakybo
+ * @author Kevin
  * @since 1.0
  */
-public final class Debug
+public interface IInput<T>
 {
 	/**
-	 * Whether or not to log the current FPS in the console.
-	 * @deprecated To be replaced by UI.
+	 * Check whether or not <code>id</code> is currently being pressed.
+	 * @param id The id to check.
+	 * @return True if <code>id</code> is currently being pressed.
+	 * @see Key
+	 * @see MouseButton
 	 */
-	@Deprecated
-	public static final boolean LOG_FPS;
+	boolean isDown(T id);
+
+	/**
+	 * Check whether or not <code>id</code> is currently not being pressed.
+	 * @param id The id to check.
+	 * @return True if <code>id</code> is currently not being pressed.
+	 * @see Key
+	 * @see MouseButton
+	 */
+	boolean isUp(T id);
 	
 	/**
-	 * Whether or not to log debug/internal logs of the engine.
+	 * Check whether or not <code>id</code> is being pressed.
+	 * @param id The id to check.
+	 * @return True the first frame the <code>id</code> is being pressed.
+	 * @see Key
+	 * @see MouseButton
 	 */
-	public static final boolean LOG_DEBUG;
+	boolean onDown(T id);
 	
 	/**
-	 * Whether or not to log library information.
+	 * Check whether or not <code>id</code> is not being pressed.
+	 * @param id The id to check.
+	 * @return True the first frame the <code>id</code> has been released.
+	 * @see Key
+	 * @see MouseButton
 	 */
-	public static final boolean LOG_LIBRARY_INFO;
-	
-	static
-	{
-		LOG_FPS = Boolean.parseBoolean(System.getenv("LOG_FPS"));
-		//LOG_DEBUG = Boolean.parseBoolean(System.getenv("DEBUG"));
-		LOG_DEBUG = true;
-		LOG_LIBRARY_INFO = Boolean.parseBoolean(System.getenv("DEBUG_LIBRARY"));
-	}
-	
-	private Debug()
-	{
-		throw new AssertionError();
-	}
+	boolean onUp(T id);
 }

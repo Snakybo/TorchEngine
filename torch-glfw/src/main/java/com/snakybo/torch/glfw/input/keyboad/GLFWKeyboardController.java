@@ -20,61 +20,65 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package input;
+package com.snakybo.torch.glfw.input.keyboad;
+
+import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
+import static org.lwjgl.glfw.GLFW.glfwGetKey;
+
+import java.util.Map;
+
+import com.snakybo.torch.input.IInputController;
+import com.snakybo.torch.input.keyboard.IKeyboard;
+import com.snakybo.torch.window.Window;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-/*public class JoystickExample extends TorchGame
+public final class GLFWKeyboardController implements IInputController<IKeyboard>
 {
-	public JoystickExample()
+	private final GLFWKeyboard keyboard;
+	
+	public GLFWKeyboardController()
 	{
-		super("Joystick Test");
+		keyboard = new GLFWKeyboard();
 	}
 	
 	@Override
-	protected void onCreate()
-	{
-		GameObject joystickManager = new GameObject();
-		joystickManager.addComponent(new Component()
-		{
-			@Override
-			protected void update()
-			{
-				Logger.log("=========================");
-				Logger.log("Num joysticks present: " + Joystick.getNumJoysticksPresent());
-				
-				for(int i : Joystick.getJoysticksPresent())
-				{
-					Logger.log(" Name: " + Joystick.getJoystickName(i));
-					Logger.log("   Num buttons: " + Joystick.getNumButtons(i));
-					
-					for(int j = 0; j < Joystick.getNumButtons(i); j++)
-					{
-						if(Joystick.onButtonDown(i, j))
-						{
-							Logger.log("    onButtonDown: " + j);
-						}
-						
-						if(Joystick.isButtonDown(i, j))
-						{
-							Logger.log("    isButtonDown: " + j);
-						}
-						
-						if(Joystick.onButtonUp(i, j))
-						{
-							Logger.log("    onButtonUp: " + j);
-						}
-					}
-					
-					Logger.log("   Num axes: " + Joystick.getNumAxes(i));
-					for(int j = 0; j < Joystick.getNumAxes(i); j++)
-					{
-						Logger.log("    Axis " + j + ": " + Joystick.getAxis(i, j));
-					}
-				}
-			}
-		});
+	public void create()
+	{	
 	}
-}*/
+
+	@Override
+	public final void update()
+	{
+		for(Map.Entry<Integer, Boolean> entry : keyboard.current.entrySet())
+		{
+			keyboard.last.put(entry.getKey(), entry.getValue());
+		}
+		
+		for(Integer id : keyboard.current.keySet())
+		{
+			int state = glfwGetKey(Window.getNativeId(), id);
+			boolean pressed = false;
+			
+			if(state == GLFW_PRESS)
+			{
+				pressed = true;
+			}
+			
+			keyboard.current.put(id, pressed);
+		}
+	}
+
+	@Override
+	public final void destroy()
+	{
+	}
+
+	@Override
+	public IKeyboard get()
+	{
+		return keyboard;
+	}
+}

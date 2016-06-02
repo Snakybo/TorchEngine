@@ -22,28 +22,11 @@
 
 package rendering;
 
-import org.joml.Matrix4f;
-import org.joml.Vector3f;
-
-import com.snakybo.torch.TorchGame;
-import com.snakybo.torch.bitmap.Bitmap;
-import com.snakybo.torch.camera.Camera;
-import com.snakybo.torch.camera.CameraClearFlags;
-import com.snakybo.torch.mesh.Material;
-import com.snakybo.torch.mesh.MeshRenderer;
-import com.snakybo.torch.model.Model;
-import com.snakybo.torch.object.Component;
-import com.snakybo.torch.object.GameObject;
-import com.snakybo.torch.renderer.Skybox;
-import com.snakybo.torch.resource.Resources;
-import com.snakybo.torch.texture.Texture2D;
-import com.snakybo.torch.window.Window;
-
 /**
  * @author Snakybo
  * @since 1.0
  */
-public class RendererTest extends TorchGame
+/*public class RendererTest extends TorchGame
 {
 	public RendererTest()
 	{
@@ -54,7 +37,7 @@ public class RendererTest extends TorchGame
 	protected void onCreate()
 	{
 		GameObject camera = new GameObject("Camera");
-		camera.addComponent(new Camera(new Matrix4f().perspective((float)Math.toRadians(90f), Window.getAspectRatio(), 0.01f, 1000), CameraClearFlags.SolidColor));
+		camera.addComponent(new Camera(new Matrix4f().perspective((float)Math.toRadians(90f), Mouse.getAspectRatio(), 0.01f, 1000), CameraClearFlags.SolidColor));
 		camera.addComponent(new Component()
 		{
 			@Override
@@ -91,4 +74,4 @@ public class RendererTest extends TorchGame
 	{
 		new RendererTest();
 	}
-}
+}*/
