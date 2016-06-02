@@ -25,7 +25,7 @@ package com.snakybo.torch.input;
 import com.snakybo.torch.module.IModuleController;
 
 /**
- * @author Kevin
+ * @author Snakybo
  * @since 1.0
  */
 public interface IInputController<T> extends IModuleController<T>

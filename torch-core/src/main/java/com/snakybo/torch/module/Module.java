@@ -20,49 +20,21 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.input;
-
-import com.snakybo.torch.input.mouse.MouseButton;
+package com.snakybo.torch.module;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public interface IInput<T>
+public abstract class Module
 {
 	/**
-	 * Check whether or not <code>id</code> is currently being pressed.
-	 * @param id The id to check.
-	 * @return True if <code>id</code> is currently being pressed.
-	 * @see Key
-	 * @see MouseButton
+	 * Create the module.
 	 */
-	boolean isDown(T id);
-
-	/**
-	 * Check whether or not <code>id</code> is currently not being pressed.
-	 * @param id The id to check.
-	 * @return True if <code>id</code> is currently not being pressed.
-	 * @see Key
-	 * @see MouseButton
-	 */
-	boolean isUp(T id);
+	public abstract void create();
 	
 	/**
-	 * Check whether or not <code>id</code> is being pressed.
-	 * @param id The id to check.
-	 * @return True the first frame the <code>id</code> is being pressed.
-	 * @see Key
-	 * @see MouseButton
+	 * Destroy the module.
 	 */
-	boolean onDown(T id);
-	
-	/**
-	 * Check whether or not <code>id</code> is not being pressed.
-	 * @param id The id to check.
-	 * @return True the first frame the <code>id</code> has been released.
-	 * @see Key
-	 * @see MouseButton
-	 */
-	boolean onUp(T id);
+	public abstract void destroy();
 }

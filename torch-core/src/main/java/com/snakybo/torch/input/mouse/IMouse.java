@@ -27,7 +27,7 @@ import org.joml.Vector2f;
 import com.snakybo.torch.input.IInput;
 
 /**
- * @author Kevin
+ * @author Snakybo
  * @since 1.0
  */
 public interface IMouse extends IInput<MouseButton>

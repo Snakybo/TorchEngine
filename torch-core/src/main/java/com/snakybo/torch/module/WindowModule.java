@@ -36,7 +36,7 @@ import com.snakybo.torch.window.IWindowController;
  * @author Snakybo
  * @since 1.0
  */
-public abstract class WindowModule
+public abstract class WindowModule extends Module
 {
 	private static WindowModule instance;
 	
@@ -52,14 +52,15 @@ public abstract class WindowModule
 	{
 		if(instance != null)
 		{
-			throw new RuntimeException("There can't be more as one module");
+			throw new RuntimeException("There can't be more as one WindowModule");
 		}
 		
-		LoggerInternal.log("Created module", this);
+		LoggerInternal.log("Created WindowModule", this);
 		
 		instance = this;
 	}
 	
+	@Override
 	public void create()
 	{
 		keyboard.create();
@@ -69,6 +70,7 @@ public abstract class WindowModule
 		cursor.create();
 	}
 	
+	@Override
 	public void destroy()
 	{
 		if(instance != this)

@@ -25,7 +25,7 @@ package com.snakybo.torch.input.keyboard;
 import com.snakybo.torch.input.IInput;
 
 /**
- * @author Kevin
+ * @author Snakybo
  * @since 1.0
  */
 public interface IKeyboard extends IInput<Key>

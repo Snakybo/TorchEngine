@@ -25,7 +25,7 @@ package com.snakybo.torch.window;
 import com.snakybo.torch.module.IModuleController;
 
 /**
- * @author Kevin
+ * @author Snakybo
  * @since 1.0
  */
 public interface IWindowController extends IModuleController<IWindow>

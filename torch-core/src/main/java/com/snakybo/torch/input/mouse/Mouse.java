@@ -40,7 +40,7 @@ public final class Mouse
 	/**
 	 * Check if the {@link MouseButton} is currently being pressed.
 	 * <p>
-	 * Shortcut to {@code Module.getMouse().isDown(MouseButton)}
+	 * Shortcut to {@code WindowModule.getMouse().isDown(MouseButton)}
 	 * </p>
 	 * @param id The {@link MouseButton} to check.
 	 * @return True if the specified {@link MouseButton} is currently being pressed.
@@ -54,7 +54,7 @@ public final class Mouse
 	/**
 	 * Check if the {@link MouseButton} is currently not being pressed.
 	 * <p>
-	 * Shortcut to {@code Module.getMouse().isUp(MouseButton)}
+	 * Shortcut to {@code WindowModule.getMouse().isUp(MouseButton)}
 	 * </p>
 	 * @param id The {@link MouseButton} to check.
 	 * @return True if the specified {@link MouseButton} is currently not being pressed.
@@ -68,7 +68,7 @@ public final class Mouse
 	/**
 	 * Check if the {@link MouseButton} is currently being pressed.
 	 * <p>
-	 * Shortcut to {@code Module.getMouse().onDown(MouseButton)}
+	 * Shortcut to {@code WindowModule.getMouse().onDown(MouseButton)}
 	 * </p>
 	 * @param id The {@link MouseButton} to check.
 	 * @return True the first frame {@link MouseButton} is being pressed.
@@ -82,7 +82,7 @@ public final class Mouse
 	/**
 	 * Check if the {@link MouseButton} is currently not being pressed.
 	 * <p>
-	 * Shortcut to {@code Module.getMouse().onUp(MouseButton)}
+	 * Shortcut to {@code WindowModule.getMouse().onUp(MouseButton)}
 	 * </p>
 	 * @param id The {@link MouseButton} to check.
 	 * @return True the first frame {@link MouseButton} has been released.
@@ -96,7 +96,7 @@ public final class Mouse
 	/**
 	 * Set the cursor position.
 	 * <p>
-	 * Shortcut to {@code Module.getMouse().setCursorPosition(Vector2f)}
+	 * Shortcut to {@code WindowModule.getMouse().setCursorPosition(Vector2f)}
 	 * </p>
 	 * @param position The new position of the cursor.
 	 * @see IMouse#setCursorPosition(Vector2f)
@@ -109,7 +109,7 @@ public final class Mouse
 	/**
 	 * Get the mouse scroll wheel delta.
 	 * <p>
-	 * Shortcut to {@code Module.getMouse().getScrollDelta()}
+	 * Shortcut to {@code WindowModule.getMouse().getScrollDelta()}
 	 * </p>
 	 * @return The mouse scroll wheel delta.
 	 * @see IMouse#getScrollDelta()
@@ -122,7 +122,7 @@ public final class Mouse
 	/**
 	 * Get the cursor position.
 	 * <p>
-	 * Shortcut to {@code Module.getMouse().getCursorPosition()}
+	 * Shortcut to {@code WindowModule.getMouse().getCursorPosition()}
 	 * </p>
 	 * @return The cursor position.
 	 * @see IMouse#getCursorPosition()
@@ -135,7 +135,7 @@ public final class Mouse
 	/**
 	 * Get the cursor position delta.
 	 * <p>
-	 * Shortcut to {@code Module.getMouse().getCursorPositionDelta()}
+	 * Shortcut to {@code WindowModule.getMouse().getCursorPositionDelta()}
 	 * </p>
 	 * @return The cursor position delta.
 	 * @see IMouse#getCursorPositionDelta()
