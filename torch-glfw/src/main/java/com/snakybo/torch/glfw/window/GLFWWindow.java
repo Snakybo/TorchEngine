@@ -155,15 +155,10 @@ public class GLFWWindow implements IWindow
 		return vsyncEnabled;
 	}
 	
-	// TODO: Don't recreate the window every time the size changes
 	@Override
 	public final void setSize(Vector2f size)
 	{
-		WindowMode wm = new WindowMode((int)size.x, (int)size.y,
-				windowMode.getBitsPerPixel(),
-				windowMode.getFrequency());
-		
-		create(wm, displayMode);
+		glfwSetWindowSize(windowId, (int)size.x, (int)size.y);
 	}
 	
 	@Override
