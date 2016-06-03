@@ -22,10 +22,6 @@
 
 package com.snakybo.torch.glfw.input.joystick;
 
-import static org.lwjgl.glfw.GLFW.GLFW_JOYSTICK_1;
-import static org.lwjgl.glfw.GLFW.GLFW_JOYSTICK_LAST;
-import static org.lwjgl.glfw.GLFW.glfwJoystickPresent;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,19 +35,6 @@ import com.snakybo.torch.input.joystick.IJoystickDevice;
 public final class GLFWJoystick implements IJoystick
 {
 	List<GLFWJoystickDevice> devices;
-	
-	public GLFWJoystick()
-	{
-		devices = new ArrayList<GLFWJoystickDevice>();
-		
-		for(int i = GLFW_JOYSTICK_1; i < GLFW_JOYSTICK_LAST; i++)
-		{
-			if(glfwJoystickPresent(i))
-			{
-				devices.add(new GLFWJoystickDevice(i));
-			}
-		}
-	}
 	
 	@Override
 	public boolean isJoystickPresent()

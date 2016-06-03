@@ -47,7 +47,7 @@ import com.snakybo.torch.window.WindowMode;
  */
 public final class GLFWMonitor
 {	
-	private static Set<GLFWMonitor> monitors;
+	static Set<GLFWMonitor> monitors;
 	
 	private Set<GLFWWindowMode> windowModes;
 	
@@ -65,7 +65,7 @@ public final class GLFWMonitor
 		}
 	}
 	
-	private GLFWMonitor(long monitorId)
+	GLFWMonitor(long monitorId)
 	{
 		this.monitorId = monitorId;
 		
@@ -92,16 +92,28 @@ public final class GLFWMonitor
 		return getName();
 	}
 	
+	/**
+	 * Is this the primary monitor?
+	 * @return <code>true</code> if this is the primary monitor.
+	 */
 	public final boolean isPrimaryMonitor()
 	{
 		return monitorId == glfwGetPrimaryMonitor();
 	}
 	
+	/**
+	 * Get all available window modes.
+	 * @return All available window modes.
+	 */
 	public final WindowMode[] getWindowModes()
 	{
 		return windowModes.toArray(new WindowMode[windowModes.size()]);
 	}	
 	
+	/**
+	 * Get the native window mode of the monitor.
+	 * @return The native window mode.
+	 */
 	public final GLFWWindowMode getNativeWindowMode()
 	{
 		GLFWVidMode nvm = glfwGetVideoMode(monitorId);
@@ -119,7 +131,11 @@ public final class GLFWMonitor
 		
 		return null;
 	}
-	
+
+	/**
+	 * Get the physical size of the monitor.
+	 * @return The physical size.
+	 */
 	public final Vector2f getPhysicalSize()
 	{
 		IntBuffer width = BufferUtils.createIntBuffer(1);
@@ -129,17 +145,29 @@ public final class GLFWMonitor
 		
 		return new Vector2f(width.get(), height.get());
 	}
-
+	
+	/**
+	 * Get the name of the monitor.
+	 * @return The name.
+	 */
 	public final String getName()
 	{
 		return glfwGetMonitorName(monitorId);
 	}
 	
+	/**
+	 * Get the native ID of the monitor.
+	 * @return The native ID.
+	 */
 	public final long getNativeId()
 	{
 		return monitorId;
 	}
 	
+	/**
+	 * Get the system's primary monitor.
+	 * @return The primary monitor.
+	 */
 	public static GLFWMonitor getPrimaryMonitor()
 	{
 		for(GLFWMonitor monitor : monitors)
@@ -153,6 +181,10 @@ public final class GLFWMonitor
 		return null;
 	}
 	
+	/**
+	 * Get all monitors.
+	 * @return All monitors.
+	 */
 	public static GLFWMonitor[] getMonitors()
 	{
 		return monitors.toArray(new GLFWMonitor[monitors.size()]);

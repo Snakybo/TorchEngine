@@ -22,14 +22,23 @@
 
 package com.snakybo.torch.glfw.input.joystick;
 
+import static org.lwjgl.glfw.GLFW.GLFW_CONNECTED;
+import static org.lwjgl.glfw.GLFW.GLFW_DISCONNECTED;
+import static org.lwjgl.glfw.GLFW.GLFW_JOYSTICK_1;
+import static org.lwjgl.glfw.GLFW.GLFW_JOYSTICK_LAST;
+import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
+import static org.lwjgl.glfw.GLFW.glfwGetJoystickAxes;
+import static org.lwjgl.glfw.GLFW.glfwGetJoystickButtons;
+import static org.lwjgl.glfw.GLFW.glfwJoystickPresent;
+import static org.lwjgl.glfw.GLFW.glfwSetJoystickCallback;
+
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
+import java.util.ArrayList;
 
 import org.lwjgl.glfw.GLFWJoystickCallback;
 
-import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.input.IInputController;
-import static org.lwjgl.glfw.GLFW.*;
 import com.snakybo.torch.input.joystick.IJoystick;
 
 /**
@@ -52,7 +61,7 @@ public final class GLFWJoystickController implements IInputController<IJoystick>
 						throw new RuntimeException("Unable to add joystick, another joystick with ID " + joystickId + " is already connected.");
 					}
 				}
-				Logger.log("joystick added");
+				
 				joystick.devices.add(new GLFWJoystickDevice(joystickId));
 			}
 			else if(event == GLFW_DISCONNECTED)
@@ -73,14 +82,12 @@ public final class GLFWJoystickController implements IInputController<IJoystick>
 					throw new RuntimeException("Unable to remove joystick, no joystick with ID " + joystickId + " is present.");
 				}
 				
-				Logger.log("joystick removed");
 				joystick.devices.remove(target);
 			}
 		}
 	}
 	
 	private GLFWJoystick joystick;
-	private GLFWJoystickCallback joystickCallback;
 	
 	public GLFWJoystickController()
 	{
@@ -90,7 +97,17 @@ public final class GLFWJoystickController implements IInputController<IJoystick>
 	@Override
 	public void create()
 	{
-		glfwSetJoystickCallback(joystickCallback = new JoystickCallback());
+		joystick.devices = new ArrayList<GLFWJoystickDevice>();
+		
+		for(int i = GLFW_JOYSTICK_1; i < GLFW_JOYSTICK_LAST; i++)
+		{
+			if(glfwJoystickPresent(i))
+			{
+				joystick.devices.add(new GLFWJoystickDevice(i));
+			}
+		}
+		
+		glfwSetJoystickCallback(new JoystickCallback());
 	}
 
 	@Override
@@ -120,7 +137,7 @@ public final class GLFWJoystickController implements IInputController<IJoystick>
 	@Override
 	public void destroy()
 	{
-		joystickCallback.free();
+		glfwSetJoystickCallback(null).free();
 	}
 
 	@Override

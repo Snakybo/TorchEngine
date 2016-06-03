@@ -44,15 +44,13 @@ import com.snakybo.torch.module.WindowModule;
  */
 public final class GLFWModule extends WindowModule
 {
-	private GLFWErrorCallback glfwErrorCallback;
-	
 	public GLFWModule()
 	{
 		super();
 		
 		LoggerInternal.log("Initializing GLFW", this);
 		
-		glfwSetErrorCallback(glfwErrorCallback = GLFWErrorCallback.createPrint(System.err));
+		glfwSetErrorCallback(GLFWErrorCallback.createPrint(System.err));
 		
 		if(!glfwInit())
 		{
@@ -79,6 +77,6 @@ public final class GLFWModule extends WindowModule
 		LoggerInternal.log("Terminating GLFW", this);
 		
 		glfwTerminate();
-		glfwErrorCallback.free();
+		glfwSetErrorCallback(null).free();
 	}
 }

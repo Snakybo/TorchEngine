@@ -22,9 +22,15 @@
 
 package com.snakybo.torch.glfw.window;
 
+import static org.lwjgl.glfw.GLFW.GLFW_CONNECTED;
+import static org.lwjgl.glfw.GLFW.GLFW_DISCONNECTED;
 import static org.lwjgl.glfw.GLFW.glfwPollEvents;
+import static org.lwjgl.glfw.GLFW.glfwSetMonitorCallback;
 import static org.lwjgl.glfw.GLFW.glfwSwapBuffers;
 
+import org.lwjgl.glfw.GLFWMonitorCallback;
+
+import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.window.IWindow;
 import com.snakybo.torch.window.IWindowController;
 
@@ -34,7 +40,48 @@ import com.snakybo.torch.window.IWindowController;
  */
 public final class GLFWWindowController implements IWindowController
 {
-	private final GLFWWindow window;
+	private class MonitorCallback extends GLFWMonitorCallback
+	{
+		@Override
+		public void invoke(long monitorId, int event)
+		{
+			if(event == GLFW_CONNECTED)
+			{
+				for(GLFWMonitor monitor : GLFWMonitor.monitors)
+				{
+					if(monitor.getNativeId() == monitorId)
+					{
+						throw new RuntimeException("Unable to add monitor, another monitor with ID " + monitorId + " is already connected.");
+					}
+					
+					Logger.log("Monitor added");
+					GLFWMonitor.monitors.add(new GLFWMonitor(monitorId));
+				}
+			}
+			else if(event == GLFW_DISCONNECTED)
+			{
+				GLFWMonitor target = null;
+				
+				for(GLFWMonitor monitor : GLFWMonitor.monitors)
+				{
+					if(monitor.getNativeId() == monitorId)
+					{
+						target = monitor;
+						break;
+					}
+				}
+				
+				if(target == null)
+				{
+					throw new RuntimeException("Unable to remove monitor, no monitor with ID " + monitorId + " is present.");
+				}
+				Logger.log("Monitor removed");
+				GLFWMonitor.monitors.remove(target);
+			}
+		}		
+	}
+	
+	private GLFWWindow window;
 	
 	public GLFWWindowController()
 	{
@@ -44,6 +91,7 @@ public final class GLFWWindowController implements IWindowController
 	@Override
 	public void create()
 	{
+		glfwSetMonitorCallback(new MonitorCallback());
 	}
 	
 	@Override
@@ -57,6 +105,8 @@ public final class GLFWWindowController implements IWindowController
 	public final void destroy()
 	{
 		window.destroy();
+		
+		glfwSetMonitorCallback(null).free();
 	}
 	
 	@Override
