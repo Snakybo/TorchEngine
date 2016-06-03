@@ -30,7 +30,6 @@ import static org.lwjgl.glfw.GLFW.glfwSwapBuffers;
 
 import org.lwjgl.glfw.GLFWMonitorCallback;
 
-import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.window.IWindow;
 import com.snakybo.torch.window.IWindowController;
 
@@ -54,7 +53,6 @@ public final class GLFWWindowController implements IWindowController
 						throw new RuntimeException("Unable to add monitor, another monitor with ID " + monitorId + " is already connected.");
 					}
 					
-					Logger.log("Monitor added");
 					GLFWMonitor.monitors.add(new GLFWMonitor(monitorId));
 				}
 			}
@@ -75,7 +73,7 @@ public final class GLFWWindowController implements IWindowController
 				{
 					throw new RuntimeException("Unable to remove monitor, no monitor with ID " + monitorId + " is present.");
 				}
-				Logger.log("Monitor removed");
+				
 				GLFWMonitor.monitors.remove(target);
 			}
 		}		

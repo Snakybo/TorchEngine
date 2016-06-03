@@ -57,7 +57,7 @@ public class GLFWWindowTest extends TorchGame
 	{
 		TorchGame game = new GLFWWindowTest();
 		
-		GLFWMonitor monitor = GLFWMonitor.getPrimaryMonitor();		
+		GLFWMonitor monitor = GLFWMonitor.getPrimaryMonitor();
 		Window.create(new GLFWWindowMode(monitor.getNativeId(), 1280, 720), WindowMode.Mode.Windowed);
 		
 		game.start();
