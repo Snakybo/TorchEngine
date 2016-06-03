@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.test;
+package com.snakybo.torch.test.opengl;
 
 import org.joml.Matrix4f;
 import org.joml.Vector3f;

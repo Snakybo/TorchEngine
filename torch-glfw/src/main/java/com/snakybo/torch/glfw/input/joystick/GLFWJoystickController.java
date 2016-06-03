@@ -27,6 +27,7 @@ import java.nio.FloatBuffer;
 
 import org.lwjgl.glfw.GLFWJoystickCallback;
 
+import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.input.IInputController;
 import static org.lwjgl.glfw.GLFW.*;
 import com.snakybo.torch.input.joystick.IJoystick;
@@ -51,7 +52,7 @@ public final class GLFWJoystickController implements IInputController<IJoystick>
 						throw new RuntimeException("Unable to add joystick, another joystick with ID " + joystickId + " is already connected.");
 					}
 				}
-				
+				Logger.log("joystick added");
 				joystick.devices.add(new GLFWJoystickDevice(joystickId));
 			}
 			else if(event == GLFW_DISCONNECTED)
@@ -72,6 +73,7 @@ public final class GLFWJoystickController implements IInputController<IJoystick>
 					throw new RuntimeException("Unable to remove joystick, no joystick with ID " + joystickId + " is present.");
 				}
 				
+				Logger.log("joystick removed");
 				joystick.devices.remove(target);
 			}
 		}

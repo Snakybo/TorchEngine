@@ -1,3 +1,4 @@
+package com.snakybo.torch.test.glfw;
 // The MIT License(MIT)
 //
 // Copyright(c) 2016 Kevin Krol
@@ -20,30 +21,45 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import com.snakybo.torch.debug.Logger;
-import com.snakybo.torch.object.Component;
+import com.snakybo.torch.TorchGame;
+import com.snakybo.torch.glfw.GLFWModule;
+import com.snakybo.torch.glfw.window.GLFWMonitor;
+import com.snakybo.torch.glfw.window.GLFWWindowMode;
+import com.snakybo.torch.object.GameObject;
+import com.snakybo.torch.opengl.OpenGLModule;
+import com.snakybo.torch.window.Window;
+import com.snakybo.torch.window.WindowMode;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public class GLFWCallbackListener extends Component
+public class GLFWWindowTest extends TorchGame
 {
-	@Override
-	protected void onWindowFocus(boolean focus)
+	public GLFWWindowTest()
 	{
-		Logger.log("Window focus: " + focus, this);
+		super("GLFW Windowing Test");
+		
+		new GLFWModule();
+		new OpenGLModule();
+	}
+
+	@Override
+	protected void onCreate()
+	{
+		GameObject obj = new GameObject();
+		//obj.addComponent(new GLFWInputListener());
+		//obj.addComponent(new GLFWCallbackListener());
+		obj.addComponent(new GLFWJoystickListener());
 	}
 	
-	@Override
-	protected void onWindowIconify(boolean iconified)
+	public static void main(String[] args)
 	{
-		Logger.log("Window iconified: " + iconified, this);
-	}
-	
-	@Override
-	protected void onCursorEnter(boolean entered)
-	{
-		Logger.log("Cursor enter: " + entered, this);
+		TorchGame game = new GLFWWindowTest();
+		
+		GLFWMonitor monitor = GLFWMonitor.getPrimaryMonitor();		
+		Window.create(new GLFWWindowMode(monitor.getNativeId(), 1280, 720), WindowMode.Mode.Windowed);
+		
+		game.start();
 	}
 }
