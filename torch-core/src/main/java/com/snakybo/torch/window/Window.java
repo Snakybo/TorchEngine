@@ -40,7 +40,7 @@ public final class Window
 	/**
 	 * Create a new window.
 	 * <p>
-	 * Shortcut to {@code WindowModule.getWindow().create(WindowMode, WindowMode.Mode)}
+	 * Shortcut to {@code WindowModule.getInstance().getWindow().create(WindowMode, WindowMode.Mode)}
 	 * </p>
 	 * @param windowMode The window mode.
 	 * @param displayMode The display mode.
@@ -54,7 +54,7 @@ public final class Window
 	/**
 	 * Destroy the active window.
 	 * <p>
-	 * Shortcut to {@code WindowModule.getWindow().destroy()}
+	 * Shortcut to {@code WindowModule.getInstance().getWindow().destroy()}
 	 * </p>
 	 * @see IWindow#destroy()
 	 */
@@ -78,7 +78,7 @@ public final class Window
 	/**
 	 * Check whether or not the window wants to close.
 	 * <p>
-	 * Shortcut to {@code WindowModule.getWindow().isCloseRequested()}
+	 * Shortcut to {@code WindowModule.getInstance().getWindow().isCloseRequested()}
 	 * </p>
 	 * @return Whether or not the window wants to close.
 	 * @see IWindow#isCloseRequested()
@@ -91,7 +91,7 @@ public final class Window
 	/**
 	 * Check whether or not vsync is enabled.
 	 * <p>
-	 * Shortcut to {@code WindowModule.getWindow().isVSyncEnabled()}
+	 * Shortcut to {@code WindowModule.getInstance().getWindow().isVSyncEnabled()}
 	 * </p>
 	 * @return Whether or not vsync is enabled.
 	 * @see IWindow#isVSyncEnabled()
@@ -104,7 +104,7 @@ public final class Window
 	/**
 	 * Set the size of the window.
 	 * <p>
-	 * Shortcut to {@code WindowModule.getWindow().setSize(Vector2f)}
+	 * Shortcut to {@code WindowModule.getInstance().getWindow().setSize(Vector2f)}
 	 * </p>
 	 * @param size The new size of the window.
 	 * @see IWindow#setSize(Vector2f)
@@ -117,7 +117,7 @@ public final class Window
 	/**
 	 * Enable or disable vsync.
 	 * <p>
-	 * Shortcut to {@code WindowModule.getWindow().setVSyncEnabled(boolean)}
+	 * Shortcut to {@code WindowModule.getInstance().getWindow().setVSyncEnabled(boolean)}
 	 * </p>
 	 * @param enabled Whether or not to enable vsync
 	 * @see IWindow#setVSyncEnabled(boolean)
@@ -130,7 +130,7 @@ public final class Window
 	/**
 	 * Set the size of the window.
 	 * <p>
-	 * Shortcut to {@code WindowModule.getWindow().getSize()}
+	 * Shortcut to {@code WindowModule.getInstance().getWindow().getSize()}
 	 * </p>
 	 * @param size The new size of the window.
 	 * @see IWindow#getSize()
@@ -143,7 +143,7 @@ public final class Window
 	/**
 	 * Get the aspect ratio of the window.
 	 * <p>
-	 * Shortcut to {@code WindowModule.getWindow().getAspectRatio()}
+	 * Shortcut to {@code WindowModule.getInstance().getWindow().getAspectRatio()}
 	 * </p>
 	 * @return The aspect ratio of the window.
 	 * @see IWindow#getAspectRatio()
@@ -156,7 +156,7 @@ public final class Window
 	/**
 	 * Get the center of the window.
 	 * <p>
-	 * Shortcut to {@code WindowModule.getWindow().getCenter()}
+	 * Shortcut to {@code WindowModule.getInstance().getWindow().getCenter()}
 	 * </p>
 	 * @return The center of the window.
 	 * @see IWindow#getCenter()
@@ -169,7 +169,7 @@ public final class Window
 	/**
 	 * Get the native ID of the window.
 	 *  <p>
-	 * Shortcut to {@code WindowModule.getWindow().getNativeId()}
+	 * Shortcut to {@code WindowModule.getInstance().getWindow().getNativeId()}
 	 * </p>
 	 * @return The native ID of the window.
 	 * @see IWindow#getNativeId()

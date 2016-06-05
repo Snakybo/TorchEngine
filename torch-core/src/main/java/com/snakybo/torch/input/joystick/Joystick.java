@@ -38,7 +38,7 @@ public final class Joystick
 	/**
 	 * Check whether or not a joystick is present.
 	 * <p>
-	 * Shortcut to {@code WindowModule.getInstance().getJoystick().isJoystickPresent()}
+	 * Shortcut to {@code WindowModule.getInstance().getInstance().getJoystick().isJoystickPresent()}
 	 * </p>
 	 * @return Whether or not a joystick is present.
 	 * @see IJoystick#isJoystickPresent()
@@ -51,7 +51,7 @@ public final class Joystick
 	/**
 	 * Get the first available joystick.
 	 * <p>
-	 * Shortcut to {@code WindowModule.getInstance().getJoystick().getJoystick()}
+	 * Shortcut to {@code WindowModule.getInstance().getInstance().getJoystick().getJoystick()}
 	 * </p>
 	 * @return The first available joystick.
 	 * @see IJoystick#getJoystick()
@@ -64,7 +64,7 @@ public final class Joystick
 	/**
 	 * Get all available joysticks.
 	 * <p>
-	 * Shortcut to {@code WindowModule.getInstance().getJoystick().getJoysticks()}
+	 * Shortcut to {@code WindowModule.getInstance().getInstance().getJoystick().getJoysticks()}
 	 * </p>
 	 * @return All available joysticks.
 	 * @see IJoystick#getJoysticks()
@@ -77,7 +77,7 @@ public final class Joystick
 	/**
 	 * Get the number of joysticks present.
 	 * <p>
-	 * Shortcut to {@code WindowModule.getInstance().getJoystick().getNumJoysticksPresent()}
+	 * Shortcut to {@code WindowModule.getInstance().getInstance().getJoystick().getNumJoysticksPresent()}
 	 * </p>
 	 * @return The number of joysticks present.
 	 * @see IJoystick#getNumJoysticksPresent()

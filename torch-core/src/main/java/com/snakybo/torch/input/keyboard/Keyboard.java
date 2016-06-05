@@ -38,7 +38,7 @@ public final class Keyboard
 	/**
 	 * Check if the {@link Key} is currently being pressed.
 	 * <p>
-	 * Shortcut to {@code WindowModule.getKeyboard().isDown(Key)}
+	 * Shortcut to {@code WindowModule.getInstance().getKeyboard().isDown(Key)}
 	 * </p>
 	 * @param id The {@link Key} to check.
 	 * @return True if the specified {@link Key} is currently being pressed.
@@ -52,7 +52,7 @@ public final class Keyboard
 	/**
 	 * Check if the {@link Key} is currently not being pressed.
 	 * <p>
-	 * Shortcut to {@code WindowModule.getKeyboard().isUp(Key)}
+	 * Shortcut to {@code WindowModule.getInstance().getKeyboard().isUp(Key)}
 	 * </p>
 	 * @param id The {@link Key} to check.
 	 * @return True if the specified {@link Key} is currently not being pressed.
@@ -66,7 +66,7 @@ public final class Keyboard
 	/**
 	 * Check if the {@link Key} is currently being pressed.
 	 * <p>
-	 * Shortcut to {@code WindowModule.getKeyboard().onDown(Key)}
+	 * Shortcut to {@code WindowModule.getInstance().getKeyboard().onDown(Key)}
 	 * </p>
 	 * @param id The {@link Key} to check.
 	 * @return True the first frame {@link Key} is being pressed.
@@ -80,7 +80,7 @@ public final class Keyboard
 	/**
 	 * Check if the {@link Key} is currently not being pressed.
 	 * <p>
-	 * Shortcut to {@code WindowModule.getKeyboard().onUp(Key)}
+	 * Shortcut to {@code WindowModule.getInstance().getKeyboard().onUp(Key)}
 	 * </p>
 	 * @param id The {@link Key} to check.
 	 * @return True the first frame {@link Key} has been released.
@@ -94,7 +94,7 @@ public final class Keyboard
 	/**
 	 * Set the value of the clipboard.
 	 * <p>
-	 * Shortcut to {@code WindowModule.getKeyboard().setClipboardString(String)}
+	 * Shortcut to {@code WindowModule.getInstance().getKeyboard().setClipboardString(String)}
 	 * </p>
 	 * @param string The new value of the clipboard.
 	 * @see IKeyboard#setClipboardString(String)
@@ -107,7 +107,7 @@ public final class Keyboard
 	/**
 	 * Get the value of the clipboard.
 	 * <p>
-	 * Shortcut to {@code WindowModule.getKeyboard().setClipboardString(String)}
+	 * Shortcut to {@code WindowModule.getInstance().getKeyboard().setClipboardString(String)}
 	 * </p>
 	 * @return The value of the clipboard.
 	 * @see IKeyboard#getClipboardString()
