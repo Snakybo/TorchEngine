@@ -43,6 +43,11 @@ public interface IWindow
 	void destroy();
 	
 	/**
+	 * Bring the window to the front and give it focus.
+	 */
+	void focus();
+	
+	/**
 	 * Check whether or not the window wants to close.
 	 * @return Whether or not the window wants to close.
 	 */

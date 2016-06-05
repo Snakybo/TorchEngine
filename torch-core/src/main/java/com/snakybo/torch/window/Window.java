@@ -64,6 +64,18 @@ public final class Window
 	}
 	
 	/**
+	 * Bring the window to the front and give it focus.
+	 * <p>
+	 * Shortcut to {@code WindowModule.getInstance().getWindow().focus()}
+	 * </p>
+	 * @see IWindow#focus()
+	 */
+	public static void focus()
+	{
+		WindowModule.getInstance().getWindow().focus();
+	}
+	
+	/**
 	 * Check whether or not the window wants to close.
 	 * <p>
 	 * Shortcut to {@code WindowModule.getWindow().isCloseRequested()}

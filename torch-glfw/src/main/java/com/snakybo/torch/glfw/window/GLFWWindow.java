@@ -32,6 +32,7 @@ import static org.lwjgl.glfw.GLFW.GLFW_VISIBLE;
 import static org.lwjgl.glfw.GLFW.glfwCreateWindow;
 import static org.lwjgl.glfw.GLFW.glfwDefaultWindowHints;
 import static org.lwjgl.glfw.GLFW.glfwDestroyWindow;
+import static org.lwjgl.glfw.GLFW.glfwFocusWindow;
 import static org.lwjgl.glfw.GLFW.glfwGetWindowSize;
 import static org.lwjgl.glfw.GLFW.glfwMakeContextCurrent;
 import static org.lwjgl.glfw.GLFW.glfwSetCharCallback;
@@ -141,6 +142,12 @@ public class GLFWWindow implements IWindow
 		
 		windowMode = null;
 		windowId = NULL;
+	}
+	
+	@Override
+	public void focus()
+	{
+		glfwFocusWindow(windowId);
 	}
 	
 	@Override
