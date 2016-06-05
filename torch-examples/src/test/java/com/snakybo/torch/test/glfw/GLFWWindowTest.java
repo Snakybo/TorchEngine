@@ -24,7 +24,7 @@ package com.snakybo.torch.test.glfw;
 import com.snakybo.torch.TorchGame;
 import com.snakybo.torch.glfw.GLFWModule;
 import com.snakybo.torch.glfw.window.GLFWMonitor;
-import com.snakybo.torch.glfw.window.GLFWWindowMode;
+import com.snakybo.torch.glfw.window.GLFWWindowProperties;
 import com.snakybo.torch.object.GameObject;
 import com.snakybo.torch.opengl.OpenGLModule;
 import com.snakybo.torch.window.Window;
@@ -58,7 +58,7 @@ public class GLFWWindowTest extends TorchGame
 		TorchGame game = new GLFWWindowTest();
 		
 		GLFWMonitor monitor = GLFWMonitor.getPrimaryMonitor();
-		Window.create(new GLFWWindowMode(monitor.getNativeId(), 1280, 720), WindowMode.Mode.Windowed);
+		Window.create(new GLFWWindowProperties(monitor.getNativeId(), 1280, 720), WindowMode.Windowed);
 		
 		game.start();
 	}

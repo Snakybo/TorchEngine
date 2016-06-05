@@ -39,7 +39,7 @@ import org.lwjgl.PointerBuffer;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.glfw.GLFWVidMode.Buffer;
 
-import com.snakybo.torch.window.WindowMode;
+import com.snakybo.torch.window.WindowProperties;
 
 /**
  * @author Snakybo
@@ -49,7 +49,7 @@ public final class GLFWMonitor
 {	
 	static Set<GLFWMonitor> monitors;
 	
-	private Set<GLFWWindowMode> windowModes;
+	private Set<GLFWWindowProperties> windowModes;
 	
 	private long monitorId;
 	
@@ -70,12 +70,12 @@ public final class GLFWMonitor
 		this.monitorId = monitorId;
 		
 		Buffer modes = glfwGetVideoModes(monitorId);
-		windowModes = new HashSet<GLFWWindowMode>();
+		windowModes = new HashSet<GLFWWindowProperties>();
 		
 		for(int i = 0; i < modes.limit(); i++)
 		{
 			GLFWVidMode vm = modes.get();
-			GLFWWindowMode wm =new GLFWWindowMode(
+			GLFWWindowProperties wm =new GLFWWindowProperties(
 					monitorId,
 					vm.width(),
 					vm.height(),
@@ -105,20 +105,20 @@ public final class GLFWMonitor
 	 * Get all available window modes.
 	 * @return All available window modes.
 	 */
-	public final WindowMode[] getWindowModes()
+	public final WindowProperties[] getWindowModes()
 	{
-		return windowModes.toArray(new WindowMode[windowModes.size()]);
+		return windowModes.toArray(new WindowProperties[windowModes.size()]);
 	}	
 	
 	/**
 	 * Get the native window mode of the monitor.
 	 * @return The native window mode.
 	 */
-	public final GLFWWindowMode getNativeWindowMode()
+	public final GLFWWindowProperties getNativeWindowMode()
 	{
 		GLFWVidMode nvm = glfwGetVideoMode(monitorId);
 		
-		for(GLFWWindowMode wm : windowModes)
+		for(GLFWWindowProperties wm : windowModes)
 		{
 			if(wm.getWidth() == nvm.width()
 					&& wm.getHeight() == nvm.height()

@@ -32,10 +32,10 @@ public interface IWindow
 {
 	/**
 	 * Create a new window.
+	 * @param windowProperties The window properties.
 	 * @param windowMode The window mode.
-	 * @param displayMode The display mode.
 	 */
-	void create(WindowMode windowMode, WindowMode.Mode displayMode);
+	void create(WindowProperties windowProperties, WindowMode windowMode);
 	
 	/**
 	 * Destroy the active window.

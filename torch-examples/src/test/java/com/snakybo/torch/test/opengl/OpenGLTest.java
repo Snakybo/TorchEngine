@@ -31,7 +31,7 @@ import com.snakybo.torch.camera.Camera;
 import com.snakybo.torch.camera.CameraClearFlags;
 import com.snakybo.torch.glfw.GLFWModule;
 import com.snakybo.torch.glfw.window.GLFWMonitor;
-import com.snakybo.torch.glfw.window.GLFWWindowMode;
+import com.snakybo.torch.glfw.window.GLFWWindowProperties;
 import com.snakybo.torch.mesh.Material;
 import com.snakybo.torch.mesh.MeshRenderer;
 import com.snakybo.torch.model.Model;
@@ -100,7 +100,7 @@ public class OpenGLTest extends TorchGame
 		TorchGame game = new OpenGLTest();
 		
 		GLFWMonitor monitor = GLFWMonitor.getPrimaryMonitor();		
-		Window.create(new GLFWWindowMode(monitor.getNativeId(), 1280, 720), WindowMode.Mode.Windowed);
+		Window.create(new GLFWWindowProperties(monitor.getNativeId(), 1280, 720), WindowMode.Windowed);
 		
 		game.start();
 	}

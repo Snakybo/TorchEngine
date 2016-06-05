@@ -61,6 +61,7 @@ import com.snakybo.torch.module.WindowModule;
 import com.snakybo.torch.scene.SceneInternal;
 import com.snakybo.torch.window.IWindow;
 import com.snakybo.torch.window.WindowMode;
+import com.snakybo.torch.window.WindowProperties;
 
 /**
  * @author Snakybo
@@ -68,23 +69,23 @@ import com.snakybo.torch.window.WindowMode;
  */
 public class GLFWWindow implements IWindow
 {
-	private WindowMode windowMode;
+	private WindowProperties windowProperties;
 	
 	private long windowId;
 	
 	private boolean vsyncEnabled;
 	
 	@Override
-	public final void create(WindowMode windowMode, WindowMode.Mode displayMode)
+	public final void create(WindowProperties windowProperties, WindowMode windowMode)
 	{
-		if(this.windowMode != null || windowId != NULL)
+		if(this.windowProperties != null || windowId != NULL)
 		{
 			destroy();
 		}
 		
-		LoggerInternal.log("Creating window: " + windowMode, this);
+		LoggerInternal.log("Creating window: " + windowProperties, this);
 		
-		this.windowMode = windowMode;
+		this.windowProperties = windowProperties;
 		
 		long monitor = NULL;
 		
@@ -92,27 +93,27 @@ public class GLFWWindow implements IWindow
 		glfwWindowHint(GLFW_VISIBLE, GL_FALSE);
 		glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 		
-		if(displayMode == WindowMode.Mode.Borderless)
+		if(windowMode == WindowMode.Borderless)
 		{
-			glfwWindowHint(GLFW_RED_BITS, windowMode.getBitsPerPixel());
-			glfwWindowHint(GLFW_GREEN_BITS, windowMode.getBitsPerPixel());
-			glfwWindowHint(GLFW_BLUE_BITS, windowMode.getBitsPerPixel());
-			glfwWindowHint(GLFW_REFRESH_RATE, windowMode.getFrequency());
+			glfwWindowHint(GLFW_RED_BITS, windowProperties.getBitsPerPixel());
+			glfwWindowHint(GLFW_GREEN_BITS, windowProperties.getBitsPerPixel());
+			glfwWindowHint(GLFW_BLUE_BITS, windowProperties.getBitsPerPixel());
+			glfwWindowHint(GLFW_REFRESH_RATE, windowProperties.getFrequency());
 			
 			glfwWindowHint(GLFW_DECORATED, GL_FALSE);
 		}
-		else if(displayMode == WindowMode.Mode.Fullscreen)
+		else if(windowMode == WindowMode.Fullscreen)
 		{
-			if(!(windowMode instanceof GLFWWindowMode))
+			if(!(windowProperties instanceof GLFWWindowProperties))
 			{
-				throw new IllegalArgumentException("Invalid WindowMode, expected GLFWWindowMode, got: " + windowMode.getClass());
+				throw new IllegalArgumentException("Invalid WindowMode, expected GLFWWindowMode, got: " + windowProperties.getClass());
 			}
 			
-			GLFWWindowMode glfwWindowMode = (GLFWWindowMode)windowMode;
+			GLFWWindowProperties glfwWindowMode = (GLFWWindowProperties)windowProperties;
 			monitor = glfwWindowMode.getMonitor();
 		}
 		
-		windowId = glfwCreateWindow(windowMode.getWidth(), windowMode.getHeight(), TorchGame.getName(), monitor, NULL);
+		windowId = glfwCreateWindow(windowProperties.getWidth(), windowProperties.getHeight(), TorchGame.getName(), monitor, NULL);
 		if(windowId == NULL)
 		{
 			throw new RuntimeException("Unable to create GLFW window");
@@ -140,7 +141,7 @@ public class GLFWWindow implements IWindow
 		
 		glfwDestroyWindow(windowId);
 		
-		windowMode = null;
+		windowProperties = null;
 		windowId = NULL;
 	}
 	

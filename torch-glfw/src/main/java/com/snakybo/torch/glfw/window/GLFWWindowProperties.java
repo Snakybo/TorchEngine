@@ -22,22 +22,22 @@
 
 package com.snakybo.torch.glfw.window;
 
-import com.snakybo.torch.window.WindowMode;
+import com.snakybo.torch.window.WindowProperties;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class GLFWWindowMode extends WindowMode
+public final class GLFWWindowProperties extends WindowProperties
 {	
 	private long monitor;
 	
-	public GLFWWindowMode(long monitor, int width, int height)
+	public GLFWWindowProperties(long monitor, int width, int height)
 	{
 		this(monitor, width, height, 0, 0);
 	}
 	
-	public GLFWWindowMode(long monitor, int width, int height, int bpp, int freq)
+	public GLFWWindowProperties(long monitor, int width, int height, int bpp, int freq)
 	{
 		super(width, height, bpp, freq);
 		

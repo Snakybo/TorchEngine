@@ -40,15 +40,15 @@ public final class Window
 	/**
 	 * Create a new window.
 	 * <p>
-	 * Shortcut to {@code WindowModule.getInstance().getWindow().create(WindowMode, WindowMode.Mode)}
+	 * Shortcut to {@code WindowModule.getInstance().getWindow().create(WindowProperties, WindowMode)}
 	 * </p>
+	 * @param windowProperties The window properties.
 	 * @param windowMode The window mode.
-	 * @param displayMode The display mode.
-	 * @see IWindow#create(WindowMode, com.snakybo.torch.window.WindowMode.Mode)
+	 * @see IWindow#create(WindowProperties, WindowMode)
 	 */
-	public static void create(WindowMode windowMode, WindowMode.Mode displayMode)
+	public static void create(WindowProperties windowProperties, WindowMode windowMode)
 	{
-		WindowModule.getInstance().getWindow().create(windowMode, displayMode);
+		WindowModule.getInstance().getWindow().create(windowProperties, windowMode);
 	}
 	
 	/**
