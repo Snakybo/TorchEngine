@@ -35,6 +35,7 @@ import static org.lwjgl.glfw.GLFW.glfwDestroyWindow;
 import static org.lwjgl.glfw.GLFW.glfwFocusWindow;
 import static org.lwjgl.glfw.GLFW.glfwGetWindowSize;
 import static org.lwjgl.glfw.GLFW.glfwMakeContextCurrent;
+import static org.lwjgl.glfw.GLFW.glfwPollEvents;
 import static org.lwjgl.glfw.GLFW.glfwSetCharCallback;
 import static org.lwjgl.glfw.GLFW.glfwSetCursorEnterCallback;
 import static org.lwjgl.glfw.GLFW.glfwSetScrollCallback;
@@ -42,6 +43,7 @@ import static org.lwjgl.glfw.GLFW.glfwSetWindowFocusCallback;
 import static org.lwjgl.glfw.GLFW.glfwSetWindowIconifyCallback;
 import static org.lwjgl.glfw.GLFW.glfwSetWindowSize;
 import static org.lwjgl.glfw.GLFW.glfwShowWindow;
+import static org.lwjgl.glfw.GLFW.glfwSwapBuffers;
 import static org.lwjgl.glfw.GLFW.glfwSwapInterval;
 import static org.lwjgl.glfw.GLFW.glfwWindowHint;
 import static org.lwjgl.glfw.GLFW.glfwWindowShouldClose;
@@ -56,7 +58,8 @@ import org.lwjgl.glfw.Callbacks;
 
 import com.snakybo.torch.TorchGame;
 import com.snakybo.torch.debug.LoggerInternal;
-import com.snakybo.torch.glfw.input.mouse.GLFWMouseController;
+import com.snakybo.torch.glfw.input.mouse.GLFWMouse;
+import com.snakybo.torch.module.Module;
 import com.snakybo.torch.module.WindowModule;
 import com.snakybo.torch.scene.SceneInternal;
 import com.snakybo.torch.window.IWindow;
@@ -71,14 +74,14 @@ public class GLFWWindow implements IWindow
 {
 	private WindowProperties windowProperties;
 	
-	private long windowId;
+	private long nativeId;
 	
 	private boolean vsyncEnabled;
 	
 	@Override
 	public final void create(WindowProperties windowProperties, WindowMode windowMode)
 	{
-		if(this.windowProperties != null || windowId != NULL)
+		if(this.windowProperties != null || nativeId != NULL)
 		{
 			destroy();
 		}
@@ -113,22 +116,22 @@ public class GLFWWindow implements IWindow
 			monitor = glfwWindowMode.getMonitor();
 		}
 		
-		windowId = glfwCreateWindow(windowProperties.getWidth(), windowProperties.getHeight(), TorchGame.getName(), monitor, NULL);
-		if(windowId == NULL)
+		nativeId = glfwCreateWindow(windowProperties.getWidth(), windowProperties.getHeight(), TorchGame.getName(), monitor, NULL);
+		if(nativeId == NULL)
 		{
 			throw new RuntimeException("Unable to create GLFW window");
 		}
 		
-		glfwSetWindowFocusCallback(windowId, (window, focus) -> SceneInternal.notify("onWindowFocus", new Class<?>[]{boolean.class}, new Object[]{focus}));
-		glfwSetWindowIconifyCallback(windowId, (window, iconified) -> SceneInternal.notify("onWindowIconify", new Class<?>[]{boolean.class}, new Object[]{iconified}));
+		glfwSetWindowFocusCallback(nativeId, (window, focus) -> SceneInternal.notify("onWindowFocus", new Class<?>[]{boolean.class}, new Object[]{focus}));
+		glfwSetWindowIconifyCallback(nativeId, (window, iconified) -> SceneInternal.notify("onWindowIconify", new Class<?>[]{boolean.class}, new Object[]{iconified}));
 		
-		glfwSetCharCallback(windowId, (window, codepoint) -> SceneInternal.notify("onCharPressed", new Class<?>[]{char.class}, new Object[]{(char)codepoint}));
+		glfwSetCharCallback(nativeId, (window, codepoint) -> SceneInternal.notify("onCharPressed", new Class<?>[]{char.class}, new Object[]{(char)codepoint}));
 		
-		glfwSetCursorEnterCallback(windowId, (window, entered) -> SceneInternal.notify("onCursorEnter", new Class<?>[]{boolean.class}, new Object[]{entered}));
-		glfwSetScrollCallback(windowId, (window, x, y) -> ((GLFWMouseController)WindowModule.getInstance().getMouseController()).setScrollDelta((float)x, (float)y));
+		glfwSetCursorEnterCallback(nativeId, (window, entered) -> SceneInternal.notify("onCursorEnter", new Class<?>[]{boolean.class}, new Object[]{entered}));
+		glfwSetScrollCallback(nativeId, (window, x, y) -> ((GLFWMouse)Module.getModule(WindowModule.class).getMouse()).setScrollDelta((float)x, (float)y));
 		
-		glfwMakeContextCurrent(windowId);
-		glfwShowWindow(windowId);
+		glfwMakeContextCurrent(nativeId);
+		glfwShowWindow(nativeId);
 		setVSyncEnabled(true);
 	}
 	
@@ -137,24 +140,31 @@ public class GLFWWindow implements IWindow
 	{
 		LoggerInternal.log("Destroying window", this);
 		
-		Callbacks.glfwFreeCallbacks(windowId);
+		Callbacks.glfwFreeCallbacks(nativeId);
 		
-		glfwDestroyWindow(windowId);
+		glfwDestroyWindow(nativeId);
 		
 		windowProperties = null;
-		windowId = NULL;
+		nativeId = NULL;
+	}
+	
+	@Override
+	public final void update()
+	{
+		glfwSwapBuffers(nativeId);
+		glfwPollEvents();
 	}
 	
 	@Override
 	public void focus()
 	{
-		glfwFocusWindow(windowId);
+		glfwFocusWindow(nativeId);
 	}
 	
 	@Override
 	public final boolean isCloseRequested()
 	{
-		return glfwWindowShouldClose(windowId);
+		return glfwWindowShouldClose(nativeId);
 	}
 	
 	@Override
@@ -166,7 +176,7 @@ public class GLFWWindow implements IWindow
 	@Override
 	public final void setSize(Vector2f size)
 	{
-		glfwSetWindowSize(windowId, (int)size.x, (int)size.y);
+		glfwSetWindowSize(nativeId, (int)size.x, (int)size.y);
 	}
 	
 	@Override
@@ -183,13 +193,13 @@ public class GLFWWindow implements IWindow
 		IntBuffer width = BufferUtils.createIntBuffer(1);
 		IntBuffer height = BufferUtils.createIntBuffer(1);
 		
-		glfwGetWindowSize(windowId, width, height);
+		glfwGetWindowSize(nativeId, width, height);
 		return new Vector2f(width.get(), height.get());
 	}
 	
 	@Override
 	public long getNativeId()
 	{
-		return windowId;
+		return nativeId;
 	}
 }

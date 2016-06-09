@@ -24,6 +24,7 @@ package com.snakybo.torch.input.mouse;
 
 import org.joml.Vector2f;
 
+import com.snakybo.torch.module.Module;
 import com.snakybo.torch.module.WindowModule;
 
 /**
@@ -39,109 +40,77 @@ public final class Mouse
 	
 	/**
 	 * Check if the {@link MouseButton} is currently being pressed.
-	 * <p>
-	 * Shortcut to {@code WindowModule.getInstance().getMouse().isDown(MouseButton)}
-	 * </p>
 	 * @param id The {@link MouseButton} to check.
 	 * @return True if the specified {@link MouseButton} is currently being pressed.
-	 * @see IMouse#isDown(MouseButton)
 	 */
 	public static boolean isDown(MouseButton id)
 	{
-		return WindowModule.getInstance().getMouse().isDown(id);
+		return Module.getModule(WindowModule.class).getMouse().isDown(id);
 	}
 	
 	/**
 	 * Check if the {@link MouseButton} is currently not being pressed.
-	 * <p>
-	 * Shortcut to {@code WindowModule.getInstance().getMouse().isUp(MouseButton)}
-	 * </p>
 	 * @param id The {@link MouseButton} to check.
 	 * @return True if the specified {@link MouseButton} is currently not being pressed.
-	 * @see IMouse#isUp(MouseButton)
 	 */
 	public static boolean isUp(MouseButton id)
 	{
-		return WindowModule.getInstance().getMouse().isUp(id);
+		return Module.getModule(WindowModule.class).getMouse().isUp(id);
 	}
 	
 	/**
 	 * Check if the {@link MouseButton} is currently being pressed.
-	 * <p>
-	 * Shortcut to {@code WindowModule.getInstance().getMouse().onDown(MouseButton)}
-	 * </p>
 	 * @param id The {@link MouseButton} to check.
 	 * @return True the first frame {@link MouseButton} is being pressed.
-	 * @see IMouse#onDown(MouseButton)
 	 */
 	public static boolean onDown(MouseButton id)
 	{
-		return WindowModule.getInstance().getMouse().onDown(id);
+		return Module.getModule(WindowModule.class).getMouse().onDown(id);
 	}
 	
 	/**
 	 * Check if the {@link MouseButton} is currently not being pressed.
-	 * <p>
-	 * Shortcut to {@code WindowModule.getInstance().getMouse().onUp(MouseButton)}
-	 * </p>
 	 * @param id The {@link MouseButton} to check.
 	 * @return True the first frame {@link MouseButton} has been released.
-	 * @see IMouse#onUp(MouseButton)
 	 */
 	public static boolean onUp(MouseButton id)
 	{
-		return WindowModule.getInstance().getMouse().onUp(id);
+		return Module.getModule(WindowModule.class).getMouse().onUp(id);
 	}
 	
 	/**
 	 * Set the cursor position.
-	 * <p>
-	 * Shortcut to {@code WindowModule.getInstance().getMouse().setCursorPosition(Vector2f)}
-	 * </p>
 	 * @param position The new position of the cursor.
-	 * @see IMouse#setCursorPosition(Vector2f)
 	 */
 	public static void setCursorPosition(Vector2f position)
 	{
-		WindowModule.getInstance().getMouse().setCursorPosition(position);
+		Module.getModule(WindowModule.class).getMouse().setCursorPosition(position);
 	}
 	
 	/**
 	 * Get the mouse scroll wheel delta.
-	 * <p>
-	 * Shortcut to {@code WindowModule.getInstance().getMouse().getScrollDelta()}
-	 * </p>
 	 * @return The mouse scroll wheel delta.
-	 * @see IMouse#getScrollDelta()
 	 */
 	public static Vector2f getScrollDelta()
 	{
-		return WindowModule.getInstance().getMouse().getScrollDelta();
+		return Module.getModule(WindowModule.class).getMouse().getScrollDelta();
 	}
 	
 	/**
 	 * Get the cursor position.
-	 * <p>
-	 * Shortcut to {@code WindowModule.getInstance().getMouse().getCursorPosition()}
-	 * </p>
 	 * @return The cursor position.
-	 * @see IMouse#getCursorPosition()
 	 */
 	public static Vector2f getCursorPosition()
 	{
-		return WindowModule.getInstance().getMouse().getCursorPosition();
+		return Module.getModule(WindowModule.class).getMouse().getCursorPosition();
 	}
 	
 	/**
 	 * Get the cursor position delta.
-	 * <p>
-	 * Shortcut to {@code WindowModule.getInstance().getMouse().getCursorPositionDelta()}
-	 * </p>
 	 * @return The cursor position delta.
-	 * @see IMouse#getCursorPositionDelta()
 	 */
 	public static Vector2f getCursorPositionDelta()
 	{
-		return WindowModule.getInstance().getMouse().getCursorPositionDelta();
+		return Module.getModule(WindowModule.class).getMouse().getCursorPositionDelta();
 	}
 }

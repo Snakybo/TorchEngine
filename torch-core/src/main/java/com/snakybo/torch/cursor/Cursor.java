@@ -25,6 +25,7 @@ package com.snakybo.torch.cursor;
 import org.joml.Vector2f;
 
 import com.snakybo.torch.bitmap.Bitmap;
+import com.snakybo.torch.module.Module;
 import com.snakybo.torch.module.WindowModule;
 
 /**
@@ -40,56 +41,56 @@ public final class Cursor
 	
 	public static boolean isVisible()
 	{
-		return WindowModule.getInstance().getCursor().isVisible();
+		return Module.getModule(WindowModule.class).getCursor().isVisible();
 	}
 
 	public static void setLockMode(CursorLockMode cursorLockMode)
 	{
-		WindowModule.getInstance().getCursor().setLockMode(cursorLockMode);
+		Module.getModule(WindowModule.class).getCursor().setLockMode(cursorLockMode);
 	}
 	
 	public static void setVisible(boolean visible)
 	{
-		WindowModule.getInstance().getCursor().setVisible(visible);
+		Module.getModule(WindowModule.class).getCursor().setVisible(visible);
 	}
 	
 	public static void setShapeArrow()
 	{
-		WindowModule.getInstance().getCursor().setShapeArrow();
+		Module.getModule(WindowModule.class).getCursor().setShapeArrow();
 	}
 	
 	public static void setShapeIBeam()
 	{
-		WindowModule.getInstance().getCursor().setShapeIBeam();
+		Module.getModule(WindowModule.class).getCursor().setShapeIBeam();
 	}
 	
 	public static void setShapeCrosshair()
 	{
-		WindowModule.getInstance().getCursor().setShapeCrosshair();
+		Module.getModule(WindowModule.class).getCursor().setShapeCrosshair();
 	}
 	
 	public static void setShapeHand()
 	{
-		WindowModule.getInstance().getCursor().setShapeHand();
+		Module.getModule(WindowModule.class).getCursor().setShapeHand();
 	}
 	
 	public static void setShapeHResize()
 	{
-		WindowModule.getInstance().getCursor().setShapeHResize();
+		Module.getModule(WindowModule.class).getCursor().setShapeHResize();
 	}
 	
 	public static void setShapeVResize()
 	{
-		WindowModule.getInstance().getCursor().setShapeVResize();
+		Module.getModule(WindowModule.class).getCursor().setShapeVResize();
 	}
 	
 	public static void setShape(Bitmap bitmap, Vector2f hot)
 	{
-		WindowModule.getInstance().getCursor().setShape(bitmap, hot);
+		Module.getModule(WindowModule.class).getCursor().setShape(bitmap, hot);
 	}
 	
 	public static CursorLockMode getLockMode()
 	{
-		return WindowModule.getInstance().getCursor().getLockMode();
+		return Module.getModule(WindowModule.class).getCursor().getLockMode();
 	}
 }

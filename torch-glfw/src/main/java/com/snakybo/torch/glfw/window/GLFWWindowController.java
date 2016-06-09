@@ -24,20 +24,18 @@ package com.snakybo.torch.glfw.window;
 
 import static org.lwjgl.glfw.GLFW.GLFW_CONNECTED;
 import static org.lwjgl.glfw.GLFW.GLFW_DISCONNECTED;
-import static org.lwjgl.glfw.GLFW.glfwPollEvents;
 import static org.lwjgl.glfw.GLFW.glfwSetMonitorCallback;
-import static org.lwjgl.glfw.GLFW.glfwSwapBuffers;
 
 import org.lwjgl.glfw.GLFWMonitorCallback;
 
+import com.snakybo.torch.module.ModuleController;
 import com.snakybo.torch.window.IWindow;
-import com.snakybo.torch.window.IWindowController;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class GLFWWindowController implements IWindowController
+public final class GLFWWindowController extends ModuleController<IWindow>
 {
 	private class MonitorCallback extends GLFWMonitorCallback
 	{
@@ -90,13 +88,6 @@ public final class GLFWWindowController implements IWindowController
 	public void create()
 	{
 		glfwSetMonitorCallback(new MonitorCallback());
-	}
-	
-	@Override
-	public final void update()
-	{
-		glfwSwapBuffers(window.getNativeId());
-		glfwPollEvents();
 	}
 
 	@Override

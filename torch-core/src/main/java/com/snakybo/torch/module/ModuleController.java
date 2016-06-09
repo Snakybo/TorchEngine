@@ -20,14 +20,28 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.input;
+package com.snakybo.torch.module;
 
-import com.snakybo.torch.module.IModuleController;
+import com.snakybo.torch.interfaces.ICreatable;
+import com.snakybo.torch.interfaces.IDestroyable;
+import com.snakybo.torch.interfaces.IUpdatable;
 
-/**
- * @author Snakybo
- * @since 1.0
- */
-public interface IInputController<T> extends IModuleController<T>
+public abstract class ModuleController<T> implements ICreatable, IUpdatable, IDestroyable
 {
+	@Override
+	public void create()
+	{
+	}
+	
+	@Override
+	public void update()
+	{
+	}
+	
+	@Override
+	public void destroy()
+	{
+	}
+	
+	public abstract T get();
 }

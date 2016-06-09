@@ -45,11 +45,11 @@ public final class GLFWJoystickDevice implements IJoystickDevice
 	private int numButtons;
 	private int numAxes;
 	
-	private int joystickId;
+	private int nativeId;
 	
 	public GLFWJoystickDevice(int joystickId)
 	{
-		this.joystickId = joystickId;
+		this.nativeId = joystickId;
 		
 		name = glfwGetJoystickName(joystickId);
 		
@@ -114,6 +114,6 @@ public final class GLFWJoystickDevice implements IJoystickDevice
 	@Override
 	public long getNativeId()
 	{
-		return joystickId;
+		return nativeId;
 	}
 }

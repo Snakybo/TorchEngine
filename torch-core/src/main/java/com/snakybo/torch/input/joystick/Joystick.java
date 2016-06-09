@@ -22,6 +22,7 @@
 
 package com.snakybo.torch.input.joystick;
 
+import com.snakybo.torch.module.Module;
 import com.snakybo.torch.module.WindowModule;
 
 /**
@@ -37,53 +38,37 @@ public final class Joystick
 	
 	/**
 	 * Check whether or not a joystick is present.
-	 * <p>
-	 * Shortcut to {@code WindowModule.getInstance().getInstance().getJoystick().isJoystickPresent()}
-	 * </p>
 	 * @return Whether or not a joystick is present.
-	 * @see IJoystick#isJoystickPresent()
 	 */
 	public static boolean isJoystickPresent()
 	{
-		return WindowModule.getInstance().getJoystick().isJoystickPresent();
+		return Module.getModule(WindowModule.class).getJoystick().isJoystickPresent();
 	}
 	
 	/**
 	 * Get the first available joystick.
-	 * <p>
-	 * Shortcut to {@code WindowModule.getInstance().getInstance().getJoystick().getJoystick()}
-	 * </p>
 	 * @return The first available joystick.
-	 * @see IJoystick#getJoystick()
 	 */
 	public static IJoystickDevice getJoystick()
 	{
-		return WindowModule.getInstance().getJoystick().getJoystick();
+		return Module.getModule(WindowModule.class).getJoystick().getJoystick();
 	}
 	
 	/**
 	 * Get all available joysticks.
-	 * <p>
-	 * Shortcut to {@code WindowModule.getInstance().getInstance().getJoystick().getJoysticks()}
-	 * </p>
 	 * @return All available joysticks.
-	 * @see IJoystick#getJoysticks()
 	 */
 	public static IJoystickDevice[] getJoysticks()
 	{
-		return WindowModule.getInstance().getJoystick().getJoysticks();
+		return Module.getModule(WindowModule.class).getJoystick().getJoysticks();
 	}
 	
 	/**
 	 * Get the number of joysticks present.
-	 * <p>
-	 * Shortcut to {@code WindowModule.getInstance().getInstance().getJoystick().getNumJoysticksPresent()}
-	 * </p>
 	 * @return The number of joysticks present.
-	 * @see IJoystick#getNumJoysticksPresent()
 	 */
 	public static int getNumJoysticksPresent()
 	{
-		return WindowModule.getInstance().getJoystick().getNumJoysticksPresent();
+		return Module.getModule(WindowModule.class).getJoystick().getNumJoysticksPresent();
 	}
 }

@@ -20,14 +20,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.cursor;
-
-import com.snakybo.torch.module.IModuleController;
+package com.snakybo.torch.interfaces;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public interface ICursorController extends IModuleController<ICursor>
+public interface IUpdatable
 {
+	void update();
 }

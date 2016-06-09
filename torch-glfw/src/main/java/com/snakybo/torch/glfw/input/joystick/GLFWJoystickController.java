@@ -38,14 +38,14 @@ import java.util.ArrayList;
 
 import org.lwjgl.glfw.GLFWJoystickCallback;
 
-import com.snakybo.torch.input.IInputController;
 import com.snakybo.torch.input.joystick.IJoystick;
+import com.snakybo.torch.module.ModuleController;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class GLFWJoystickController implements IInputController<IJoystick>
+public final class GLFWJoystickController extends ModuleController<IJoystick>
 {
 	private class JoystickCallback extends GLFWJoystickCallback
 	{

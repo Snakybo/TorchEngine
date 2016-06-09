@@ -23,41 +23,29 @@
 package com.snakybo.torch.module;
 
 import com.snakybo.torch.cursor.ICursor;
-import com.snakybo.torch.cursor.ICursorController;
-import com.snakybo.torch.debug.LoggerInternal;
-import com.snakybo.torch.input.IInputController;
 import com.snakybo.torch.input.joystick.IJoystick;
 import com.snakybo.torch.input.keyboard.IKeyboard;
 import com.snakybo.torch.input.mouse.IMouse;
+import com.snakybo.torch.interfaces.ICreatable;
+import com.snakybo.torch.interfaces.IDestroyable;
+import com.snakybo.torch.interfaces.IUpdatable;
 import com.snakybo.torch.window.IWindow;
-import com.snakybo.torch.window.IWindowController;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public abstract class WindowModule extends Module
+public abstract class WindowModule implements IModule<WindowModule>, ICreatable, IUpdatable, IDestroyable
 {
-	private static WindowModule instance;
-	
-	protected IInputController<IKeyboard> keyboard;
-	protected IInputController<IMouse> mouse;
-	protected IInputController<IJoystick> joystick;
-	
-	protected IWindowController window;
-	
-	protected ICursorController cursor;
+	protected ModuleController<IKeyboard> keyboard;
+	protected ModuleController<IMouse> mouse;
+	protected ModuleController<IJoystick> joystick;	
+	protected ModuleController<IWindow> window;	
+	protected ModuleController<ICursor> cursor;
 	
 	protected WindowModule()
 	{
-		if(instance != null)
-		{
-			throw new RuntimeException("There can't be more as one WindowModule");
-		}
-		
-		LoggerInternal.log("Created WindowModule", this);
-		
-		instance = this;
+		Module.registerModule(this);
 	}
 	
 	@Override
@@ -66,70 +54,33 @@ public abstract class WindowModule extends Module
 		keyboard.create();
 		mouse.create();
 		joystick.create();
-		window.create();
 		cursor.create();
+		window.create();
+	}
+	
+	@Override
+	public void update()
+	{
+		keyboard.update();
+		mouse.update();
+		joystick.update();
+		cursor.update();
 	}
 	
 	@Override
 	public void destroy()
 	{
-		if(instance != this)
-		{
-			throw new RuntimeException("Error while trying to destroy module");
-		}
-		
 		keyboard.destroy();
 		mouse.destroy();
 		joystick.destroy();
-		window.destroy();
 		cursor.destroy();
-		
-		instance = null;
+		window.destroy();
 	}
 	
-	/**
-	 * Get the keyboard controller.
-	 * @return The keyboard controller.
-	 */
-	public final IInputController<IKeyboard> getKeyboardController()
+	@Override
+	public final Class<WindowModule> getModuleType()
 	{
-		return keyboard;
-	}
-	
-	/**
-	 * Get the mouse controller.
-	 * @return The mouse controller.
-	 */
-	public final IInputController<IMouse> getMouseController()
-	{
-		return mouse;
-	}
-	
-	/**
-	 * Get the joystick controller.
-	 * @return The joystick controller.
-	 */
-	public final IInputController<IJoystick> getJoystickController()
-	{
-		return joystick;
-	}
-	
-	/**
-	 * Get the window controller.
-	 * @return The window controller.
-	 */
-	public final IWindowController getWindowController()
-	{
-		return window;
-	}
-	
-	/**
-	 * Get the cursor controller.
-	 * @return The cursor controller.
-	 */
-	public final ICursorController getCursorController()
-	{
-		return cursor;
+		return WindowModule.class;
 	}
 	
 	/**
@@ -175,19 +126,5 @@ public abstract class WindowModule extends Module
 	public final ICursor getCursor()
 	{
 		return cursor.get();
-	}
-	
-	/**
-	 * Get the instance of the active module.
-	 * @return The instance of the active module.
-	 */
-	public static WindowModule getInstance()
-	{
-		if(instance == null)
-		{
-			throw new RuntimeException("No module found");
-		}
-		
-		return instance;
 	}
 }

@@ -22,57 +22,30 @@
 
 package com.snakybo.torch.module;
 
-import com.snakybo.torch.debug.LoggerInternal;
+import com.snakybo.torch.interfaces.ICreatable;
 import com.snakybo.torch.renderer.IRenderer;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public abstract class RenderModule extends Module
+public abstract class RenderModule implements IModule<RenderModule>, ICreatable
 {
-	private static RenderModule instance;
-	
 	protected IRenderer renderer;
 	
 	protected RenderModule()
 	{
-		if(instance != null)
-		{
-			throw new RuntimeException("There can't be more as one RenderModule");
-		}
-		
-		LoggerInternal.log("Created RenderModule", this);
-		
-		instance = this;
+		Module.registerModule(this);
 	}
 	
 	@Override
-	public void create()
+	public final Class<RenderModule> getModuleType()
 	{
-	}
-	
-	@Override
-	public void destroy()
-	{
+		return RenderModule.class;
 	}
 	
 	public final IRenderer getRenderer()
 	{
 		return renderer;
-	}
-	
-	/**
-	 * Get the instance of the active module.
-	 * @return The instance of the active module.
-	 */
-	public static RenderModule getInstance()
-	{
-		if(instance == null)
-		{
-			throw new RuntimeException("No module found");
-		}
-		
-		return instance;
 	}
 }

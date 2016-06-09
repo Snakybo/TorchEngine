@@ -20,14 +20,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.window;
-
-import com.snakybo.torch.module.IModuleController;
+package com.snakybo.torch.interfaces;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public interface IWindowController extends IModuleController<IWindow>
+public interface ICreatable
 {
+	void create();
 }

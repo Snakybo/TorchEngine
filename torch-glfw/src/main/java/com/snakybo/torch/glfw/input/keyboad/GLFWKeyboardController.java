@@ -27,15 +27,15 @@ import static org.lwjgl.glfw.GLFW.glfwGetKey;
 
 import java.util.Map;
 
-import com.snakybo.torch.input.IInputController;
 import com.snakybo.torch.input.keyboard.IKeyboard;
+import com.snakybo.torch.module.ModuleController;
 import com.snakybo.torch.window.Window;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class GLFWKeyboardController implements IInputController<IKeyboard>
+public final class GLFWKeyboardController extends ModuleController<IKeyboard>
 {
 	private final GLFWKeyboard keyboard;
 	
@@ -44,11 +44,6 @@ public final class GLFWKeyboardController implements IInputController<IKeyboard>
 		keyboard = new GLFWKeyboard();
 	}
 	
-	@Override
-	public void create()
-	{	
-	}
-
 	@Override
 	public final void update()
 	{
@@ -69,11 +64,6 @@ public final class GLFWKeyboardController implements IInputController<IKeyboard>
 			
 			keyboard.current.put(id, pressed);
 		}
-	}
-
-	@Override
-	public final void destroy()
-	{
 	}
 
 	@Override

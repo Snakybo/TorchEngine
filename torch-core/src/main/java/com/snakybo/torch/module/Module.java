@@ -22,19 +22,42 @@
 
 package com.snakybo.torch.module;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * @author Snakybo
  * @since 1.0
  */
-public abstract class Module
+public final class Module
 {
-	/**
-	 * Create the module.
-	 */
-	public abstract void create();
+	private static Set<IModule<?>> modules = new HashSet<IModule<?>>();
 	
-	/**
-	 * Destroy the module.
-	 */
-	public abstract void destroy();
+	private Module()
+	{
+		throw new AssertionError();
+	}
+	
+	static void registerModule(IModule<?> module)
+	{
+		if(getModule(module.getModuleType()) != null)
+		{
+			throw new RuntimeException("Unable to add module of type: " + module.getModuleType());
+		}
+		
+		modules.add(module);
+	}
+	
+	public static <T> T getModule(Class<T> type)
+	{
+		for(IModule<?> module : modules)
+		{
+			if(module.getModuleType().equals(type))
+			{
+				return type.cast(module);
+			}
+		}
+		
+		return null;
+	}
 }

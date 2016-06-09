@@ -26,26 +26,7 @@ package com.snakybo.torch.module;
  * @author Snakybo
  * @since 1.0
  */
-public interface IModuleController<T>
+public interface IModule<T>
 {
-	/**
-	 * Called when the module is first created.
-	 */
-	void create();
-	
-	/**
-	 * Called whenever the module should be updated.
-	 */
-	void update();
-	
-	/**
-	 * Called when the module should be destroyed.
-	 */
-	void destroy();
-	
-	/**
-	 * Get the implementation of the module.
-	 * @return
-	 */
-	T get();
+	Class<T> getModuleType();
 }

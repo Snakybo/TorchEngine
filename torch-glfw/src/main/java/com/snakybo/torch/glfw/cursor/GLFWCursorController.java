@@ -26,28 +26,23 @@ import org.joml.Vector2f;
 
 import com.snakybo.torch.cursor.CursorLockMode;
 import com.snakybo.torch.cursor.ICursor;
-import com.snakybo.torch.cursor.ICursorController;
 import com.snakybo.torch.input.keyboard.Key;
 import com.snakybo.torch.input.keyboard.Keyboard;
 import com.snakybo.torch.input.mouse.Mouse;
+import com.snakybo.torch.module.ModuleController;
 import com.snakybo.torch.window.Window;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class GLFWCursorController implements ICursorController
+public final class GLFWCursorController extends ModuleController<ICursor>
 {
 	private final GLFWCursor cursor;
 	
 	public GLFWCursorController()
 	{
 		cursor = new GLFWCursor();
-	}
-	
-	@Override
-	public void create()
-	{	
 	}
 
 	@Override
@@ -72,11 +67,6 @@ public final class GLFWCursorController implements ICursorController
 		default:
 			break;
 		}
-	}
-
-	@Override
-	public final void destroy()
-	{
 	}
 
 	@Override

@@ -22,6 +22,7 @@
 
 package com.snakybo.torch.input.keyboard;
 
+import com.snakybo.torch.module.Module;
 import com.snakybo.torch.module.WindowModule;
 
 /**
@@ -37,83 +38,58 @@ public final class Keyboard
 	
 	/**
 	 * Check if the {@link Key} is currently being pressed.
-	 * <p>
-	 * Shortcut to {@code WindowModule.getInstance().getKeyboard().isDown(Key)}
-	 * </p>
 	 * @param id The {@link Key} to check.
-	 * @return True if the specified {@link Key} is currently being pressed.
-	 * @see IKeyboard#isDown(Key)
 	 */
 	public static boolean isDown(Key id)
 	{
-		return WindowModule.getInstance().getKeyboard().isDown(id);
+		return Module.getModule(WindowModule.class).getKeyboard().isDown(id);
 	}
 	
 	/**
 	 * Check if the {@link Key} is currently not being pressed.
-	 * <p>
-	 * Shortcut to {@code WindowModule.getInstance().getKeyboard().isUp(Key)}
-	 * </p>
 	 * @param id The {@link Key} to check.
 	 * @return True if the specified {@link Key} is currently not being pressed.
-	 * @see IKeyboard#isUp(Key)
 	 */
 	public static boolean isUp(Key id)
 	{
-		return WindowModule.getInstance().getKeyboard().isUp(id);
+		return Module.getModule(WindowModule.class).getKeyboard().isUp(id);
 	}
 	
 	/**
 	 * Check if the {@link Key} is currently being pressed.
-	 * <p>
-	 * Shortcut to {@code WindowModule.getInstance().getKeyboard().onDown(Key)}
-	 * </p>
 	 * @param id The {@link Key} to check.
 	 * @return True the first frame {@link Key} is being pressed.
-	 * @see IKeyboard#onDown(Key)
 	 */
 	public static boolean onDown(Key id)
 	{
-		return WindowModule.getInstance().getKeyboard().onDown(id);
+		return Module.getModule(WindowModule.class).getKeyboard().onDown(id);
 	}
 	
 	/**
 	 * Check if the {@link Key} is currently not being pressed.
-	 * <p>
-	 * Shortcut to {@code WindowModule.getInstance().getKeyboard().onUp(Key)}
-	 * </p>
 	 * @param id The {@link Key} to check.
 	 * @return True the first frame {@link Key} has been released.
-	 * @see IKeyboard#onUp(Key)
 	 */
 	public static boolean onUp(Key id)
 	{
-		return WindowModule.getInstance().getKeyboard().onUp(id);
+		return Module.getModule(WindowModule.class).getKeyboard().onUp(id);
 	}
 	
 	/**
 	 * Set the value of the clipboard.
-	 * <p>
-	 * Shortcut to {@code WindowModule.getInstance().getKeyboard().setClipboardString(String)}
-	 * </p>
 	 * @param string The new value of the clipboard.
-	 * @see IKeyboard#setClipboardString(String)
 	 */
 	public static void setClipboardString(String string)
 	{
-		WindowModule.getInstance().getKeyboard().setClipboardString(string);
+		Module.getModule(WindowModule.class).getKeyboard().setClipboardString(string);
 	}
 	
 	/**
 	 * Get the value of the clipboard.
-	 * <p>
-	 * Shortcut to {@code WindowModule.getInstance().getKeyboard().setClipboardString(String)}
-	 * </p>
 	 * @return The value of the clipboard.
-	 * @see IKeyboard#getClipboardString()
 	 */
 	public static String getClipboardString()
 	{
-		return WindowModule.getInstance().getKeyboard().getClipboardString();
+		return Module.getModule(WindowModule.class).getKeyboard().getClipboardString();
 	}
 }

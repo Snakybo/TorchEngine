@@ -32,15 +32,15 @@ import java.nio.DoubleBuffer;
 import org.joml.Vector2f;
 import org.lwjgl.BufferUtils;
 
-import com.snakybo.torch.input.IInputController;
 import com.snakybo.torch.input.mouse.IMouse;
+import com.snakybo.torch.module.ModuleController;
 import com.snakybo.torch.window.Window;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class GLFWMouseController implements IInputController<IMouse>
+public final class GLFWMouseController extends ModuleController<IMouse>
 {
 	private final GLFWMouse mouse;
 	
@@ -80,11 +80,6 @@ public final class GLFWMouseController implements IInputController<IMouse>
 		
 		updateCursorPosition();
 	}
-
-	@Override
-	public final void destroy()
-	{
-	}
 	
 	@Override
 	public final IMouse get()
@@ -101,11 +96,6 @@ public final class GLFWMouseController implements IInputController<IMouse>
 		
 		mouse.mousePosition = pos;
 		mouse.mousePositionDelta = new Vector2f(xDelta, yDelta);
-	}
-	
-	public final void setScrollDelta(float x, float y)
-	{
-		mouse.scrollDelta = new Vector2f(x, y);
 	}
 	
 	private final Vector2f getCursorPosition()

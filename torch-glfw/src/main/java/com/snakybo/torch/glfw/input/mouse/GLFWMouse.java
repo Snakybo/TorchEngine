@@ -87,6 +87,16 @@ public final class GLFWMouse implements IMouse
 		glfwSetCursorPos(Window.getNativeId(), (int)position.x, (int)position.y);
 	}
 	
+	/**
+	 * Set the scroll delta.
+	 * @param x The new X delta.
+	 * @param y The new Y delta.
+	 */
+	public final void setScrollDelta(float x, float y)
+	{
+		scrollDelta = new Vector2f(x, y);
+	}
+	
 	@Override
 	public final Vector2f getCursorPosition()
 	{

@@ -22,6 +22,7 @@
 
 package com.snakybo.torch.renderer;
 
+import com.snakybo.torch.module.Module;
 import com.snakybo.torch.module.RenderModule;
 import com.snakybo.torch.object.GameObject;
 
@@ -38,14 +39,11 @@ public final class Renderer
 	
 	/**
 	 * Render a single {@link GameObject}.
-	 * <p>
-	 * Shortcut to <code>RenderModule.getInstance().getRenderer().render(GameObject)</code>
-	 * </p>
 	 * @param gameObject The {@link GameObject} to render.
 	 * @see IRenderer#render(GameObject)
 	 */
 	public static void render(GameObject gameObject)
 	{
-		RenderModule.getInstance().getRenderer().render(gameObject);
+		Module.getModule(RenderModule.class).getRenderer().render(gameObject);
 	}
 }

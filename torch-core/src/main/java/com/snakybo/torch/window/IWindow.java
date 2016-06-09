@@ -43,6 +43,11 @@ public interface IWindow
 	void destroy();
 	
 	/**
+	 * Update the window.
+	 */
+	void update();
+	
+	/**
 	 * Bring the window to the front and give it focus.
 	 */
 	void focus();
