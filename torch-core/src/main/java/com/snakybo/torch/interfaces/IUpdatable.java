@@ -28,5 +28,9 @@ package com.snakybo.torch.interfaces;
  */
 public interface IUpdatable
 {
+	/**
+	 * Update the object. This method is not called automatically,
+	 * you'll have to call it manually when you want to update the object.
+	 */
 	void update();
 }

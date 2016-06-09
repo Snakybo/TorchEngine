@@ -40,7 +40,6 @@ public final class Renderer
 	/**
 	 * Render a single {@link GameObject}.
 	 * @param gameObject The {@link GameObject} to render.
-	 * @see IRenderer#render(GameObject)
 	 */
 	public static void render(GameObject gameObject)
 	{

@@ -28,5 +28,9 @@ package com.snakybo.torch.interfaces;
  */
 public interface ICreatable
 {
+	/**
+	 * Create the object. This method is not called automatically,
+	 * you'll have to call it manually when you want to create the object.
+	 */
 	void create();
 }

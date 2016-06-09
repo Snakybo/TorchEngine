@@ -32,25 +32,64 @@ import com.snakybo.torch.bitmap.Bitmap;
  */
 public interface ICursor
 {
+	/**
+	 * Is the cursor currently visible?
+	 * @return Whether or not the cursor is currently visible.
+	 */
 	boolean isVisible();
-
+	
+	/**
+	 * Set the lock mode of the cursor.
+	 * @param cursorLockMode The new {@link CursorLockMode}.
+	 */
 	void setLockMode(CursorLockMode cursorLockMode);
 	
+	/**
+	 * Hide or show the cursor.
+	 * @param visible Whether or not the cursor should be visible.
+	 */
 	void setVisible(boolean visible);
 	
+	/**
+	 * Set the cursor's shape to the system's arrow cursor.
+	 */
 	void setShapeArrow();
 	
+	/**
+	 * Set the cursor's shape to the system's I beam cursor.
+	 */
 	void setShapeIBeam();
 	
+	/**
+	 * Set the cursor's shape to the system's crosshair cursor.
+	 */
 	void setShapeCrosshair();
 	
+	/**
+	 * Set the cursor's shape to the system's hand cursor.
+	 */
 	void setShapeHand();
 	
+	/**
+	 * Set the cursor's shape to the system's horizontal resize cursor.
+	 */
 	void setShapeHResize();
 	
+	/**
+	 * Set the cursor's shape to the system's vertical resize cursor.
+	 */
 	void setShapeVResize();
 	
+	/**
+	 * Set the cursor's shape.
+	 * @param bitmap The cursor shape.
+	 * @param hot The hot point of the shape.
+	 */
 	void setShape(Bitmap bitmap, Vector2f hot);
 	
+	/**
+	 * Get the current cursor lock mode.
+	 * @return The current cursor lock mode.
+	 */
 	CursorLockMode getLockMode();
 }
