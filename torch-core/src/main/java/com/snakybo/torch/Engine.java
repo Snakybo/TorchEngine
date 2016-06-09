@@ -37,7 +37,7 @@ import com.snakybo.torch.window.Window;
  * @author Snakybo
  * @since 1.0
  */
-public final class TorchEngine
+public final class Engine
 {
 	/**
 	 * The major version of the engine.
@@ -59,14 +59,14 @@ public final class TorchEngine
 	 */
 	public static final String VERSION_STRING = VERSION_MAJOR + "." + VERSION_MINOR + "." + VERSION_PATCH;
 	
-	private TorchGame game;	
+	private Game game;	
 	private boolean running;
 	
 	/**
-	 * Create an instance of the engine, called by {@link TorchGame#TorchGame(String)}.
+	 * Create an instance of the engine, called by {@link Game#TorchGame(String)}.
 	 * @param game The instance of the game to play.
 	 */
-	TorchEngine(TorchGame game)
+	Engine(Game game)
 	{
 		this.game = game;
 		
@@ -77,7 +77,7 @@ public final class TorchEngine
 	}
 	
 	/**
-	 * Start the engine, called by {@link TorchGame#start()}.
+	 * Start the engine, called by {@link Game#start()}.
 	 */
 	protected final void start()
 	{
@@ -96,7 +96,7 @@ public final class TorchEngine
 	}
 	
 	/**
-	 * Stop the engine, called by {@link TorchGame#quit()}.
+	 * Stop the engine, called by {@link Game#quit()}.
 	 */
 	protected final void stop()
 	{

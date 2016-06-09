@@ -56,7 +56,7 @@ import org.joml.Vector2f;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.Callbacks;
 
-import com.snakybo.torch.TorchGame;
+import com.snakybo.torch.Game;
 import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.glfw.input.mouse.GLFWMouse;
 import com.snakybo.torch.module.Module;
@@ -116,7 +116,7 @@ public class GLFWWindow implements IWindow
 			monitor = glfwWindowMode.getMonitor();
 		}
 		
-		nativeId = glfwCreateWindow(windowProperties.getWidth(), windowProperties.getHeight(), TorchGame.getName(), monitor, NULL);
+		nativeId = glfwCreateWindow(windowProperties.getWidth(), windowProperties.getHeight(), Game.getName(), monitor, NULL);
 		if(nativeId == NULL)
 		{
 			throw new RuntimeException("Unable to create GLFW window");

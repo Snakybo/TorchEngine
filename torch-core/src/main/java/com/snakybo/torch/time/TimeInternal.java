@@ -24,7 +24,7 @@ package com.snakybo.torch.time;
 
 import static org.lwjgl.glfw.GLFW.glfwGetTime;
 
-import com.snakybo.torch.TorchGame;
+import com.snakybo.torch.Game;
 import com.snakybo.torch.debug.Debug;
 import com.snakybo.torch.debug.Logger;
 
@@ -94,11 +94,11 @@ public abstract class TimeInternal
 	}
 	
 	/**
-	 * Update the frame time, called by {@link TorchGame#setTargetFrameRate(int)}
+	 * Update the frame time, called by {@link Game#setTargetFrameRate(int)}
 	 */
 	public static void updateFrameTime()
 	{
-		frameTime = 1.0 / TorchGame.getTargetFrameRate();
+		frameTime = 1.0 / Game.getTargetFrameRate();
 	}
 	
 	/**

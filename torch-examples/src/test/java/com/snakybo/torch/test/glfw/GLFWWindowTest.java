@@ -21,7 +21,7 @@ package com.snakybo.torch.test.glfw;
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import com.snakybo.torch.TorchGame;
+import com.snakybo.torch.Game;
 import com.snakybo.torch.glfw.GLFWModule;
 import com.snakybo.torch.glfw.window.GLFWMonitor;
 import com.snakybo.torch.glfw.window.GLFWWindowProperties;
@@ -34,7 +34,7 @@ import com.snakybo.torch.window.WindowMode;
  * @author Snakybo
  * @since 1.0
  */
-public class GLFWWindowTest extends TorchGame
+public class GLFWWindowTest extends Game
 {
 	public GLFWWindowTest()
 	{
@@ -55,7 +55,7 @@ public class GLFWWindowTest extends TorchGame
 	
 	public static void main(String[] args)
 	{
-		TorchGame game = new GLFWWindowTest();
+		Game game = new GLFWWindowTest();
 		
 		GLFWMonitor monitor = GLFWMonitor.getPrimaryMonitor();
 		Window.create(new GLFWWindowProperties(monitor.getNativeId(), 1280, 720), WindowMode.Windowed);

@@ -25,7 +25,7 @@ package com.snakybo.torch.test.opengl;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
-import com.snakybo.torch.TorchGame;
+import com.snakybo.torch.Game;
 import com.snakybo.torch.bitmap.Bitmap;
 import com.snakybo.torch.camera.Camera;
 import com.snakybo.torch.camera.CameraClearFlags;
@@ -48,7 +48,7 @@ import com.snakybo.torch.window.WindowMode;
  * @author Kevin
  *
  */
-public class OpenGLTest extends TorchGame
+public class OpenGLTest extends Game
 {
 	public OpenGLTest()
 	{
@@ -97,7 +97,7 @@ public class OpenGLTest extends TorchGame
 	
 	public static void main(String[] args)
 	{
-		TorchGame game = new OpenGLTest();
+		Game game = new OpenGLTest();
 		
 		GLFWMonitor monitor = GLFWMonitor.getPrimaryMonitor();		
 		Window.create(new GLFWWindowProperties(monitor.getNativeId(), 1280, 720), WindowMode.Windowed);

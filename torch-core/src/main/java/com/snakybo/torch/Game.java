@@ -29,9 +29,9 @@ import com.snakybo.torch.time.TimeInternal;
  * @author Snakybo
  * @since 1.0
  */
-public abstract class TorchGame
+public abstract class Game
 {
-	private static TorchEngine engine;
+	private static Engine engine;
 	private static String name;
 	
 	private static int targetFrameRate = 60;
@@ -40,12 +40,12 @@ public abstract class TorchGame
 	 * Create a game.
 	 * @param name The name of the game.
 	 */
-	public TorchGame(String name)
+	public Game(String name)
 	{
-		LoggerInternal.log("Game name: " + name, "TorchGame");
+		LoggerInternal.log("Game name: " + name, this);
 		
-		TorchGame.name = name;
-		TorchGame.engine = new TorchEngine(this);
+		Game.name = name;
+		Game.engine = new Engine(this);
 	}
 	
 	/**
@@ -80,7 +80,7 @@ public abstract class TorchGame
 			throw new IllegalArgumentException("Target frame rate must be above 0");
 		}
 		
-		TorchGame.targetFrameRate = targetFrameRate;
+		Game.targetFrameRate = targetFrameRate;
 		
 		// Update the frame time
 		TimeInternal.updateFrameTime();
