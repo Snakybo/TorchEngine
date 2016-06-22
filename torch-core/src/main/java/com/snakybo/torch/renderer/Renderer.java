@@ -25,6 +25,7 @@ package com.snakybo.torch.renderer;
 import com.snakybo.torch.module.Module;
 import com.snakybo.torch.module.RenderModule;
 import com.snakybo.torch.object.GameObject;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 
 /**
  * @author Snakybo
@@ -32,6 +33,8 @@ import com.snakybo.torch.object.GameObject;
  */
 public final class Renderer
 {
+	private static IRenderer renderer;
+
 	private Renderer()
 	{
 		throw new AssertionError();
@@ -43,6 +46,11 @@ public final class Renderer
 	 */
 	public static void render(GameObject gameObject)
 	{
-		Module.getModule(RenderModule.class).getRenderer().render(gameObject);
+		if(renderer == null)
+		{
+			renderer = Module.getModule(RenderModule.class).getRenderer();
+		}
+
+		renderer.render(gameObject);
 	}
 }
