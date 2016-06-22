@@ -1,4 +1,3 @@
-package com.snakybo.torch.test.glfw;
 // The MIT License(MIT)
 //
 // Copyright(c) 2016 Kevin Krol
@@ -20,6 +19,8 @@ package com.snakybo.torch.test.glfw;
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
+
+package com.snakybo.torch.test.glfw;
 
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.input.keyboard.Key;
