@@ -41,10 +41,10 @@ import com.snakybo.torch.scene.SceneInternal;
  * @author Snakybo
  * @since 1.0
  */
-public final class StandaloneCamera
+public final class CameraInternal
 {
-	private static Set<StandaloneCamera> cameras = new HashSet<StandaloneCamera>();
-	private static StandaloneCamera current;
+	private static Set<CameraInternal> cameras = new HashSet<CameraInternal>();
+	private static CameraInternal current;
 	
 	private CameraClearFlags clearFlags;
 	
@@ -57,7 +57,7 @@ public final class StandaloneCamera
 	 * @param projection The projection of the camera.
 	 * @param clearFlags The {@link CameraClearFlags} to use.
 	 */
-	public StandaloneCamera(Matrix4f projection, CameraClearFlags clearFlags)
+	public CameraInternal(Matrix4f projection, CameraClearFlags clearFlags)
 	{
 		this(projection, clearFlags, new Color());
 	}
@@ -68,7 +68,7 @@ public final class StandaloneCamera
 	 * @param clearFlags The {@link CameraClearFlags} to use.
 	 * @param clearColor The clear color, only used in {@link CameraClearFlags#SolidColor}.
 	 */
-	public StandaloneCamera(Matrix4f projection, CameraClearFlags clearFlags, Color clearColor)
+	public CameraInternal(Matrix4f projection, CameraClearFlags clearFlags, Color clearColor)
 	{
 		this.projection = projection;
 		this.clearFlags = clearFlags;
@@ -197,7 +197,7 @@ public final class StandaloneCamera
 	 * Get all cameras.
 	 * @return All cameras.
 	 */
-	public static Iterable<StandaloneCamera> getCameras()
+	public static Iterable<CameraInternal> getCameras()
 	{
 		return cameras;
 	}
@@ -206,7 +206,7 @@ public final class StandaloneCamera
 	 * Get the current camera, use {@link Camera#getCurrentCamera()} unless you have to access internal cameras.
 	 * @return The current camera.
 	 */
-	public static StandaloneCamera getCurrentCamera()
+	public static CameraInternal getCurrentCamera()
 	{
 		return current;
 	}

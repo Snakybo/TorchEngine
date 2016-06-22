@@ -38,7 +38,7 @@ public final class Camera extends Component
 {
 	private static Set<Camera> cameras = new HashSet<Camera>();
 	
-	private final StandaloneCamera standaloneCamera;
+	private final CameraInternal camera;
 	
 	/**
 	 * Create a new camera.
@@ -58,21 +58,21 @@ public final class Camera extends Component
 	 */
 	public Camera(Matrix4f projection, CameraClearFlags clearFlags, Color clearColor)
 	{
-		standaloneCamera = new StandaloneCamera(projection, clearFlags, clearColor);
+		camera = new CameraInternal(projection, clearFlags, clearColor);
 	}
 	
 	@Override
 	protected final void start()
 	{
 		cameras.add(this);
-		standaloneCamera.setTransform(getTransform());
+		camera.setTransform(getTransform());
 	}
 	
 	@Override
 	protected void destroy()
 	{
 		cameras.remove(this);
-		standaloneCamera.destroy();
+		camera.destroy();
 	}
 	
 	/**
@@ -80,7 +80,7 @@ public final class Camera extends Component
 	 */
 	public final void render()
 	{
-		standaloneCamera.render();
+		camera.render();
 	}
 	
 	/**
@@ -89,7 +89,7 @@ public final class Camera extends Component
 	 */
 	public final void setClearFlags(CameraClearFlags clearFlags)
 	{
-		standaloneCamera.setClearFlags(clearFlags);
+		camera.setClearFlags(clearFlags);
 	}
 	
 	/**
@@ -98,7 +98,7 @@ public final class Camera extends Component
 	 */
 	public final void setProjection(Matrix4f projection)
 	{
-		standaloneCamera.setProjection(projection);
+		camera.setProjection(projection);
 	}
 	
 	/**
@@ -107,7 +107,7 @@ public final class Camera extends Component
 	 */
 	public final void setClearColor(Color clearColor)
 	{
-		standaloneCamera.setClearColor(clearColor);
+		camera.setClearColor(clearColor);
 	}
 	
 	/**
@@ -116,7 +116,7 @@ public final class Camera extends Component
 	 */
 	public final CameraClearFlags getClearFlags()
 	{
-		return standaloneCamera.getClearFlags();
+		return camera.getClearFlags();
 	}
 	
 	/**
@@ -125,7 +125,7 @@ public final class Camera extends Component
 	 */
 	public final Matrix4f getProjection()
 	{
-		return standaloneCamera.getProjection();
+		return camera.getProjection();
 	}
 	
 	/**
@@ -134,7 +134,7 @@ public final class Camera extends Component
 	 */
 	public final Matrix4f getViewProjection()
 	{
-		return standaloneCamera.getViewProjection();
+		return camera.getViewProjection();
 	}
 	
 	/**
@@ -143,7 +143,7 @@ public final class Camera extends Component
 	 */
 	public final Color getClearColor()
 	{
-		return standaloneCamera.getClearColor();
+		return camera.getClearColor();
 	}
 	
 	/**
@@ -156,14 +156,14 @@ public final class Camera extends Component
 	}
 	
 	/**
-	 * Get the current camera, this will return {@code null} if the engine is rendering a {@link StandaloneCamera}.
+	 * Get the current camera, this will return {@code null} if the engine is rendering a {@link CameraInternal}.
 	 * @return The current camera or null.
 	 */
 	public static Camera getCurrentCamera()
 	{
 		for(Camera camera : cameras)
 		{
-			if(camera.standaloneCamera == StandaloneCamera.getCurrentCamera())
+			if(camera.camera == CameraInternal.getCurrentCamera())
 			{
 				return camera;
 			}
