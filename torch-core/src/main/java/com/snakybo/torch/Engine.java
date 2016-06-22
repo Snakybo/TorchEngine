@@ -63,7 +63,7 @@ public final class Engine
 	private boolean running;
 	
 	/**
-	 * Create an instance of the engine, called by {@link Game#TorchGame(String)}.
+	 * Create an instance of the engine, called by {@link Game#Game(String)}.
 	 * @param game The instance of the game to play.
 	 */
 	Engine(Game game)
