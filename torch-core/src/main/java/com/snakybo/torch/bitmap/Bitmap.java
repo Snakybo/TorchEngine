@@ -22,18 +22,16 @@
 
 package com.snakybo.torch.bitmap;
 
+import com.snakybo.torch.color.Color;
+import com.snakybo.torch.color.Color32;
+import com.snakybo.torch.debug.LoggerInternal;
+import org.lwjgl.BufferUtils;
+
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
-
-import javax.imageio.ImageIO;
-
-import org.lwjgl.BufferUtils;
-
-import com.snakybo.torch.color.Color;
-import com.snakybo.torch.color.Color32;
-import com.snakybo.torch.debug.LoggerInternal;
 
 /**
  * @author Snakybo

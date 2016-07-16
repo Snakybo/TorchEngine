@@ -22,16 +22,18 @@
 
 package com.snakybo.torch;
 
-import org.lwjgl.Version;
-
+import com.snakybo.torch.cursor.CursorController;
 import com.snakybo.torch.debug.Debug;
 import com.snakybo.torch.debug.LoggerInternal;
-import com.snakybo.torch.module.Module;
-import com.snakybo.torch.module.RenderModule;
-import com.snakybo.torch.module.WindowModule;
+import com.snakybo.torch.glfw.GLFW;
+import com.snakybo.torch.input.joystick.JoystickController;
+import com.snakybo.torch.input.keyboard.KeyboardController;
+import com.snakybo.torch.input.mouse.MouseController;
+import com.snakybo.torch.monitor.MonitorController;
 import com.snakybo.torch.scene.SceneInternal;
 import com.snakybo.torch.time.TimeInternal;
 import com.snakybo.torch.window.Window;
+import org.lwjgl.Version;
 
 /**
  * @author Snakybo
@@ -74,6 +76,9 @@ public final class Engine
 		LoggerInternal.log("Engine version: " + VERSION_STRING, this);
 		
 		logLWJGLInfo();
+		
+		GLFW.create();
+		MonitorController.create();
 	}
 	
 	/**
@@ -86,9 +91,6 @@ public final class Engine
 			LoggerInternal.log("Starting", this);
 			
 			running = true;
-			
-			Module.getModule(WindowModule.class).create();
-			Module.getModule(RenderModule.class).create();
 			
 			game.onCreate();
 			mainLoop();
@@ -143,7 +145,7 @@ public final class Engine
 			{
 				renderCycle();
 				
-				Module.getModule(WindowModule.class).getWindow().update();
+				Window.update();
 				TimeInternal.updateFrameCount();
 			}
 			else
@@ -170,7 +172,10 @@ public final class Engine
 		SceneInternal.runUpdateCycle();
 		
 		// Update input
-		Module.getModule(WindowModule.class).update();
+		KeyboardController.update();
+		MouseController.update();
+		JoystickController.update();
+		CursorController.update();
 	}
 	
 	/**
@@ -186,7 +191,8 @@ public final class Engine
 	 */
 	private final void destroy()
 	{
-		Module.getModule(WindowModule.class).destroy();
+		JoystickController.destroy();
+		MonitorController.destroy();
 	}
 	
 	/**

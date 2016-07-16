@@ -28,148 +28,148 @@ package com.snakybo.torch.input.keyboard;
  */
 public enum Key
 {
-	/** Key. */
+	/** key. */
 	SPACE         (32),
 	
-	/** Key. */
+	/** ' Key. */
 	APOSTROPHE    (39),
 	
-	/** Key. */
+	/** , Key. */
 	COMMA         (44),
 	
-	/** Key. */
+	/** - Key. */
 	MINUS         (45),
 	
-	/** Key. */
+	/** . Key. */
 	PERIOD        (46),
 	
-	/** Key. */
+	/** / Key. */
 	SLASH         (47),
 	
-	/** Key. */
+	/** 0 Key. */
 	NUM_0         (48),
 	
-	/** Key. */
+	/** 1 Key. */
 	NUM_1         (49),
 	
-	/** Key. */
+	/** 2 Key. */
 	NUM_2         (50),
 	
-	/** Key. */
+	/** 3 Key. */
 	NUM_3         (51),
 	
-	/** Key. */
+	/** 4 Key. */
 	NUM_4         (52),
 	
-	/** Key. */
+	/** 5 Key. */
 	NUM_5         (53),
 	
-	/** Key. */
+	/** 6 Key. */
 	NUM_6         (54),
 	
-	/** Key. */
+	/** 7 Key. */
 	NUM_7         (55),
 	
-	/** Key. */
+	/** 8 Key. */
 	NUM_8         (56),
 
-	/** Key. */
+	/** 9 Key. */
 	NUM_9         (57),
 	
-	/** Key. */
+	/** ; Key. */
 	SEMICOLON     (59),
 	
-	/** Key. */
+	/** = Key. */
 	EQUAL         (61),
 	
-	/** Key. */
+	/** A Key. */
 	A             (65),
 	
-	/** Key. */
+	/** B Key. */
 	B             (66),
 	
-	/** Key. */
+	/** C Key. */
 	C             (67),
 	
-	/** Key. */
+	/** D Key. */
 	D             (68),
 	
-	/** Key. */
+	/** E Key. */
 	E             (69),
 	
-	/** Key. */
+	/** F Key. */
 	F             (70),
 	
-	/** Key. */
+	/** G Key. */
 	G             (71),
 	
-	/** Key. */
+	/** H Key. */
 	H             (72),
 	
-	/** Key. */
+	/** I Key. */
 	I             (73),
 	
-	/** Key. */
+	/** J Key. */
 	J             (74),
 	
-	/** Key. */
+	/** K Key. */
 	K             (75),
 	
-	/** Key. */
+	/** L Key. */
 	L             (76),
 	
-	/** Key. */
+	/** M Key. */
 	M             (77),
 	
-	/** Key. */
+	/** N Key. */
 	N             (78),
 	
-	/** Key. */
+	/** O Key. */
 	O             (79),
 	
-	/** Key. */
+	/** P Key. */
 	P             (80),
 	
-	/** Key. */
+	/** Q Key. */
 	Q             (81),
 	
-	/** Key. */
+	/** R Key. */
 	R             (82),
 	
-	/** Key. */
+	/** S Key. */
 	S             (83),
 	
-	/** Key. */
+	/** T Key. */
 	T             (84),
 	
-	/** Key. */
+	/** U Key. */
 	U             (85),
 	
-	/** Key. */
+	/** V Key. */
 	V             (86),
 	
-	/** Key. */
+	/** W Key. */
 	W             (87),
 	
-	/** Key. */
+	/** X Key. */
 	X             (88),
 	
-	/** Key. */
+	/** Y Key. */
 	Y             (89),
 	
-	/** Key. */
+	/** Z Key. */
 	Z             (90),
 	
-	/** Key. */
+	/** [ Key. */
 	LEFT_BRACKET  (91),
 	
-	/** Key. */
+	/** \ Key. */
 	BACKSLASH     (92),
 	
-	/** Key. */
+	/** ] Key. */
 	RIGHT_BRACKET (93),
 	
-	/** Key. */
+	/** ` Key. */
 	GRAVE_ACCENT  (96),
 	
 	/** Key. */
@@ -310,55 +310,55 @@ public enum Key
 	/** Key. */
 	F25           (314),
 	
-	/** Key. */
+	/** Keypad 0 Key. */
 	KP_0          (320),
 	
-	/** Key. */
+	/** Keypad 1 Key. */
 	KP_1          (321),
 	
-	/** Key. */
+	/** Keypad 2 Key. */
 	KP_2          (322),
 	
-	/** Key. */
+	/** Keypad 3 Key. */
 	KP_3          (323),
 	
-	/** Key. */
+	/** Keypad 4 Key. */
 	KP_4          (324),
 	
-	/** Key. */
+	/** Keypad 5 Key. */
 	KP_5          (325),
 	
-	/** Key. */
+	/** Keypad 6 Key. */
 	KP_6          (326),
 	
-	/** Key. */
+	/** Keypad 7 Key. */
 	KP_7          (327),
 	
-	/** Key. */
+	/** Keypad 8 Key. */
 	KP_8          (328),
 	
-	/** Key. */
+	/** Keypad 9 Key. */
 	KP_9          (329),
 	
-	/** Key. */
+	/** Keypad . Key. */
 	KP_DECIMAL    (330),
 	
-	/** Key. */
+	/** Keypad / Key. */
 	KP_DIVIDE     (331),
 	
-	/** Key. */
+	/** Keypad * Key. */
 	KP_MULTIPLY   (332),
 	
-	/** Key. */
+	/** Keypad - Key. */
 	KP_SUBTRACT   (333),
 	
-	/** Key. */
+	/** Keypad + Key. */
 	KP_ADD        (334),
 	
-	/** Key. */
+	/** Keypad Key. */
 	KP_ENTER      (335),
 	
-	/** Key. */
+	/** Keypad = Key. */
 	KP_EQUAL      (336),
 	
 	/** Key. */

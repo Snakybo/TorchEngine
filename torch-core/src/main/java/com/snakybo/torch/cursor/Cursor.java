@@ -22,11 +22,26 @@
 
 package com.snakybo.torch.cursor;
 
-import org.joml.Vector2f;
-
 import com.snakybo.torch.bitmap.Bitmap;
-import com.snakybo.torch.module.Module;
-import com.snakybo.torch.module.WindowModule;
+import com.snakybo.torch.debug.LoggerInternal;
+import com.snakybo.torch.window.Window;
+import org.joml.Vector2f;
+import org.lwjgl.glfw.GLFWImage;
+
+import static org.lwjgl.glfw.GLFW.GLFW_ARROW_CURSOR;
+import static org.lwjgl.glfw.GLFW.GLFW_CROSSHAIR_CURSOR;
+import static org.lwjgl.glfw.GLFW.GLFW_CURSOR;
+import static org.lwjgl.glfw.GLFW.GLFW_CURSOR_DISABLED;
+import static org.lwjgl.glfw.GLFW.GLFW_CURSOR_NORMAL;
+import static org.lwjgl.glfw.GLFW.GLFW_HAND_CURSOR;
+import static org.lwjgl.glfw.GLFW.GLFW_HRESIZE_CURSOR;
+import static org.lwjgl.glfw.GLFW.GLFW_IBEAM_CURSOR;
+import static org.lwjgl.glfw.GLFW.GLFW_VRESIZE_CURSOR;
+import static org.lwjgl.glfw.GLFW.glfwCreateCursor;
+import static org.lwjgl.glfw.GLFW.glfwCreateStandardCursor;
+import static org.lwjgl.glfw.GLFW.glfwGetInputMode;
+import static org.lwjgl.glfw.GLFW.glfwSetCursor;
+import static org.lwjgl.glfw.GLFW.glfwSetInputMode;
 
 /**
  * @author Snakybo
@@ -34,6 +49,8 @@ import com.snakybo.torch.module.WindowModule;
  */
 public final class Cursor
 {
+	static CursorLockMode lockMode = CursorLockMode.None;
+	
 	private Cursor()
 	{
 		throw new AssertionError();
@@ -45,16 +62,16 @@ public final class Cursor
 	 */
 	public static boolean isVisible()
 	{
-		return Module.getModule(WindowModule.class).getCursor().isVisible();
+		return glfwGetInputMode(Window.getNativeId(), GLFW_CURSOR) == GLFW_CURSOR_NORMAL ? true : false;
 	}
 	
 	/**
 	 * Set the lock mode of the cursor.
-	 * @param cursorLockMode The new {@link CursorLockMode}.
+	 * @param lockMode The new {@link CursorLockMode}.
 	 */
-	public static void setLockMode(CursorLockMode cursorLockMode)
+	public static void setLockMode(CursorLockMode lockMode)
 	{
-		Module.getModule(WindowModule.class).getCursor().setLockMode(cursorLockMode);
+		Cursor.lockMode = lockMode;
 	}
 	
 	/**
@@ -63,7 +80,7 @@ public final class Cursor
 	 */
 	public static void setVisible(boolean visible)
 	{
-		Module.getModule(WindowModule.class).getCursor().setVisible(visible);
+		glfwSetInputMode(Window.getNativeId(), GLFW_CURSOR, visible ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_DISABLED);
 	}
 	
 	/**
@@ -71,7 +88,7 @@ public final class Cursor
 	 */
 	public static void setShapeArrow()
 	{
-		Module.getModule(WindowModule.class).getCursor().setShapeArrow();
+		setShape(glfwCreateStandardCursor(GLFW_ARROW_CURSOR));
 	}
 	
 	/**
@@ -79,7 +96,7 @@ public final class Cursor
 	 */
 	public static void setShapeIBeam()
 	{
-		Module.getModule(WindowModule.class).getCursor().setShapeIBeam();
+		setShape(glfwCreateStandardCursor(GLFW_IBEAM_CURSOR));
 	}
 	
 	/**
@@ -87,7 +104,7 @@ public final class Cursor
 	 */
 	public static void setShapeCrosshair()
 	{
-		Module.getModule(WindowModule.class).getCursor().setShapeCrosshair();
+		setShape(glfwCreateStandardCursor(GLFW_CROSSHAIR_CURSOR));
 	}
 	
 	/**
@@ -95,7 +112,7 @@ public final class Cursor
 	 */
 	public static void setShapeHand()
 	{
-		Module.getModule(WindowModule.class).getCursor().setShapeHand();
+		setShape(glfwCreateStandardCursor(GLFW_HAND_CURSOR));
 	}
 	
 	/**
@@ -103,7 +120,7 @@ public final class Cursor
 	 */
 	public static void setShapeHResize()
 	{
-		Module.getModule(WindowModule.class).getCursor().setShapeHResize();
+		setShape(glfwCreateStandardCursor(GLFW_HRESIZE_CURSOR));
 	}
 	
 	/**
@@ -111,7 +128,7 @@ public final class Cursor
 	 */
 	public static void setShapeVResize()
 	{
-		Module.getModule(WindowModule.class).getCursor().setShapeVResize();
+		setShape(glfwCreateStandardCursor(GLFW_VRESIZE_CURSOR));
 	}
 	
 	/**
@@ -121,7 +138,23 @@ public final class Cursor
 	 */
 	public static void setShape(Bitmap bitmap, Vector2f hot)
 	{
-		Module.getModule(WindowModule.class).getCursor().setShape(bitmap, hot);
+		if(CursorShape.hasCursor(bitmap, hot))
+		{
+			setShape(CursorShape.getCursor(bitmap, hot));
+			
+			LoggerInternal.log("Loaded existing cursor shape", Cursor.class);
+		}
+		else
+		{
+			GLFWImage image = GLFWImage.malloc().set(bitmap.getWidth(), bitmap.getHeight(), bitmap.getByteByffer());
+			
+			long cursor = glfwCreateCursor(image, Math.round(hot.x), Math.round(hot.y));
+			CursorShape.addCursor(bitmap, hot, cursor);
+			
+			setShape(cursor);
+			
+			LoggerInternal.log("Created new cursor shape", Cursor.class);
+		}
 	}
 	
 	/**
@@ -130,6 +163,11 @@ public final class Cursor
 	 */
 	public static CursorLockMode getLockMode()
 	{
-		return Module.getModule(WindowModule.class).getCursor().getLockMode();
+		return lockMode;
+	}
+	
+	private static void setShape(long shape)
+	{
+		glfwSetCursor(Window.getNativeId(), shape);
 	}
 }

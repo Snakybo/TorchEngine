@@ -1,5 +1,0 @@
-dependencies {
-	compile project(":torch-core")
-	compile project(":torch-glfw")
-	compile project(":torch-opengl")
-}

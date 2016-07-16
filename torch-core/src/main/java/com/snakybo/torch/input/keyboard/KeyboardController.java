@@ -20,61 +20,57 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.input.joystick;
+package com.snakybo.torch.input.keyboard;
 
-import java.util.List;
+import com.snakybo.torch.window.Window;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
+import static org.lwjgl.glfw.GLFW.glfwGetKey;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class Joystick
+public final class KeyboardController
 {
-	static List<JoystickDevice> devices;
-	
-	private Joystick()
+	private KeyboardController()
 	{
 		throw new AssertionError();
 	}
 	
-	/**
-	 * Check whether or not a joystick is present.
-	 * @return Whether or not a joystick is present.
-	 */
-	public static boolean isJoystickPresent()
+	public static void create()
 	{
-		return devices.size() > 0;
+		Keyboard.current = new HashMap<>();
+		Keyboard.last = new HashMap<>();
+		
+		for(Key key : Key.class.getEnumConstants())
+		{
+			Keyboard.current.put(key.id, false);
+			Keyboard.last.put(key.id, false);
+		}
 	}
 	
-	/**
-	 * Get the first available joystick.
-	 * @return The first available joystick.
-	 */
-	public static JoystickDevice getJoystick()
+	public static void update()
 	{
-		if(isJoystickPresent())
+		for(Map.Entry<Integer, Boolean> entry : Keyboard.current.entrySet())
 		{
-			return devices.get(0);
+			Keyboard.last.put(entry.getKey(), entry.getValue());
 		}
 		
-		return null;
-	}
-	
-	/**
-	 * Get all available joysticks.
-	 * @return All available joysticks.
-	 */
-	public static JoystickDevice[] getJoysticks()
-	{
-		return devices.toArray(new JoystickDevice[devices.size()]);
-	}
-	
-	/**
-	 * Get the number of joysticks present.
-	 * @return The number of joysticks present.
-	 */
-	public static int getNumJoysticksPresent()
-	{
-		return devices.size();
+		for(Integer id : Keyboard.current.keySet())
+		{
+			int state = glfwGetKey(Window.getNativeId(), id);
+			boolean pressed = false;
+			
+			if(state == GLFW_PRESS)
+			{
+				pressed = true;
+			}
+			
+			Keyboard.current.put(id, pressed);
+		}
 	}
 }

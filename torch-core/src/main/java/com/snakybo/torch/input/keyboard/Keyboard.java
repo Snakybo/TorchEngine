@@ -22,8 +22,12 @@
 
 package com.snakybo.torch.input.keyboard;
 
-import com.snakybo.torch.module.Module;
-import com.snakybo.torch.module.WindowModule;
+import com.snakybo.torch.window.Window;
+
+import java.util.Map;
+
+import static org.lwjgl.glfw.GLFW.glfwGetClipboardString;
+import static org.lwjgl.glfw.GLFW.glfwSetClipboardString;
 
 /**
  * @author Snakybo
@@ -31,6 +35,9 @@ import com.snakybo.torch.module.WindowModule;
  */
 public final class Keyboard
 {
+	static Map<Integer, Boolean> current;
+	static Map<Integer, Boolean> last;
+	
 	private Keyboard()
 	{
 		throw new AssertionError();
@@ -42,7 +49,7 @@ public final class Keyboard
 	 */
 	public static boolean isDown(Key id)
 	{
-		return Module.getModule(WindowModule.class).getKeyboard().isDown(id);
+		return current.get(id.id);
 	}
 	
 	/**
@@ -52,7 +59,7 @@ public final class Keyboard
 	 */
 	public static boolean isUp(Key id)
 	{
-		return Module.getModule(WindowModule.class).getKeyboard().isUp(id);
+		return !current.get(id.id);
 	}
 	
 	/**
@@ -62,7 +69,7 @@ public final class Keyboard
 	 */
 	public static boolean onDown(Key id)
 	{
-		return Module.getModule(WindowModule.class).getKeyboard().onDown(id);
+		return current.get(id.id) && !last.get(id.id);
 	}
 	
 	/**
@@ -72,7 +79,7 @@ public final class Keyboard
 	 */
 	public static boolean onUp(Key id)
 	{
-		return Module.getModule(WindowModule.class).getKeyboard().onUp(id);
+		return !current.get(id.id) && last.get(id.id);
 	}
 	
 	/**
@@ -81,7 +88,7 @@ public final class Keyboard
 	 */
 	public static void setClipboardString(String string)
 	{
-		Module.getModule(WindowModule.class).getKeyboard().setClipboardString(string);
+		glfwSetClipboardString(Window.getNativeId(), string);
 	}
 	
 	/**
@@ -90,6 +97,6 @@ public final class Keyboard
 	 */
 	public static String getClipboardString()
 	{
-		return Module.getModule(WindowModule.class).getKeyboard().getClipboardString();
+		return glfwGetClipboardString(Window.getNativeId());
 	}
 }

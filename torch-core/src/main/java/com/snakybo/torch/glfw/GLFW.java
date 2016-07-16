@@ -20,61 +20,45 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.input.joystick;
+package com.snakybo.torch.glfw;
 
-import java.util.List;
+import com.snakybo.torch.debug.Debug;
+import com.snakybo.torch.debug.LoggerInternal;
+import org.lwjgl.glfw.GLFWErrorCallback;
+
+import static org.lwjgl.glfw.GLFW.glfwGetVersionString;
+import static org.lwjgl.glfw.GLFW.glfwInit;
+import static org.lwjgl.glfw.GLFW.glfwSetErrorCallback;
+import static org.lwjgl.glfw.GLFW.glfwTerminate;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class Joystick
+public final class GLFW
 {
-	static List<JoystickDevice> devices;
-	
-	private Joystick()
+	public static void create()
 	{
-		throw new AssertionError();
-	}
-	
-	/**
-	 * Check whether or not a joystick is present.
-	 * @return Whether or not a joystick is present.
-	 */
-	public static boolean isJoystickPresent()
-	{
-		return devices.size() > 0;
-	}
-	
-	/**
-	 * Get the first available joystick.
-	 * @return The first available joystick.
-	 */
-	public static JoystickDevice getJoystick()
-	{
-		if(isJoystickPresent())
+		LoggerInternal.log("Initializing GLFW", GLFW.class);
+		
+		glfwSetErrorCallback(GLFWErrorCallback.createPrint(System.err));
+		
+		if(!glfwInit())
 		{
-			return devices.get(0);
+			throw new RuntimeException("Unable to initialize GLFW");
 		}
 		
-		return null;
+		if(Debug.LOG_LIBRARY_INFO)
+		{
+			LoggerInternal.log("Version: " + glfwGetVersionString(), "GLFW");
+		}
 	}
 	
-	/**
-	 * Get all available joysticks.
-	 * @return All available joysticks.
-	 */
-	public static JoystickDevice[] getJoysticks()
+	public static void destroy()
 	{
-		return devices.toArray(new JoystickDevice[devices.size()]);
-	}
-	
-	/**
-	 * Get the number of joysticks present.
-	 * @return The number of joysticks present.
-	 */
-	public static int getNumJoysticksPresent()
-	{
-		return devices.size();
+		LoggerInternal.log("Terminating GLFW", GLFW.class);
+		
+		glfwTerminate();
+		glfwSetErrorCallback(null).free();
 	}
 }

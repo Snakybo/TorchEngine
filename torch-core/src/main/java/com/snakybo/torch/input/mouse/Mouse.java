@@ -22,10 +22,10 @@
 
 package com.snakybo.torch.input.mouse;
 
+import com.snakybo.torch.window.Window;
 import org.joml.Vector2f;
 
-import com.snakybo.torch.module.Module;
-import com.snakybo.torch.module.WindowModule;
+import static org.lwjgl.glfw.GLFW.glfwSetCursorPos;
 
 /**
  * @author Snakybo
@@ -33,6 +33,16 @@ import com.snakybo.torch.module.WindowModule;
  */
 public final class Mouse
 {
+	static final int LAST = MouseButton.BUTTON_8.id;
+	
+	static boolean[] current;
+	static boolean[] last;
+	
+	static Vector2f mousePositionDelta;
+	static Vector2f mousePosition;
+	
+	static Vector2f scrollDelta;
+	
 	private Mouse()
 	{
 		throw new AssertionError();
@@ -45,7 +55,7 @@ public final class Mouse
 	 */
 	public static boolean isDown(MouseButton id)
 	{
-		return Module.getModule(WindowModule.class).getMouse().isDown(id);
+		return current[id.id];
 	}
 	
 	/**
@@ -55,7 +65,7 @@ public final class Mouse
 	 */
 	public static boolean isUp(MouseButton id)
 	{
-		return Module.getModule(WindowModule.class).getMouse().isUp(id);
+		return !current[id.id];
 	}
 	
 	/**
@@ -65,7 +75,7 @@ public final class Mouse
 	 */
 	public static boolean onDown(MouseButton id)
 	{
-		return Module.getModule(WindowModule.class).getMouse().onDown(id);
+		return current[id.id] && !last[id.id];
 	}
 	
 	/**
@@ -75,7 +85,7 @@ public final class Mouse
 	 */
 	public static boolean onUp(MouseButton id)
 	{
-		return Module.getModule(WindowModule.class).getMouse().onUp(id);
+		return !current[id.id] && last[id.id];
 	}
 	
 	/**
@@ -84,7 +94,16 @@ public final class Mouse
 	 */
 	public static void setCursorPosition(Vector2f position)
 	{
-		Module.getModule(WindowModule.class).getMouse().setCursorPosition(position);
+		glfwSetCursorPos(Window.getNativeId(), (int)position.x, (int)position.y);
+	}
+	
+	/**
+	 * Set the scroll wheel delta.
+	 * @param scrollDelta The new scroll wheel delta.
+	 */
+	public static void setScrollDelta(Vector2f scrollDelta)
+	{
+		Mouse.scrollDelta = scrollDelta;
 	}
 	
 	/**
@@ -93,7 +112,7 @@ public final class Mouse
 	 */
 	public static Vector2f getScrollDelta()
 	{
-		return Module.getModule(WindowModule.class).getMouse().getScrollDelta();
+		return scrollDelta;
 	}
 	
 	/**
@@ -102,7 +121,7 @@ public final class Mouse
 	 */
 	public static Vector2f getCursorPosition()
 	{
-		return Module.getModule(WindowModule.class).getMouse().getCursorPosition();
+		return new Vector2f(mousePosition);
 	}
 	
 	/**
@@ -111,6 +130,6 @@ public final class Mouse
 	 */
 	public static Vector2f getCursorPositionDelta()
 	{
-		return Module.getModule(WindowModule.class).getMouse().getCursorPositionDelta();
+		return new Vector2f(mousePositionDelta);
 	}
 }

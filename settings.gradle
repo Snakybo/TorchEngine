@@ -1,6 +1,3 @@
 include "torch-core"
-include "torch-glfw"
-include "torch-opengl"
-include "torch-examples"
 
 rootProject.name = 'Torch Engine'

@@ -20,61 +20,32 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.input.joystick;
+package glfw;
 
-import java.util.List;
+import com.snakybo.torch.debug.Logger;
+import com.snakybo.torch.object.Component;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class Joystick
+public class GLFWCallbackListener extends Component
 {
-	static List<JoystickDevice> devices;
-	
-	private Joystick()
+	@Override
+	protected void onWindowFocus(boolean focus)
 	{
-		throw new AssertionError();
+		Logger.log("Window focus: " + focus, this);
 	}
 	
-	/**
-	 * Check whether or not a joystick is present.
-	 * @return Whether or not a joystick is present.
-	 */
-	public static boolean isJoystickPresent()
+	@Override
+	protected void onWindowIconify(boolean iconified)
 	{
-		return devices.size() > 0;
+		Logger.log("Window iconified: " + iconified, this);
 	}
 	
-	/**
-	 * Get the first available joystick.
-	 * @return The first available joystick.
-	 */
-	public static JoystickDevice getJoystick()
+	@Override
+	protected void onCursorEnter(boolean entered)
 	{
-		if(isJoystickPresent())
-		{
-			return devices.get(0);
-		}
-		
-		return null;
-	}
-	
-	/**
-	 * Get all available joysticks.
-	 * @return All available joysticks.
-	 */
-	public static JoystickDevice[] getJoysticks()
-	{
-		return devices.toArray(new JoystickDevice[devices.size()]);
-	}
-	
-	/**
-	 * Get the number of joysticks present.
-	 * @return The number of joysticks present.
-	 */
-	public static int getNumJoysticksPresent()
-	{
-		return devices.size();
+		Logger.log("Cursor enter: " + entered, this);
 	}
 }

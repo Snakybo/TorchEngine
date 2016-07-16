@@ -20,61 +20,40 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.input.joystick;
+package glfw;
 
-import java.util.List;
+import com.snakybo.torch.Game;
+import com.snakybo.torch.monitor.DisplayMode;
+import com.snakybo.torch.monitor.Monitor;
+import com.snakybo.torch.object.GameObject;
+import com.snakybo.torch.window.Window;
+import com.snakybo.torch.window.WindowMode;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class Joystick
+public class GLFWWindowTest extends Game
 {
-	static List<JoystickDevice> devices;
-	
-	private Joystick()
+	public GLFWWindowTest()
 	{
-		throw new AssertionError();
+		super("GLFW Windowing Test");
+	}
+
+	@Override
+	protected void onCreate()
+	{
+		GameObject obj = new GameObject();
+		obj.addComponent(new GLFWInputListener());
+		obj.addComponent(new GLFWCallbackListener());
+		//obj.addComponent(new GLFWJoystickListener());
 	}
 	
-	/**
-	 * Check whether or not a joystick is present.
-	 * @return Whether or not a joystick is present.
-	 */
-	public static boolean isJoystickPresent()
+	public static void main(String[] args)
 	{
-		return devices.size() > 0;
-	}
-	
-	/**
-	 * Get the first available joystick.
-	 * @return The first available joystick.
-	 */
-	public static JoystickDevice getJoystick()
-	{
-		if(isJoystickPresent())
-		{
-			return devices.get(0);
-		}
+		Game game = new GLFWWindowTest();
+		Window.create(new DisplayMode(Monitor.getPrimaryMonitor(), 1280, 720), WindowMode.Windowed);
 		
-		return null;
-	}
-	
-	/**
-	 * Get all available joysticks.
-	 * @return All available joysticks.
-	 */
-	public static JoystickDevice[] getJoysticks()
-	{
-		return devices.toArray(new JoystickDevice[devices.size()]);
-	}
-	
-	/**
-	 * Get the number of joysticks present.
-	 * @return The number of joysticks present.
-	 */
-	public static int getNumJoysticksPresent()
-	{
-		return devices.size();
+		game.start();
 	}
 }

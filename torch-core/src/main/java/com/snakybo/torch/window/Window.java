@@ -22,10 +22,48 @@
 
 package com.snakybo.torch.window;
 
+import com.snakybo.torch.Game;
+import com.snakybo.torch.debug.LoggerInternal;
+import com.snakybo.torch.input.joystick.JoystickController;
+import com.snakybo.torch.input.keyboard.KeyboardController;
+import com.snakybo.torch.input.mouse.Mouse;
+import com.snakybo.torch.input.mouse.MouseController;
+import com.snakybo.torch.monitor.DisplayMode;
+import com.snakybo.torch.opengl.OpenGL;
+import com.snakybo.torch.scene.SceneInternal;
 import org.joml.Vector2f;
+import org.lwjgl.BufferUtils;
+import org.lwjgl.glfw.Callbacks;
 
-import com.snakybo.torch.module.Module;
-import com.snakybo.torch.module.WindowModule;
+import java.nio.IntBuffer;
+
+import static org.lwjgl.glfw.GLFW.GLFW_BLUE_BITS;
+import static org.lwjgl.glfw.GLFW.GLFW_DECORATED;
+import static org.lwjgl.glfw.GLFW.GLFW_GREEN_BITS;
+import static org.lwjgl.glfw.GLFW.GLFW_RED_BITS;
+import static org.lwjgl.glfw.GLFW.GLFW_REFRESH_RATE;
+import static org.lwjgl.glfw.GLFW.GLFW_RESIZABLE;
+import static org.lwjgl.glfw.GLFW.GLFW_VISIBLE;
+import static org.lwjgl.glfw.GLFW.glfwCreateWindow;
+import static org.lwjgl.glfw.GLFW.glfwDefaultWindowHints;
+import static org.lwjgl.glfw.GLFW.glfwDestroyWindow;
+import static org.lwjgl.glfw.GLFW.glfwFocusWindow;
+import static org.lwjgl.glfw.GLFW.glfwGetWindowSize;
+import static org.lwjgl.glfw.GLFW.glfwMakeContextCurrent;
+import static org.lwjgl.glfw.GLFW.glfwPollEvents;
+import static org.lwjgl.glfw.GLFW.glfwSetCharCallback;
+import static org.lwjgl.glfw.GLFW.glfwSetCursorEnterCallback;
+import static org.lwjgl.glfw.GLFW.glfwSetScrollCallback;
+import static org.lwjgl.glfw.GLFW.glfwSetWindowFocusCallback;
+import static org.lwjgl.glfw.GLFW.glfwSetWindowIconifyCallback;
+import static org.lwjgl.glfw.GLFW.glfwSetWindowSize;
+import static org.lwjgl.glfw.GLFW.glfwShowWindow;
+import static org.lwjgl.glfw.GLFW.glfwSwapBuffers;
+import static org.lwjgl.glfw.GLFW.glfwSwapInterval;
+import static org.lwjgl.glfw.GLFW.glfwWindowHint;
+import static org.lwjgl.glfw.GLFW.glfwWindowShouldClose;
+import static org.lwjgl.opengl.GL11.GL_FALSE;
+import static org.lwjgl.system.MemoryUtil.NULL;
 
 /**
  * @author Snakybo
@@ -33,6 +71,12 @@ import com.snakybo.torch.module.WindowModule;
  */
 public final class Window
 {
+	private static DisplayMode displayMode;
+	
+	private static long nativeId;
+	
+	private static boolean vsyncEnabled;
+	
 	private Window()
 	{
 		throw new AssertionError();
@@ -40,12 +84,72 @@ public final class Window
 	
 	/**
 	 * Create a new window.
-	 * @param windowProperties The window properties.
+	 * @param displayMode The window properties.
 	 * @param windowMode The window mode.
 	 */
-	public static void create(WindowProperties windowProperties, WindowMode windowMode)
+	public static void create(DisplayMode displayMode, WindowMode windowMode)
 	{
-		Module.getModule(WindowModule.class).getWindow().create(windowProperties, windowMode);
+		if(Window.displayMode != null || nativeId != NULL)
+		{
+			destroy();
+		}
+		
+		LoggerInternal.log("Creating window: " + displayMode, Window.class);
+		
+		Window.displayMode = displayMode;
+		
+		long monitor = NULL;
+		
+		glfwDefaultWindowHints();
+		glfwWindowHint(GLFW_VISIBLE, GL_FALSE);
+		glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+		
+		if(windowMode == WindowMode.Borderless)
+		{
+			glfwWindowHint(GLFW_RED_BITS, displayMode.getBitsPerPixel());
+			glfwWindowHint(GLFW_GREEN_BITS, displayMode.getBitsPerPixel());
+			glfwWindowHint(GLFW_BLUE_BITS, displayMode.getBitsPerPixel());
+			glfwWindowHint(GLFW_REFRESH_RATE, displayMode.getFrequency());
+			
+			glfwWindowHint(GLFW_DECORATED, GL_FALSE);
+		}
+		else if(windowMode == WindowMode.Fullscreen)
+		{
+			monitor = displayMode.getMonitor().getNativeId();
+		}
+		
+		nativeId = glfwCreateWindow(displayMode.getWidth(), displayMode.getHeight(), Game.getName(), monitor, NULL);
+		if(nativeId == NULL)
+		{
+			throw new RuntimeException("Unable to create GLFW window");
+		}
+		
+		glfwSetWindowFocusCallback(nativeId, (window, focus) -> SceneInternal.notify("onWindowFocus", new Class<?>[]{boolean.class}, new Object[]{focus}));
+		glfwSetWindowIconifyCallback(nativeId, (window, iconified) -> SceneInternal.notify("onWindowIconify", new Class<?>[]{boolean.class}, new Object[]{iconified}));
+		
+		glfwSetCharCallback(nativeId, (window, codepoint) -> SceneInternal.notify("onCharPressed", new Class<?>[]{char.class}, new Object[]{(char)codepoint}));
+		
+		glfwSetCursorEnterCallback(nativeId, (window, entered) -> SceneInternal.notify("onCursorEnter", new Class<?>[]{boolean.class}, new Object[]{entered}));
+		glfwSetScrollCallback(nativeId, (window, x, y) -> Mouse.setScrollDelta(new Vector2f((float)x, (float)y)));
+		
+		glfwMakeContextCurrent(nativeId);
+		glfwShowWindow(nativeId);
+		setVSyncEnabled(true);
+		
+		OpenGL.create();
+		
+		KeyboardController.create();
+		MouseController.create();
+		JoystickController.create();
+	}
+	
+	/**
+	 * Update the window.
+	 */
+	public static void update()
+	{
+		glfwSwapBuffers(nativeId);
+		glfwPollEvents();
 	}
 	
 	/**
@@ -53,7 +157,14 @@ public final class Window
 	 */
 	public static void destroy()
 	{
-		Module.getModule(WindowModule.class).getWindow().destroy();
+		LoggerInternal.log("Destroying window", Window.class);
+		
+		Callbacks.glfwFreeCallbacks(nativeId);
+		
+		glfwDestroyWindow(nativeId);
+		
+		displayMode = null;
+		nativeId = NULL;
 	}
 	
 	/**
@@ -61,7 +172,7 @@ public final class Window
 	 */
 	public static void focus()
 	{
-		Module.getModule(WindowModule.class).getWindow().focus();
+		glfwFocusWindow(nativeId);
 	}
 	
 	/**
@@ -70,7 +181,7 @@ public final class Window
 	 */
 	public static boolean isCloseRequested()
 	{
-		return Module.getModule(WindowModule.class).getWindow().isCloseRequested();
+		return glfwWindowShouldClose(nativeId);
 	}
 	
 	/**
@@ -79,7 +190,7 @@ public final class Window
 	 */
 	public static boolean isVSyncEnabled()
 	{
-		return Module.getModule(WindowModule.class).getWindow().isVSyncEnabled();
+		return vsyncEnabled;
 	}
 	
 	/**
@@ -88,7 +199,7 @@ public final class Window
 	 */
 	public static void setSize(Vector2f size)
 	{
-		Module.getModule(WindowModule.class).getWindow().setSize(size);
+		glfwSetWindowSize(nativeId, (int)size.x, (int)size.y);
 	}
 	
 	/**
@@ -97,16 +208,21 @@ public final class Window
 	 */
 	public static void setVSyncEnabled(boolean enabled)
 	{
-		Module.getModule(WindowModule.class).getWindow().setVSyncEnabled(enabled);
+		Window.vsyncEnabled = enabled;
+		
+		glfwSwapInterval(enabled ? 1 : 0);
 	}
 	
 	/**
 	 * Set the size of the window.
-	 * @param size The new size of the window.
 	 */
 	public static Vector2f getSize()
 	{
-		return Module.getModule(WindowModule.class).getWindow().getSize();
+		IntBuffer width = BufferUtils.createIntBuffer(1);
+		IntBuffer height = BufferUtils.createIntBuffer(1);
+		
+		glfwGetWindowSize(nativeId, width, height);
+		return new Vector2f(width.get(), height.get());
 	}
 	
 	/**
@@ -115,7 +231,8 @@ public final class Window
 	 */
 	public static float getAspectRatio()
 	{
-		return Module.getModule(WindowModule.class).getWindow().getAspectRatio();
+		Vector2f size = getSize();
+		return (float)size.x / (float)size.y;
 	}
 	
 	/**
@@ -124,7 +241,7 @@ public final class Window
 	 */
 	public static Vector2f getCenter()
 	{
-		return Module.getModule(WindowModule.class).getWindow().getCenter();
+		return getSize().mul(0.5f);
 	}
 	
 	/**
@@ -133,6 +250,6 @@ public final class Window
 	 */
 	public static long getNativeId()
 	{
-		return Module.getModule(WindowModule.class).getWindow().getNativeId();
+		return nativeId;
 	}
 }

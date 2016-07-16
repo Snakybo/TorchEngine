@@ -22,12 +22,11 @@
 
 package com.snakybo.torch.cursor;
 
-import java.util.HashSet;
-import java.util.Set;
-
+import com.snakybo.torch.bitmap.Bitmap;
 import org.joml.Vector2f;
 
-import com.snakybo.torch.bitmap.Bitmap;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Snakybo
