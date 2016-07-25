@@ -34,7 +34,7 @@ import java.util.Set;
  */
 public class CursorShape
 {
-	private static Set<CursorShape> cursorShapeCache = new HashSet<CursorShape>();
+	private static Set<CursorShape> cursorShapeCache = new HashSet<>();
 	
 	private Bitmap bitmap;
 	private Vector2f hot;

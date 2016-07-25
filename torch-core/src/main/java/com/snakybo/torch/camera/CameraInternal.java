@@ -22,20 +22,19 @@
 
 package com.snakybo.torch.camera;
 
-import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.glClear;
-
-import java.util.HashSet;
-import java.util.Set;
-
+import com.snakybo.torch.color.Color;
+import com.snakybo.torch.object.Transform;
+import com.snakybo.torch.scene.SceneInternal;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
-import com.snakybo.torch.color.Color;
-import com.snakybo.torch.object.Transform;
-import com.snakybo.torch.scene.SceneInternal;
+import java.util.HashSet;
+import java.util.Set;
+
+import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.glClear;
 
 /**
  * @author Snakybo
@@ -43,7 +42,7 @@ import com.snakybo.torch.scene.SceneInternal;
  */
 public final class CameraInternal
 {
-	private static Set<CameraInternal> cameras = new HashSet<CameraInternal>();
+	private static Set<CameraInternal> cameras = new HashSet<>();
 	private static CameraInternal current;
 	
 	private CameraClearFlags clearFlags;

@@ -22,14 +22,14 @@
 
 package com.snakybo.torch.model;
 
+import org.joml.Vector2f;
+import org.joml.Vector3f;
+import org.lwjgl.BufferUtils;
+
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.joml.Vector2f;
-import org.joml.Vector3f;
-import org.lwjgl.BufferUtils;
 
 /**
  * @author Snakybo
@@ -48,11 +48,11 @@ public final class Model
 	 */
 	public Model()
 	{
-		vertices = new ArrayList<Vector3f>();
-		texCoords = new ArrayList<Vector2f>();
-		normals = new ArrayList<Vector3f>();
-		tangents = new ArrayList<Vector3f>();
-		indices = new ArrayList<Integer>();
+		vertices = new ArrayList<>();
+		texCoords = new ArrayList<>();
+		normals = new ArrayList<>();
+		tangents = new ArrayList<>();
+		indices = new ArrayList<>();
 	}
 	
 	/**
@@ -80,10 +80,7 @@ public final class Model
 			normals.get(i2).add(normal);
 		}
 		
-		for(int i = 0; i < normals.size(); i++)
-		{
-			normals.get(i).normalize();
-		}
+		normals.forEach(Vector3f::normalize);
 	}
 	
 	/**
@@ -120,11 +117,8 @@ public final class Model
 			tangents.get(i1).add(tangent);
 			tangents.get(i2).add(tangent);
 		}
-
-		for(int i = 0; i < tangents.size(); i++)
-		{
-			tangents.get(i).normalize();
-		}
+		
+		tangents.forEach(Vector3f::normalize);
 	}
 	
 	/**
@@ -321,10 +315,7 @@ public final class Model
 	{
 		IntBuffer result = BufferUtils.createIntBuffer(indices.size());
 		
-		for(Integer index : indices)
-		{
-			result.put(index);
-		}
+		indices.forEach(result::put);
 		
 		result.flip();
 		return result;

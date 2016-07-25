@@ -69,7 +69,7 @@ public final class Color32
 		value = ((a & 0xFF) << 24) |
 				((r & 0xFF) << 16) |
 				((g & 0xFF) << 8)  |
-				((b & 0xFF) << 0);
+				(b & 0xFF);
 	}
 	
 	/**
@@ -108,7 +108,7 @@ public final class Color32
 		value = ((getAlpha() & 0xFF) << 24) |
 				((MathUtils.clamp(r, 0, 255) & 0xFF) << 16) |
 				((getGreen() & 0xFF) << 8)  |
-				((getBlue() & 0xFF) << 0);
+				(getBlue() & 0xFF);
 	}
 	
 	/**
@@ -120,7 +120,7 @@ public final class Color32
 		value = ((getAlpha() & 0xFF) << 24) |
 				((getRed() & 0xFF) << 16) |
 				((MathUtils.clamp(g, 0, 255) & 0xFF) << 8)  |
-				((getBlue() & 0xFF) << 0);
+				(getBlue() & 0xFF);
 	}
 	
 	/**
@@ -132,7 +132,7 @@ public final class Color32
 		value = ((getAlpha() & 0xFF) << 24) |
 				((getRed() & 0xFF) << 16) |
 				((getGreen() & 0xFF) << 8)  |
-				((MathUtils.clamp(b, 0, 255) & 0xFF) << 0);
+				((MathUtils.clamp(b, 0, 255) & 0xFF));
 	}
 	
 	/**
@@ -144,7 +144,7 @@ public final class Color32
 		value = ((MathUtils.clamp(a, 0, 255) & 0xFF) << 24) |
 				((getRed() & 0xFF) << 16) |
 				((getGreen() & 0xFF) << 8)  |
-				((getBlue() & 0xFF) << 0);
+				(getBlue() & 0xFF);
 	}
 	
 	/**
@@ -176,7 +176,7 @@ public final class Color32
 	 */
 	public final int getBlue()
 	{
-		return (getARGB() >> 0) & 0xFF;
+		return getARGB() & 0xFF;
 	}
 	
 	/**
@@ -184,7 +184,7 @@ public final class Color32
 	 */
 	public final int getAlpha()
 	{
-		return (getARGB() >> 24) & 0xFF;
+		return getARGB() >> 24 & 0xFF;
 	}
 	
 	/**

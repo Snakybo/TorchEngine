@@ -22,14 +22,6 @@
 
 package com.snakybo.torch.mesh;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.joml.Matrix4f;
-import org.joml.Vector2f;
-import org.joml.Vector3f;
-import org.joml.Vector4f;
-
 import com.snakybo.torch.camera.Camera;
 import com.snakybo.torch.color.Color;
 import com.snakybo.torch.color.Color32;
@@ -39,6 +31,13 @@ import com.snakybo.torch.object.GameObject;
 import com.snakybo.torch.resource.Resources;
 import com.snakybo.torch.shader.Shader;
 import com.snakybo.torch.texture.Texture;
+import org.joml.Matrix4f;
+import org.joml.Vector2f;
+import org.joml.Vector3f;
+import org.joml.Vector4f;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Snakybo
@@ -53,7 +52,7 @@ public final class Material implements IDestroyable
 	
 	public Material(String shader)
 	{
-		this.values = new HashMap<String, Object>();
+		this.values = new HashMap<>();
 		this.shader = Resources.load(Shader.class, shader);
 	}
 	

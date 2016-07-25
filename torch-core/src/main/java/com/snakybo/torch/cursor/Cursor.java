@@ -62,7 +62,7 @@ public final class Cursor
 	 */
 	public static boolean isVisible()
 	{
-		return glfwGetInputMode(Window.getNativeId(), GLFW_CURSOR) == GLFW_CURSOR_NORMAL ? true : false;
+		return glfwGetInputMode(Window.getNativeId(), GLFW_CURSOR) == GLFW_CURSOR_NORMAL;
 	}
 	
 	/**

@@ -22,10 +22,10 @@
 
 package com.snakybo.torch.object;
 
+import com.snakybo.torch.scene.SceneInternal;
+
 import java.util.HashSet;
 import java.util.Set;
-
-import com.snakybo.torch.scene.SceneInternal;
 
 /**
  * @author Snakybo
@@ -57,8 +57,8 @@ public final class GameObject extends Object
 		// Register the GameObject
 		SceneInternal.register(this);
 		
-		components = new HashSet<Component>();
-		frameQueue = new HashSet<Component>();
+		components = new HashSet<>();
+		frameQueue = new HashSet<>();
 		
 		transform = new Transform();
 		transform.gameObject = this;
@@ -104,7 +104,7 @@ public final class GameObject extends Object
 	 */
 	public final <T extends Component> Iterable<T> getComponents(Class<T> type)
 	{
-		Set<T> result = new HashSet<T>();
+		Set<T> result = new HashSet<>();
 		
 		for(Component component : components)
 		{

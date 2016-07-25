@@ -232,7 +232,7 @@ public final class Window
 	public static float getAspectRatio()
 	{
 		Vector2f size = getSize();
-		return (float)size.x / (float)size.y;
+		return size.x / size.y;
 	}
 	
 	/**

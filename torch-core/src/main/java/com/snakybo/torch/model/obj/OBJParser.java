@@ -22,14 +22,13 @@
 
 package com.snakybo.torch.model.obj;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
+import com.snakybo.torch.util.StringUtils;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
-import com.snakybo.torch.util.StringUtils;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author Snakybo
@@ -49,10 +48,10 @@ final class OBJParser
 	
 	OBJParser()
 	{
-		indices = new ArrayList<OBJIndex>();
-		vertices = new ArrayList<Vector3f>();
-		texCoords = new ArrayList<Vector2f>();
-		normals = new ArrayList<Vector3f>();
+		indices = new ArrayList<>();
+		vertices = new ArrayList<>();
+		texCoords = new ArrayList<>();
+		normals = new ArrayList<>();
 	}
 	
 	/**

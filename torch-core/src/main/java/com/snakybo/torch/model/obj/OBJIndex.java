@@ -35,6 +35,11 @@ final class OBJIndex
 	@Override
 	public final boolean equals(Object obj)
 	{
+		if(!(obj instanceof OBJIndex))
+		{
+			return false;
+		}
+		
 		OBJIndex index = (OBJIndex)obj;
 		return vertex == index.vertex && texCoord == index.texCoord && normal == index.normal;
 	}

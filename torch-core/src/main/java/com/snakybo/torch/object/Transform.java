@@ -22,14 +22,13 @@
 
 package com.snakybo.torch.object;
 
-import java.util.HashSet;
-import java.util.Set;
-
+import com.snakybo.torch.debug.Logger;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
-import com.snakybo.torch.debug.Logger;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Snakybo
@@ -53,7 +52,7 @@ public final class Transform
 	 */
 	public Transform()
 	{
-		children = new HashSet<Transform>();
+		children = new HashSet<>();
 		parentMatrix = new Matrix4f();
 		
 		position = new Vector3f();

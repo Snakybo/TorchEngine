@@ -44,7 +44,7 @@ public final class StringUtils
 	 */
 	public static String[] removeEmptyStrings(Collection<String> data)
 	{
-		List<String> result = new ArrayList<String>();
+		List<String> result = new ArrayList<>();
 		
 		for(String element : data)
 		{

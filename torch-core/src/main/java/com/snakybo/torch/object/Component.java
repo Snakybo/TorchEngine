@@ -37,7 +37,7 @@ public abstract class Component extends Object
 		super("Component");
 		
 		String name = getClass().getSimpleName();
-		if(name != null && !name.isEmpty())
+		if(!name.isEmpty())
 		{
 			setName(name);
 		}

@@ -22,14 +22,14 @@
 
 package com.snakybo.torch.scene;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import com.snakybo.torch.camera.Camera;
 import com.snakybo.torch.object.Component;
 import com.snakybo.torch.object.GameObject;
 import com.snakybo.torch.object.GameObjectInternal;
 import com.snakybo.torch.renderer.Renderer;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Snakybo
@@ -37,7 +37,7 @@ import com.snakybo.torch.renderer.Renderer;
  */
 public final class SceneInternal
 {
-	private static Set<GameObject> frameQueue = new HashSet<GameObject>();
+	private static Set<GameObject> frameQueue = new HashSet<>();
 	
 	private SceneInternal()
 	{
@@ -54,10 +54,7 @@ public final class SceneInternal
 		frameQueue.addAll(Scene.gameObjects);
 		
 		// Construct the frame queue for all GameObjects in the frame queue
-		for(GameObject gameObject : frameQueue)
-		{
-			GameObjectInternal.constructFrameQueue(gameObject);
-		}
+		frameQueue.forEach(GameObjectInternal::constructFrameQueue);
 	}
 	
 	/**
@@ -71,22 +68,13 @@ public final class SceneInternal
 	public static void runUpdateCycle()
 	{
 		// Call start() all GameObjects in the frame queue if neccecary
-		for(GameObject gameObject : frameQueue)
-		{
-			GameObjectInternal.start(gameObject);
-		}
+		frameQueue.forEach(GameObjectInternal::start);
 		
 		// Call update() all GameObjects in the frame queue
-		for(GameObject gameObject : frameQueue)
-		{
-			GameObjectInternal.update(gameObject);
-		}
+		frameQueue.forEach(GameObjectInternal::update);
 		
 		// Call postUpdate() on all GameObjects in the frame queue
-		for(GameObject gameObject : frameQueue)
-		{
-			GameObjectInternal.postUpdate(gameObject);
-		}
+		frameQueue.forEach(GameObjectInternal::postUpdate);
 	}
 	
 	/**
@@ -108,10 +96,7 @@ public final class SceneInternal
 	 */
 	public static void renderCamera()
 	{
-		for(GameObject gameObject : frameQueue)
-		{
-			Renderer.render(gameObject);
-		}
+		frameQueue.forEach(Renderer::render);
 	}
 	
 	/**

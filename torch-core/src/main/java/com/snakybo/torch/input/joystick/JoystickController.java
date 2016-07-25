@@ -108,10 +108,7 @@ public final class JoystickController
 	{
 		for(JoystickDevice device : Joystick.devices)
 		{
-			for(int i = 0; i < device.getNumButtons(); i++)
-			{
-				device.last[i] = device.current[i];
-			}
+			System.arraycopy(device.current, 0, device.last, 0, device.getNumButtons());
 			
 			ByteBuffer buttons = glfwGetJoystickButtons((int)device.getNativeId());
 			for(int i = 0; i < buttons.capacity(); i++)

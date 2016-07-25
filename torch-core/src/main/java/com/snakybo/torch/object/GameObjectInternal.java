@@ -22,9 +22,9 @@
 
 package com.snakybo.torch.object;
 
-import java.lang.reflect.Method;
-
 import com.snakybo.torch.scene.SceneInternal;
+
+import java.lang.reflect.Method;
 
 /**
  * @author Snakybo
@@ -94,10 +94,7 @@ public final class GameObjectInternal
 	public static void update(GameObject gameObject)
 	{		
 		// Call update() on components
-		for(Component component : gameObject.frameQueue)
-		{
-			component.update();
-		}
+		gameObject.frameQueue.forEach(Component::update);
 	}
 	
 	/**
@@ -108,10 +105,7 @@ public final class GameObjectInternal
 	public static void postUpdate(GameObject gameObject)
 	{
 		// Call postUpdate() on components
-		for(Component component : gameObject.frameQueue)
-		{
-			component.postUpdate();
-		}
+		gameObject.frameQueue.forEach(Component::postUpdate);
 	}
 	
 	/**
@@ -122,10 +116,7 @@ public final class GameObjectInternal
 	public static void preRenderObject(GameObject gameObject)
 	{
 		// Call preRender() on components
-		for(Component component : gameObject.frameQueue)
-		{
-			component.preRenderObject();
-		}
+		gameObject.frameQueue.forEach(Component::preRenderObject);
 	}
 	
 	/**
@@ -136,10 +127,7 @@ public final class GameObjectInternal
 	public static void renderObject(GameObject gameObject)
 	{
 		// Call render() on components
-		for(Component component : gameObject.frameQueue)
-		{
-			component.renderObject();
-		}
+		gameObject.frameQueue.forEach(Component::renderObject);
 	}
 	
 	/**
@@ -150,10 +138,7 @@ public final class GameObjectInternal
 	public static void postRenderObject(GameObject gameObject)
 	{
 		// Call postRender() on components
-		for(Component component : gameObject.frameQueue)
-		{
-			component.postRenderObject();
-		}
+		gameObject.frameQueue.forEach(Component::postRenderObject);
 	}
 	
 	/**

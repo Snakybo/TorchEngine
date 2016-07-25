@@ -22,10 +22,10 @@
 
 package com.snakybo.torch.scene;
 
+import com.snakybo.torch.object.GameObject;
+
 import java.util.HashSet;
 import java.util.Set;
-
-import com.snakybo.torch.object.GameObject;
 
 /**
  * @author Snakybo
@@ -33,7 +33,7 @@ import com.snakybo.torch.object.GameObject;
  */
 public final class Scene
 {
-	static Set<GameObject> gameObjects = new HashSet<GameObject>();
+	static Set<GameObject> gameObjects = new HashSet<>();
 	
 	private Scene()
 	{
@@ -43,7 +43,7 @@ public final class Scene
 	/**
 	 * @return The number of {@link GameObject}s in the scene
 	 */
-	public static final int getSceneSize()
+	public static int getSceneSize()
 	{
 		return gameObjects.size();
 	}

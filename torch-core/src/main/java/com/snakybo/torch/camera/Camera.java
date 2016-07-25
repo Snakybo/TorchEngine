@@ -22,13 +22,12 @@
 
 package com.snakybo.torch.camera;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import org.joml.Matrix4f;
-
 import com.snakybo.torch.color.Color;
 import com.snakybo.torch.object.Component;
+import org.joml.Matrix4f;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Snakybo
@@ -36,7 +35,7 @@ import com.snakybo.torch.object.Component;
  */
 public final class Camera extends Component
 {
-	private static Set<Camera> cameras = new HashSet<Camera>();
+	private static Set<Camera> cameras = new HashSet<>();
 	
 	private final CameraInternal camera;
 	

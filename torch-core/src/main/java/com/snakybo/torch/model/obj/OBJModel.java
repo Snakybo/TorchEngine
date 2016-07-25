@@ -22,15 +22,14 @@
 
 package com.snakybo.torch.model.obj;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.snakybo.torch.model.IModelLoader;
+import com.snakybo.torch.model.Model;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
-import com.snakybo.torch.model.IModelLoader;
-import com.snakybo.torch.model.Model;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Snakybo
@@ -52,9 +51,9 @@ public final class OBJModel implements IModelLoader
 		Model model = new Model();
 		Model normalModel = new Model();
 
-		Map<OBJIndex, Integer> resultIndexMap = new HashMap<OBJIndex, Integer>();
-		Map<Integer, Integer> normalIndexMap = new HashMap<Integer, Integer>();
-		Map<Integer, Integer> indexMap = new HashMap<Integer, Integer>();
+		Map<OBJIndex, Integer> resultIndexMap = new HashMap<>();
+		Map<Integer, Integer> normalIndexMap = new HashMap<>();
+		Map<Integer, Integer> indexMap = new HashMap<>();
 
 		for(OBJIndex index : parser.indices)
 		{

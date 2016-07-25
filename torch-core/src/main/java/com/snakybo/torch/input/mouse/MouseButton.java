@@ -63,12 +63,12 @@ public enum MouseButton
 	
 	public final int id;
 	
-	private MouseButton(MouseButton mouseButton)
+	MouseButton(MouseButton mouseButton)
 	{
 		this(mouseButton.id);
 	}
 	
-	private MouseButton(int id)
+	MouseButton(int id)
 	{
 		this.id = id;
 	}

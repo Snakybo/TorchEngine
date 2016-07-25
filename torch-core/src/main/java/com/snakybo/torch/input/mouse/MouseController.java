@@ -59,10 +59,7 @@ public final class MouseController
 	{
 		Mouse.scrollDelta = new Vector2f(0, 0);
 		
-		for(int i = 0; i < Mouse.last.length; i++)
-		{
-			Mouse.last[i] = Mouse.current[i];
-		}
+		System.arraycopy(Mouse.current, 0, Mouse.last, 0, Mouse.last.length);
 		
 		for(int i = 0; i < Mouse.current.length; i++)
 		{

@@ -22,6 +22,21 @@
 
 package com.snakybo.torch.shader;
 
+import com.snakybo.torch.debug.Logger;
+import com.snakybo.torch.interfaces.IDestroyable;
+import org.joml.Matrix3f;
+import org.joml.Matrix4f;
+import org.joml.Vector2f;
+import org.joml.Vector3f;
+import org.joml.Vector4f;
+import org.lwjgl.BufferUtils;
+
+import java.nio.FloatBuffer;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import static org.lwjgl.opengl.GL20.glCreateProgram;
 import static org.lwjgl.opengl.GL20.glDeleteProgram;
 import static org.lwjgl.opengl.GL20.glDeleteShader;
@@ -35,22 +50,6 @@ import static org.lwjgl.opengl.GL20.glUniformMatrix3fv;
 import static org.lwjgl.opengl.GL20.glUniformMatrix4fv;
 import static org.lwjgl.opengl.GL20.glUseProgram;
 import static org.lwjgl.system.MemoryUtil.NULL;
-
-import java.nio.FloatBuffer;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.joml.Matrix3f;
-import org.joml.Matrix4f;
-import org.joml.Vector2f;
-import org.joml.Vector3f;
-import org.joml.Vector4f;
-import org.lwjgl.BufferUtils;
-
-import com.snakybo.torch.debug.Logger;
-import com.snakybo.torch.interfaces.IDestroyable;
 
 /**
  * @author Snakybo
@@ -67,10 +66,10 @@ public final class Shader implements IDestroyable
 	
 	Shader()
 	{
-		uniforms = new HashMap<String, Integer>();
-		uniformTypes = new HashMap<String, String>();
+		uniforms = new HashMap<>();
+		uniformTypes = new HashMap<>();
 		
-		attachedShaders = new ArrayList<Integer>();
+		attachedShaders = new ArrayList<>();
 		
 		programId = glCreateProgram();
 		if(programId == NULL)

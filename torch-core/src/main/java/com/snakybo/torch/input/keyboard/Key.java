@@ -390,7 +390,7 @@ public enum Key
 	
 	public final int id;
 	
-	private Key(int key)
+	Key(int key)
 	{
 		this.id = key;
 	}
