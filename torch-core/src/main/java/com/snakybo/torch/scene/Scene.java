@@ -22,29 +22,103 @@
 
 package com.snakybo.torch.scene;
 
+import com.snakybo.torch.interfaces.IDestroyable;
 import com.snakybo.torch.object.GameObject;
+import com.snakybo.torch.queue.QueueOperation;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class Scene
+public final class Scene implements IDestroyable
 {
-	static Set<GameObject> gameObjects = new HashSet<>();
+	static Set<Scene> allScenes;
+	static Scene currentScene;
 	
-	private Scene()
+	Set<GameObject> gameObjects;
+	Map<GameObject, QueueOperation> queue;
+	
+	boolean destroyed;
+	
+	static
 	{
-		throw new AssertionError();
+		allScenes = new HashSet<>();
+	}
+	
+	public Scene()
+	{
+		gameObjects = new HashSet<>();
+		queue = new HashMap<>();
+		
+		allScenes.add(this);
+		
+		if(currentScene == null)
+		{
+			makeCurrent();
+		}
+	}
+	
+	@Override
+	public void destroy()
+	{
+		queue.clear();
+		destroyed = true;
+	}
+	
+	public void makeCurrent()
+	{
+		currentScene = this;
+	}
+	
+	public final void addObject(GameObject obj)
+	{
+		if(!gameObjects.contains(obj) && !queue.containsKey(obj))
+		{
+			queue.put(obj, QueueOperation.Add);
+		}
+		else if(queue.containsKey(obj) && queue.get(obj) == QueueOperation.Remove)
+		{
+			queue.remove(obj);
+		}
+	}
+	
+	public final void removeObject(GameObject obj)
+	{
+		if(gameObjects.contains(obj) && !queue.containsKey(obj))
+		{
+			queue.put(obj, QueueOperation.Remove);
+		}
+		else if(queue.containsKey(obj) && queue.get(obj) == QueueOperation.Add)
+		{
+			queue.remove(obj);
+		}
+	}
+	
+	public final Iterable<GameObject> getAllGameObjects()
+	{
+		return gameObjects;
 	}
 	
 	/**
 	 * @return The number of {@link GameObject}s in the scene
 	 */
-	public static int getSceneSize()
+	public final int getSize()
 	{
 		return gameObjects.size();
+	}
+	
+	public static Iterable<Scene> getAllScenes()
+	{
+		return allScenes;
+	}
+	
+	public static Scene getCurrentScene()
+	{
+		return currentScene;
 	}
 }

@@ -22,6 +22,7 @@
 
 package com.snakybo.torch;
 
+import com.snakybo.torch.camera.Camera;
 import com.snakybo.torch.cursor.CursorController;
 import com.snakybo.torch.debug.Debug;
 import com.snakybo.torch.debug.LoggerInternal;
@@ -30,10 +31,15 @@ import com.snakybo.torch.input.joystick.JoystickController;
 import com.snakybo.torch.input.keyboard.KeyboardController;
 import com.snakybo.torch.input.mouse.MouseController;
 import com.snakybo.torch.monitor.MonitorController;
-import com.snakybo.torch.scene.SceneInternal;
+import com.snakybo.torch.object.GameObjectNotifier;
+import com.snakybo.torch.queue.QueueProcessor;
+import com.snakybo.torch.scene.Scene;
+import com.snakybo.torch.time.Time;
 import com.snakybo.torch.time.TimeInternal;
 import com.snakybo.torch.window.Window;
 import org.lwjgl.Version;
+
+import static org.lwjgl.glfw.GLFW.glfwGetTime;
 
 /**
  * @author Snakybo
@@ -41,58 +47,42 @@ import org.lwjgl.Version;
  */
 public final class Engine
 {
-	/**
-	 * The major version of the engine.
-	 */
-	public static final int VERSION_MAJOR = 1;
+	private static boolean running;
+	private static boolean initialized;
 	
-	/**
-	 * The minor version of the engine.
-	 */
-	public static final int VERSION_MINOR = 0;
-	
-	/**
-	 * The patch version of the engine.
-	 */
-	public static final int VERSION_PATCH = 0;
-	
-	/**
-	 * The version of the engine as a String, in the format {@link #VERSION_MAJOR}.{@link #VERSION_MINOR}.{@link #VERSION_PATCH}.
-	 */
-	public static final String VERSION_STRING = VERSION_MAJOR + "." + VERSION_MINOR + "." + VERSION_PATCH;
-	
-	private Game game;	
-	private boolean running;
-	
-	/**
-	 * Create an instance of the engine, called by {@link Game#Game(String)}.
-	 * @param game The instance of the game to play.
-	 */
-	Engine(Game game)
+	public static void initialize()
 	{
-		this.game = game;
-		
-		LoggerInternal.log("Creating", this);
-		LoggerInternal.log("Engine version: " + VERSION_STRING, this);
-		
-		logLWJGLInfo();
-		
-		GLFW.create();
-		MonitorController.create();
+		if(!initialized)
+		{
+			LoggerInternal.log("Initializing", "Engine");
+			LoggerInternal.log("Engine version: " + EngineInfo.VERSION_STRING, "Engine");
+			
+			if(Debug.LOG_LIBRARY_INFO)
+			{
+				LoggerInternal.log("Version: " + Version.getVersion(), "LWJGL");
+			}
+			
+			GLFW.create();
+			MonitorController.create();
+			
+			// Create an empty scene
+			new Scene();
+			
+			initialized = true;
+		}
 	}
 	
 	/**
 	 * Start the engine, called by {@link Game#start()}.
 	 */
-	protected final void start()
+	static void start()
 	{
 		if(!running)
 		{
-			LoggerInternal.log("Starting", this);
+			LoggerInternal.log("Starting", "Engine");
 			
 			running = true;
 			
-			game.onCreate();
 			mainLoop();
 		}
 	}
@@ -100,11 +90,11 @@ public final class Engine
 	/**
 	 * Stop the engine, called by {@link Game#quit()}.
 	 */
-	protected final void stop()
+	static void stop()
 	{
 		if(running)
 		{
-			LoggerInternal.log("Stopping", this);
+			LoggerInternal.log("Stopping", "Engine");
 			
 			running = false;
 		}
@@ -113,96 +103,84 @@ public final class Engine
 	/**
 	 * The main loop of the engine.
 	 */
-	private final void mainLoop()
+	private static void mainLoop()
 	{
-		double unprocessedTime = 0.0;
-		
 		while(running)
 		{
-			boolean shouldRender = false;
-			
-			TimeInternal.update();
-			unprocessedTime += TimeInternal.getPassedTime();
-			
-			// Construct the frame queue
-			// Might have to be moved to updateCycle()
-			SceneInternal.constructFrameQueue();
-			
-			while(unprocessedTime > TimeInternal.getFrameTime())
+			if(Window.isCloseRequested())
 			{
-				if(Window.isCloseRequested())
-				{
-					stop();
-				}
-				
-				shouldRender = true;
-				unprocessedTime -= TimeInternal.getFrameTime();
-				
-				updateCycle();
+				running = false;
 			}
 			
-			if(shouldRender)
+			TimeInternal.updateDeltaTime();
+			
+			update();
+			updateInput();
+			
+			render();
+			
+			Window.update();
+			
+			if(!Window.isVSyncEnabled())
 			{
-				renderCycle();
-				
-				Window.update();
-				TimeInternal.updateFrameCount();
-			}
-			else
-			{
-				try
-				{
-					Thread.sleep(1);
-				}
-				catch(InterruptedException e)
-				{
-					e.printStackTrace();
-				}
+				sync();
 			}
 		}
 		
 		destroy();
 	}
 	
-	/**
-	 * Run a single update cycle.
-	 */
-	private final void updateCycle()
+	private static void updateInput()
 	{
-		SceneInternal.runUpdateCycle();
-		
-		// Update input
 		KeyboardController.update();
 		MouseController.update();
 		JoystickController.update();
 		CursorController.update();
 	}
 	
-	/**
-	 * Run a single render cycle.
-	 */
-	private final void renderCycle()
+	private static void update()
 	{
-		SceneInternal.runRenderCycle();
+		Scene.getCurrentScene().getAllGameObjects().forEach(GameObjectNotifier::update);
+		Scene.getCurrentScene().getAllGameObjects().forEach(GameObjectNotifier::postUpdate);
+		
+		QueueProcessor.process();
+	}
+	
+	private static void render()
+	{
+		Camera.getCameras().forEach(Camera::render);
+	}
+	
+	private static void sync()
+	{
+		double last = Time.getLastTime();
+		double now = glfwGetTime();
+		
+		float targetTime = 1f / Game.getTargetFrameRate();
+		
+		while(now - last < targetTime)
+		{
+			Thread.yield();
+			
+			try
+			{
+				Thread.sleep(1);
+			}
+			catch(InterruptedException e)
+			{
+				e.printStackTrace();
+			}
+			
+			now = glfwGetTime();
+		}
 	}
 	
 	/**
 	 * Destroy all engine systems.
 	 */
-	private final void destroy()
+	private static void destroy()
 	{
 		JoystickController.destroy();
 		MonitorController.destroy();
-	}
-	
-	/**
-	 * Log information about LWJGL.
-	 */
-	private final void logLWJGLInfo()
-	{
-		if(Debug.LOG_LIBRARY_INFO)
-		{
-			LoggerInternal.log("Version: " + Version.getVersion(), "LWJGL");	
-		}
 	}
 }

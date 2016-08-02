@@ -26,8 +26,15 @@ package com.snakybo.torch.time;
  * @author Snakybo
  * @since 1.0
  */
-public abstract class Time
+public final class Time
 {
+	static double currentTime;
+	static double lastTime;
+	
+	static float deltaTime;
+	
+	static long frameCount;
+	
 	private Time()
 	{
 		throw new AssertionError();
@@ -38,7 +45,12 @@ public abstract class Time
 	 */
 	public static double getCurrentTime()
 	{
-		return TimeInternal.currentTime;
+		return currentTime;
+	}
+	
+	public static double getLastTime()
+	{
+		return lastTime;
 	}
 	
 	/**
@@ -54,7 +66,7 @@ public abstract class Time
 	 */
 	public static float getDeltaTime()
 	{
-		return (float)TimeInternal.frameTime;
+		return deltaTime;
 	}
 	
 	/**
@@ -62,14 +74,6 @@ public abstract class Time
 	 */
 	public static long getFrameId()
 	{
-		return TimeInternal.totalFrameCount;
-	}
-	
-	/**
-	 * @return The current frame rate
-	 */
-	public static int getFrameRate()
-	{
-		return TimeInternal.framesPerSecond;
+		return frameCount;
 	}
 }

@@ -51,7 +51,7 @@ public final class OpenGL
 	
 	public static void create()
 	{
-		LoggerInternal.log("Creating OpenGL module", OpenGL.class);
+		LoggerInternal.log("Creating OpenGL module", "OpenGL");
 		
 		createCapabilities();
 		

@@ -68,23 +68,4 @@ public class Object
 	{
 		return name;
 	}
-	
-	/**
-	 * Destroy an object, can be used on any {@link GameObject} or {@link Component}.
-	 * @param object The object to destroy.
-	 * @see GameObject
-	 * @see Component
-	 */
-	public static void destroy(Object object)
-	{
-		if(object instanceof GameObject)
-		{
-			GameObjectInternal.destroy((GameObject)object);
-		}
-		else if(object instanceof Component)
-		{
-			Component c = (Component)object;
-			GameObjectInternal.removeComponent(c.gameObject, c);
-		}
-	}
 }

@@ -39,7 +39,7 @@ public final class GLFW
 {
 	public static void create()
 	{
-		LoggerInternal.log("Initializing GLFW", GLFW.class);
+		LoggerInternal.log("Initializing GLFW", "GLFW");
 		
 		glfwSetErrorCallback(GLFWErrorCallback.createPrint(System.err));
 		
@@ -56,7 +56,7 @@ public final class GLFW
 	
 	public static void destroy()
 	{
-		LoggerInternal.log("Terminating GLFW", GLFW.class);
+		LoggerInternal.log("Terminating GLFW", "GLFW");
 		
 		glfwTerminate();
 		glfwSetErrorCallback(null).free();

@@ -20,30 +20,31 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.renderer;
+package com.snakybo.torch.queue;
 
-import com.snakybo.torch.object.GameObject;
-import com.snakybo.torch.object.GameObjectNotifier;
+import com.snakybo.torch.object.GameObjectQueueProcessor;
+import com.snakybo.torch.scene.SceneQueueProcessor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * @author Snakybo
+ * @author Kevin Krol
  * @since 1.0
  */
-public final class Renderer
+public final class QueueProcessor
 {
-	private Renderer()
+	private static List<IQueueProcessor> processors;
+	
+	static
 	{
-		throw new AssertionError();
+		processors = new ArrayList<>();
+		processors.add(new SceneQueueProcessor());
+		processors.add(new GameObjectQueueProcessor());
 	}
 	
-	/**
-	 * Render a single {@link GameObject}.
-	 * @param gameObject The {@link GameObject} to render.
-	 */
-	public static void render(GameObject gameObject)
+	public static void process()
 	{
-		GameObjectNotifier.preRender(gameObject);
-		GameObjectNotifier.render(gameObject);
-		GameObjectNotifier.postRender(gameObject);
+		processors.forEach(IQueueProcessor::processQueue);
 	}
 }

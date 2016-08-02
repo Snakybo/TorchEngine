@@ -20,30 +20,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.renderer;
-
-import com.snakybo.torch.object.GameObject;
-import com.snakybo.torch.object.GameObjectNotifier;
+package com.snakybo.torch.queue;
 
 /**
- * @author Snakybo
+ * @author Kevin Krol
  * @since 1.0
  */
-public final class Renderer
+public enum QueueOperation
 {
-	private Renderer()
-	{
-		throw new AssertionError();
-	}
-	
-	/**
-	 * Render a single {@link GameObject}.
-	 * @param gameObject The {@link GameObject} to render.
-	 */
-	public static void render(GameObject gameObject)
-	{
-		GameObjectNotifier.preRender(gameObject);
-		GameObjectNotifier.render(gameObject);
-		GameObjectNotifier.postRender(gameObject);
-	}
+	Add,
+	Remove
 }

@@ -30,8 +30,6 @@ public abstract class Component extends Object
 {	
 	GameObject gameObject;
 	
-	boolean started;
-	
 	public Component()
 	{
 		super("Component");
@@ -90,7 +88,7 @@ public abstract class Component extends Object
 	}
 	
 	/**
-	 * Called when the component or parent {@link GameObject} has been destroyed by {@link #destroy(Object)}
+	 * Called when the component or parent {@link GameObject} has been destroyed
 	 */
 	protected void destroy()
 	{
@@ -135,6 +133,11 @@ public abstract class Component extends Object
 	public final void addComponent(Component component)
 	{
 		gameObject.addComponent(component);
+	}
+	
+	public final void notify(String methodName, java.lang.Object... parameters)
+	{
+		gameObject.notify(methodName, parameters);
 	}
 	
 	/**

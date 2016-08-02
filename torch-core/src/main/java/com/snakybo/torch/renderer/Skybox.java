@@ -22,8 +22,6 @@
 
 package com.snakybo.torch.renderer;
 
-import org.joml.Vector3f;
-
 import com.snakybo.torch.camera.Camera;
 import com.snakybo.torch.mesh.Material;
 import com.snakybo.torch.mesh.MeshRenderer;
@@ -31,6 +29,7 @@ import com.snakybo.torch.model.Model;
 import com.snakybo.torch.object.Component;
 import com.snakybo.torch.resource.Resources;
 import com.snakybo.torch.texture.Texture;
+import org.joml.Vector3f;
 
 /**
  * @author Snakybo

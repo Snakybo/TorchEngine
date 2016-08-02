@@ -22,21 +22,28 @@
 
 package com.snakybo.torch.object;
 
-import com.snakybo.torch.scene.SceneInternal;
+import com.snakybo.torch.interfaces.IDestroyable;
+import com.snakybo.torch.queue.QueueOperation;
+import com.snakybo.torch.scene.Scene;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class GameObject extends Object
+public final class GameObject extends Object implements IDestroyable
 {	
 	Set<Component> components;
-	Set<Component> frameQueue;
+	Map<Component, QueueOperation> queue;
 	
 	Transform transform;
+	Scene scene;
+	
+	boolean destroyed;
 	
 	/**
 	 * Create a new {@link GameObject}
@@ -55,13 +62,24 @@ public final class GameObject extends Object
 		super(name);
 		
 		// Register the GameObject
-		SceneInternal.register(this);
+		if(Scene.getCurrentScene() != null)
+		{
+			scene = Scene.getCurrentScene();
+			scene.addObject(this);
+		}
 		
 		components = new HashSet<>();
-		frameQueue = new HashSet<>();
+		queue = new HashMap<>();
 		
 		transform = new Transform();
 		transform.gameObject = this;
+	}
+	
+	@Override
+	public void destroy()
+	{
+		queue.clear();
+		destroyed = true;
 	}
 	
 	/**
@@ -70,11 +88,17 @@ public final class GameObject extends Object
 	 */
 	public final void addComponent(Component component)
 	{
-		// Set the name of the component to include the GameObject's name
-		component.setName(getName() + ":" + component.getName());		
-		component.gameObject = this;
-		
-		components.add(component);
+		queue.put(component, QueueOperation.Add);
+	}
+	
+	public final void removeComponent(Component component)
+	{
+		queue.put(component, QueueOperation.Remove);
+	}
+	
+	public final void notify(String methodName, java.lang.Object... parameters)
+	{
+		GameObjectNotifier.notify(this, methodName, parameters);
 	}
 	
 	/**
@@ -123,5 +147,10 @@ public final class GameObject extends Object
 	public final Transform getTransform()
 	{
 		return transform;
+	}
+	
+	public static void notifyAll(String methodName, java.lang.Object... parameters)
+	{
+		Scene.getCurrentScene().getAllGameObjects().forEach(gameObject -> gameObject.notify(methodName, parameters));
 	}
 }

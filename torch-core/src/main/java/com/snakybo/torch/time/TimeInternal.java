@@ -24,33 +24,16 @@ package com.snakybo.torch.time;
 
 import static org.lwjgl.glfw.GLFW.glfwGetTime;
 
-import com.snakybo.torch.Game;
-import com.snakybo.torch.debug.Debug;
-import com.snakybo.torch.debug.Logger;
-
 /**
  * @author Snakybo
  * @since 1.0
  */
 public abstract class TimeInternal
 {
-	static long totalFrameCount;
-	
-	static double frameTime;	
-	static double currentTime;
-	static double lastTime;
-	static double passedTime;
-	static double frameCounter;
-	
-	static int currentFrameCount;
-	static int framesPerSecond;
-	
 	static
 	{
-		lastTime = glfwGetTime();
-		currentTime = glfwGetTime();
-		
-		updateFrameTime();
+		Time.currentTime = glfwGetTime();
+		Time.lastTime = Time.currentTime;
 	}
 	
 	private TimeInternal()
@@ -61,27 +44,12 @@ public abstract class TimeInternal
 	/**
 	 * Update the engine time and frame rate
 	 */
-	public static void update()
+	public static void updateDeltaTime()
 	{
-		currentTime = glfwGetTime();
-		passedTime = currentTime - lastTime;
-		lastTime = currentTime;
+		Time.lastTime = Time.currentTime;
+		Time.currentTime = glfwGetTime();
 		
-		frameCounter += passedTime;
-		
-		if(frameCounter >= 1.0)
-		{
-			framesPerSecond = currentFrameCount;
-			
-			frameCounter = 0;
-			currentFrameCount = 0;
-			
-			// Log FPS if required
-			if(Debug.LOG_FPS)
-			{
-				Logger.log("FPS: " + Time.getFrameRate());
-			}
-		}
+		Time.deltaTime = (float)(Time.currentTime - Time.lastTime);
 	}
 	
 	/**
@@ -89,31 +57,6 @@ public abstract class TimeInternal
 	 */
 	public static void updateFrameCount()
 	{
-		totalFrameCount++;
-		currentFrameCount++;
-	}
-	
-	/**
-	 * Update the frame time, called by {@link Game#setTargetFrameRate(int)}
-	 */
-	public static void updateFrameTime()
-	{
-		frameTime = 1.0 / Game.getTargetFrameRate();
-	}
-	
-	/**
-	 * @return The desired time per frame
-	 */
-	public static double getFrameTime()
-	{
-		return frameTime;
-	}
-	
-	/**
-	 * @return The time that has passed since the last frame
-	 */
-	public static double getPassedTime()
-	{
-		return passedTime;
+		Time.frameCount++;
 	}
 }

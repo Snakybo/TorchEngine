@@ -20,30 +20,65 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.renderer;
+package com.snakybo.torch.scene;
 
 import com.snakybo.torch.object.GameObject;
-import com.snakybo.torch.object.GameObjectNotifier;
+import com.snakybo.torch.queue.IQueueProcessor;
+import com.snakybo.torch.queue.QueueOperation;
+
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
- * @author Snakybo
+ * @author Kevin Krol
  * @since 1.0
  */
-public final class Renderer
+public final class SceneQueueProcessor implements IQueueProcessor
 {
-	private Renderer()
+	@Override
+	public final void processQueue()
 	{
-		throw new AssertionError();
-	}
-	
-	/**
-	 * Render a single {@link GameObject}.
-	 * @param gameObject The {@link GameObject} to render.
-	 */
-	public static void render(GameObject gameObject)
-	{
-		GameObjectNotifier.preRender(gameObject);
-		GameObjectNotifier.render(gameObject);
-		GameObjectNotifier.postRender(gameObject);
+		Set<Scene> destroyed = new HashSet<>();
+		
+		for(Scene scene : Scene.allScenes)
+		{
+			if(!scene.destroyed)
+			{
+				for(Map.Entry<GameObject, QueueOperation> e : scene.queue.entrySet())
+				{
+					switch(e.getValue())
+					{
+					case Add:
+						scene.gameObjects.add(e.getKey());
+						e.getKey().notify("start");
+						break;
+					case Remove:
+						scene.gameObjects.remove(e.getKey());
+						e.getKey().notify("destroy");
+						break;
+					}
+				}
+				
+				scene.queue.clear();
+			}
+			else
+			{
+				for(GameObject obj : scene.gameObjects)
+				{
+					obj.notify("destroy");
+				}
+				
+				scene.gameObjects.clear();
+				Scene.currentScene = Scene.currentScene == scene ? null : Scene.currentScene;
+				
+				destroyed.add(scene);
+			}
+		}
+		
+		for(Scene scene : destroyed)
+		{
+			Scene.allScenes.remove(scene);
+		}
 	}
 }

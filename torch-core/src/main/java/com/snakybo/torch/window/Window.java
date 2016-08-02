@@ -29,8 +29,8 @@ import com.snakybo.torch.input.keyboard.KeyboardController;
 import com.snakybo.torch.input.mouse.Mouse;
 import com.snakybo.torch.input.mouse.MouseController;
 import com.snakybo.torch.monitor.DisplayMode;
+import com.snakybo.torch.object.GameObject;
 import com.snakybo.torch.opengl.OpenGL;
-import com.snakybo.torch.scene.SceneInternal;
 import org.joml.Vector2f;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.Callbacks;
@@ -94,7 +94,7 @@ public final class Window
 			destroy();
 		}
 		
-		LoggerInternal.log("Creating window: " + displayMode, Window.class);
+		LoggerInternal.log("Creating window: " + displayMode, "Window");
 		
 		Window.displayMode = displayMode;
 		
@@ -124,12 +124,12 @@ public final class Window
 			throw new RuntimeException("Unable to create GLFW window");
 		}
 		
-		glfwSetWindowFocusCallback(nativeId, (window, focus) -> SceneInternal.notify("onWindowFocus", new Class<?>[]{boolean.class}, new Object[]{focus}));
-		glfwSetWindowIconifyCallback(nativeId, (window, iconified) -> SceneInternal.notify("onWindowIconify", new Class<?>[]{boolean.class}, new Object[]{iconified}));
+		glfwSetWindowFocusCallback(nativeId, (window, focus) -> GameObject.notifyAll("onWindowFocus", focus));
+		glfwSetWindowIconifyCallback(nativeId, (window, iconified) -> GameObject.notifyAll("onWindowIconify", iconified));
 		
-		glfwSetCharCallback(nativeId, (window, codepoint) -> SceneInternal.notify("onCharPressed", new Class<?>[]{char.class}, new Object[]{(char)codepoint}));
+		glfwSetCharCallback(nativeId, (window, codepoint) -> GameObject.notifyAll("onCharPressed", (char)codepoint));
 		
-		glfwSetCursorEnterCallback(nativeId, (window, entered) -> SceneInternal.notify("onCursorEnter", new Class<?>[]{boolean.class}, new Object[]{entered}));
+		glfwSetCursorEnterCallback(nativeId, (window, entered) -> GameObject.notifyAll("onCursorEnter", entered));
 		glfwSetScrollCallback(nativeId, (window, x, y) -> Mouse.setScrollDelta(new Vector2f((float)x, (float)y)));
 		
 		glfwMakeContextCurrent(nativeId);
@@ -157,7 +157,7 @@ public final class Window
 	 */
 	public static void destroy()
 	{
-		LoggerInternal.log("Destroying window", Window.class);
+		LoggerInternal.log("Destroying window", "Window");
 		
 		Callbacks.glfwFreeCallbacks(nativeId);
 		

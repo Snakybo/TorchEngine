@@ -22,6 +22,7 @@
 
 package glfw;
 
+import com.snakybo.torch.Engine;
 import com.snakybo.torch.Game;
 import com.snakybo.torch.monitor.DisplayMode;
 import com.snakybo.torch.monitor.Monitor;
@@ -33,15 +34,9 @@ import com.snakybo.torch.window.WindowMode;
  * @author Snakybo
  * @since 1.0
  */
-public class GLFWWindowTest extends Game
+public class GLFWWindowTest
 {
-	public GLFWWindowTest()
-	{
-		super("GLFW Windowing Test");
-	}
-
-	@Override
-	protected void onCreate()
+	private static void createScene()
 	{
 		GameObject obj = new GameObject();
 		obj.addComponent(new GLFWInputListener());
@@ -51,9 +46,13 @@ public class GLFWWindowTest extends Game
 	
 	public static void main(String[] args)
 	{
-		Game game = new GLFWWindowTest();
+		Engine.initialize();
+		
 		Window.create(new DisplayMode(Monitor.getPrimaryMonitor(), 1280, 720), WindowMode.Windowed);
 		
-		game.start();
+		createScene();
+		
+		Game.setName("GLFW Window Test");
+		Game.start();
 	}
 }

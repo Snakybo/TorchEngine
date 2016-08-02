@@ -24,7 +24,8 @@ package com.snakybo.torch.camera;
 
 import com.snakybo.torch.color.Color;
 import com.snakybo.torch.object.Transform;
-import com.snakybo.torch.scene.SceneInternal;
+import com.snakybo.torch.renderer.Renderer;
+import com.snakybo.torch.scene.Scene;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
@@ -108,8 +109,7 @@ public final class CameraInternal
 			break;
 		}
 		
-		SceneInternal.renderCamera();
-		
+		Scene.getCurrentScene().getAllGameObjects().forEach(Renderer::render);
 		current = null;
 	}
 	

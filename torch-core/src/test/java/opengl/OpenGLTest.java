@@ -22,6 +22,7 @@
 
 package opengl;
 
+import com.snakybo.torch.Engine;
 import com.snakybo.torch.Game;
 import com.snakybo.torch.bitmap.Bitmap;
 import com.snakybo.torch.camera.Camera;
@@ -36,6 +37,7 @@ import com.snakybo.torch.object.GameObject;
 import com.snakybo.torch.renderer.Skybox;
 import com.snakybo.torch.resource.Resources;
 import com.snakybo.torch.texture.Texture2D;
+import com.snakybo.torch.time.Time;
 import com.snakybo.torch.window.Window;
 import com.snakybo.torch.window.WindowMode;
 import org.joml.Matrix4f;
@@ -45,15 +47,9 @@ import org.joml.Vector3f;
  * @author Kevin
  *
  */
-public class OpenGLTest extends Game
+public class OpenGLTest
 {
-	public OpenGLTest()
-	{
-		super("OpenGL Test");
-	}
-	
-	@Override
-	protected void onCreate()
+	private static void createScene()
 	{
 		GameObject camera = new GameObject("Camera");
 		camera.addComponent(new Camera(new Matrix4f().perspective((float)Math.toRadians(90f), Window.getAspectRatio(), 0.01f, 1000), CameraClearFlags.SolidColor));
@@ -62,7 +58,7 @@ public class OpenGLTest extends Game
 			@Override
 			protected void update()
 			{
-				getTransform().rotate(new Vector3f(0, 1, 0), 0.003f);
+				getTransform().rotate(new Vector3f(0, 1, 0), 0.25f * Time.getDeltaTime());
 			}
 		});
 		//camera.addComponent(new CameraFreeMove());
@@ -78,7 +74,7 @@ public class OpenGLTest extends Game
 			@Override
 			protected void update()
 			{
-				getTransform().rotate(new Vector3f(0, 1, 0), 0.01f);
+				getTransform().rotate(new Vector3f(0, 1, 0), 1f * Time.getDeltaTime());
 			}
 		});
 		box.getTransform().getLocalScale().set(0.25f);
@@ -91,9 +87,14 @@ public class OpenGLTest extends Game
 	
 	public static void main(String[] args)
 	{
-		Game game = new OpenGLTest();
-		Window.create(new DisplayMode(Monitor.getPrimaryMonitor(), 1280, 720), WindowMode.Windowed);
+		Engine.initialize();
 		
-		game.start();
+		Window.create(new DisplayMode(Monitor.getPrimaryMonitor(), 1280, 720), WindowMode.Windowed);
+		Window.setVSyncEnabled(false);
+		
+		createScene();
+		
+		Game.setName("OpenGL Test");
+		Game.start();
 	}
 }

@@ -22,43 +22,27 @@
 
 package com.snakybo.torch;
 
-import com.snakybo.torch.debug.LoggerInternal;
-import com.snakybo.torch.time.TimeInternal;
-
 /**
  * @author Snakybo
  * @since 1.0
  */
-public abstract class Game
+public final class Game
 {
-	private static Engine engine;
-	private static String name;
+	private static String name = "TorchEngine Game";
 	
 	private static int targetFrameRate = 60;
 	
-	/**
-	 * Create a game.
-	 * @param name The name of the game.
-	 */
-	public Game(String name)
+	public static void setName(String name)
 	{
-		LoggerInternal.log("Game name: " + name, this);
-		
 		Game.name = name;
-		Game.engine = new Engine(this);
 	}
 	
 	/**
-	 * Called after the engine has been initialized, construct your scene here.
+	 * Start the game.
 	 */
-	protected abstract void onCreate();
-	
-	/**
-	 * Start the engine.
-	 */
-	public final void start()
+	public static void start()
 	{
-		engine.start();
+		Engine.start();
 	}
 	
 	/**
@@ -66,7 +50,7 @@ public abstract class Game
 	 */
 	public static void quit()
 	{
-		engine.stop();
+		Engine.stop();
 	}
 	
 	/**
@@ -81,9 +65,6 @@ public abstract class Game
 		}
 		
 		Game.targetFrameRate = targetFrameRate;
-		
-		// Update the frame time
-		TimeInternal.updateFrameTime();
 	}
 	
 	/**

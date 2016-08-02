@@ -20,30 +20,32 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.renderer;
-
-import com.snakybo.torch.object.GameObject;
-import com.snakybo.torch.object.GameObjectNotifier;
+package com.snakybo.torch;
 
 /**
- * @author Snakybo
+ * @author Kevin Krol
  * @since 1.0
  */
-public final class Renderer
+public final class EngineInfo
 {
-	private Renderer()
-	{
-		throw new AssertionError();
-	}
+	/**
+	 * The major version of the engine.
+	 */
+	public static final int VERSION_MAJOR = 1;
 	
 	/**
-	 * Render a single {@link GameObject}.
-	 * @param gameObject The {@link GameObject} to render.
+	 * The minor version of the engine.
 	 */
-	public static void render(GameObject gameObject)
-	{
-		GameObjectNotifier.preRender(gameObject);
-		GameObjectNotifier.render(gameObject);
-		GameObjectNotifier.postRender(gameObject);
-	}
+	public static final int VERSION_MINOR = 0;
+	
+	/**
+	 * The patch version of the engine.
+	 */
+	public static final int VERSION_PATCH = 0;
+	
+	/**
+	 * The version of the engine represented as a String, in the format
+	 * {@link #VERSION_MAJOR}.{@link #VERSION_MINOR}.{@link #VERSION_PATCH}.
+	 */
+	public static final String VERSION_STRING = VERSION_MAJOR + "." + VERSION_MINOR + "." + VERSION_PATCH;
 }
