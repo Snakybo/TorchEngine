@@ -20,11 +20,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.camera;
+package com.snakybo.torch.component.camera;
 
+import com.snakybo.torch.camera.CameraClearFlags;
+import com.snakybo.torch.camera.CameraInternal;
 import com.snakybo.torch.color.Color;
 import com.snakybo.torch.object.Component;
 import com.snakybo.torch.texture.Texture;
+import com.snakybo.torch.window.Window;
 import org.joml.Matrix4f;
 
 import java.util.HashSet;
@@ -42,11 +45,15 @@ public final class Camera extends Component
 	
 	/**
 	 * Create a new camera.
-	 * @param projection The projection of the camera.
+	 * @param fieldOfView The field of view of the camera.
+	 * @param zNear The near clipping plane.
+	 * @param zFar The far clipping plane.
 	 * @param clearFlags The {@link CameraClearFlags} to use.
 	 */
-	public Camera(Matrix4f projection, CameraClearFlags clearFlags)
+	public Camera(float fieldOfView, float zNear, float zFar, CameraClearFlags clearFlags)
 	{
+		Matrix4f projection = new Matrix4f().perspective((float)Math.toRadians(fieldOfView), Window.getAspectRatio(), zNear, zFar);
+				
 		camera = new CameraInternal(projection, clearFlags);
 	}
 	

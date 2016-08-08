@@ -23,6 +23,7 @@
 package com.snakybo.torch.camera;
 
 import com.snakybo.torch.color.Color;
+import com.snakybo.torch.component.camera.Camera;
 import com.snakybo.torch.object.Transform;
 import com.snakybo.torch.renderer.Renderer;
 import com.snakybo.torch.renderer.Skybox;
@@ -176,7 +177,7 @@ public final class CameraInternal
 	 */
 	public final Matrix4f getProjection()
 	{
-		return projection;
+		return new Matrix4f(projection);
 	}
 	
 	/**
@@ -188,7 +189,7 @@ public final class CameraInternal
 		Vector3f position = transform.getPosition().mul(-1, new Vector3f());
 		Quaternionf rotation = transform.getRotation().conjugate(new Quaternionf());		
 		
-		Matrix4f viewProjection = new Matrix4f(projection);
+		Matrix4f viewProjection = getProjection();
 		viewProjection.translate(position);
 		viewProjection.rotate(rotation);
 		

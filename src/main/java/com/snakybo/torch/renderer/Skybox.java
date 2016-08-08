@@ -22,8 +22,7 @@
 
 package com.snakybo.torch.renderer;
 
-import com.snakybo.torch.camera.Camera;
-import com.snakybo.torch.debug.Logger;
+import com.snakybo.torch.component.camera.Camera;
 import com.snakybo.torch.mesh.Material;
 import com.snakybo.torch.mesh.MeshRendererInternal;
 import com.snakybo.torch.model.Model;

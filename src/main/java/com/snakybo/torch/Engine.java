@@ -22,7 +22,7 @@
 
 package com.snakybo.torch;
 
-import com.snakybo.torch.camera.Camera;
+import com.snakybo.torch.component.camera.Camera;
 import com.snakybo.torch.cursor.CursorController;
 import com.snakybo.torch.debug.Debug;
 import com.snakybo.torch.debug.LoggerInternal;
@@ -40,6 +40,7 @@ import com.snakybo.torch.window.Window;
 import org.lwjgl.Version;
 
 import static org.lwjgl.glfw.GLFW.glfwGetTime;
+import static org.lwjgl.glfw.GLFW.glfwWaitEvents;
 
 /**
  * @author Snakybo
@@ -47,7 +48,8 @@ import static org.lwjgl.glfw.GLFW.glfwGetTime;
  */
 public final class Engine
 {
-	private static boolean running;
+	static boolean running;
+	
 	private static boolean initialized;
 	
 	public static void initialize()
@@ -125,15 +127,8 @@ public final class Engine
 
 		update();
 		updateInput();
-
+		
 		render();
-
-		Window.update();
-
-		if(!Window.isVSyncEnabled())
-		{
-			sync();
-		}
 	}
 	
 	private static void updateInput()
@@ -155,6 +150,13 @@ public final class Engine
 	private static void render()
 	{
 		Camera.getCameras().forEach(Camera::render);
+		
+		Window.update();
+		
+		if(!Window.isVSyncEnabled())
+		{
+			sync();
+		}
 	}
 	
 	private static void sync()

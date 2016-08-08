@@ -20,11 +20,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.camera;
+package com.snakybo.torch.component.camera;
 
 import com.snakybo.torch.input.keyboard.Key;
 import com.snakybo.torch.input.keyboard.Keyboard;
 import com.snakybo.torch.object.Component;
+import com.snakybo.torch.time.Time;
 import org.joml.Vector3f;
 
 /**
@@ -45,7 +46,7 @@ public class CameraFreeMove extends Component
 	 */
 	public CameraFreeMove()
 	{
-		this(0.13f);
+		this(2f);
 	}
 	
 	/**
@@ -110,7 +111,7 @@ public class CameraFreeMove extends Component
 			direction.x = 1;
 		}
 		
-		getTransform().translate(direction.mul(speed));
+		getTransform().translate(direction.mul(speed * Time.getDeltaTime()));
 	}
 	
 	/**

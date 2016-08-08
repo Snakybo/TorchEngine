@@ -20,50 +20,72 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.mesh;
+package com.snakybo.torch.component.camera;
 
-import com.snakybo.torch.model.Model;
+import com.snakybo.torch.cursor.Cursor;
+import com.snakybo.torch.cursor.CursorLockMode;
+import com.snakybo.torch.debug.Logger;
+import com.snakybo.torch.input.keyboard.Key;
+import com.snakybo.torch.input.keyboard.Keyboard;
+import com.snakybo.torch.input.mouse.Mouse;
 import com.snakybo.torch.object.Component;
-
-import static org.lwjgl.opengl.GL11.glDrawElements;
-import static org.lwjgl.opengl.GL15.glBufferData;
-import static org.lwjgl.opengl.GL15.glDeleteBuffers;
-import static org.lwjgl.opengl.GL15.glGenBuffers;
-import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
-import static org.lwjgl.opengl.GL30.glDeleteVertexArrays;
-import static org.lwjgl.opengl.GL30.glGenVertexArrays;
+import com.snakybo.torch.time.Time;
+import com.snakybo.torch.window.Window;
+import org.joml.Vector2f;
+import org.joml.Vector3f;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class MeshRenderer extends Component
+public class CameraFreeLook extends Component
 {
-	private MeshRendererInternal meshRenderer;
-	private Material material;
+	private float sensitivity;
 	
-	public MeshRenderer(Model model, Material material)
+	public CameraFreeLook()
 	{
-		this.meshRenderer = new MeshRendererInternal(model, material);
-		this.material = material;
+		this(0.5f);
+	}
+	
+	public CameraFreeLook(float sensitivity)
+	{
+		this.sensitivity = sensitivity;
 	}
 	
 	@Override
 	protected void start()
 	{
-		material.setTransform(getTransform());
-		meshRenderer.create();
-	}
-	
-	@Override
-	protected void renderObject()
-	{
-		meshRenderer.render();
+		Mouse.setCursorPosition(Window.getCenter());
+		
+		Cursor.setLockMode(CursorLockMode.Locked);
+		Cursor.setVisible(false);
 	}
 	
 	@Override
 	protected void destroy()
 	{
-		meshRenderer.destroy();
+		Cursor.setLockMode(CursorLockMode.None);
+		Cursor.setVisible(true);
+	}
+	
+	@Override
+	protected void update()
+	{
+		Vector2f delta = Mouse.getCursorPositionDelta();
+
+		if(delta.x != 0)
+		{
+			rotate(new Vector3f(0, 1, 0), delta.x);
+		}
+
+		if(delta.y != 0)
+		{
+			rotate(getTransform().getRight(), delta.y);
+		}
+	}
+	
+	private void rotate(Vector3f axis, float amount)
+	{
+		getTransform().rotate(axis, -amount * sensitivity * Time.getDeltaTime());
 	}
 }

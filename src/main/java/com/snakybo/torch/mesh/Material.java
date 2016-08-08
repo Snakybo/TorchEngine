@@ -22,12 +22,11 @@
 
 package com.snakybo.torch.mesh;
 
-import com.snakybo.torch.camera.Camera;
+import com.snakybo.torch.component.camera.Camera;
 import com.snakybo.torch.color.Color;
 import com.snakybo.torch.color.Color32;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.interfaces.IDestroyable;
-import com.snakybo.torch.object.GameObject;
 import com.snakybo.torch.object.Transform;
 import com.snakybo.torch.shader.Shader;
 import com.snakybo.torch.texture.Texture;

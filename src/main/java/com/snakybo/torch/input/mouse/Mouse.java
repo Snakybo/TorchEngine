@@ -95,6 +95,9 @@ public final class Mouse
 	public static void setCursorPosition(Vector2f position)
 	{
 		glfwSetCursorPos(Window.getNativeId(), (int)position.x, (int)position.y);
+		
+		// Set the mouse position directly to prevent delta calculations
+		mousePosition = position;
 	}
 	
 	/**
