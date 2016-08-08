@@ -80,7 +80,7 @@ public class ComponentTest
 		}
 	}
 	
-	@Test
+	//@Test
 	public void testCallbacks()
 	{
 		Engine.initialize();
@@ -95,7 +95,7 @@ public class ComponentTest
 		Game.start();
 	}
 	
-	@After
+	//@After
 	public void confirmCallbacks()
 	{
 		assertEquals(4, called);
