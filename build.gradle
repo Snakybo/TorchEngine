@@ -1,26 +1,29 @@
 allprojects {
-	apply plugin: "java"
-	group = "com.snakybo.torch"
-	version = "1.0"
-	
-	sourceCompatibility = 1.8
-	targetCompatibility = 1.8
-	
-	project.ext.lwjglVersion = "3.0.0"
-	project.ext.jomlVersion = "1.8.0"
-	
-	repositories {
-		mavenCentral()
-		maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-	}
-	
-	dependencies {
-		compile "org.lwjgl:lwjgl:${lwjglVersion}"
-		compile "org.lwjgl:lwjgl-platform:${lwjglVersion}:natives-windows"
-		compile "org.lwjgl:lwjgl-platform:${lwjglVersion}:natives-linux"
-		compile "org.lwjgl:lwjgl-platform:${lwjglVersion}:natives-osx"
-		compile "org.joml:joml:${jomlVersion}"
-	}
+    apply plugin: "java"
+    group = "com.snakybo.torch"
+    version = "1.0"
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    project.ext.lwjglVersion = "3.0.0"
+    project.ext.jomlVersion = "1.8.0"
+    project.ext.junitVersion = "4.12"
+
+    repositories {
+        mavenCentral()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    }
+
+    dependencies {
+        compile "org.lwjgl:lwjgl:${lwjglVersion}"
+        compile "org.lwjgl:lwjgl-platform:${lwjglVersion}:natives-windows"
+        compile "org.lwjgl:lwjgl-platform:${lwjglVersion}:natives-linux"
+        compile "org.lwjgl:lwjgl-platform:${lwjglVersion}:natives-osx"
+        compile "org.joml:joml:${jomlVersion}"
+
+        testCompile "junit:junit:${junitVersion}"
+    }
 }
 
 task wrapper(type: Wrapper) {
