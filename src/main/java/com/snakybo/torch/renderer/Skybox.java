@@ -23,6 +23,7 @@
 package com.snakybo.torch.renderer;
 
 import com.snakybo.torch.camera.Camera;
+import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.mesh.Material;
 import com.snakybo.torch.mesh.MeshRenderer;
 import com.snakybo.torch.model.Model;
@@ -57,9 +58,9 @@ public final class Skybox extends Component
 	{
 		Vector3f position = new Vector3f();
 		
-		if(Camera.getCurrentCamera() != null)
+		if(Camera.getMainCamera() != null)
 		{
-			position = Camera.getCurrentCamera().getTransform().getPosition();
+			position = Camera.getMainCamera().getTransform().getPosition();
 		}
 		
 		getTransform().getPosition().set(position);
