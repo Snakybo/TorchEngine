@@ -145,6 +145,11 @@ public final class Camera extends Component
 		return camera.getClearColor();
 	}
 	
+	public static void setMainCamera(Camera camera)
+	{
+		CameraInternal.setMainCamera(camera.camera);
+	}
+	
 	/**
 	 * Get all cameras.
 	 * @return All cameras.
@@ -163,6 +168,19 @@ public final class Camera extends Component
 		for(Camera camera : cameras)
 		{
 			if(camera.camera == CameraInternal.getCurrentCamera())
+			{
+				return camera;
+			}
+		}
+		
+		return null;
+	}
+	
+	public static Camera getMainCamera()
+	{
+		for(Camera camera : cameras)
+		{
+			if(camera.camera == CameraInternal.getMainCamera())
 			{
 				return camera;
 			}

@@ -45,6 +45,7 @@ public final class CameraInternal
 {
 	private static Set<CameraInternal> cameras = new HashSet<>();
 	private static CameraInternal current;
+	private static CameraInternal main;
 	
 	private CameraClearFlags clearFlags;
 	
@@ -77,6 +78,11 @@ public final class CameraInternal
 		transform = new Transform();
 		
 		cameras.add(this);
+		
+		if(main == null)
+		{
+			main = this;
+		}
 	}
 	
 	/**
@@ -192,6 +198,12 @@ public final class CameraInternal
 		return clearColor;
 	}
 	
+	
+	public static void setMainCamera(CameraInternal camera)
+	{
+		main = camera;
+	}
+	
 	/**
 	 * Get all cameras.
 	 * @return All cameras.
@@ -208,5 +220,10 @@ public final class CameraInternal
 	public static CameraInternal getCurrentCamera()
 	{
 		return current;
+	}
+	
+	public static CameraInternal getMainCamera()
+	{
+		return main;
 	}
 }
