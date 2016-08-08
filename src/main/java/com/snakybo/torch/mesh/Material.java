@@ -28,6 +28,7 @@ import com.snakybo.torch.color.Color32;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.interfaces.IDestroyable;
 import com.snakybo.torch.object.GameObject;
+import com.snakybo.torch.object.Transform;
 import com.snakybo.torch.shader.Shader;
 import com.snakybo.torch.texture.Texture;
 import org.joml.Matrix4f;
@@ -46,7 +47,7 @@ public final class Material implements IDestroyable
 {
 	private Map<String, Object> values;
 	
-	private GameObject gameObject;
+	private Transform transform;
 	private Shader shader;
 	
 	public Material(String shader)
@@ -85,7 +86,7 @@ public final class Material implements IDestroyable
 	{
 		if(shader.hasUniform("mvp"))
 		{
-			Matrix4f mvp = Camera.getCurrentCamera().getViewProjection().mul(gameObject.getTransform().getTransformation(), new Matrix4f());
+			Matrix4f mvp = Camera.getCurrentCamera().getViewProjection().mul(transform.getTransformation(), new Matrix4f());
 			shader.setUniform4fv("mvp", mvp);
 		}
 		
@@ -192,12 +193,12 @@ public final class Material implements IDestroyable
 	}
 	
 	/**
-	 * Set the parent {@link GameObject} of this material.
-	 * @param gameObject The new game object of the material.
+	 * Set the parent {@link Transform} of this material.
+	 * @param transform The new transform of the material.
 	 */
-	final void setGameObject(GameObject gameObject)
+	public final void setTransform(Transform transform)
 	{
-		this.gameObject = gameObject;
+		this.transform = transform;
 	}
 	
 	/**

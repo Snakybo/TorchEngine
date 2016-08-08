@@ -24,6 +24,7 @@ package com.snakybo.torch.camera;
 
 import com.snakybo.torch.color.Color;
 import com.snakybo.torch.object.Component;
+import com.snakybo.torch.texture.Texture;
 import org.joml.Matrix4f;
 
 import java.util.HashSet;
@@ -46,18 +47,7 @@ public final class Camera extends Component
 	 */
 	public Camera(Matrix4f projection, CameraClearFlags clearFlags)
 	{
-		this(projection, clearFlags, new Color());
-	}
-	
-	/**
-	 * Create a new camera.
-	 * @param projection The projection of the camera.
-	 * @param clearFlags The {@link CameraClearFlags} to use.
-	 * @param clearColor The clear color, only used in {@link CameraClearFlags#SolidColor}.
-	 */
-	public Camera(Matrix4f projection, CameraClearFlags clearFlags, Color clearColor)
-	{
-		camera = new CameraInternal(projection, clearFlags, clearColor);
+		camera = new CameraInternal(projection, clearFlags);
 	}
 	
 	@Override
@@ -98,6 +88,11 @@ public final class Camera extends Component
 	public final void setProjection(Matrix4f projection)
 	{
 		camera.setProjection(projection);
+	}
+	
+	public final void setSkybox(Texture texture)
+	{
+		camera.setSkybox(texture);
 	}
 	
 	/**

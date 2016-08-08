@@ -25,7 +25,10 @@ package com.snakybo.torch.camera;
 import com.snakybo.torch.color.Color;
 import com.snakybo.torch.object.Transform;
 import com.snakybo.torch.renderer.Renderer;
+import com.snakybo.torch.renderer.Skybox;
 import com.snakybo.torch.scene.Scene;
+import com.snakybo.torch.texture.Texture;
+import com.snakybo.torch.texture.Texture2D;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
@@ -36,6 +39,7 @@ import java.util.Set;
 import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.glClear;
+import static org.lwjgl.opengl.GL11.glClearColor;
 
 /**
  * @author Snakybo
@@ -52,6 +56,7 @@ public final class CameraInternal
 	private Matrix4f projection;	
 	private Transform transform;
 	private Color clearColor;
+	private Skybox skybox;
 	
 	/**
 	 * Create a new camera.
@@ -60,20 +65,11 @@ public final class CameraInternal
 	 */
 	public CameraInternal(Matrix4f projection, CameraClearFlags clearFlags)
 	{
-		this(projection, clearFlags, new Color());
-	}
-	
-	/**
-	 * Create a new camera.
-	 * @param projection The projection of the camera.
-	 * @param clearFlags The {@link CameraClearFlags} to use.
-	 * @param clearColor The clear color, only used in {@link CameraClearFlags#SolidColor}.
-	 */
-	public CameraInternal(Matrix4f projection, CameraClearFlags clearFlags, Color clearColor)
-	{
 		this.projection = projection;
 		this.clearFlags = clearFlags;
-		this.clearColor = clearColor;
+		
+		clearColor = new Color(0, 0, 0, 0);
+		skybox = new Skybox(Texture2D.load("skybox_default.png"));
 		
 		transform = new Transform();
 		
@@ -107,15 +103,20 @@ public final class CameraInternal
 			break;
 		case SolidColor:
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			glClearColor(clearColor.getRed(), clearColor.getGreen(), clearColor.getBlue(), clearColor.getAlpha());
 			break;
 		case DepthOnly:
 			glClear(GL_DEPTH_BUFFER_BIT);
 			break;
-		case NoClear:
-			break;
 		}
 		
 		Scene.getCurrentScene().getAllGameObjects().forEach(Renderer::render);
+		
+		if(clearFlags == CameraClearFlags.Skybox)
+		{
+			skybox.render();
+		}
+		
 		current = null;
 	}
 	
@@ -144,6 +145,11 @@ public final class CameraInternal
 	public final void setTransform(Transform transform)
 	{
 		this.transform = transform;
+	}
+	
+	public final void setSkybox(Texture texture)
+	{
+		skybox.setTexture(texture);
 	}
 	
 	/**

@@ -25,9 +25,9 @@ package com.snakybo.torch.renderer;
 import com.snakybo.torch.camera.Camera;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.mesh.Material;
-import com.snakybo.torch.mesh.MeshRenderer;
+import com.snakybo.torch.mesh.MeshRendererInternal;
 import com.snakybo.torch.model.Model;
-import com.snakybo.torch.object.Component;
+import com.snakybo.torch.object.Transform;
 import com.snakybo.torch.texture.Texture;
 import org.joml.Vector3f;
 
@@ -35,26 +35,26 @@ import org.joml.Vector3f;
  * @author Snakybo
  * @since 1.0
  */
-public final class Skybox extends Component
+public final class Skybox
 {
+	private MeshRendererInternal meshRenderer;
+	private Transform transform;
 	private Material material;
 	
 	public Skybox(Texture texture)
 	{
+		transform = new Transform();
+		transform.getLocalScale().set(50);
+		
 		material = new Material("unlit.glsl");
 		material.setTexture("diffuse", texture);
-	}
-	
-	@Override
-	protected void start()
-	{
-		addComponent(new MeshRenderer(Model.load("skybox.obj"), material));
+		material.setTransform(transform);
 		
-		getTransform().getLocalScale().set(20);
+		meshRenderer = new MeshRendererInternal(Model.load("skybox.obj"), material);
+		meshRenderer.create();
 	}
 	
-	@Override
-	protected void postUpdate()
+	public final void render()
 	{
 		Vector3f position = new Vector3f();
 		
@@ -63,6 +63,12 @@ public final class Skybox extends Component
 			position = Camera.getMainCamera().getTransform().getPosition();
 		}
 		
-		getTransform().getPosition().set(position);
+		transform.getPosition().set(position);
+		meshRenderer.render();
+	}
+	
+	public final void setTexture(Texture texture)
+	{
+		material.setTexture("diffuse", texture);
 	}
 }

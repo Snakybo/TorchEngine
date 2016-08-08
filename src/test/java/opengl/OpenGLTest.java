@@ -26,6 +26,7 @@ import com.snakybo.torch.Engine;
 import com.snakybo.torch.Game;
 import com.snakybo.torch.camera.Camera;
 import com.snakybo.torch.camera.CameraClearFlags;
+import com.snakybo.torch.camera.CameraFreeMove;
 import com.snakybo.torch.mesh.Material;
 import com.snakybo.torch.mesh.MeshRenderer;
 import com.snakybo.torch.model.Model;
@@ -49,17 +50,19 @@ public class OpenGLTest
 {
 	private static void createScene()
 	{
-		GameObject camera = new GameObject("Camera");
-		camera.addComponent(new Camera(new Matrix4f().perspective((float)Math.toRadians(90f), Window.getAspectRatio(), 0.01f, 1000), CameraClearFlags.SolidColor));
-		camera.addComponent(new Component()
-		{
-			@Override
-			protected void update()
-			{
-				getTransform().rotate(new Vector3f(0, 1, 0), 0.25f * Time.getDeltaTime());
-			}
-		});
-		//camera.addComponent(new CameraFreeMove());
+		Camera camera = new Camera(new Matrix4f().perspective((float)Math.toRadians(90f), Window.getAspectRatio(), 0.01f, 1000), CameraClearFlags.Skybox);
+		
+		GameObject cameraObj = new GameObject("Camera");
+		cameraObj.addComponent(camera);
+//		camera.addComponent(new Component()
+//		{
+//			@Override
+//			protected void update()
+//			{
+//				getTransform().rotate(new Vector3f(0, 1, 0), 0.25f * Time.getDeltaTime());
+//			}
+//		});
+		cameraObj.addComponent(new CameraFreeMove());
 		//camera.addComponent(new CameraFreeLook());
 		
 		Material material = new Material("unlit.glsl");
@@ -78,9 +81,6 @@ public class OpenGLTest
 		box.getTransform().getLocalScale().set(0.25f);
 		box.getTransform().getPosition().set(0, 0, -1f);
 		box.getTransform().rotate(new Vector3f(0, 1, 0), 45f);
-		
-		GameObject skybox = new GameObject();
-		skybox.addComponent(new Skybox(Texture2D.load("skybox.png")));
 	}
 	
 	public static void main(String[] args)
