@@ -88,7 +88,7 @@ final class ShaderAsset
 		programId = glCreateProgram();
 		if(programId == NULL)
 		{
-			Logger.logError("Unable to create shader program", this);
+			Logger.logError("Unable to create shader program");
 		}
 		
 		if(name != null && !name.isEmpty())
@@ -126,7 +126,7 @@ final class ShaderAsset
 		}
 		catch(IOException e)
 		{
-			e.printStackTrace();
+			Logger.logError(e.toString(), e);
 		}
 		
 		createShader(GL_VERTEX_SHADER, parseShader(source, "VERTEX_PASS"));
@@ -147,7 +147,7 @@ final class ShaderAsset
 			int id = glCreateShader(type);
 			if(id == NULL)
 			{
-				Logger.logError("Unable to create shader", "ShaderLoader");
+				Logger.logError("Unable to create shader");
 				return;
 			}
 			
@@ -156,7 +156,7 @@ final class ShaderAsset
 			
 			if(glGetShaderi(id, GL_COMPILE_STATUS) == NULL)
 			{
-				Logger.logError("Unable to compile shader source: " + glGetShaderInfoLog(id, 1024), "ShaderLoader");
+				Logger.logError("Unable to compile shader source: " + glGetShaderInfoLog(id, 1024));
 				return;
 			}
 			
@@ -170,14 +170,14 @@ final class ShaderAsset
 		glLinkProgram(programId);
 		if(glGetProgrami(programId, GL_LINK_STATUS) == NULL)
 		{
-			Logger.logError("Unable to link shader program: " + glGetProgramInfoLog(programId, 1024), "ShaderLoader");
+			Logger.logError("Unable to link shader program: " + glGetProgramInfoLog(programId, 1024));
 			return;
 		}
 		
 		glValidateProgram(programId);
 		if(glGetProgrami(programId, GL_VALIDATE_STATUS) == NULL)
 		{
-			Logger.logError("Unable to validate shader program: " + glGetProgramInfoLog(programId, 1024), "ShaderLoader");
+			Logger.logError("Unable to validate shader program: " + glGetProgramInfoLog(programId, 1024));
 		}
 	}
 	
@@ -194,14 +194,14 @@ final class ShaderAsset
 				
 				if(location < 0)
 				{
-					Logger.logError("Unable to find uniform: " + segments[1], "ShaderLoader");
+					Logger.logError("Unable to find uniform: " + segments[1]);
 					continue;
 				}
 				
 				uniforms.put(segments[1], location);
 				uniformTypes.put(segments[1], segments[0]);
 				
-				LoggerInternal.log("Added uniform: (" + segments[0] + ") " + segments[1] + " to shader: " + FileUtils.getSimpleName(uri), "ShaderLoader");
+				LoggerInternal.log("Added uniform: (" + segments[0] + ") " + segments[1] + " to shader: " + FileUtils.getSimpleName(uri));
 			}
 		}
 	}

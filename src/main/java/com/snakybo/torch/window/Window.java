@@ -94,7 +94,7 @@ public final class Window
 			destroy();
 		}
 		
-		LoggerInternal.log("Creating window: " + displayMode, "Window");
+		LoggerInternal.log("Creating window: " + displayMode);
 		
 		Window.displayMode = displayMode;
 		
@@ -157,7 +157,7 @@ public final class Window
 	 */
 	public static void destroy()
 	{
-		LoggerInternal.log("Destroying window", "Window");
+		LoggerInternal.log("Destroying window");
 		
 		Callbacks.glfwFreeCallbacks(nativeId);
 		

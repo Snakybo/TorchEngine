@@ -24,6 +24,7 @@ package com.snakybo.torch.texture;
 
 import com.snakybo.torch.color.Color;
 import com.snakybo.torch.color.Color32;
+import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.interfaces.IDestroyable;
 import com.snakybo.torch.util.ToByteBuffer;
@@ -87,14 +88,14 @@ public abstract class Texture implements IDestroyable
 	{
 		try
 		{
-			LoggerInternal.log("Saving texture to: " + outputFile + "." + format, this);
+			LoggerInternal.log("Saving texture to: " + outputFile + "." + format);
 			
 			File file = new File(outputFile + "." + format);
 			ImageIO.write(asset.bufferedImage, format, file);
 		}
 		catch(IOException e)
 		{
-			e.printStackTrace();
+			Logger.logError(e.toString(), e);
 		}
 	}
 	

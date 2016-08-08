@@ -22,6 +22,7 @@
 
 package com.snakybo.torch.texture;
 
+import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.interfaces.IDestroyable;
 import com.snakybo.torch.util.FileUtils;
 
@@ -62,7 +63,7 @@ public final class Cubemap implements IDestroyable
 			}
 			catch(NoSuchFileException e)
 			{
-				e.printStackTrace();
+				Logger.logError(e.toString(), e);
 			}
 		}
 	}

@@ -24,7 +24,7 @@ package com.snakybo.torch;
 
 import com.snakybo.torch.component.camera.Camera;
 import com.snakybo.torch.cursor.CursorController;
-import com.snakybo.torch.debug.Debug;
+import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.glfw.GLFW;
 import com.snakybo.torch.input.joystick.JoystickController;
@@ -40,7 +40,6 @@ import com.snakybo.torch.window.Window;
 import org.lwjgl.Version;
 
 import static org.lwjgl.glfw.GLFW.glfwGetTime;
-import static org.lwjgl.glfw.GLFW.glfwWaitEvents;
 
 /**
  * @author Snakybo
@@ -56,13 +55,9 @@ public final class Engine
 	{
 		if(!initialized)
 		{
-			LoggerInternal.log("Initializing", "Engine");
-			LoggerInternal.log("Engine version: " + EngineInfo.VERSION_STRING, "Engine");
-			
-			if(Debug.LOG_LIBRARY_INFO)
-			{
-				LoggerInternal.log("Version: " + Version.getVersion(), "LWJGL");
-			}
+			LoggerInternal.log("Initializing");
+			LoggerInternal.log("Engine version: " + EngineInfo.VERSION_STRING);
+			LoggerInternal.log("LWJGL Version: " + Version.getVersion());
 			
 			GLFW.create();
 			MonitorController.create();
@@ -81,7 +76,7 @@ public final class Engine
 	{
 		if(!running)
 		{
-			LoggerInternal.log("Starting", "Engine");
+			LoggerInternal.log("Starting");
 			
 			running = true;
 			
@@ -96,7 +91,7 @@ public final class Engine
 	{
 		if(running)
 		{
-			LoggerInternal.log("Stopping", "Engine");
+			LoggerInternal.log("Stopping");
 			
 			running = false;
 		}
@@ -176,7 +171,7 @@ public final class Engine
 			}
 			catch(InterruptedException e)
 			{
-				e.printStackTrace();
+				Logger.logError(e.toString(), e);
 			}
 			
 			now = glfwGetTime();

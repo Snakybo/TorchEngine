@@ -22,13 +22,12 @@
 
 package com.snakybo.torch.texture;
 
+import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.util.FileUtils;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
-import java.nio.file.Paths;
 
 import static org.lwjgl.opengl.EXTTextureFilterAnisotropic.GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT;
 import static org.lwjgl.opengl.GL11.GL_LINEAR_MIPMAP_LINEAR;
@@ -167,7 +166,7 @@ public final class Texture2D extends Texture
 		}
 		catch(IOException e)
 		{
-			e.printStackTrace();
+			Logger.logError(e.toString(), e);
 		}
 		
 		return null;

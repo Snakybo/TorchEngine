@@ -24,9 +24,6 @@ package com.snakybo.torch.component.camera;
 
 import com.snakybo.torch.cursor.Cursor;
 import com.snakybo.torch.cursor.CursorLockMode;
-import com.snakybo.torch.debug.Logger;
-import com.snakybo.torch.input.keyboard.Key;
-import com.snakybo.torch.input.keyboard.Keyboard;
 import com.snakybo.torch.input.mouse.Mouse;
 import com.snakybo.torch.object.Component;
 import com.snakybo.torch.time.Time;

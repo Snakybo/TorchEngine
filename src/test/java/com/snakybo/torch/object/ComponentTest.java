@@ -28,8 +28,6 @@ import com.snakybo.torch.monitor.DisplayMode;
 import com.snakybo.torch.monitor.Monitor;
 import com.snakybo.torch.window.Window;
 import com.snakybo.torch.window.WindowMode;
-import org.junit.After;
-import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 

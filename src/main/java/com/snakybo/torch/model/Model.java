@@ -22,6 +22,7 @@
 
 package com.snakybo.torch.model;
 
+import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.model.obj.OBJModel;
 import com.snakybo.torch.util.FileUtils;
@@ -29,7 +30,6 @@ import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.lwjgl.BufferUtils;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
@@ -350,7 +350,7 @@ public final class Model
 		
 		try
 		{
-			LoggerInternal.log("Importing " + FileUtils.getName(path), "Model");
+			LoggerInternal.log("Importing " + FileUtils.getName(path));
 			
 			String extension = FileUtils.getExtension(path);
 			
@@ -378,7 +378,7 @@ public final class Model
 		}
 		catch(IOException e)
 		{
-			e.printStackTrace();
+			Logger.logError(e.toString(), e);
 		}
 		
 		return null;

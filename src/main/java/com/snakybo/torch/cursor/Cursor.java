@@ -142,7 +142,7 @@ public final class Cursor
 		{
 			setShape(CursorShape.getCursor(texture, hot));
 			
-			LoggerInternal.log("Loaded existing cursor shape", Cursor.class);
+			LoggerInternal.log("Loaded existing cursor shape");
 		}
 		else
 		{
@@ -153,7 +153,7 @@ public final class Cursor
 			
 			setShape(cursor);
 			
-			LoggerInternal.log("Created new cursor shape", Cursor.class);
+			LoggerInternal.log("Created new cursor shape");
 		}
 	}
 	

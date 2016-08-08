@@ -27,14 +27,6 @@ import com.snakybo.torch.mesh.MeshRendererInternal;
 import com.snakybo.torch.model.Model;
 import com.snakybo.torch.object.Component;
 
-import static org.lwjgl.opengl.GL11.glDrawElements;
-import static org.lwjgl.opengl.GL15.glBufferData;
-import static org.lwjgl.opengl.GL15.glDeleteBuffers;
-import static org.lwjgl.opengl.GL15.glGenBuffers;
-import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
-import static org.lwjgl.opengl.GL30.glDeleteVertexArrays;
-import static org.lwjgl.opengl.GL30.glGenVertexArrays;
-
 /**
  * @author Snakybo
  * @since 1.0

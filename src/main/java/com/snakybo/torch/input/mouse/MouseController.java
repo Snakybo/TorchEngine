@@ -22,7 +22,6 @@
 
 package com.snakybo.torch.input.mouse;
 
-import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.window.Window;
 import org.joml.Vector2f;
 import org.lwjgl.BufferUtils;

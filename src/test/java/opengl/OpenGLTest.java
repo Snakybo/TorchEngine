@@ -24,12 +24,12 @@ package opengl;
 
 import com.snakybo.torch.Engine;
 import com.snakybo.torch.Game;
-import com.snakybo.torch.component.camera.Camera;
 import com.snakybo.torch.camera.CameraClearFlags;
+import com.snakybo.torch.component.camera.Camera;
 import com.snakybo.torch.component.camera.CameraFreeLook;
 import com.snakybo.torch.component.camera.CameraFreeMove;
-import com.snakybo.torch.mesh.Material;
 import com.snakybo.torch.component.mesh.MeshRenderer;
+import com.snakybo.torch.mesh.Material;
 import com.snakybo.torch.model.Model;
 import com.snakybo.torch.monitor.DisplayMode;
 import com.snakybo.torch.monitor.Monitor;
@@ -37,7 +37,6 @@ import com.snakybo.torch.object.GameObject;
 import com.snakybo.torch.texture.Texture2D;
 import com.snakybo.torch.window.Window;
 import com.snakybo.torch.window.WindowMode;
-import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
 /**

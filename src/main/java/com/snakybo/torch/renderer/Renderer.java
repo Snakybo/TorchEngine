@@ -22,7 +22,6 @@
 
 package com.snakybo.torch.renderer;
 
-import com.snakybo.torch.debug.Debug;
 import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.object.GameObject;
 import com.snakybo.torch.object.GameObjectNotifier;
@@ -53,17 +52,14 @@ public final class Renderer
 	
 	public static void create()
 	{
-		LoggerInternal.log("Creating OpenGL module", "OpenGL");
+		LoggerInternal.log("Creating OpenGL module");
 		
 		createCapabilities();
 		
-		if(Debug.LOG_LIBRARY_INFO)
-		{
-			LoggerInternal.log("Vendor: " + glGetString(GL_VENDOR), "OpenGL");
-			LoggerInternal.log("Renderer: " + glGetString(GL_RENDERER), "OpenGL");
-			LoggerInternal.log("Version: " + glGetString(GL_VERSION), "OpenGL");
-			LoggerInternal.log("Extensions: " + glGetString(GL_EXTENSIONS), "OpenGL");
-		}
+		LoggerInternal.log("OpenGL Vendor: " + glGetString(GL_VENDOR));
+		LoggerInternal.log("OpenGL Renderer: " + glGetString(GL_RENDERER));
+		LoggerInternal.log("OpenGL Version: " + glGetString(GL_VERSION));
+		LoggerInternal.log("OpenGL Extensions: " + glGetString(GL_EXTENSIONS));
 		
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_TEXTURE_2D);

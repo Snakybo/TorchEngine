@@ -22,7 +22,6 @@
 
 package com.snakybo.torch.glfw;
 
-import com.snakybo.torch.debug.Debug;
 import com.snakybo.torch.debug.LoggerInternal;
 import org.lwjgl.glfw.GLFWErrorCallback;
 
@@ -39,7 +38,7 @@ public final class GLFW
 {
 	public static void create()
 	{
-		LoggerInternal.log("Initializing GLFW", "GLFW");
+		LoggerInternal.log("Initializing GLFW");
 		
 		glfwSetErrorCallback(GLFWErrorCallback.createPrint(System.err));
 		
@@ -48,15 +47,12 @@ public final class GLFW
 			throw new RuntimeException("Unable to initialize GLFW");
 		}
 		
-		if(Debug.LOG_LIBRARY_INFO)
-		{
-			LoggerInternal.log("Version: " + glfwGetVersionString(), "GLFW");
-		}
+		LoggerInternal.log("GLFW Version: " + glfwGetVersionString());
 	}
 	
 	public static void destroy()
 	{
-		LoggerInternal.log("Terminating GLFW", "GLFW");
+		LoggerInternal.log("Terminating GLFW");
 		
 		glfwTerminate();
 		glfwSetErrorCallback(null).free();

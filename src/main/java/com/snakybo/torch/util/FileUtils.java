@@ -58,7 +58,7 @@ public final class FileUtils
 		}
 		catch(URISyntaxException e)
 		{
-			e.printStackTrace();
+			Logger.logError(e.toString(), e);
 		}
 		
 		throw new NoSuchFileException("No file found at: " + path);
@@ -73,7 +73,7 @@ public final class FileUtils
 		}
 		catch(IOException e)
 		{
-			e.printStackTrace();
+			Logger.logError(e.toString(), e);
 		}
 		
 		throw new NoSuchFileException("No file found at: " + path);
@@ -148,7 +148,6 @@ public final class FileUtils
 			return fileName.toString();
 		}
 		
-		Logger.logError(path.toString());
 		return null;
 	}
 

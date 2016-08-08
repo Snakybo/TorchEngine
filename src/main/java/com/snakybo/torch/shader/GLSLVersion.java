@@ -71,7 +71,7 @@ final class GLSLVersion
 		}
 		else
 		{
-			Logger.log("OpenGL " + majorVersion + "." + minorVersion + " does not support shaders", "GLSLVersion");
+			Logger.logWarning("OpenGL " + majorVersion + "." + minorVersion + " does not support shaders");
 			GLSL_VERSION = 0;			
 		}
 	}

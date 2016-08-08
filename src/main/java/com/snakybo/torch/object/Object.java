@@ -54,7 +54,7 @@ public class Object
 	{
 		if(name == null || name.isEmpty())
 		{
-			Logger.logError("Invalid name for object", this);
+			Logger.logError("Invalid name for object");
 			return;
 		}
 		

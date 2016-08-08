@@ -22,6 +22,7 @@
 
 package com.snakybo.torch.object;
 
+import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.reflection.ReflectionUtil;
 
 import java.lang.reflect.Method;
@@ -52,7 +53,7 @@ public final class GameObjectNotifier
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			Logger.logError(e.toString(), e);
 		}
 	}
 	

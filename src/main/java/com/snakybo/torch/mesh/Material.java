@@ -22,9 +22,9 @@
 
 package com.snakybo.torch.mesh;
 
-import com.snakybo.torch.component.camera.Camera;
 import com.snakybo.torch.color.Color;
 import com.snakybo.torch.color.Color32;
+import com.snakybo.torch.component.camera.Camera;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.interfaces.IDestroyable;
 import com.snakybo.torch.object.Transform;
@@ -105,7 +105,7 @@ public final class Material implements IDestroyable
 				shader.setUniform1i(value.getKey(), 0);
 				break;
 			default:
-				Logger.log("Invalid uniform type: " + type);
+				Logger.logWarning("Invalid uniform type: " + type);
 				break;
 			}
 		}
@@ -283,7 +283,7 @@ public final class Material implements IDestroyable
 			return clazz.cast(values.get(name));
 		}
 		
-		Logger.logError("Material does not contain a value for: " + name, this);
+		Logger.logError("Material does not contain a value for: " + name);
 		return null;
 	}
 }

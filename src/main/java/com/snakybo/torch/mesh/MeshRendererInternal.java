@@ -23,7 +23,6 @@
 package com.snakybo.torch.mesh;
 
 import com.snakybo.torch.model.Model;
-import com.snakybo.torch.object.Component;
 import org.lwjgl.BufferUtils;
 
 import java.nio.IntBuffer;

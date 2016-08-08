@@ -22,230 +22,96 @@
 
 package com.snakybo.torch.debug;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+
 /**
  * @author Snakybo
  * @since 1.0
  */
 public final class LoggerInternal
 {
+	static Logger logger;
+	
+	static
+	{
+		logger = Logger.getLogger("Logger");
+		logger.setLevel(Level.ALL);
+		
+		try
+		{
+			String path = System.getenv("APPDATA") + "\\TorchEngine\\log";
+			Files.createDirectories(Paths.get(path));
+			
+			FileHandler fileHandler = new FileHandler(path + "\\log.txt");
+			logger.addHandler(fileHandler);
+			
+			SimpleFormatter formatter = new SimpleFormatter();
+			fileHandler.setFormatter(formatter);
+		}
+		catch(Exception e)
+		{
+			com.snakybo.torch.debug.Logger.logError(e.toString(), e);
+		}
+	}
+	
 	private LoggerInternal()
 	{
 		throw new AssertionError();
 	}
 	
-	public static void log(boolean b, Object source)
+	public static void log(String msg)
 	{
-		if(Debug.LOG_DEBUG)
-		{
-			Logger.log(b, source);
-		}
+		logInternal(Level.FINE, msg);
 	}
 	
-	public static void log(char c, Object source)
+	public static void log(String msg, Object param1)
 	{
-		if(Debug.LOG_DEBUG)
-		{
-			Logger.log(c, source);
-		}
+		logInternal(Level.FINE, msg, param1);
 	}
 	
-	public static void log(int i, Object source)
+	public static void log(String msg, Object[] params)
 	{
-		if(Debug.LOG_DEBUG)
-		{
-			Logger.log(i, source);
-		}
+		logInternal(Level.FINE, msg, params);
 	}
 	
-	public static void log(float f, Object source)
+	static void logInternal(Level level, String msg)
 	{
-		if(Debug.LOG_DEBUG)
-		{
-			Logger.log(f, source);
-		}
+		StackTraceElement ste = getStackTraceElement();
+		logger.logp(level, ste.getClassName(), ste.getMethodName(), msg);
 	}
 	
-	public static void log(double d, Object source)
+	static void logInternal(Level level, String msg, Object param1)
 	{
-		if(Debug.LOG_DEBUG)
-		{
-			Logger.log(d, source);
-		}
+		StackTraceElement ste = getStackTraceElement();
+		logger.logp(level, ste.getClassName(), ste.getMethodName(), msg, param1);
 	}
 	
-	public static void log(long l, Object source)
+	static void logInternal(Level level, String msg, Object[] params)
 	{
-		if(Debug.LOG_DEBUG)
-		{
-			Logger.log(l, source);
-		}
+		StackTraceElement ste = getStackTraceElement();
+		logger.logp(level, ste.getClassName(), ste.getMethodName(), msg, params);
 	}
 	
-	public static void log(char[] s, Object source)
+	static void logInternal(Level level, String msg, Throwable thrown)
 	{
-		if(Debug.LOG_DEBUG)
-		{
-			Logger.log(s, source);
-		}
+		StackTraceElement ste = getStackTraceElement();
+		logger.logp(level, ste.getClassName(), ste.getMethodName(), msg, thrown);
 	}
 	
-	public static void log(String s, Object source)
-	{		
-		if(Debug.LOG_DEBUG)
-		{
-			Logger.log(s, source);
-		}
-	}
-	
-	public static void log(Object o, Object source)
+	private static StackTraceElement getStackTraceElement()
 	{
-		if(Debug.LOG_DEBUG)
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+		
+		if(stackTrace[4].getClassName().contains("LoggerInternal"))
 		{
-			Logger.log(o, source);
+			return stackTrace[5];
 		}
-	}
-	
-	public static void logWarning(boolean b, Object source)
-	{
-		if(Debug.LOG_DEBUG)
-		{
-			Logger.logWarning(b, source);
-		}
-	}
-	
-	public static void logWarning(char c, Object source)
-	{
-		if(Debug.LOG_DEBUG)
-		{
-			Logger.logWarning(c, source);
-		}
-	}
-	
-	public static void logWarning(int i, Object source)
-	{
-		if(Debug.LOG_DEBUG)
-		{
-			Logger.logWarning(i, source);
-		}
-	}
-	
-	public static void logWarning(float f, Object source)
-	{
-		if(Debug.LOG_DEBUG)
-		{
-			Logger.logWarning(f, source);
-		}
-	}
-	
-	public static void logWarning(double d, Object source)
-	{
-		if(Debug.LOG_DEBUG)
-		{
-			Logger.logWarning(d, source);
-		}
-	}
-	
-	public static void logWarning(long l, Object source)
-	{
-		if(Debug.LOG_DEBUG)
-		{
-			Logger.logWarning(l, source);
-		}
-	}
-	
-	public static void logWarning(char[] s, Object source)
-	{
-		if(Debug.LOG_DEBUG)
-		{
-			Logger.logWarning(s, source);
-		}
-	}
-	
-	public static void logWarning(String s, Object source)
-	{		
-		if(Debug.LOG_DEBUG)
-		{
-			Logger.logWarning(s, source);
-		}
-	}
-	
-	public static void logWarning(Object o, Object source)
-	{
-		if(Debug.LOG_DEBUG)
-		{
-			Logger.logWarning(o, source);
-		}
-	}
-	
-	public static void logError(boolean b, Object source)
-	{
-		if(Debug.LOG_DEBUG)
-		{
-			Logger.logError(b, source);
-		}
-	}
-	
-	public static void logError(char c, Object source)
-	{
-		if(Debug.LOG_DEBUG)
-		{
-			Logger.logError(c, source);
-		}
-	}
-	
-	public static void logError(int i, Object source)
-	{
-		if(Debug.LOG_DEBUG)
-		{
-			Logger.logError(i, source);
-		}
-	}
-	
-	public static void logError(float f, Object source)
-	{
-		if(Debug.LOG_DEBUG)
-		{
-			Logger.logError(f, source);
-		}
-	}
-	
-	public static void logError(double d, Object source)
-	{
-		if(Debug.LOG_DEBUG)
-		{
-			Logger.logError(d, source);
-		}
-	}
-	
-	public static void logError(long l, Object source)
-	{
-		if(Debug.LOG_DEBUG)
-		{
-			Logger.logError(l, source);
-		}
-	}
-	
-	public static void logError(char[] s, Object source)
-	{
-		if(Debug.LOG_DEBUG)
-		{
-			Logger.logError(s, source);
-		}
-	}
-	
-	public static void logError(String s, Object source)
-	{		
-		if(Debug.LOG_DEBUG)
-		{
-			Logger.logError(s, source);
-		}
-	}
-	
-	public static void logError(Object o, Object source)
-	{
-		if(Debug.LOG_DEBUG)
-		{
-			Logger.logError(o, source);
-		}
+		
+		return stackTrace[4];
 	}
 }

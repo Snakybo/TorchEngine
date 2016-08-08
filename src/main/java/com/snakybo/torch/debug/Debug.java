@@ -28,31 +28,6 @@ package com.snakybo.torch.debug;
  */
 public final class Debug
 {
-	/**
-	 * Whether or not to log the current FPS in the console.
-	 * @deprecated To be replaced by UI.
-	 */
-	@Deprecated
-	public static final boolean LOG_FPS;
-	
-	/**
-	 * Whether or not to log debug/internal logs of the engine.
-	 */
-	public static final boolean LOG_DEBUG;
-	
-	/**
-	 * Whether or not to log library information.
-	 */
-	public static final boolean LOG_LIBRARY_INFO;
-	
-	static
-	{
-		LOG_FPS = Boolean.parseBoolean(System.getenv("LOG_FPS"));
-		//LOG_DEBUG = Boolean.parseBoolean(System.getenv("DEBUG"));
-		LOG_DEBUG = true;
-		LOG_LIBRARY_INFO = Boolean.parseBoolean(System.getenv("DEBUG_LIBRARY"));
-	}
-	
 	private Debug()
 	{
 		throw new AssertionError();
