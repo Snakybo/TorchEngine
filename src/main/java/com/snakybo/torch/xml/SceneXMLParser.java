@@ -20,54 +20,56 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.renderer;
+package com.snakybo.torch.xml;
 
-import com.snakybo.torch.component.camera.Camera;
-import com.snakybo.torch.mesh.Material;
-import com.snakybo.torch.mesh.MeshRendererInternal;
-import com.snakybo.torch.model.Model;
-import com.snakybo.torch.object.Transform;
-import com.snakybo.torch.texture.Texture;
-import org.joml.Vector3f;
+import com.snakybo.torch.debug.Logger;
+import com.snakybo.torch.debug.LoggerInternal;
+import com.snakybo.torch.scene.Scene;
+import com.snakybo.torch.util.FileUtils;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.nio.file.NoSuchFileException;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class Skybox
+public final class SceneXMLParser
 {
-	private MeshRendererInternal meshRenderer;
-	private Transform transform;
-	private Material material;
-	
-	public Skybox(Texture texture)
+	private SceneXMLParser()
 	{
-		transform = new Transform();
-		transform.setLocalScale(new Vector3f(50));
-		
-		material = new Material("unlit.glsl");
-		material.setTexture("diffuse", texture);
-		material.setTransform(transform);
-		
-		meshRenderer = new MeshRendererInternal(Model.load("skybox.obj"), material);
-		meshRenderer.create();
+		throw new AssertionError();
 	}
 	
-	public final void render()
+	public static Scene parseScene(String file)
 	{
-		Vector3f position = new Vector3f();
-		
-		if(Camera.getMainCamera() != null)
+		try
 		{
-			position = Camera.getMainCamera().getTransform().getPosition();
+			LoggerInternal.log("Parsing scene file: " + file);
+			Document document = XMLParser.getXmlDocument(FileUtils.toURI(file));
+			
+			Scene oldScene = Scene.getCurrentScene();
+			Scene scene = new Scene();
+			scene.makeCurrent();
+			
+			NodeList gameObjectsNodeList = document.getElementsByTagName("game_objects");
+			GameObjectXMLParser.parseGameObjectList(gameObjectsNodeList);
+			
+			if(oldScene != null)
+			{
+				oldScene.makeCurrent();
+			}
+			
+			return scene;
+		}
+		catch(NoSuchFileException e)
+		{
+			Logger.logError(e.getMessage(), e);
 		}
 		
-		transform.setLocalPosition(position);
-		meshRenderer.render();
-	}
-	
-	public final void setTexture(Texture texture)
-	{
-		material.setTexture("diffuse", texture);
+		return null;
 	}
 }

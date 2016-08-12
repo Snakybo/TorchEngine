@@ -186,8 +186,8 @@ public final class CameraInternal
 	 */
 	public final Matrix4f getViewProjection()
 	{
-		Vector3f position = transform.getPosition().mul(-1, new Vector3f());
-		Quaternionf rotation = transform.getRotation().conjugate(new Quaternionf());		
+		Vector3f position = transform.getPosition().mul(-1);
+		Quaternionf rotation = transform.getRotation().conjugate();
 		
 		Matrix4f viewProjection = getProjection();
 		viewProjection.translate(position);

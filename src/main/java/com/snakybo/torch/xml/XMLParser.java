@@ -20,54 +20,53 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.renderer;
+package com.snakybo.torch.xml;
 
-import com.snakybo.torch.component.camera.Camera;
-import com.snakybo.torch.mesh.Material;
-import com.snakybo.torch.mesh.MeshRendererInternal;
-import com.snakybo.torch.model.Model;
-import com.snakybo.torch.object.Transform;
-import com.snakybo.torch.texture.Texture;
-import org.joml.Vector3f;
+import com.snakybo.torch.debug.Logger;
+import org.w3c.dom.Document;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URI;
+import java.nio.file.NoSuchFileException;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class Skybox
+public final class XMLParser
 {
-	private MeshRendererInternal meshRenderer;
-	private Transform transform;
-	private Material material;
-	
-	public Skybox(Texture texture)
+	private XMLParser()
 	{
-		transform = new Transform();
-		transform.setLocalScale(new Vector3f(50));
-		
-		material = new Material("unlit.glsl");
-		material.setTexture("diffuse", texture);
-		material.setTransform(transform);
-		
-		meshRenderer = new MeshRendererInternal(Model.load("skybox.obj"), material);
-		meshRenderer.create();
+		throw new AssertionError();
 	}
 	
-	public final void render()
+	public static Document getXmlDocument(URI uri) throws NoSuchFileException
 	{
-		Vector3f position = new Vector3f();
+		File file = new File(uri);
 		
-		if(Camera.getMainCamera() != null)
+		if(!file.exists())
 		{
-			position = Camera.getMainCamera().getTransform().getPosition();
+			throw new NoSuchFileException("XML file not found: " + uri);
 		}
 		
-		transform.setLocalPosition(position);
-		meshRenderer.render();
-	}
-	
-	public final void setTexture(Texture texture)
-	{
-		material.setTexture("diffuse", texture);
+		try
+		{
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document document = builder.parse(file);
+			
+			document.getDocumentElement().normalize();
+			return document;
+		}
+		catch(Exception e)
+		{
+			Logger.logError(e.getMessage(), e);
+		}
+		
+		return null;
 	}
 }

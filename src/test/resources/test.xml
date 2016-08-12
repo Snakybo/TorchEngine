@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<scene>
+  <game_objects>
+    <game_object>
+      <name>Test</name>
+      <position>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+      </position>
+      <rotation>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+        <w>1</w>
+      </rotation>
+      <scale>
+        <x>1</x>
+        <y>1</y>
+        <z>1</z>
+      </scale>
+      <components>
+        <component>
+          <class>com.snakybo.torch.component.camera.Camera</class>
+          <parameters>
+            <parameter type="float">60</parameter>
+            <parameter type="float">0.01</parameter>
+            <parameter type="float">1000</parameter>
+            <parameter type="enum">com.snakybo.torch.camera.CameraClearFlags:Skybox</parameter>
+          </parameters>
+        </component>
+        <component>
+          <class>com.snakybo.torch.component.camera.CameraFreeLook</class>
+        </component>
+        <component>
+          <class>com.snakybo.torch.component.camera.CameraFreeMove</class>
+        </component>
+      </components>
+    </game_object>
+    <game_object>
+      <name></name>
+      <position>
+        <x>0</x>
+        <y>0</y>
+        <z>-1</z>
+      </position>
+      <rotation>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+        <w>1</w>
+      </rotation>
+      <scale>
+        <x>0.25</x>
+        <y>0.25</y>
+        <z>0.25</z>
+      </scale>
+      <components>
+      </components>
+    </game_object>
+  </game_objects>
+  <materials>
+    <material>
+      <shader>unlit.glsl</shader>
+      <values>
+        <value name="diffuse" type="texture2D">grassblock.png</value>
+      </values>
+    </material>
+  </materials>
+</scene>

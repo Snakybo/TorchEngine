@@ -146,6 +146,21 @@ public final class Transform
 		this.parent.children.add(this);
 	}
 	
+	public final void setLocalPosition(Vector3f position)
+	{
+		this.position = position;
+	}
+	
+	public final void setLocalRotation(Quaternionf rotation)
+	{
+		this.rotation = rotation;
+	}
+	
+	public final void setLocalScale(Vector3f scale)
+	{
+		this.scale = scale;
+	}
+	
 	/**
 	 * @return All children of the {@link Transform}
 	 */
@@ -198,7 +213,7 @@ public final class Transform
 	 */
 	public final Vector3f getPosition()
 	{
-		return getParentMatrix().transformPosition(position);
+		return getParentMatrix().transformPosition(new Vector3f(position));
 	}
 	
 	/**
@@ -206,8 +221,8 @@ public final class Transform
 	 */
 	public final Quaternionf getRotation()
 	{
-		Quaternionf parentRotation = parent == null ? new Quaternionf() : new Quaternionf(parent.getRotation());
-		return parentRotation.mul(rotation);	
+		Quaternionf parentRotation = parent == null ? new Quaternionf() : parent.getRotation();
+		return parentRotation.mul(new Quaternionf(rotation));
 	}
 	
 	/**
@@ -215,7 +230,7 @@ public final class Transform
 	 */
 	public final Vector3f getLocalPosition()
 	{
-		return position;
+		return new Vector3f(position);
 	}
 	
 	/**
@@ -223,7 +238,7 @@ public final class Transform
 	 */
 	public final Quaternionf getLocalRotation()
 	{
-		return rotation;
+		return new Quaternionf(rotation);
 	}
 	
 	/**
@@ -231,7 +246,7 @@ public final class Transform
 	 */
 	public final Vector3f getLocalScale()
 	{
-		return scale;
+		return new Vector3f(scale);
 	}
 	
 	/**
