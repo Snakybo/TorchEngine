@@ -24,18 +24,12 @@ package opengl;
 
 import com.snakybo.torch.Engine;
 import com.snakybo.torch.Game;
-import com.snakybo.torch.component.mesh.MeshRenderer;
-import com.snakybo.torch.mesh.Material;
-import com.snakybo.torch.model.Model;
 import com.snakybo.torch.monitor.DisplayMode;
 import com.snakybo.torch.monitor.Monitor;
-import com.snakybo.torch.object.GameObject;
 import com.snakybo.torch.scene.Scene;
-import com.snakybo.torch.texture.Texture2D;
 import com.snakybo.torch.window.Window;
 import com.snakybo.torch.window.WindowMode;
-import com.snakybo.torch.xml.SceneXMLParser;
-import org.joml.Vector3f;
+import com.snakybo.torch.parser.SceneParser;
 
 /**
  * @author Kevin
@@ -45,45 +39,14 @@ public class OpenGLTest
 {
 	private static void createScene()
 	{
-		Scene scene = SceneXMLParser.parseScene("test.xml");
+		Scene scene = SceneParser.parseScene("test");
 		scene.makeCurrent();
 		
-		Material material = new Material("unlit.glsl");
-		material.setTexture("diffuse", Texture2D.load("grassblock.png"));
-
-		GameObject box = new GameObject();
-		box.addComponent(new MeshRenderer(Model.load("cube.obj"), material));
-//		box.addComponent(new Component()
-//		{
-//			@Override
-//			protected void update()
-//			{
-//				getTransform().rotate(new Vector3f(0, 1, 0), 1f * Time.getDeltaTime());
-//			}
-//		});
-		box.getTransform().setLocalScale(new Vector3f(0.25f));
-		box.getTransform().setLocalPosition(new Vector3f(0, 0, -1f));
-		box.getTransform().rotate(new Vector3f(0, 1, 0), 45f);
-	}
-
-//		Camera camera = new Camera(60f, 0.01f, 1000f, CameraClearFlags.Skybox);
-//
-//		GameObject cameraObj = new GameObject("Camera");
-//		cameraObj.addComponent(camera);
-////		cameraObj.addComponent(new Component()
-////		{
-////			@Override
-////			protected void update()
-////			{
-////				getTransform().rotate(new Vector3f(0, 1, 0), 0.25f * Time.getDeltaTime());
-////			}
-////		});
-//		cameraObj.addComponent(new CameraFreeMove());
-//		cameraObj.addComponent(new CameraFreeLook());
-//
+		//Logger.log(scene.getGameObjectByName("wtf").getTransform().toString());
+		
 //		Material material = new Material("unlit.glsl");
 //		material.setTexture("diffuse", Texture2D.load("grassblock.png"));
-//
+
 //		GameObject box = new GameObject();
 //		box.addComponent(new MeshRenderer(Model.load("cube.obj"), material));
 ////		box.addComponent(new Component()
@@ -94,9 +57,10 @@ public class OpenGLTest
 ////				getTransform().rotate(new Vector3f(0, 1, 0), 1f * Time.getDeltaTime());
 ////			}
 ////		});
-//		box.getTransform().getLocalScale().set(0.25f);
-//		box.getTransform().getPosition().set(0, 0, -1f);
+//		box.getTransform().setLocalScale(new Vector3f(0.25f));
+//		box.getTransform().setLocalPosition(new Vector3f(0, 0, -1f));
 //		box.getTransform().rotate(new Vector3f(0, 1, 0), 45f);
+	}
 	
 	public static void main(String[] args)
 	{

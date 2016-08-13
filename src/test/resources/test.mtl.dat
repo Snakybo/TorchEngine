@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<material>
+    <shader>unlit.glsl</shader>
+    <properties>
+        <property name="diffuse" type="texture">grassblock.png</property>
+    </properties>
+</material>

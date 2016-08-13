@@ -3,18 +3,18 @@
   <game_objects>
     <game_object>
       <name>Test</name>
-      <position>
+      <position type="vector3">
         <x>0</x>
         <y>0</y>
         <z>0</z>
       </position>
-      <rotation>
+      <rotation type="quaternion">
         <x>0</x>
         <y>0</y>
         <z>0</z>
         <w>1</w>
       </rotation>
-      <scale>
+      <scale type="vector3">
         <x>1</x>
         <y>1</y>
         <z>1</z>
@@ -56,15 +56,14 @@
         <z>0.25</z>
       </scale>
       <components>
+        <component>
+          <class>com.snakybo.torch.component.mesh.MeshRenderer</class>
+          <parameters>
+            <parameter type="model">cube.obj</parameter>
+            <parameter type="material">test</parameter>
+          </parameters>
+        </component>
       </components>
     </game_object>
   </game_objects>
-  <materials>
-    <material>
-      <shader>unlit.glsl</shader>
-      <values>
-        <value name="diffuse" type="texture2D">grassblock.png</value>
-      </values>
-    </material>
-  </materials>
 </scene>

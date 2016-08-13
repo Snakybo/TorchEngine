@@ -20,53 +20,42 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.xml;
+package com.snakybo.torch.parser;
 
-import com.snakybo.torch.debug.Logger;
-import org.w3c.dom.Document;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.URI;
-import java.nio.file.NoSuchFileException;
+import com.snakybo.torch.model.Model;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class XMLParser
+public final class MeshParser
 {
-	private XMLParser()
+	private MeshParser()
 	{
 		throw new AssertionError();
 	}
 	
-	public static Document getXmlDocument(URI uri) throws NoSuchFileException
+	public static Model parseModel(String file)
 	{
-		File file = new File(uri);
+//		try
+//		{
+//			LoggerInternal.log("Parsing model file: " + file);
+//			Document document = XMLParser.getXmlDocument(FileUtils.toURI(file + ".mesh.dat"));
 		
-		if(!file.exists())
-		{
-			throw new NoSuchFileException("XML file not found: " + uri);
-		}
+//		    if(!document.getDocumentElement().getNodeName().equals("mesh"))
+//		    {
+//		    	throw new IllegalArgumentException("Specified file is not a mesh file");
+//		    }
+//
+//			String source = document.getDocumentElement().getElementsByTagName("source").item(0).getTextContent();
+//			return Model.load(source);
+			return Model.load(file);
+//		}
+//		catch(NoSuchFileException e)
+//		{
+//			Logger.logError(e.getMessage(), e);
+//		}
 		
-		try
-		{
-			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document document = builder.parse(file);
-			
-			document.getDocumentElement().normalize();
-			return document;
-		}
-		catch(Exception e)
-		{
-			Logger.logError(e.getMessage(), e);
-		}
-		
-		return null;
+//		return null;
 	}
 }

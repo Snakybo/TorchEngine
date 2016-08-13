@@ -20,14 +20,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.xml;
+package com.snakybo.torch.parser;
 
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.object.Component;
 import com.snakybo.torch.object.GameObject;
 import com.snakybo.torch.reflection.ReflectionUtil;
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -40,9 +39,9 @@ import java.util.List;
  * @author Snakybo
  * @since 1.0
  */
-final class GameObjectXMLParser
+final class GameObjectParser
 {
-	private GameObjectXMLParser()
+	private GameObjectParser()
 	{
 		throw new AssertionError();
 	}
@@ -89,13 +88,13 @@ final class GameObjectXMLParser
 	
 	private static void parseTransform(GameObject gameObject, Element element)
 	{
-		Node positionNode = element.getElementsByTagName("position").item(0);
-		Node rotationNode = element.getElementsByTagName("rotation").item(0);
-		Node scaleNode = element.getElementsByTagName("scale").item(0);
+		Element position = (Element)element.getElementsByTagName("position").item(0);
+		Element rotation = (Element)element.getElementsByTagName("rotation").item(0);
+		Element scale = (Element)element.getElementsByTagName("scale").item(0);
 		
-		gameObject.getTransform().setLocalPosition(XMLParserUtil.parseVector3(positionNode));
-		gameObject.getTransform().setLocalRotation(XMLParserUtil.parseQuaternion(rotationNode));
-		gameObject.getTransform().setLocalScale(XMLParserUtil.parseVector3(scaleNode));
+		gameObject.getTransform().setLocalPosition(ParserUtil.parseVector3(position));
+		gameObject.getTransform().setLocalRotation(ParserUtil.parseQuaternion(rotation));
+		gameObject.getTransform().setLocalScale(ParserUtil.parseVector3(scale));
 	}
 	
 	private static Iterable<Component> parseComponentList(String name, NodeList nodeList)
@@ -109,7 +108,7 @@ final class GameObjectXMLParser
 			
 			if(node.getNodeType() == Node.ELEMENT_NODE)
 			{
-				Element element = (Element)node;
+				Element element = (Element) node;
 				String clazz = element.getElementsByTagName("class").item(0).getTextContent();
 				
 				LoggerInternal.log("Parsing Component node: " + clazz);
@@ -118,26 +117,25 @@ final class GameObjectXMLParser
 				try
 				{
 					Class<?> c = Class.forName(clazz);
-					Component component = null;
+					Component component;
 					
 					if(parameterNodeList.getLength() > 0)
 					{
-						Object[] parameters = parseComponentParameterList(name, clazz, parameterNodeList);
+						Object[] parameters = ParserUtil.parseParameterList(parameterNodeList);
 						
 						Class<?>[] parameterTypes = ReflectionUtil.getObjectTypes(parameters);
 						
 						Constructor constructor = c.getConstructor(parameterTypes);
-						component = (Component)constructor.newInstance(parameters);
+						component = (Component) constructor.newInstance(parameters);
 					}
 					else
 					{
 						Constructor constructor = c.getConstructor();
-						component = (Component)constructor.newInstance();
+						component = (Component) constructor.newInstance();
 					}
 					
 					result.add(component);
-				}
-				catch(Exception e)
+				} catch(Exception e)
 				{
 					Logger.logError(e.getMessage(), e);
 				}
@@ -145,41 +143,5 @@ final class GameObjectXMLParser
 		}
 		
 		return result;
-	}
-	
-	private static Object[] parseComponentParameterList(String name, String clazz, NodeList nodeList)
-	{
-		List<Object> result = new ArrayList<>();
-		LoggerInternal.log("Parsing parameter nodes for Component node: " + name + ":" + clazz);
-		
-		for(int i = 0; i < nodeList.getLength(); i++)
-		{
-			Node node = nodeList.item(i);
-			
-			if(node.getNodeType() == Node.ELEMENT_NODE)
-			{
-				Element element = (Element)node;
-				String type = element.getAttribute("type");
-				String value = element.getTextContent();
-				
-				switch(type)
-				{
-				case "int":
-					result.add(XMLParserUtil.parseInt(value));
-					break;
-				case "float":
-					result.add(XMLParserUtil.parseFloat(value));
-					break;
-				case "double":
-					result.add(XMLParserUtil.parseDouble(value));
-					break;
-				case "enum":
-					result.add(XMLParserUtil.parseEnum(value));
-					break;
-				}
-			}
-		}
-		
-		return result.toArray(new Object[result.size()]);
 	}
 }
