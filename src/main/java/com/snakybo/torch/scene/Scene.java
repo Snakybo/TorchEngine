@@ -26,8 +26,10 @@ import com.snakybo.torch.interfaces.IDestroyable;
 import com.snakybo.torch.object.GameObject;
 import com.snakybo.torch.queue.QueueOperation;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -102,6 +104,34 @@ public final class Scene implements IDestroyable
 	public final Iterable<GameObject> getAllGameObjects()
 	{
 		return gameObjects;
+	}
+	
+	public final Iterable<GameObject> getGameObjectsByName(String name)
+	{
+		List<GameObject> result = new ArrayList<>();
+		
+		for(GameObject gameObject : gameObjects)
+		{
+			if(gameObject.getName().equals(name))
+			{
+				result.add(gameObject);
+			}
+		}
+		
+		return result;
+	}
+	
+	public final GameObject getGameObjectByName(String name)
+	{
+		for(GameObject gameObject : gameObjects)
+		{
+			if(gameObject.getName().equals(name))
+			{
+				return gameObject;
+			}
+		}
+		
+		return null;
 	}
 	
 	/**
