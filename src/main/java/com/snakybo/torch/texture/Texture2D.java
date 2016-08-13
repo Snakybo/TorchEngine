@@ -135,7 +135,12 @@ public final class Texture2D extends Texture
 	
 	public static Texture2D load(String path, int filters, float anisoLevel)
 	{
-		return load(path, filters, anisoLevel, GL_RGBA, GL_RGBA);
+		return load(path, filters, anisoLevel, GL_RGBA);
+	}
+	
+	public static Texture2D load(String path, int filters, float anisoLevel, int internalFormat)
+	{
+		return load(path, filters, anisoLevel, internalFormat, GL_RGBA);
 	}
 	
 	public static Texture2D load(String path, int filters, float anisoLevel, int internalFormat, int format)
