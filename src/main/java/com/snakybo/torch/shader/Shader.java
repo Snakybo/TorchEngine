@@ -22,6 +22,7 @@
 
 package com.snakybo.torch.shader;
 
+import com.snakybo.torch.asset.Asset;
 import com.snakybo.torch.interfaces.IDestroyable;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
@@ -49,16 +50,17 @@ import static org.lwjgl.system.MemoryUtil.NULL;
  * @author Snakybo
  * @since 1.0
  */
-public final class Shader implements IDestroyable
+public final class Shader extends Asset
 {
 	private ShaderAsset asset;
 	
-	private Shader(ShaderAsset asset)
+	Shader(ShaderAsset asset)
 	{
 		this.asset = asset;
+		this.asset.addUsage();
 	}
 	
-	private Shader(String path)
+	Shader(String path)
 	{
 		asset = new ShaderAsset(path);
 		asset.init();
@@ -67,21 +69,7 @@ public final class Shader implements IDestroyable
 	@Override
 	public final void destroy()
 	{
-		if(asset.programId != NULL)
-		{
-			glUseProgram(0);
-			
-			for(Integer shader : asset.attachedShaders)
-			{
-				glDetachShader(asset.programId, shader);
-				glDeleteShader(shader);
-			}			
-			
-			glDeleteProgram(asset.programId);
-			
-			asset.programId = (int)NULL;
-			asset.attachedShaders.clear();
-		}
+		asset.removeUsage();
 	}
 	
 	/**
@@ -198,15 +186,5 @@ public final class Shader implements IDestroyable
 		}
 		
 		return null;
-	}
-	
-	public static Shader load(String path)
-	{
-		if(ShaderAsset.all.containsKey(path))
-		{
-			return new Shader(ShaderAsset.all.get(path));
-		}
-		
-		return new Shader(path);
 	}
 }

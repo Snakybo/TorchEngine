@@ -20,58 +20,51 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.material;
+package com.snakybo.torch.asset;
 
-import com.snakybo.torch.asset.Asset;
-import com.snakybo.torch.asset.AssetData;
-import com.snakybo.torch.asset.AssetLoader;
-import com.snakybo.torch.shader.Shader;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.snakybo.torch.debug.Logger;
+import com.snakybo.torch.debug.LoggerInternal;
+import com.snakybo.torch.interfaces.IDestroyable;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-final class MaterialAsset extends AssetData
+public abstract class AssetData implements IDestroyable
 {
-	static Map<String, MaterialAsset> all = new HashMap<>();
+	protected String name;
 	
-	Map<String, Object> values;
+	private int useCount;
 	
-	Shader shader;
-	
-	MaterialAsset(String name, String shader)
+	public AssetData(String name)
 	{
-		super(name);
+		this.name = name;
+		this.useCount = 0;
 		
-		this.shader = AssetLoader.load(Shader.class, shader);
-		this.values = new HashMap<>();
-		
-		if(name != null && !name.isEmpty())
-		{
-			all.put(name, this);
-		}
+		addUsage();
 	}
 	
+	/**
+	 * Destroy the asset immediately.
+	 */
 	@Override
-	public final void destroy()
+	public abstract void destroy();
+	
+	public final void addUsage()
 	{
-		if(name != null && !name.isEmpty())
+		LoggerInternal.log("useCount increased for " + getClass().getSimpleName() + ":" + name);
+		useCount++;
+	}
+	
+	public final void removeUsage()
+	{
+		LoggerInternal.log("useCount decreased for " + getClass().getSimpleName() + ":" + name);
+		useCount--;
+		
+		if(useCount <= 0)
 		{
-			all.remove(name);
+			LoggerInternal.log("No more usages remaining for " + getClass().getSimpleName() + ":" + name + ", destroying");
+			destroy();
 		}
-		
-		for(Object value : values.values())
-		{
-			if(value instanceof Asset)
-			{
-				((Asset)value).destroy();
-			}
-		}
-		
-		
-		shader.destroy();
 	}
 }

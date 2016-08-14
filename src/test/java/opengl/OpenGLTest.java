@@ -47,32 +47,6 @@ public class OpenGLTest
 	{
 		Scene scene = SceneLoader.load("test.scene");
 		scene.makeCurrent();
-		
-		Material mat = AssetLoader.load(Material.class, "test.mtl");
-		GameObject go = new GameObject();
-		go.addComponent(new MeshRenderer(AssetLoader.load(Mesh.class, "cube.obj"), mat));
-		go.getTransform().setLocalScale(new Vector3f(0.25f));
-		go.getTransform().setLocalPosition(new Vector3f(2, 0, 0));
-		go.getTransform().rotate(new Vector3f(0, 1, 0), 45f);
-		
-		//Logger.log(scene.getGameObjectByName("wtf").getTransform().toString());
-		
-//		Material material = new Material("unlit.glsl");
-//		material.setTexture("diffuse", Texture2D.load("grassblock.png"));
-
-//		GameObject box = new GameObject();
-//		box.addComponent(new MeshRenderer(Mesh.load("cube.obj"), material));
-////		box.addComponent(new Component()
-////		{
-////			@Override
-////			protected void update()
-////			{
-////				getTransform().rotate(new Vector3f(0, 1, 0), 1f * Time.getDeltaTime());
-////			}
-////		});
-//		box.getTransform().setLocalScale(new Vector3f(0.25f));
-//		box.getTransform().setLocalPosition(new Vector3f(0, 0, -1f));
-//		box.getTransform().rotate(new Vector3f(0, 1, 0), 45f);
 	}
 	
 	public static void main(String[] args)

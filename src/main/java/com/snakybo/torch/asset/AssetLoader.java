@@ -25,6 +25,7 @@ package com.snakybo.torch.asset;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.material.MaterialAssetLoader;
 import com.snakybo.torch.mesh.MeshAssetLoader;
+import com.snakybo.torch.shader.ShaderAssetLoader;
 import com.snakybo.torch.texture.TextureAssetLoader;
 import com.snakybo.torch.util.FileUtils;
 
@@ -48,8 +49,6 @@ public final class AssetLoader
 			String path = getPath(file);
 			String ext = FileUtils.getExtension(path);
 			
-			// TODO: Maybe shaders should be loaded via here too
-			
 			switch(ext)
 			{
 			case "png":
@@ -59,6 +58,8 @@ public final class AssetLoader
 				return MeshAssetLoader.load(path);
 			case "mtl":
 				return MaterialAssetLoader.load(path);
+			case "glsl":
+				return ShaderAssetLoader.load(path);
 			default:
 				Logger.logError("Unknown asset type: " + ext);
 				return null;

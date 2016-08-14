@@ -22,6 +22,7 @@
 
 package com.snakybo.torch.texture;
 
+import com.snakybo.torch.asset.AssetData;
 import com.snakybo.torch.util.MathUtils;
 import com.snakybo.torch.util.ToByteBuffer;
 import org.lwjgl.BufferUtils;
@@ -60,11 +61,9 @@ import static org.lwjgl.opengl.GL30.glGenerateMipmap;
  * @author Snakybo
  * @since 1.0
  */
-final class TextureAsset
+final class TextureAsset extends AssetData
 {
 	static Map<String, TextureAsset> all = new HashMap<>();
-	
-	String name;
 	
 	IntBuffer id;
 	
@@ -72,7 +71,8 @@ final class TextureAsset
 	
 	TextureAsset(String name, BufferedImage bufferedImage, int size)
 	{
-		this.name = name;
+		super(name);
+		
 		this.bufferedImage = bufferedImage;
 		
 		if(size > 0)
@@ -87,8 +87,14 @@ final class TextureAsset
 		}
 	}
 	
-	final void destroy()
+	@Override
+	public final void destroy()
 	{
+		if(name != null && !name.isEmpty())
+		{
+			all.remove(name);
+		}
+		
 		glDeleteTextures(id);
 	}
 	

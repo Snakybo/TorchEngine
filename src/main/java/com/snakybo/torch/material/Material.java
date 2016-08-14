@@ -51,6 +51,7 @@ public final class Material extends Asset
 	Material(MaterialAsset asset)
 	{
 		this.asset = asset;
+		this.asset.addUsage();
 	}
 	
 	Material(String path, String shader)
@@ -66,7 +67,7 @@ public final class Material extends Asset
 	@Override
 	public final void destroy()
 	{
-		asset.destroy();
+		asset.removeUsage();
 	}
 	
 	/**

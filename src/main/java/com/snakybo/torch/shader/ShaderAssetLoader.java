@@ -20,58 +20,26 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.material;
-
-import com.snakybo.torch.asset.Asset;
-import com.snakybo.torch.asset.AssetData;
-import com.snakybo.torch.asset.AssetLoader;
-import com.snakybo.torch.shader.Shader;
-
-import java.util.HashMap;
-import java.util.Map;
+package com.snakybo.torch.shader;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-final class MaterialAsset extends AssetData
+public final class ShaderAssetLoader
 {
-	static Map<String, MaterialAsset> all = new HashMap<>();
-	
-	Map<String, Object> values;
-	
-	Shader shader;
-	
-	MaterialAsset(String name, String shader)
+	private ShaderAssetLoader()
 	{
-		super(name);
-		
-		this.shader = AssetLoader.load(Shader.class, shader);
-		this.values = new HashMap<>();
-		
-		if(name != null && !name.isEmpty())
-		{
-			all.put(name, this);
-		}
+		throw new AssertionError();
 	}
 	
-	@Override
-	public final void destroy()
+	public static Shader load(String path)
 	{
-		if(name != null && !name.isEmpty())
+		if(ShaderAsset.all.containsKey(path))
 		{
-			all.remove(name);
+			return new Shader(ShaderAsset.all.get(path));
 		}
 		
-		for(Object value : values.values())
-		{
-			if(value instanceof Asset)
-			{
-				((Asset)value).destroy();
-			}
-		}
-		
-		
-		shader.destroy();
+		return new Shader(path);
 	}
 }

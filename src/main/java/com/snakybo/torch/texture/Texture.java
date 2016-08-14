@@ -46,7 +46,7 @@ public abstract class Texture extends Asset
 	@Override
 	public void destroy()
 	{
-		asset.destroy();
+		asset.removeUsage();
 	}
 	
 	@Override

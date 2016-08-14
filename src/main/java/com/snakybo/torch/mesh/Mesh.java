@@ -42,6 +42,7 @@ public final class Mesh extends Asset
 	Mesh(MeshAsset asset)
 	{
 		this.asset = asset;
+		this.asset.addUsage();
 	}
 	
 	Mesh(String name)
@@ -60,7 +61,7 @@ public final class Mesh extends Asset
 	@Override
 	public void destroy()
 	{
-		asset.destroy();
+		asset.removeUsage();
 	}
 	
 	/**

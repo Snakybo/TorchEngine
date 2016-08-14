@@ -22,6 +22,7 @@
 
 package com.snakybo.torch.mesh;
 
+import com.snakybo.torch.asset.AssetData;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
@@ -34,7 +35,7 @@ import java.util.Map;
  * @author Kevin
  * @since 1.0
  */
-final class MeshAsset
+final class MeshAsset extends AssetData
 {
 	static Map<String, MeshAsset> all = new HashMap<>();
 	
@@ -48,7 +49,7 @@ final class MeshAsset
 	
 	public MeshAsset(String name)
 	{
-		this.name = name;
+		super(name);
 		
 		vertices = new ArrayList<>();
 		texCoords = new ArrayList<>();
@@ -62,7 +63,12 @@ final class MeshAsset
 		}
 	}
 	
-	final void destroy()
+	@Override
+	public final void destroy()
 	{
+		if(name != null && !name.isEmpty())
+		{
+			all.remove(name);
+		}
 	}
 }

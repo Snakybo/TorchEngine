@@ -22,6 +22,7 @@
 
 package com.snakybo.torch.shader;
 
+import com.snakybo.torch.asset.AssetData;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.util.FileUtils;
@@ -45,6 +46,9 @@ import static org.lwjgl.opengl.GL20.glAttachShader;
 import static org.lwjgl.opengl.GL20.glCompileShader;
 import static org.lwjgl.opengl.GL20.glCreateProgram;
 import static org.lwjgl.opengl.GL20.glCreateShader;
+import static org.lwjgl.opengl.GL20.glDeleteProgram;
+import static org.lwjgl.opengl.GL20.glDeleteShader;
+import static org.lwjgl.opengl.GL20.glDetachShader;
 import static org.lwjgl.opengl.GL20.glGetProgramInfoLog;
 import static org.lwjgl.opengl.GL20.glGetProgrami;
 import static org.lwjgl.opengl.GL20.glGetShaderInfoLog;
@@ -63,7 +67,7 @@ import static org.lwjgl.system.MemoryUtil.NULL;
  * @author Snakybo
  * @since 1.0
  */
-final class ShaderAsset
+final class ShaderAsset extends AssetData
 {
 	static Map<String, ShaderAsset> all = new HashMap<>();
 	
@@ -72,13 +76,11 @@ final class ShaderAsset
 	
 	List<Integer> attachedShaders;
 	
-	String name;
-	
 	int programId;
 	
 	ShaderAsset(String name)
 	{
-		this.name = name;
+		super(name);
 		
 		uniforms = new HashMap<>();
 		uniformTypes = new HashMap<>();
@@ -95,6 +97,23 @@ final class ShaderAsset
 		{
 			all.put(name, this);
 		}
+	}
+	
+	@Override
+	public final void destroy()
+	{
+		if(name != null && !name.isEmpty())
+		{
+			all.remove(name);
+		}
+		
+		for(Integer shader : attachedShaders)
+		{
+			glDetachShader(programId, shader);
+			glDeleteShader(shader);
+		}
+		
+		glDeleteProgram(programId);
 	}
 	
 	final void init()

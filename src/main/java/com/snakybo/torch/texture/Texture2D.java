@@ -47,6 +47,7 @@ public final class Texture2D extends Texture
 	Texture2D(TextureAsset asset)
 	{
 		this.asset = asset;
+		this.asset.addUsage();
 	}
 	
 	Texture2D(String name, BufferedImage bufferedImage, int filters, float anisoLevel, int internalFormat, int format, boolean clamp)
