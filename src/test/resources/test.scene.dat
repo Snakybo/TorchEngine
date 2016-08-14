@@ -59,7 +59,7 @@
         <component>
           <class>com.snakybo.torch.component.mesh.MeshRenderer</class>
           <parameters>
-            <parameter type="model">cube.obj</parameter>
+            <parameter type="mesh">cube.obj</parameter>
             <parameter type="material">test</parameter>
           </parameters>
         </component>

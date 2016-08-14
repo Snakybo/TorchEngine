@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.model;
+package com.snakybo.torch.mesh;
 
 import org.joml.Vector2f;
 import org.joml.Vector3f;
@@ -34,9 +34,9 @@ import java.util.Map;
  * @author Kevin
  * @since 1.0
  */
-final class ModelAsset
+final class MeshAsset
 {
-	static Map<String, ModelAsset> all = new HashMap<>();
+	static Map<String, MeshAsset> all = new HashMap<>();
 	
 	List<Vector3f> vertices;
 	List<Vector2f> texCoords;
@@ -46,7 +46,7 @@ final class ModelAsset
 	
 	String name;
 	
-	public ModelAsset(String name)
+	public MeshAsset(String name)
 	{
 		this.name = name;
 		

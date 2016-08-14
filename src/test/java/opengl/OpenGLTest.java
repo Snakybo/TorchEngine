@@ -48,7 +48,7 @@ public class OpenGLTest
 //		material.setTexture("diffuse", Texture2D.load("grassblock.png"));
 
 //		GameObject box = new GameObject();
-//		box.addComponent(new MeshRenderer(Model.load("cube.obj"), material));
+//		box.addComponent(new MeshRenderer(Mesh.load("cube.obj"), material));
 ////		box.addComponent(new Component()
 ////		{
 ////			@Override

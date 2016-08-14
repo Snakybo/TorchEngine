@@ -20,11 +20,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.model;
+package com.snakybo.torch.mesh;
 
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
-import com.snakybo.torch.model.obj.OBJModel;
+import com.snakybo.torch.mesh.obj.OBJMesh;
 import com.snakybo.torch.util.FileUtils;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
@@ -42,25 +42,25 @@ import java.util.List;
  * @author Snakybo
  * @since 1.0
  */
-public final class Model
+public final class Mesh
 {
-	private ModelAsset asset;
+	private MeshAsset asset;
 	
-	private Model(ModelAsset asset)
+	private Mesh(MeshAsset asset)
 	{
 		this.asset = asset;
 	}
 	
 	/**
-	 * Create a new model
+	 * Create a new mesh
 	 */
-	public Model()
+	public Mesh()
 	{
-		asset = new ModelAsset("");
+		asset = new MeshAsset("");
 	}
 	
 	/**
-	 * Attempt to calculate the normals of a model automatically
+	 * Attempt to calculate the normals of a mesh automatically
 	 */
 	public final void generateNormals()
 	{
@@ -88,7 +88,7 @@ public final class Model
 	}
 	
 	/**
-	 * Attempt to calculate the tangents of a model automatically
+	 * Attempt to calculate the tangents of a mesh automatically
 	 */
 	public final void generateTangents()
 	{
@@ -126,7 +126,7 @@ public final class Model
 	}
 	
 	/**
-	 * Add a vertex to the model
+	 * Add a vertex to the mesh
 	 * @param vertex The vertex to add
 	 */
 	public final void addVertex(Vector3f vertex)
@@ -135,7 +135,7 @@ public final class Model
 	}
 	
 	/**
-	 * Add a texture coordinate to the model
+	 * Add a texture coordinate to the mesh
 	 * @param texCoord The texture coordinate to add
 	 */
 	public final void addTexCoord(Vector2f texCoord)
@@ -144,8 +144,8 @@ public final class Model
 	}
 	
 	/**
-	 * Add a normal to the model
-	 * @param normal The model to add
+	 * Add a normal to the mesh
+	 * @param normal The mesh to add
 	 */
 	public final void addNormal(Vector3f normal)
 	{
@@ -153,7 +153,7 @@ public final class Model
 	}
 	
 	/**
-	 * Add a tangent to the model
+	 * Add a tangent to the mesh
 	 * @param tangent The tangent to add
 	 */
 	public final void addTangent(Vector3f tangent)
@@ -162,7 +162,7 @@ public final class Model
 	}
 	
 	/**
-	 * Add a single index to the model
+	 * Add a single index to the mesh
 	 * @param index The index to add
 	 */
 	public final void addIndex(int index)
@@ -171,7 +171,7 @@ public final class Model
 	}
 	
 	/**
-	 * Add a face, or 3 indices to the model
+	 * Add a face, or 3 indices to the mesh
 	 * @param i0 The first index
 	 * @param i1 The second index
 	 * @param i2 The third index
@@ -184,7 +184,7 @@ public final class Model
 	}
 	
 	/**
-	 * @return The vertices of the model
+	 * @return The vertices of the mesh
 	 */
 	public final List<Vector3f> getVertices()
 	{
@@ -192,7 +192,7 @@ public final class Model
 	}
 	
 	/**
-	 * @return The texture coordinates of the model
+	 * @return The texture coordinates of the mesh
 	 */
 	public final List<Vector2f> getTexCoords()
 	{
@@ -200,7 +200,7 @@ public final class Model
 	}
 	
 	/**
-	 * @return The normals of the model
+	 * @return The normals of the mesh
 	 */
 	public final List<Vector3f> getNormals()
 	{
@@ -208,7 +208,7 @@ public final class Model
 	}
 	
 	/**
-	 * @return The tangents of the model
+	 * @return The tangents of the mesh
 	 */
 	public final List<Vector3f> getTangents()
 	{
@@ -216,7 +216,7 @@ public final class Model
 	}
 	
 	/**
-	 * @return The indices of the model
+	 * @return The indices of the mesh
 	 */
 	public final List<Integer> getIndices()
 	{
@@ -326,7 +326,7 @@ public final class Model
 	}
 	
 	/**
-	 * @return The number of indices the model contains
+	 * @return The number of indices the mesh contains
 	 */
 	public final int getNumIndices()
 	{
@@ -334,18 +334,18 @@ public final class Model
 	}
 	
 	/**
-	 * @return The number of triangles, or faces the model contains
+	 * @return The number of triangles, or faces the mesh contains
 	 */
 	public final int getNumTriangles()
 	{
 		return asset.indices.size() / 3;
 	}
 	
-	public static Model load(String path)
+	public static Mesh load(String path)
 	{
-		if(ModelAsset.all.containsKey(path))
+		if(MeshAsset.all.containsKey(path))
 		{
-			return new Model(ModelAsset.all.get(path));
+			return new Mesh(MeshAsset.all.get(path));
 		}
 		
 		try
@@ -365,12 +365,12 @@ public final class Model
 			}
 			
 			List<String> lines = Files.readAllLines(Paths.get(FileUtils.toURI(target)));
-			IModelLoader loader = null;
+			IMeshLoader loader = null;
 			
 			switch(extension)
 			{
 			case "obj":
-				loader = new OBJModel(lines);
+				loader = new OBJMesh(lines);
 				break;
 			}
 			

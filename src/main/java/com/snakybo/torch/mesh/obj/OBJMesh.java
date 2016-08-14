@@ -20,10 +20,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.model.obj;
+package com.snakybo.torch.mesh.obj;
 
-import com.snakybo.torch.model.IModelLoader;
-import com.snakybo.torch.model.Model;
+import com.snakybo.torch.mesh.IMeshLoader;
+import com.snakybo.torch.mesh.Mesh;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
@@ -35,21 +35,21 @@ import java.util.Map;
  * @author Snakybo
  * @since 1.0
  */
-public final class OBJModel implements IModelLoader
+public final class OBJMesh implements IMeshLoader
 {	
 	private final OBJParser parser;
 	
-	public OBJModel(List<String> lines)
+	public OBJMesh(List<String> lines)
 	{
 		parser = new OBJParser();		
 		parser.parse(lines);
 	}
 	
 	@Override
-	public final Model toModel()
+	public final Mesh toModel()
 	{
-		Model model = new Model();
-		Model normalModel = new Model();
+		Mesh mesh = new Mesh();
+		Mesh normalMesh = new Mesh();
 
 		Map<OBJIndex, Integer> resultIndexMap = new HashMap<>();
 		Map<Integer, Integer> normalIndexMap = new HashMap<>();
@@ -74,50 +74,50 @@ public final class OBJModel implements IModelLoader
 			Integer modelVertexIndex = resultIndexMap.get(index);
 			if(modelVertexIndex == null)
 			{
-				modelVertexIndex = model.getVertices().size();
+				modelVertexIndex = mesh.getVertices().size();
 				resultIndexMap.put(index, modelVertexIndex);
 				
-				model.addVertex(vertex);
-				model.addTexCoord(texCoord);
+				mesh.addVertex(vertex);
+				mesh.addTexCoord(texCoord);
 				
 				if(parser.hasNormals)
 				{
-					model.addNormal(normal);
+					mesh.addNormal(normal);
 				}
 			}
 			
 			Integer normalModelIndex = normalIndexMap.get(index.vertex);
 			if(normalModelIndex == null)
 			{
-				normalModelIndex = normalModel.getVertices().size();
+				normalModelIndex = normalMesh.getVertices().size();
 				normalIndexMap.put(index.vertex, normalModelIndex);
 				
-				normalModel.addVertex(vertex);
-				normalModel.addTexCoord(texCoord);
-				normalModel.addNormal(normal);
-				normalModel.addTangent(new Vector3f());
+				normalMesh.addVertex(vertex);
+				normalMesh.addTexCoord(texCoord);
+				normalMesh.addNormal(normal);
+				normalMesh.addTangent(new Vector3f());
 			}
 			
-			model.addIndex(modelVertexIndex);
-			normalModel.addIndex(normalModelIndex);
+			mesh.addIndex(modelVertexIndex);
+			normalMesh.addIndex(normalModelIndex);
 			indexMap.put(modelVertexIndex, normalModelIndex);
 		}
 		
 		if(!parser.hasNormals)
 		{
-			normalModel.generateNormals();			
-			for(int i = 0; i < model.getVertices().size(); i++)
+			normalMesh.generateNormals();
+			for(int i = 0; i < mesh.getVertices().size(); i++)
 			{
-				model.addNormal(normalModel.getNormal(indexMap.get(i)));
+				mesh.addNormal(normalMesh.getNormal(indexMap.get(i)));
 			}
 		}
 		
-		normalModel.generateTangents();		
-		for(int i = 0; i < model.getVertices().size(); i++)
+		normalMesh.generateTangents();
+		for(int i = 0; i < mesh.getVertices().size(); i++)
 		{
-			model.addTangent(normalModel.getTangent(indexMap.get(i)));
+			mesh.addTangent(normalMesh.getTangent(indexMap.get(i)));
 		}
 		
-		return model;
+		return mesh;
 	}
 }

@@ -23,7 +23,7 @@
 package com.snakybo.torch.renderer;
 
 import com.snakybo.torch.material.Material;
-import com.snakybo.torch.model.Model;
+import com.snakybo.torch.mesh.Mesh;
 import org.lwjgl.BufferUtils;
 
 import java.nio.IntBuffer;
@@ -59,14 +59,14 @@ public final class MeshRendererInternal
 	private static final int LAST_VBO = INDEX_VBO;
 	
 	private Material material;
-	private Model model;
+	private Mesh mesh;
 	
 	private IntBuffer vao;
 	private IntBuffer vbo;
 	
-	public MeshRendererInternal(Model model, Material material)
+	public MeshRendererInternal(Mesh mesh, Material material)
 	{
-		this.model = model;
+		this.mesh = mesh;
 		this.material = material;
 	}
 	
@@ -81,19 +81,19 @@ public final class MeshRendererInternal
 		glGenBuffers(vbo);
 		
 		glBindBuffer(GL_ARRAY_BUFFER, vbo.get(POSITION_VBO));		
-		glBufferData(GL_ARRAY_BUFFER, model.getVertexBuffer(), GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, mesh.getVertexBuffer(), GL_STATIC_DRAW);
 		glVertexAttribPointer(POSITION_VBO, 3, GL_FLOAT, false, 0, 0);
 		
 		glBindBuffer(GL_ARRAY_BUFFER, vbo.get(TEXCOORD_VBO));
-		glBufferData(GL_ARRAY_BUFFER, model.getTexCoordBuffer(), GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, mesh.getTexCoordBuffer(), GL_STATIC_DRAW);
 		glVertexAttribPointer(TEXCOORD_VBO, 2, GL_FLOAT, false, 0, 0);
 		
 		glBindBuffer(GL_ARRAY_BUFFER, vbo.get(NORMAL_VBO));
-		glBufferData(GL_ARRAY_BUFFER, model.getNormalBuffer(), GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, mesh.getNormalBuffer(), GL_STATIC_DRAW);
 		glVertexAttribPointer(NORMAL_VBO, 3, GL_FLOAT, false, 0, 0);
 		
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo.get(INDEX_VBO));
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, model.getIndexBuffer(), GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, mesh.getIndexBuffer(), GL_STATIC_DRAW);
 		
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glBindVertexArray(0);
@@ -110,7 +110,7 @@ public final class MeshRendererInternal
 		glEnableVertexAttribArray(1);
 		glEnableVertexAttribArray(2);
 		
-		glDrawElements(GL_TRIANGLES, model.getNumIndices(), GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, mesh.getNumIndices(), GL_UNSIGNED_INT, 0);
 		
 		glDisableVertexAttribArray(2);
 		glDisableVertexAttribArray(1);

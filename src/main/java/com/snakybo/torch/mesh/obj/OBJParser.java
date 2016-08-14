@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.model.obj;
+package com.snakybo.torch.mesh.obj;
 
 import com.snakybo.torch.util.StringUtils;
 import org.joml.Vector2f;
@@ -55,7 +55,7 @@ final class OBJParser
 	}
 	
 	/**
-	 * Parse a model
+	 * Parse a mesh
 	 * @param lines The lines of the target file
 	 */
 	public final void parse(List<String> lines)

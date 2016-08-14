@@ -23,8 +23,8 @@
 package com.snakybo.torch.component.mesh;
 
 import com.snakybo.torch.material.Material;
+import com.snakybo.torch.mesh.Mesh;
 import com.snakybo.torch.renderer.MeshRendererInternal;
-import com.snakybo.torch.model.Model;
 import com.snakybo.torch.object.Component;
 
 /**
@@ -36,9 +36,9 @@ public final class MeshRenderer extends Component
 	private MeshRendererInternal meshRenderer;
 	private Material material;
 	
-	public MeshRenderer(Model model, Material material)
+	public MeshRenderer(Mesh mesh, Material material)
 	{
-		this.meshRenderer = new MeshRendererInternal(model, material);
+		this.meshRenderer = new MeshRendererInternal(mesh, material);
 		this.material = material;
 	}
 	

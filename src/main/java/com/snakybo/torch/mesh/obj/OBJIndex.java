@@ -20,17 +20,42 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.model;
+package com.snakybo.torch.mesh.obj;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public interface IModelLoader
+final class OBJIndex
 {
-	/**
-	 * Convert an imported model to a format the engine can read
-	 * @return The converted model
-	 */
-	Model toModel();
+	int vertex;
+	int texCoord;
+	int normal;
+	
+	@Override
+	public final boolean equals(Object obj)
+	{
+		if(!(obj instanceof OBJIndex))
+		{
+			return false;
+		}
+		
+		OBJIndex index = (OBJIndex)obj;
+		return vertex == index.vertex && texCoord == index.texCoord && normal == index.normal;
+	}
+
+	@Override
+	public final int hashCode()
+	{
+		final int BASE = 17;
+		final int MULTIPLIER = 31;
+
+		int result = BASE;
+
+		result = MULTIPLIER * result + vertex;
+		result = MULTIPLIER * result + texCoord;
+		result = MULTIPLIER * result + normal;
+
+		return result;
+	}
 }
