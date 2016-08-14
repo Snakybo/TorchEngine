@@ -44,9 +44,26 @@ public abstract class Texture extends Asset
 	protected TextureAsset asset;
 	
 	@Override
+	public final void finalize() throws Throwable
+	{
+		try
+		{
+			destroy();
+		}
+		finally
+		{
+			super.finalize();
+		}
+	}
+	
+	@Override
 	public void destroy()
 	{
-		asset.removeUsage();
+		if(asset != null)
+		{
+			asset.removeUsage();
+			asset = null;
+		}
 	}
 	
 	@Override

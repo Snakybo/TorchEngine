@@ -65,9 +65,26 @@ public final class Material extends Asset
 	}
 	
 	@Override
+	public final void finalize() throws Throwable
+	{
+		try
+		{
+			destroy();
+		}
+		finally
+		{
+			super.finalize();
+		}
+	}
+	
+	@Override
 	public final void destroy()
 	{
-		asset.removeUsage();
+		if(asset != null)
+		{
+			asset.removeUsage();
+			asset = null;
+		}
 	}
 	
 	/**

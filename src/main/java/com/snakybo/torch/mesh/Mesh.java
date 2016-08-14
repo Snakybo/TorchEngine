@@ -59,9 +59,26 @@ public final class Mesh extends Asset
 	}
 	
 	@Override
+	public final void finalize() throws Throwable
+	{
+		try
+		{
+			destroy();
+		}
+		finally
+		{
+			super.finalize();
+		}
+	}
+	
+	@Override
 	public void destroy()
 	{
-		asset.removeUsage();
+		if(asset != null)
+		{
+			asset.removeUsage();
+			asset = null;
+		}
 	}
 	
 	/**
