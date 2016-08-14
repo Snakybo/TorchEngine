@@ -26,6 +26,7 @@ import com.snakybo.torch.color.Color;
 import com.snakybo.torch.color.Color32;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
+import com.snakybo.torch.model.Model;
 import org.joml.Quaternionf;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
@@ -266,7 +267,7 @@ public final class ParserUtil
 		case "texture":
 			return TextureParser.parseTexture(element.getTextContent());
 		case "model":
-			return MeshParser.parseModel(element.getTextContent());
+			return Model.load(element.getTextContent());
 		default:
 			Logger.logError("Unknown parameter type: " + type);
 			return null;
