@@ -20,13 +20,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.parser;
+package com.snakybo.torch.material;
 
 import com.snakybo.torch.color.Color;
 import com.snakybo.torch.color.Color32;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
-import com.snakybo.torch.material.Material;
+import com.snakybo.torch.util.ParserUtil;
 import com.snakybo.torch.texture.Texture;
 import com.snakybo.torch.util.FileUtils;
 import org.joml.Vector2f;
@@ -43,28 +43,36 @@ import java.nio.file.NoSuchFileException;
  * @author Snakybo
  * @since 1.0
  */
-public final class MaterialParser
+public final class MaterialAssetLoader
 {
-	private MaterialParser()
+	private MaterialAssetLoader()
 	{
 		throw new AssertionError();
 	}
 	
-	public static Material parseMaterial(String file)
+	public static Material load(String path)
 	{
+		LoggerInternal.log("Begin loading of material: " + path);
+		
+		if(MaterialAsset.all.containsKey(path))
+		{
+			LoggerInternal.log("Material has already been loaded");
+			return new Material(MaterialAsset.all.get(path));
+		}
+		
 		try
 		{
-			LoggerInternal.log("Parsing material file: " + file);
-			Document document = ParserUtil.getDocument(FileUtils.toURI(file + ".mtl.dat"));
+			LoggerInternal.log("Begin parsing of material data file: " + path);
+			Document document = ParserUtil.getDocument(FileUtils.toURI(path));
 			
-			if(!document.getDocumentElement().getNodeName().equals("material"))
+			if(!ParserUtil.isCorrectFile(document, "material"))
 			{
-				throw new IllegalArgumentException("Specified file is not a material file");
+				throw new IllegalArgumentException("Specified file (" + path + ") is not a material");
 			}
 						
 			String shader = document.getDocumentElement().getElementsByTagName("shader").item(0).getTextContent();
 			
-			Material material = new Material(shader);
+			Material material = new Material(path, shader);
 			
 			NodeList propertyNodeList = document.getDocumentElement().getElementsByTagName("property");
 			

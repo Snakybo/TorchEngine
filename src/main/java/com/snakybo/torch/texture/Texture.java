@@ -22,6 +22,7 @@
 
 package com.snakybo.torch.texture;
 
+import com.snakybo.torch.asset.Asset;
 import com.snakybo.torch.color.Color;
 import com.snakybo.torch.color.Color32;
 import com.snakybo.torch.debug.Logger;
@@ -38,7 +39,7 @@ import java.nio.ByteBuffer;
  * @author Snakybo
  * @since 1.0
  */
-public abstract class Texture implements IDestroyable
+public abstract class Texture extends Asset
 {
 	protected TextureAsset asset;
 	

@@ -46,9 +46,8 @@ public final class OBJMesh implements IMeshLoader
 	}
 	
 	@Override
-	public final Mesh toModel()
+	public final Mesh toModel(Mesh result)
 	{
-		Mesh mesh = new Mesh();
 		Mesh normalMesh = new Mesh();
 
 		Map<OBJIndex, Integer> resultIndexMap = new HashMap<>();
@@ -74,15 +73,15 @@ public final class OBJMesh implements IMeshLoader
 			Integer modelVertexIndex = resultIndexMap.get(index);
 			if(modelVertexIndex == null)
 			{
-				modelVertexIndex = mesh.getVertices().size();
+				modelVertexIndex = result.getVertices().size();
 				resultIndexMap.put(index, modelVertexIndex);
 				
-				mesh.addVertex(vertex);
-				mesh.addTexCoord(texCoord);
+				result.addVertex(vertex);
+				result.addTexCoord(texCoord);
 				
 				if(parser.hasNormals)
 				{
-					mesh.addNormal(normal);
+					result.addNormal(normal);
 				}
 			}
 			
@@ -98,7 +97,7 @@ public final class OBJMesh implements IMeshLoader
 				normalMesh.addTangent(new Vector3f());
 			}
 			
-			mesh.addIndex(modelVertexIndex);
+			result.addIndex(modelVertexIndex);
 			normalMesh.addIndex(normalModelIndex);
 			indexMap.put(modelVertexIndex, normalModelIndex);
 		}
@@ -106,18 +105,18 @@ public final class OBJMesh implements IMeshLoader
 		if(!parser.hasNormals)
 		{
 			normalMesh.generateNormals();
-			for(int i = 0; i < mesh.getVertices().size(); i++)
+			for(int i = 0; i < result.getVertices().size(); i++)
 			{
-				mesh.addNormal(normalMesh.getNormal(indexMap.get(i)));
+				result.addNormal(normalMesh.getNormal(indexMap.get(i)));
 			}
 		}
 		
 		normalMesh.generateTangents();
-		for(int i = 0; i < mesh.getVertices().size(); i++)
+		for(int i = 0; i < result.getVertices().size(); i++)
 		{
-			mesh.addTangent(normalMesh.getTangent(indexMap.get(i)));
+			result.addTangent(normalMesh.getTangent(indexMap.get(i)));
 		}
 		
-		return mesh;
+		return result;
 	}
 }

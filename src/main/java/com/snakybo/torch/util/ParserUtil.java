@@ -20,13 +20,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.parser;
+package com.snakybo.torch.util;
 
+import com.snakybo.torch.asset.AssetLoader;
 import com.snakybo.torch.color.Color;
 import com.snakybo.torch.color.Color32;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
+import com.snakybo.torch.material.MaterialAssetLoader;
 import com.snakybo.torch.mesh.Mesh;
+import com.snakybo.torch.mesh.MeshAssetLoader;
+import com.snakybo.torch.texture.TextureAssetLoader;
 import org.joml.Quaternionf;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
@@ -79,6 +83,11 @@ public final class ParserUtil
 		}
 		
 		return null;
+	}
+	
+	public static boolean isCorrectFile(Document document, String requiredRootName)
+	{
+		return document.getDocumentElement().getNodeName().equals(requiredRootName);
 	}
 	
 	public static boolean parseBoolean(Element element)
@@ -263,11 +272,9 @@ public final class ParserUtil
 		case "quaternion":
 			return parseQuaternion(element);
 		case "material":
-			return MaterialParser.parseMaterial(element.getTextContent());
 		case "texture":
-			return TextureParser.parseTexture(element.getTextContent());
 		case "mesh":
-			return Mesh.load(element.getTextContent());
+			return AssetLoader.load(element.getTextContent());
 		default:
 			Logger.logError("Unknown parameter type: " + type);
 			return null;

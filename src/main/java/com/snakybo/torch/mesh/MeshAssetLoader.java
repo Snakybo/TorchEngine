@@ -22,47 +22,55 @@
 
 package com.snakybo.torch.mesh;
 
-import org.joml.Vector2f;
-import org.joml.Vector3f;
+import com.snakybo.torch.debug.Logger;
+import com.snakybo.torch.debug.LoggerInternal;
+import com.snakybo.torch.mesh.obj.OBJMesh;
+import com.snakybo.torch.util.FileUtils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Paths;
 import java.util.List;
-import java.util.Map;
 
 /**
- * @author Kevin
+ * @author Snakybo
  * @since 1.0
  */
-final class MeshAsset
+public final class MeshAssetLoader
 {
-	static Map<String, MeshAsset> all = new HashMap<>();
-	
-	List<Vector3f> vertices;
-	List<Vector2f> texCoords;
-	List<Vector3f> normals;
-	List<Vector3f> tangents;
-	List<Integer> indices;
-	
-	String name;
-	
-	public MeshAsset(String name)
+	public static Mesh load(String path)
 	{
-		this.name = name;
+		LoggerInternal.log("Begin loading of mesh: " + path);
 		
-		vertices = new ArrayList<>();
-		texCoords = new ArrayList<>();
-		normals = new ArrayList<>();
-		tangents = new ArrayList<>();
-		indices = new ArrayList<>();
-		
-		if(name != null && !name.isEmpty())
+		if(MeshAsset.all.containsKey(path))
 		{
-			all.put(name, this);
+			LoggerInternal.log("Mesh has already been loaded");
+			return new Mesh(MeshAsset.all.get(path));
 		}
-	}
-	
-	final void destroy()
-	{
+		
+		try
+		{
+			LoggerInternal.log("Begin parsing of mesh data file: " + path);
+			String extension = FileUtils.getExtension(path);
+			
+			List<String> lines = Files.readAllLines(Paths.get(FileUtils.toURI(path)));
+			IMeshLoader loader = null;
+			
+			switch(extension)
+			{
+			case "obj":
+				loader = new OBJMesh(lines);
+				break;
+			}
+			
+			return loader.toModel(new Mesh(path));
+		}
+		catch(IOException e)
+		{
+			Logger.logError(e.toString(), e);
+		}
+		
+		return null;
 	}
 }

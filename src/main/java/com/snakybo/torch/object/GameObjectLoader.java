@@ -20,17 +20,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.parser;
+package com.snakybo.torch.object;
 
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
-import com.snakybo.torch.object.Component;
-import com.snakybo.torch.object.GameObject;
+import com.snakybo.torch.util.ParserUtil;
 import com.snakybo.torch.reflection.ReflectionUtil;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import java.lang.*;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,9 +39,9 @@ import java.util.List;
  * @author Snakybo
  * @since 1.0
  */
-final class GameObjectParser
+public final class GameObjectLoader
 {
-	private GameObjectParser()
+	private GameObjectLoader()
 	{
 		throw new AssertionError();
 	}
@@ -121,7 +121,7 @@ final class GameObjectParser
 					
 					if(parameterNodeList.getLength() > 0)
 					{
-						Object[] parameters = ParserUtil.parseParameterList(parameterNodeList);
+						java.lang.Object[] parameters = ParserUtil.parseParameterList(parameterNodeList);
 						
 						Class<?>[] parameterTypes = ReflectionUtil.getObjectTypes(parameters);
 						

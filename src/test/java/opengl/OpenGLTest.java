@@ -24,12 +24,18 @@ package opengl;
 
 import com.snakybo.torch.Engine;
 import com.snakybo.torch.Game;
+import com.snakybo.torch.asset.AssetLoader;
+import com.snakybo.torch.component.mesh.MeshRenderer;
+import com.snakybo.torch.material.Material;
+import com.snakybo.torch.mesh.Mesh;
 import com.snakybo.torch.monitor.DisplayMode;
 import com.snakybo.torch.monitor.Monitor;
+import com.snakybo.torch.object.GameObject;
 import com.snakybo.torch.scene.Scene;
 import com.snakybo.torch.window.Window;
 import com.snakybo.torch.window.WindowMode;
-import com.snakybo.torch.parser.SceneParser;
+import com.snakybo.torch.scene.SceneLoader;
+import org.joml.Vector3f;
 
 /**
  * @author Kevin
@@ -39,8 +45,15 @@ public class OpenGLTest
 {
 	private static void createScene()
 	{
-		Scene scene = SceneParser.parseScene("test");
+		Scene scene = SceneLoader.load("test.scene");
 		scene.makeCurrent();
+		
+		Material mat = AssetLoader.load(Material.class, "test.mtl");
+		GameObject go = new GameObject();
+		go.addComponent(new MeshRenderer(AssetLoader.load(Mesh.class, "cube.obj"), mat));
+		go.getTransform().setLocalScale(new Vector3f(0.25f));
+		go.getTransform().setLocalPosition(new Vector3f(2, 0, 0));
+		go.getTransform().rotate(new Vector3f(0, 1, 0), 45f);
 		
 		//Logger.log(scene.getGameObjectByName("wtf").getTransform().toString());
 		

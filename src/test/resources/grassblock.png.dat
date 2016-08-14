@@ -1,10 +1,9 @@
 <?xml version="1.0"?>
 <texture>
-    <source>grassblock.png</source>
     <type>com.snakybo.torch.texture.Texture2D</type>
     <parameters>
         <parameter type="int">0x2703</parameter>
-        <parameter type="int">0x84FF</parameter>
+        <parameter type="float">16.0</parameter>
         <parameter type="int">0x1908</parameter>
         <parameter type="int">0x1908</parameter>
         <parameter type="boolean">false</parameter>

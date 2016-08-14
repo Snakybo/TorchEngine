@@ -32,5 +32,5 @@ public interface IMeshLoader
 	 * Convert an imported mesh to a format the engine can read
 	 * @return The converted mesh
 	 */
-	Mesh toModel();
+	Mesh toModel(Mesh result);
 }

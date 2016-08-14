@@ -22,33 +22,31 @@
 
 package com.snakybo.torch.mesh;
 
-import com.snakybo.torch.debug.Logger;
-import com.snakybo.torch.debug.LoggerInternal;
-import com.snakybo.torch.mesh.obj.OBJMesh;
-import com.snakybo.torch.util.FileUtils;
+import com.snakybo.torch.asset.Asset;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.lwjgl.BufferUtils;
 
-import java.io.IOException;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
-import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
-import java.nio.file.Paths;
 import java.util.List;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class Mesh
+public final class Mesh extends Asset
 {
 	private MeshAsset asset;
 	
-	private Mesh(MeshAsset asset)
+	Mesh(MeshAsset asset)
 	{
 		this.asset = asset;
+	}
+	
+	Mesh(String name)
+	{
+		asset = new MeshAsset(name);
 	}
 	
 	/**
@@ -57,6 +55,12 @@ public final class Mesh
 	public Mesh()
 	{
 		asset = new MeshAsset("");
+	}
+	
+	@Override
+	public void destroy()
+	{
+		asset.destroy();
 	}
 	
 	/**
@@ -339,48 +343,5 @@ public final class Mesh
 	public final int getNumTriangles()
 	{
 		return asset.indices.size() / 3;
-	}
-	
-	public static Mesh load(String path)
-	{
-		if(MeshAsset.all.containsKey(path))
-		{
-			return new Mesh(MeshAsset.all.get(path));
-		}
-		
-		try
-		{
-			LoggerInternal.log("Importing " + FileUtils.getName(path));
-			
-			String extension = FileUtils.getExtension(path);
-			
-			String target = path;
-			try
-			{
-				FileUtils.toURI(target);
-			}
-			catch(NoSuchFileException ex)
-			{
-				target = "torch_internal/" + target;
-			}
-			
-			List<String> lines = Files.readAllLines(Paths.get(FileUtils.toURI(target)));
-			IMeshLoader loader = null;
-			
-			switch(extension)
-			{
-			case "obj":
-				loader = new OBJMesh(lines);
-				break;
-			}
-			
-			return loader.toModel();
-		}
-		catch(IOException e)
-		{
-			Logger.logError(e.toString(), e);
-		}
-		
-		return null;
 	}
 }

@@ -22,6 +22,7 @@
 
 package com.snakybo.torch.camera;
 
+import com.snakybo.torch.asset.AssetLoader;
 import com.snakybo.torch.color.Color;
 import com.snakybo.torch.component.camera.Camera;
 import com.snakybo.torch.object.Transform;
@@ -69,7 +70,7 @@ public final class CameraInternal
 		this.clearFlags = clearFlags;
 		
 		clearColor = new Color(0, 0, 0, 0);
-		skybox = new Skybox(Texture2D.load("skybox_default.png"));
+		skybox = new Skybox(AssetLoader.load(Texture2D.class, "skybox_default.png"));
 		
 		transform = new Transform();
 		

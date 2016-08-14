@@ -20,59 +20,40 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.parser;
+package com.snakybo.torch.material;
 
-import com.snakybo.torch.debug.Logger;
-import com.snakybo.torch.debug.LoggerInternal;
-import com.snakybo.torch.scene.Scene;
-import com.snakybo.torch.util.FileUtils;
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
+import com.snakybo.torch.shader.Shader;
 
-import java.nio.file.NoSuchFileException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class SceneParser
+final class MaterialAsset
 {
-	private SceneParser()
+	static Map<String, MaterialAsset> all = new HashMap<>();
+	
+	Map<String, Object> values;
+	
+	Shader shader;
+	String name;
+	
+	MaterialAsset(String name, String shader)
 	{
-		throw new AssertionError();
+		this.shader = Shader.load(shader);
+		this.name = name;
+		this.values = new HashMap<>();
+		
+		if(name != null && !name.isEmpty())
+		{
+			all.put(name, this);
+		}
 	}
 	
-	public static Scene parseScene(String file)
+	final void destroy()
 	{
-		try
-		{
-			LoggerInternal.log("Parsing scene file: " + file);
-			Document document = ParserUtil.getDocument(FileUtils.toURI(file + ".scene.dat"));
-			
-			if(!document.getDocumentElement().getNodeName().equals("scene"))
-			{
-				throw new IllegalArgumentException("Specified file is not a scene file");
-			}
-			
-			Scene oldScene = Scene.getCurrentScene();
-			Scene scene = new Scene();
-			scene.makeCurrent();
-			
-			NodeList gameObjectsNodeList = document.getElementsByTagName("game_object");
-			GameObjectParser.parseGameObjectList(gameObjectsNodeList);
-			
-			if(oldScene != null)
-			{
-				oldScene.makeCurrent();
-			}
-			
-			return scene;
-		}
-		catch(NoSuchFileException e)
-		{
-			Logger.logError(e.getMessage(), e);
-		}
-		
-		return null;
+		shader.destroy();
 	}
 }

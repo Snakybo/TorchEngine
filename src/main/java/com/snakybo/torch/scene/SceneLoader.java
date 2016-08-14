@@ -20,12 +20,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.parser;
+package com.snakybo.torch.scene;
 
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
-import com.snakybo.torch.texture.Texture;
-import com.snakybo.torch.texture.Texture2D;
+import com.snakybo.torch.object.GameObjectLoader;
+import com.snakybo.torch.util.ParserUtil;
 import com.snakybo.torch.util.FileUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -36,42 +36,40 @@ import java.nio.file.NoSuchFileException;
  * @author Snakybo
  * @since 1.0
  */
-public final class TextureParser
+public final class SceneLoader
 {
-	private TextureParser()
+	private SceneLoader()
 	{
 		throw new AssertionError();
 	}
 	
-	public static Texture parseTexture(String file)
+	public static Scene load(String path)
 	{
+		LoggerInternal.log("Begin loading of scene: " + path);
+		
 		try
 		{
-			LoggerInternal.log("Parsing texture file: " + file);
-			Document document = ParserUtil.getDocument(FileUtils.toURI(file + ".dat"));
+			LoggerInternal.log("Begin parsing of scene data file: " + path);
+			Document document = ParserUtil.getDocument(FileUtils.toURI(path));
 			
-			if(!document.getDocumentElement().getNodeName().equals("texture"))
+			if(!ParserUtil.isCorrectFile(document, "scene"))
 			{
-				throw new IllegalArgumentException("Specified file is not a texture file");
+				throw new IllegalArgumentException("Specified file (" + path + ") is not a scene");
 			}
 			
-			NodeList parameterNodeList = document.getDocumentElement().getElementsByTagName("parameter");
+			Scene oldScene = Scene.getCurrentScene();
+			Scene scene = new Scene();
+			scene.makeCurrent();
 			
-			try
+			NodeList gameObjectsNodeList = document.getElementsByTagName("game_object");
+			GameObjectLoader.parseGameObjectList(gameObjectsNodeList);
+			
+			if(oldScene != null)
 			{
-				String source = document.getDocumentElement().getElementsByTagName("source").item(0).getTextContent();
-				Class<?> clazz = Class.forName(document.getDocumentElement().getElementsByTagName("type").item(0).getTextContent());
-				Object[] parameters = ParserUtil.parseParameterList(parameterNodeList);
-				
-				if(clazz == Texture2D.class)
-				{
-					return Texture2D.load(source, (int)parameters[0], (int)parameters[1], (int)parameters[2], (int)parameters[3], (boolean)parameters[4]);
-				}
+				oldScene.makeCurrent();
 			}
-			catch(ClassNotFoundException e)
-			{
-				Logger.logError(e.getMessage(), e);
-			}
+			
+			return scene;
 		}
 		catch(NoSuchFileException e)
 		{

@@ -20,49 +20,16 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.mesh;
+package com.snakybo.torch.asset;
 
-import org.joml.Vector2f;
-import org.joml.Vector3f;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.snakybo.torch.interfaces.IDestroyable;
 
 /**
- * @author Kevin
+ * @author Snakybo
  * @since 1.0
  */
-final class MeshAsset
+public abstract class Asset implements IDestroyable
 {
-	static Map<String, MeshAsset> all = new HashMap<>();
-	
-	List<Vector3f> vertices;
-	List<Vector2f> texCoords;
-	List<Vector3f> normals;
-	List<Vector3f> tangents;
-	List<Integer> indices;
-	
-	String name;
-	
-	public MeshAsset(String name)
-	{
-		this.name = name;
-		
-		vertices = new ArrayList<>();
-		texCoords = new ArrayList<>();
-		normals = new ArrayList<>();
-		tangents = new ArrayList<>();
-		indices = new ArrayList<>();
-		
-		if(name != null && !name.isEmpty())
-		{
-			all.put(name, this);
-		}
-	}
-	
-	final void destroy()
-	{
-	}
+	@Override
+	public abstract void destroy();
 }

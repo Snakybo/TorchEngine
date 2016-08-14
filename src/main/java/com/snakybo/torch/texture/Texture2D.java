@@ -44,12 +44,12 @@ import static org.lwjgl.opengl.GL13.glActiveTexture;
  */
 public final class Texture2D extends Texture
 {
-	private Texture2D(TextureAsset asset)
+	Texture2D(TextureAsset asset)
 	{
 		this.asset = asset;
 	}
 	
-	private Texture2D(String name, BufferedImage bufferedImage, int filters, float anisoLevel, int internalFormat, int format, boolean clamp)
+	Texture2D(String name, BufferedImage bufferedImage, int filters, float anisoLevel, int internalFormat, int format, boolean clamp)
 	{
 		asset = new TextureAsset(name, bufferedImage, 1);
 		asset.init(filters, anisoLevel, internalFormat, format, clamp);
@@ -121,59 +121,5 @@ public final class Texture2D extends Texture
 
 		glActiveTexture(GL_TEXTURE0 + unit);
 		glBindTexture(GL_TEXTURE_2D, asset.id.get(0));
-	}
-	
-	public static Texture2D load(String path)
-	{
-		return load(path, GL_LINEAR_MIPMAP_LINEAR);
-	}
-	
-	public static Texture2D load(String path, int filters)
-	{
-		return load(path, filters, glGetFloat(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT));
-	}
-	
-	public static Texture2D load(String path, int filters, float anisoLevel)
-	{
-		return load(path, filters, anisoLevel, GL_RGBA);
-	}
-	
-	public static Texture2D load(String path, int filters, float anisoLevel, int internalFormat)
-	{
-		return load(path, filters, anisoLevel, internalFormat, GL_RGBA);
-	}
-	
-	public static Texture2D load(String path, int filters, float anisoLevel, int internalFormat, int format)
-	{
-		return load(path, filters, anisoLevel, internalFormat, format, false);
-	}
-	
-	public static Texture2D load(String path, int filters, float anisoLevel, int internalFormat, int format, boolean clamp)
-	{
-		if(TextureAsset.all.containsKey(path))
-		{
-			return new Texture2D(TextureAsset.all.get(path));
-		}
-		
-		try
-		{
-			String target = path;
-			try
-			{
-				FileUtils.toURI(target);
-			}
-			catch(NoSuchFileException ex)
-			{
-				target = "torch_internal/" + target;
-			}
-			
-			return new Texture2D(path, FileUtils.getBufferedImage(target), filters, anisoLevel, internalFormat, format, clamp);
-		}
-		catch(IOException e)
-		{
-			Logger.logError(e.toString(), e);
-		}
-		
-		return null;
 	}
 }

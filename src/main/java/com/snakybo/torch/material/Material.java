@@ -22,6 +22,7 @@
 
 package com.snakybo.torch.material;
 
+import com.snakybo.torch.asset.Asset;
 import com.snakybo.torch.color.Color;
 import com.snakybo.torch.color.Color32;
 import com.snakybo.torch.component.camera.Camera;
@@ -42,24 +43,30 @@ import java.util.Map;
  * @author Snakybo
  * @since 1.0
  */
-public final class Material implements IDestroyable
+public final class Material extends Asset
 {
-	private Map<String, Object> values;
-	
+	private MaterialAsset asset;
 	private Transform transform;
-	private Shader shader;
+	
+	Material(MaterialAsset asset)
+	{
+		this.asset = asset;
+	}
+	
+	Material(String path, String shader)
+	{
+		asset = new MaterialAsset(path, shader);
+	}
 	
 	public Material(String shader)
 	{
-		this.values = new HashMap<>();
-		this.shader = Shader.load(shader);
+		asset = new MaterialAsset("", shader);
 	}
 	
 	@Override
 	public final void destroy()
 	{
-		values.clear();		
-		shader.destroy();
+		asset.destroy();
 	}
 	
 	/**
@@ -67,7 +74,7 @@ public final class Material implements IDestroyable
 	 */
 	public final void bind()
 	{
-		shader.bind();
+		asset.shader.bind();
 	}
 
 	/**
@@ -75,7 +82,7 @@ public final class Material implements IDestroyable
 	 */
 	public final void unbind()
 	{
-		shader.unbind();
+		asset.shader.unbind();
 	}
 	
 	/**
@@ -83,15 +90,15 @@ public final class Material implements IDestroyable
 	 */
 	public final void update()
 	{
-		if(shader.hasUniform("mvp"))
+		if(asset.shader.hasUniform("mvp"))
 		{
 			Matrix4f mvp = Camera.getCurrentCamera().getViewProjection().mul(transform.getTransformation(), new Matrix4f());
-			shader.setUniform4fv("mvp", mvp);
+			asset.shader.setUniform4fv("mvp", mvp);
 		}
 		
-		for(Map.Entry<String, Object> value : values.entrySet())
+		for(Map.Entry<String, Object> value : asset.values.entrySet())
 		{
-			String type = shader.getUniformType(value.getKey());
+			String type = asset.shader.getUniformType(value.getKey());
 			
 			if(type == null)
 			{
@@ -102,7 +109,7 @@ public final class Material implements IDestroyable
 			{
 			case "sampler2D":
 				((Texture)value.getValue()).bind();
-				shader.setUniform1i(value.getKey(), 0);
+				asset.shader.setUniform1i(value.getKey(), 0);
 				break;
 			default:
 				Logger.logWarning("Invalid uniform type: " + type);
@@ -118,7 +125,7 @@ public final class Material implements IDestroyable
 	 */
 	public final void setVector2f(String name, Vector2f value)
 	{
-		values.put(name, value);
+		asset.values.put(name, value);
 	}
 	
 	/**
@@ -128,7 +135,7 @@ public final class Material implements IDestroyable
 	 */
 	public final void setVector3f(String name, Vector3f value)
 	{
-		values.put(name, value);
+		asset.values.put(name, value);
 	}
 	
 	/**
@@ -138,7 +145,7 @@ public final class Material implements IDestroyable
 	 */
 	public final void setVector4f(String name, Vector4f value)
 	{
-		values.put(name, value);
+		asset.values.put(name, value);
 	}
 	
 	/**
@@ -148,7 +155,7 @@ public final class Material implements IDestroyable
 	 */
 	public final void setColor(String name, Color value)
 	{
-		values.put(name, value);
+		asset.values.put(name, value);
 	}
 	
 	/**
@@ -158,7 +165,7 @@ public final class Material implements IDestroyable
 	 */
 	public final void setColor(String name, Color32 value)
 	{
-		values.put(name, value.toColor());
+		asset.values.put(name, value.toColor());
 	}
 	
 	/**
@@ -168,7 +175,7 @@ public final class Material implements IDestroyable
 	 */
 	public final void setTexture(String name, Texture value)
 	{
-		values.put(name, value);
+		asset.values.put(name, value);
 	}
 	
 	/**
@@ -178,7 +185,7 @@ public final class Material implements IDestroyable
 	 */
 	public final void setFloat(String name, float value)
 	{
-		values.put(name, value);
+		asset.values.put(name, value);
 	}
 	
 	/**
@@ -188,7 +195,7 @@ public final class Material implements IDestroyable
 	 */
 	public final void setInt(String name, int value)
 	{
-		values.put(name, value);
+		asset.values.put(name, value);
 	}
 	
 	/**
@@ -271,16 +278,16 @@ public final class Material implements IDestroyable
 	}
 	
 	/**
-	 * Convenience method to get values from the {@link #values} map
+	 * Convenience method to get values from the material
 	 * @param clazz The type of the object to retrieve
 	 * @param name The name of the object
 	 * @return The object casted to {@code clazz}
 	 */
 	private <T> T get(Class<T> clazz, String name)
 	{
-		if(values.containsKey(name) && values.get(name).getClass() == clazz)
+		if(asset.values.containsKey(name) && asset.values.get(name).getClass() == clazz)
 		{
-			return clazz.cast(values.get(name));
+			return clazz.cast(asset.values.get(name));
 		}
 		
 		Logger.logError("Material does not contain a value for: " + name);
