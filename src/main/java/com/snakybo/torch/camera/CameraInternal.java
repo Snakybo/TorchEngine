@@ -26,7 +26,6 @@ import com.snakybo.torch.color.Color;
 import com.snakybo.torch.component.camera.Camera;
 import com.snakybo.torch.object.Transform;
 import com.snakybo.torch.renderer.Renderer;
-import com.snakybo.torch.renderer.Skybox;
 import com.snakybo.torch.scene.Scene;
 import com.snakybo.torch.texture.Texture;
 import com.snakybo.torch.texture.Texture2D;

@@ -20,8 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.mesh;
+package com.snakybo.torch.renderer;
 
+import com.snakybo.torch.material.Material;
 import com.snakybo.torch.model.Model;
 import org.lwjgl.BufferUtils;
 

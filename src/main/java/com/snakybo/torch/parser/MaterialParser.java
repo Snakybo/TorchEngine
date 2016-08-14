@@ -26,7 +26,7 @@ import com.snakybo.torch.color.Color;
 import com.snakybo.torch.color.Color32;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
-import com.snakybo.torch.mesh.Material;
+import com.snakybo.torch.material.Material;
 import com.snakybo.torch.texture.Texture;
 import com.snakybo.torch.util.FileUtils;
 import org.joml.Vector2f;

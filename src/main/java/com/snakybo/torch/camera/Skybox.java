@@ -20,13 +20,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.renderer;
+package com.snakybo.torch.camera;
 
 import com.snakybo.torch.component.camera.Camera;
-import com.snakybo.torch.mesh.Material;
-import com.snakybo.torch.mesh.MeshRendererInternal;
+import com.snakybo.torch.material.Material;
 import com.snakybo.torch.model.Model;
 import com.snakybo.torch.object.Transform;
+import com.snakybo.torch.renderer.MeshRendererInternal;
 import com.snakybo.torch.texture.Texture;
 import org.joml.Vector3f;
 

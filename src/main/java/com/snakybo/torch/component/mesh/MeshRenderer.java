@@ -22,8 +22,8 @@
 
 package com.snakybo.torch.component.mesh;
 
-import com.snakybo.torch.mesh.Material;
-import com.snakybo.torch.mesh.MeshRendererInternal;
+import com.snakybo.torch.material.Material;
+import com.snakybo.torch.renderer.MeshRendererInternal;
 import com.snakybo.torch.model.Model;
 import com.snakybo.torch.object.Component;
 
