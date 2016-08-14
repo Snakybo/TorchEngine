@@ -48,7 +48,7 @@ public final class TextureParser
 		try
 		{
 			LoggerInternal.log("Parsing texture file: " + file);
-			Document document = ParserUtil.getDocument(FileUtils.toURI(file + ".texture.dat"));
+			Document document = ParserUtil.getDocument(FileUtils.toURI(file + ".dat"));
 			
 			if(!document.getDocumentElement().getNodeName().equals("texture"))
 			{
