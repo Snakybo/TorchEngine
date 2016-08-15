@@ -22,11 +22,14 @@
 
 package com.snakybo.torch.component.camera;
 
+import com.snakybo.torch.asset.AssetLoader;
 import com.snakybo.torch.camera.CameraClearFlags;
 import com.snakybo.torch.camera.CameraInternal;
 import com.snakybo.torch.color.Color;
+import com.snakybo.torch.serialized.Serialized;
 import com.snakybo.torch.object.Component;
 import com.snakybo.torch.texture.Texture;
+import com.snakybo.torch.texture.Texture2D;
 import com.snakybo.torch.window.Window;
 import org.joml.Matrix4f;
 
@@ -41,7 +44,17 @@ public final class Camera extends Component
 {
 	private static Set<Camera> cameras = new HashSet<>();
 	
-	private final CameraInternal camera;
+	@Serialized	private float fieldOfView = 75;
+	@Serialized	private float zNear = 0.01f;
+	@Serialized	private float zFar = 1000f;
+	@Serialized	CameraClearFlags clearFlags = CameraClearFlags.Skybox;
+	@Serialized	Texture2D skyboxTexture = AssetLoader.load(Texture2D.class, "skybox_default.png");
+	
+	private CameraInternal camera;
+	
+	public Camera()
+	{
+	}
 	
 	/**
 	 * Create a new camera.
@@ -52,14 +65,18 @@ public final class Camera extends Component
 	 */
 	public Camera(float fieldOfView, float zNear, float zFar, CameraClearFlags clearFlags)
 	{
-		Matrix4f projection = new Matrix4f().perspective((float)Math.toRadians(fieldOfView), Window.getAspectRatio(), zNear, zFar);
-				
-		camera = new CameraInternal(projection, clearFlags);
+		this.fieldOfView = fieldOfView;
+		this.zNear = zNear;
+		this.zFar = zFar;
+		this.clearFlags = clearFlags;
 	}
 	
 	@Override
 	protected final void start()
 	{
+		Matrix4f projection = new Matrix4f().perspective((float)Math.toRadians(fieldOfView), Window.getAspectRatio(), zNear, zFar);
+		camera = new CameraInternal(projection, clearFlags, skyboxTexture);
+		
 		cameras.add(this);
 		camera.setTransform(getTransform());
 	}

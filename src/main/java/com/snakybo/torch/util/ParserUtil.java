@@ -27,10 +27,8 @@ import com.snakybo.torch.color.Color;
 import com.snakybo.torch.color.Color32;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
-import com.snakybo.torch.material.MaterialAssetLoader;
-import com.snakybo.torch.mesh.Mesh;
-import com.snakybo.torch.mesh.MeshAssetLoader;
-import com.snakybo.torch.texture.TextureAssetLoader;
+import com.snakybo.torch.util.tuple.Tuple1;
+import com.snakybo.torch.util.tuple.Tuple3;
 import org.joml.Quaternionf;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
@@ -46,7 +44,11 @@ import java.io.File;
 import java.net.URI;
 import java.nio.file.NoSuchFileException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Snakybo
@@ -224,6 +226,25 @@ public final class ParserUtil
 		return new Quaternionf(x, y, z, w);
 	}
 	
+	public static Set<Tuple3<String, String, Object>> parseFieldList(NodeList nodeList)
+	{
+		LoggerInternal.log("Parsing field nodes");
+		Set<Tuple3<String, String, Object>> result = new HashSet<>();
+		
+		for(int i = 0; i < nodeList.getLength(); i++)
+		{
+			Node node = nodeList.item(i);
+			
+			if(node.getNodeType() == Node.ELEMENT_NODE)
+			{
+				Element element = (Element)node;
+				result.add(parseField(element));
+			}
+		}
+		
+		return result;
+	}
+	
 	public static Object[] parseParameterList(NodeList nodeList)
 	{
 		LoggerInternal.log("Parsing parameter nodes");
@@ -241,6 +262,15 @@ public final class ParserUtil
 		}
 		
 		return result.toArray(new Object[result.size()]);
+	}
+	
+	public static Tuple3<String, String, Object> parseField(Element element)
+	{
+		String key = element.getAttribute("name");
+		String type = element.getAttribute("type");
+		Object value = parseParameter(element);
+		
+		return new Tuple3<>(key, type, value);
 	}
 	
 	public static Object parseParameter(Element element)

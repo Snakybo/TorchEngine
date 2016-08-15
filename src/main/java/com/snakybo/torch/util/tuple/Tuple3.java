@@ -20,54 +20,22 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.component.mesh;
-
-import com.snakybo.torch.serialized.Serialized;
-import com.snakybo.torch.material.Material;
-import com.snakybo.torch.mesh.Mesh;
-import com.snakybo.torch.renderer.MeshRendererInternal;
-import com.snakybo.torch.object.Component;
+package com.snakybo.torch.util.tuple;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class MeshRenderer extends Component
+public final class Tuple3<V1, V2, V3>
 {
-	@Serialized
-	private Mesh mesh;
-	@Serialized
-	private Material material;
+	public final V1 v1;
+	public final V2 v2;
+	public final V3 v3;
 	
-	private MeshRendererInternal meshRenderer;
-	
-	public MeshRenderer()
+	public Tuple3(V1 v1, V2 v2, V3 v3)
 	{
-	}
-	
-	public MeshRenderer(Mesh mesh, Material material)
-	{
-		this.mesh = mesh;
-		this.material = material;
-	}
-	
-	@Override
-	protected void start()
-	{
-		meshRenderer = new MeshRendererInternal(mesh, material);
-		material.setTransform(getTransform());
-		meshRenderer.create();
-	}
-	
-	@Override
-	protected void renderObject()
-	{
-		meshRenderer.render();
-	}
-	
-	@Override
-	protected void destroy()
-	{
-		meshRenderer.destroy();
+		this.v1 = v1;
+		this.v2 = v2;
+		this.v3 = v3;
 	}
 }

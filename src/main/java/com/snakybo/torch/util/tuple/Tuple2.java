@@ -20,20 +20,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.exposed;
-
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+package com.snakybo.torch.util.tuple;
 
 /**
- * Add this annotation before a private, protected or internal field to expose it to the engine
  * @author Snakybo
  * @since 1.0
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
-public @interface Exposed
+public final class Tuple2<V1, V2>
 {
+	public final V1 v1;
+	public final V2 v2;
+	
+	public Tuple2(V1 v1, V2 v2)
+	{
+		this.v1 = v1;
+		this.v2 = v2;
+	}
 }

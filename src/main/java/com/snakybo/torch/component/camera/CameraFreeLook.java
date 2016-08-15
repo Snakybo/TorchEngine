@@ -24,6 +24,7 @@ package com.snakybo.torch.component.camera;
 
 import com.snakybo.torch.cursor.Cursor;
 import com.snakybo.torch.cursor.CursorLockMode;
+import com.snakybo.torch.serialized.Serialized;
 import com.snakybo.torch.input.mouse.Mouse;
 import com.snakybo.torch.object.Component;
 import com.snakybo.torch.time.Time;
@@ -37,11 +38,10 @@ import org.joml.Vector3f;
  */
 public class CameraFreeLook extends Component
 {
-	private float sensitivity;
+	@Serialized	private float sensitivity = 0.5f;
 	
 	public CameraFreeLook()
 	{
-		this(0.5f);
 	}
 	
 	public CameraFreeLook(float sensitivity)

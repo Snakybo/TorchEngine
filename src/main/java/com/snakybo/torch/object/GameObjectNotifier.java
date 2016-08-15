@@ -23,7 +23,7 @@
 package com.snakybo.torch.object;
 
 import com.snakybo.torch.debug.Logger;
-import com.snakybo.torch.reflection.ReflectionUtil;
+import com.snakybo.torch.util.ReflectionUtil;
 
 import java.lang.reflect.Method;
 

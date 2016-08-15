@@ -24,16 +24,19 @@ package com.snakybo.torch.object;
 
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
+import com.snakybo.torch.serialized.SerializationUtils;
 import com.snakybo.torch.util.ParserUtil;
-import com.snakybo.torch.reflection.ReflectionUtil;
+import com.snakybo.torch.util.tuple.Tuple3;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.lang.*;
+import java.lang.Object;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Snakybo
@@ -112,26 +115,51 @@ public final class GameObjectLoader
 				String clazz = element.getElementsByTagName("class").item(0).getTextContent();
 				
 				LoggerInternal.log("Parsing Component node: " + clazz);
-				NodeList parameterNodeList = element.getElementsByTagName("parameter");
+				NodeList fieldNodeList = element.getElementsByTagName("field");
 				
 				try
 				{
 					Class<?> c = Class.forName(clazz);
-					Component component;
+					Constructor constructor = c.getConstructor();
+					Component component = (Component) constructor.newInstance();
 					
-					if(parameterNodeList.getLength() > 0)
+					if(fieldNodeList.getLength() > 0)
 					{
-						java.lang.Object[] parameters = ParserUtil.parseParameterList(parameterNodeList);
+						Set<Tuple3<String, String, Object>> fields = ParserUtil.parseFieldList(fieldNodeList);
 						
-						Class<?>[] parameterTypes = ReflectionUtil.getObjectTypes(parameters);
-						
-						Constructor constructor = c.getConstructor(parameterTypes);
-						component = (Component) constructor.newInstance(parameters);
-					}
-					else
-					{
-						Constructor constructor = c.getConstructor();
-						component = (Component) constructor.newInstance();
+						for(Tuple3<String, String, Object> field : fields)
+						{
+							switch(field.v2)
+							{
+							case "byte":
+								SerializationUtils.set(component, SerializationUtils.get(component, field.v1), (byte)field.v3);
+								break;
+							case "short":
+								SerializationUtils.set(component, SerializationUtils.get(component, field.v1), (short)field.v3);
+								break;
+							case "int":
+								SerializationUtils.set(component, SerializationUtils.get(component, field.v1), (int)field.v3);
+								break;
+							case "float":
+								SerializationUtils.set(component, SerializationUtils.get(component, field.v1), (float)field.v3);
+								break;
+							case "long":
+								SerializationUtils.set(component, SerializationUtils.get(component, field.v1), (long)field.v3);
+								break;
+							case "double":
+								SerializationUtils.set(component, SerializationUtils.get(component, field.v1), (double)field.v3);
+								break;
+							case "char":
+								SerializationUtils.set(component, SerializationUtils.get(component, field.v1), (char)field.v3);
+								break;
+							case "boolean":
+								SerializationUtils.set(component, SerializationUtils.get(component, field.v1), (boolean)field.v3);
+								break;
+							default:
+								SerializationUtils.set(component, SerializationUtils.get(component, field.v1), field.v3);
+								break;
+							}
+						}
 					}
 					
 					result.add(component);

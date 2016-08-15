@@ -22,12 +22,13 @@
       <components>
         <component>
           <class>com.snakybo.torch.component.camera.Camera</class>
-          <parameters>
-            <parameter type="float">60</parameter>
-            <parameter type="float">0.01</parameter>
-            <parameter type="float">1000</parameter>
-            <parameter type="enum">com.snakybo.torch.camera.CameraClearFlags:Skybox</parameter>
-          </parameters>
+          <fields>
+            <field name="fieldOfView" type="float">75</field>
+            <field name="zNear" type="float">0.01</field>
+            <field name="zFar" type="float">1000</field>
+            <field name="clearFlags" type="enum">com.snakybo.torch.camera.CameraClearFlags:Skybox</field>
+            <field name="skyboxTexture" type="texture">skybox_default.png</field>
+          </fields>
         </component>
         <component>
           <class>com.snakybo.torch.component.camera.CameraFreeLook</class>
@@ -58,10 +59,10 @@
       <components>
         <component>
           <class>com.snakybo.torch.component.mesh.MeshRenderer</class>
-          <parameters>
-            <parameter type="mesh">cube.obj</parameter>
-            <parameter type="material">test.mtl</parameter>
-          </parameters>
+          <fields>
+            <field name="mesh" type="mesh">cube.obj</field>
+            <field name="material" type="material">test.mtl</field>
+          </fields>
         </component>
       </components>
     </game_object>

@@ -20,54 +20,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.component.mesh;
+package com.snakybo.torch.serialized;
 
-import com.snakybo.torch.serialized.Serialized;
-import com.snakybo.torch.material.Material;
-import com.snakybo.torch.mesh.Mesh;
-import com.snakybo.torch.renderer.MeshRendererInternal;
-import com.snakybo.torch.object.Component;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
+ * Add this annotation before a private, protected or internal field to expose it to the engine
  * @author Snakybo
  * @since 1.0
  */
-public final class MeshRenderer extends Component
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
+public @interface Serialized
 {
-	@Serialized
-	private Mesh mesh;
-	@Serialized
-	private Material material;
-	
-	private MeshRendererInternal meshRenderer;
-	
-	public MeshRenderer()
-	{
-	}
-	
-	public MeshRenderer(Mesh mesh, Material material)
-	{
-		this.mesh = mesh;
-		this.material = material;
-	}
-	
-	@Override
-	protected void start()
-	{
-		meshRenderer = new MeshRendererInternal(mesh, material);
-		material.setTransform(getTransform());
-		meshRenderer.create();
-	}
-	
-	@Override
-	protected void renderObject()
-	{
-		meshRenderer.render();
-	}
-	
-	@Override
-	protected void destroy()
-	{
-		meshRenderer.destroy();
-	}
 }

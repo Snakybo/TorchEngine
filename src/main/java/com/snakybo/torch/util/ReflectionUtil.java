@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.reflection;
+package com.snakybo.torch.util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +57,7 @@ public final class ReflectionUtil
 		return result.toArray(new Class<?>[result.size()]);
 	}
 	
-	private static Class<?> sanitizePrimitives(Class<?> clazz)
+	public static Class<?> sanitizePrimitives(Class<?> clazz)
 	{
 		if(clazz == Byte.class)
 		{

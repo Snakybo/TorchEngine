@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.exposed;
+package com.snakybo.torch.serialized;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -33,15 +33,15 @@ import com.snakybo.torch.debug.Logger;
  * @author Snakybo
  * @since 1.0
  */
-public final class ExposedUtils
+public final class SerializationUtils
 {
-	private ExposedUtils()
+	private SerializationUtils()
 	{
 		throw new AssertionError();
 	}
 	
 	/**
-	 * Set the value of an {@link Exposed}
+	 * Set the value of an {@link Serialized}
 	 * @param object The object of the field
 	 * @param field The field
 	 * @param value The value of the field
@@ -70,7 +70,7 @@ public final class ExposedUtils
 	}
 	
 	/**
-	 * Set the value of an {@link Exposed}
+	 * Set the value of an {@link Serialized}
 	 * @param object The object of the field
 	 * @param field The field
 	 * @param value The value of the field
@@ -99,7 +99,7 @@ public final class ExposedUtils
 	}
 	
 	/**
-	 * Set the value of an {@link Exposed}
+	 * Set the value of an {@link Serialized}
 	 * @param object The object of the field
 	 * @param field The field
 	 * @param value The value of the field
@@ -128,7 +128,7 @@ public final class ExposedUtils
 	}
 	
 	/**
-	 * Set the value of an {@link Exposed}
+	 * Set the value of an {@link Serialized}
 	 * @param object The object of the field
 	 * @param field The field
 	 * @param value The value of the field
@@ -157,7 +157,7 @@ public final class ExposedUtils
 	}
 	
 	/**
-	 * Set the value of an {@link Exposed}
+	 * Set the value of an {@link Serialized}
 	 * @param object The object of the field
 	 * @param field The field
 	 * @param value The value of the field
@@ -186,7 +186,7 @@ public final class ExposedUtils
 	}
 	
 	/**
-	 * Set the value of an {@link Exposed}
+	 * Set the value of an {@link Serialized}
 	 * @param object The object of the field
 	 * @param field The field
 	 * @param value The value of the field
@@ -215,7 +215,7 @@ public final class ExposedUtils
 	}
 	
 	/**
-	 * Set the value of an {@link Exposed}
+	 * Set the value of an {@link Serialized}
 	 * @param object The object of the field
 	 * @param field The field
 	 * @param value The value of the field
@@ -244,7 +244,7 @@ public final class ExposedUtils
 	}
 	
 	/**
-	 * Set the value of an {@link Exposed}
+	 * Set the value of an {@link Serialized}
 	 * @param object The object of the field
 	 * @param field The field
 	 * @param value The value of the field
@@ -273,7 +273,7 @@ public final class ExposedUtils
 	}
 	
 	/**
-	 * Set the value of an {@link Exposed}
+	 * Set the value of an {@link Serialized}
 	 * @param object The object of the field
 	 * @param field The field
 	 * @param value The value of the field
@@ -302,7 +302,7 @@ public final class ExposedUtils
 	}
 	
 	/**
-	 * Set the value of an {@link Exposed}
+	 * Set the value of an {@link Serialized}
 	 * @param object The object of the field
 	 * @param field The field
 	 * @param value The value of the field
@@ -331,7 +331,7 @@ public final class ExposedUtils
 	}
 	
 	/**
-	 * Get all {@link Exposed}s from an object
+	 * Get all {@link Serialized}s from an object
 	 * @param object The object
 	 * @return All accessible fields
 	 */
@@ -353,7 +353,7 @@ public final class ExposedUtils
 	}
 	
 	/**
-	 * Get an {@link Exposed} with the specified {@code name}
+	 * Get an {@link Serialized} with the specified {@code name}
 	 * @param object The object of the field
 	 * @param name The name of the field
 	 * @return The field, or null if no field was found with the specified name
@@ -378,7 +378,7 @@ public final class ExposedUtils
 	}
 	
 	/**
-	 * Get the value of an {@link Exposed}
+	 * Get the value of an {@link Serialized}
 	 * @param object The object of the field
 	 * @param field The field to get the value of
 	 * @return The value of the field as a string
@@ -418,8 +418,8 @@ public final class ExposedUtils
 			return false;
 		}
 		
-		// A field must have the Exposed annotation or be public
-		if(!field.isAnnotationPresent(Exposed.class) && !Modifier.isPublic(modifiers))
+		// A field must have the Serialized annotation or be public
+		if(!field.isAnnotationPresent(Serialized.class) && !Modifier.isPublic(modifiers))
 		{
 			return false;
 		}

@@ -66,11 +66,16 @@ public final class CameraInternal
 	 */
 	public CameraInternal(Matrix4f projection, CameraClearFlags clearFlags)
 	{
+		this(projection, clearFlags, AssetLoader.load(Texture2D.class, "skybox_default.png"));
+	}
+	
+	public CameraInternal(Matrix4f projection, CameraClearFlags clearFlags, Texture2D skyboxTexture)
+	{
 		this.projection = projection;
 		this.clearFlags = clearFlags;
 		
 		clearColor = new Color(0, 0, 0, 0);
-		skybox = new Skybox(AssetLoader.load(Texture2D.class, "skybox_default.png"));
+		skybox = new Skybox(skyboxTexture);
 		
 		transform = new Transform();
 		

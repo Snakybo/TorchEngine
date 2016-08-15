@@ -22,6 +22,7 @@
 
 package com.snakybo.torch.component.camera;
 
+import com.snakybo.torch.serialized.Serialized;
 import com.snakybo.torch.input.keyboard.Key;
 import com.snakybo.torch.input.keyboard.Keyboard;
 import com.snakybo.torch.object.Component;
@@ -34,40 +35,15 @@ import org.joml.Vector3f;
  */
 public class CameraFreeMove extends Component
 {
-	private Key forward;
-	private Key left;
-	private Key back;
-	private Key right;
+	@Serialized	private Key forward = Key.W;
+	@Serialized	private Key left = Key.A;
+	@Serialized	private Key back = Key.S;
+	@Serialized	private Key right = Key.D;
 	
-	private float speed;
+	@Serialized	private float speed = 2f;
 	
-	/**
-	 * Create a new free move component.
-	 */
 	public CameraFreeMove()
 	{
-		this(2f);
-	}
-	
-	/**
-	 * Create a new free move component.
-	 * @param forward The key to move forward.
-	 * @param left The key to move to the left.
-	 * @param back The key to move backwards.
-	 * @param right The key to move to the right.
-	 */
-	public CameraFreeMove(Key forward, Key left, Key back, Key right)
-	{
-		this(0.13f, forward, left, back, right);
-	}
-	
-	/**
-	 * Create a new free move component.
-	 * @param speed The movement speed.
-	 */
-	public CameraFreeMove(float speed)
-	{
-		this(speed, Key.W, Key.A, Key.S, Key.D);
 	}
 	
 	/**
