@@ -24,18 +24,12 @@ package opengl;
 
 import com.snakybo.torch.Engine;
 import com.snakybo.torch.Game;
-import com.snakybo.torch.asset.AssetLoader;
-import com.snakybo.torch.component.mesh.MeshRenderer;
-import com.snakybo.torch.material.Material;
-import com.snakybo.torch.mesh.Mesh;
 import com.snakybo.torch.monitor.DisplayMode;
 import com.snakybo.torch.monitor.Monitor;
-import com.snakybo.torch.object.GameObject;
 import com.snakybo.torch.scene.Scene;
 import com.snakybo.torch.window.Window;
 import com.snakybo.torch.window.WindowMode;
 import com.snakybo.torch.scene.SceneLoader;
-import org.joml.Vector3f;
 
 /**
  * @author Kevin

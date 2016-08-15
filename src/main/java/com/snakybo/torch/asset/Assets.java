@@ -35,9 +35,9 @@ import java.nio.file.NoSuchFileException;
  * @author Snakybo
  * @since 1.0
  */
-public final class AssetLoader
+public final class Assets
 {
-	private AssetLoader()
+	private Assets()
 	{
 		throw new AssertionError();
 	}

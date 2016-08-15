@@ -24,7 +24,7 @@ package com.snakybo.torch.material;
 
 import com.snakybo.torch.asset.Asset;
 import com.snakybo.torch.asset.AssetData;
-import com.snakybo.torch.asset.AssetLoader;
+import com.snakybo.torch.asset.Assets;
 import com.snakybo.torch.shader.Shader;
 
 import java.util.HashMap;
@@ -46,7 +46,7 @@ final class MaterialAsset extends AssetData
 	{
 		super(name);
 		
-		this.shader = AssetLoader.load(Shader.class, shader);
+		this.shader = Assets.load(Shader.class, shader);
 		this.values = new HashMap<>();
 		
 		if(name != null && !name.isEmpty())

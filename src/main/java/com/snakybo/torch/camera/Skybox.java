@@ -22,7 +22,7 @@
 
 package com.snakybo.torch.camera;
 
-import com.snakybo.torch.asset.AssetLoader;
+import com.snakybo.torch.asset.Assets;
 import com.snakybo.torch.component.camera.Camera;
 import com.snakybo.torch.material.Material;
 import com.snakybo.torch.mesh.Mesh;
@@ -50,7 +50,7 @@ public final class Skybox
 		material.setTexture("diffuse", texture);
 		material.setTransform(transform);
 		
-		meshRenderer = new MeshRendererInternal(AssetLoader.load(Mesh.class, "skybox.obj"), material);
+		meshRenderer = new MeshRendererInternal(Assets.load(Mesh.class, "skybox.obj"), material);
 		meshRenderer.create();
 	}
 	

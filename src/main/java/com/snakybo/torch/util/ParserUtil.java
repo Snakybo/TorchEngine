@@ -22,12 +22,11 @@
 
 package com.snakybo.torch.util;
 
-import com.snakybo.torch.asset.AssetLoader;
+import com.snakybo.torch.asset.Assets;
 import com.snakybo.torch.color.Color;
 import com.snakybo.torch.color.Color32;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
-import com.snakybo.torch.util.tuple.Tuple1;
 import com.snakybo.torch.util.tuple.Tuple3;
 import org.joml.Quaternionf;
 import org.joml.Vector2f;
@@ -44,10 +43,8 @@ import java.io.File;
 import java.net.URI;
 import java.nio.file.NoSuchFileException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -304,7 +301,7 @@ public final class ParserUtil
 		case "material":
 		case "texture":
 		case "mesh":
-			return AssetLoader.load(element.getTextContent());
+			return Assets.load(element.getTextContent());
 		default:
 			Logger.logError("Unknown parameter type: " + type);
 			return null;

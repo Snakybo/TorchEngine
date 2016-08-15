@@ -22,7 +22,7 @@
 
 package com.snakybo.torch.component.camera;
 
-import com.snakybo.torch.asset.AssetLoader;
+import com.snakybo.torch.asset.Assets;
 import com.snakybo.torch.camera.CameraClearFlags;
 import com.snakybo.torch.camera.CameraInternal;
 import com.snakybo.torch.color.Color;
@@ -48,7 +48,7 @@ public final class Camera extends Component
 	@Serialized	private float zNear = 0.01f;
 	@Serialized	private float zFar = 1000f;
 	@Serialized	CameraClearFlags clearFlags = CameraClearFlags.Skybox;
-	@Serialized	Texture2D skyboxTexture = AssetLoader.load(Texture2D.class, "skybox_default.png");
+	@Serialized	Texture2D skyboxTexture = Assets.load(Texture2D.class, "skybox_default.png");
 	
 	private CameraInternal camera;
 	
