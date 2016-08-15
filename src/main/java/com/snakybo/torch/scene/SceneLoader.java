@@ -25,8 +25,8 @@ package com.snakybo.torch.scene;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.object.GameObjectLoader;
-import com.snakybo.torch.util.ParserUtil;
 import com.snakybo.torch.util.FileUtils;
+import com.snakybo.torch.util.ParserUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 

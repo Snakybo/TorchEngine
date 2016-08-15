@@ -22,7 +22,6 @@
 
 package com.snakybo.torch.asset;
 
-import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.interfaces.IDestroyable;
 

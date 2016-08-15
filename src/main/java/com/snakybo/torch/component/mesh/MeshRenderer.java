@@ -23,11 +23,11 @@
 package com.snakybo.torch.component.mesh;
 
 import com.snakybo.torch.asset.Assets;
-import com.snakybo.torch.serialized.Serialized;
 import com.snakybo.torch.material.Material;
 import com.snakybo.torch.mesh.Mesh;
-import com.snakybo.torch.renderer.MeshRendererInternal;
 import com.snakybo.torch.object.Component;
+import com.snakybo.torch.renderer.MeshRendererInternal;
+import com.snakybo.torch.serialized.Serialized;
 
 /**
  * @author Snakybo

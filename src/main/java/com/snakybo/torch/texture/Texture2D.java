@@ -22,12 +22,7 @@
 
 package com.snakybo.torch.texture;
 
-import com.snakybo.torch.debug.Logger;
-import com.snakybo.torch.util.FileUtils;
-
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.nio.file.NoSuchFileException;
 
 import static org.lwjgl.opengl.EXTTextureFilterAnisotropic.GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT;
 import static org.lwjgl.opengl.GL11.GL_LINEAR_MIPMAP_LINEAR;

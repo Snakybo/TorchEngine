@@ -27,7 +27,6 @@ import com.snakybo.torch.color.Color;
 import com.snakybo.torch.color.Color32;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
-import com.snakybo.torch.interfaces.IDestroyable;
 import com.snakybo.torch.util.ToByteBuffer;
 
 import javax.imageio.ImageIO;

@@ -22,10 +22,10 @@
 
 package com.snakybo.torch.component.camera;
 
-import com.snakybo.torch.serialized.Serialized;
 import com.snakybo.torch.input.keyboard.Key;
 import com.snakybo.torch.input.keyboard.Keyboard;
 import com.snakybo.torch.object.Component;
+import com.snakybo.torch.serialized.Serialized;
 import com.snakybo.torch.time.Time;
 import org.joml.Vector3f;
 

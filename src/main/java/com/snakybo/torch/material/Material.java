@@ -27,16 +27,13 @@ import com.snakybo.torch.color.Color;
 import com.snakybo.torch.color.Color32;
 import com.snakybo.torch.component.camera.Camera;
 import com.snakybo.torch.debug.Logger;
-import com.snakybo.torch.interfaces.IDestroyable;
 import com.snakybo.torch.object.Transform;
-import com.snakybo.torch.shader.Shader;
 import com.snakybo.torch.texture.Texture;
 import org.joml.Matrix4f;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**

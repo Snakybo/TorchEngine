@@ -27,9 +27,9 @@ import com.snakybo.torch.Game;
 import com.snakybo.torch.monitor.DisplayMode;
 import com.snakybo.torch.monitor.Monitor;
 import com.snakybo.torch.scene.Scene;
+import com.snakybo.torch.scene.SceneLoader;
 import com.snakybo.torch.window.Window;
 import com.snakybo.torch.window.WindowMode;
-import com.snakybo.torch.scene.SceneLoader;
 
 /**
  * @author Kevin

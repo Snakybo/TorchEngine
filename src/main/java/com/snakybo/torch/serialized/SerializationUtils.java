@@ -22,12 +22,12 @@
 
 package com.snakybo.torch.serialized;
 
+import com.snakybo.torch.debug.Logger;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.snakybo.torch.debug.Logger;
 
 /**
  * @author Snakybo

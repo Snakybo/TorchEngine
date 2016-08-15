@@ -24,8 +24,6 @@ package com.snakybo.torch.object;
 
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
-import com.snakybo.torch.object.Component;
-import com.snakybo.torch.object.GameObject;
 import com.snakybo.torch.serialized.SerializationUtils;
 import com.snakybo.torch.util.ParserUtil;
 import com.snakybo.torch.util.tuple.Tuple3;
@@ -33,7 +31,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import java.lang.*;
 import java.lang.Object;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
