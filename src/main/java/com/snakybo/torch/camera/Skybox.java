@@ -23,7 +23,7 @@
 package com.snakybo.torch.camera;
 
 import com.snakybo.torch.asset.Assets;
-import com.snakybo.torch.component.camera.Camera;
+import com.snakybo.torch.component.Camera;
 import com.snakybo.torch.material.Material;
 import com.snakybo.torch.mesh.Mesh;
 import com.snakybo.torch.object.Transform;
@@ -32,10 +32,14 @@ import com.snakybo.torch.texture.Texture;
 import org.joml.Vector3f;
 
 /**
+ * <p>
+ * The skybox of a camera, handles all rendering of the skybox.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */
-public final class Skybox
+final class Skybox
 {
 	private MeshRendererInternal meshRenderer;
 	private Transform transform;
@@ -54,6 +58,9 @@ public final class Skybox
 		meshRenderer.create();
 	}
 	
+	/**
+	 * Render the skybox, should happen after the camera has finished rendering the scene.
+	 */
 	public final void render()
 	{
 		Vector3f position = new Vector3f();
@@ -67,6 +74,10 @@ public final class Skybox
 		meshRenderer.render();
 	}
 	
+	/**
+	 * Set the texture of the skybox.
+	 * @param texture The new texture.
+	 */
 	public final void setTexture(Texture texture)
 	{
 		material.setTexture("diffuse", texture);

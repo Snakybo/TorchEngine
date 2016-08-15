@@ -104,18 +104,7 @@ public final class GameObject extends Object implements IDestroyable
 	 */
 	public final <T extends Component> T addComponent(Class<T> component)
 	{
-		try
-		{
-			T result = component.getConstructor().newInstance();
-			queue.put(result, QueueOperation.Add);
-			return result;
-		}
-		catch(ReflectiveOperationException e)
-		{
-			Logger.logError(e.getMessage(), e);
-		}
-		
-		return null;
+		return component.cast(addComponentInternal(component));
 	}
 	
 	public final void removeComponent(Component component)

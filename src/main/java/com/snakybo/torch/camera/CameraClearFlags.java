@@ -22,7 +22,14 @@
 
 package com.snakybo.torch.camera;
 
+import com.snakybo.torch.component.Camera;
+
 /**
+ * <p>
+ * All available clear flags for a camera, set a flag with
+ * {@link Camera#setClearFlags(CameraClearFlags)}
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */

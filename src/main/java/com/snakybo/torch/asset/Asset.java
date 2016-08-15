@@ -25,11 +25,28 @@ package com.snakybo.torch.asset;
 import com.snakybo.torch.interfaces.IDestroyable;
 
 /**
+ * <p>
+ * An asset, everything loadable with {@link Assets#load(String)} is an asset.
+ * </p>
+ *
+ * <p>
+ * Assets should internally store all of their data in an {@link AssetData} instance,
+ * and upon creation an asset should check if a simmilar asset has already been loaded,
+ * and if so it should use the existing {@link AssetData} instead of loading everything again.
+ * </p>
+ *
+ * @see Assets
+ * @see AssetData
+ *
  * @author Snakybo
  * @since 1.0
  */
 public abstract class Asset implements IDestroyable
 {
+	/**
+	 * Destroy the asset, this merely disables the {@link Asset},
+	 * and does not necessarily unload data bound to the Asset.
+	 */
 	@Override
 	public abstract void destroy();
 }

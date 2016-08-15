@@ -32,6 +32,10 @@ import com.snakybo.torch.util.FileUtils;
 import java.nio.file.NoSuchFileException;
 
 /**
+ * <p>
+ * The {@link Asset} loader. Attempts to load assets based on their file extension.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */
@@ -42,6 +46,11 @@ public final class Assets
 		throw new AssertionError();
 	}
 	
+	/**
+	 * Load an asset by file name.
+	 * @param file The file to load.
+	 * @return The loaded asset if it exists and has a known type. Returns {@code null} otherwise.
+	 */
 	public static Asset load(String file)
 	{
 		try
@@ -73,6 +82,14 @@ public final class Assets
 		return null;
 	}
 	
+	/**
+	 * Load an asset by file name.
+	 * @param clazz The class to cast the resulting {@link Asset} to.
+	 * @param file The file to load.
+	 * @param <T> The class to cast the resulting {@link Asset} to.
+	 * @return The loaded asset if it exists and has a known type. Returns {@code null} otherwise.
+	 * @see #load(String)
+	 */
 	public static <T extends Asset> T load(Class<T> clazz, String file)
 	{
 		Asset result = load(file);

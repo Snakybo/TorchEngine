@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.component.mesh;
+package com.snakybo.torch.component;
 
 import com.snakybo.torch.asset.Assets;
 import com.snakybo.torch.material.Material;
@@ -30,6 +30,17 @@ import com.snakybo.torch.renderer.MeshRendererInternal;
 import com.snakybo.torch.serialized.Serialized;
 
 /**
+ * <p>
+ * A {@link Mesh} renderer.
+ * </p>
+ *
+ * <p>
+ * Renders a mesh with the specified material.
+ * </p>
+ *
+ * @see Mesh
+ * @see Material
+ *
  * @author Snakybo
  * @since 1.0
  */
@@ -41,7 +52,7 @@ public final class MeshRenderer extends Component
 	private MeshRendererInternal meshRenderer;
 	
 	@Override
-	protected void onStart()
+	protected final void onStart()
 	{
 		meshRenderer = new MeshRendererInternal(mesh, material);
 		material.setTransform(getTransform());
@@ -49,17 +60,21 @@ public final class MeshRenderer extends Component
 	}
 	
 	@Override
-	protected void onRenderObject()
+	protected final void onRenderObject()
 	{
 		meshRenderer.render();
 	}
 	
 	@Override
-	protected void onDestroy()
+	protected final void onDestroy()
 	{
 		meshRenderer.destroy();
 	}
 	
+	/**
+	 * Set the {@link Mesh}.
+	 * @param mesh The new mesh.
+	 */
 	public final void setMesh(Mesh mesh)
 	{
 		this.mesh = mesh;
@@ -67,17 +82,27 @@ public final class MeshRenderer extends Component
 		meshRenderer = new MeshRendererInternal(mesh, material);
 	}
 	
+	/**
+	 * Set the {@link Material}.
+	 * @param material The new material.
+	 */
 	public final void setMaterial(Material material)
 	{
 		this.material = material;
 		meshRenderer.setMaterial(material);
 	}
 	
+	/**
+	 * @return The current mesh.
+	 */
 	public final Mesh getMesh()
 	{
 		return mesh;
 	}
 	
+	/**
+	 * @return The current material.
+	 */
 	public final Material getMaterial()
 	{
 		return material;

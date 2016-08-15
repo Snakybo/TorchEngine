@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.component.camera;
+package opengl;
 
 import com.snakybo.torch.input.keyboard.Key;
 import com.snakybo.torch.input.keyboard.Keyboard;

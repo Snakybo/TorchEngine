@@ -25,6 +25,12 @@ package com.snakybo.torch.color;
 import com.snakybo.torch.util.MathUtils;
 
 /**
+ * <p>
+ * A color in the range [0-1]
+ * </p>
+ *
+ * @see Color32
+ *
  * @author Snakybo
  * @since 1.0
  */
@@ -33,7 +39,7 @@ public final class Color
 	private Color32 value;
 	
 	/**
-	 * Create a new color
+	 * Create a new color.
 	 */
 	public Color()
 	{
@@ -41,10 +47,13 @@ public final class Color
 	}
 	
 	/**
-	 * Create a new color. Values are in the range of [0-1]
-	 * @param r The red component
-	 * @param g The green component
-	 * @param b The blue component
+	 * Create a new color, specifying the red, green and blue component.
+	 * <p>
+	 * Values are in the range [0-1].
+	 * </p>
+	 * @param r The red component.
+	 * @param g The green component.
+	 * @param b The blue component.
 	 */
 	public Color(float r, float g, float b)
 	{
@@ -52,21 +61,24 @@ public final class Color
 	}
 	
 	/**
-	 * Create a new color. Values are in the range of [0-1]
-	 * @param r The red component
-	 * @param g The green component
-	 * @param b The blue component
-	 * @param a The alpha component
+	 * Create a new color, specifying the red, green, blue and alpha component.
+	 * <p>
+	 * Values are in the range [0-1].
+	 * </p>
+	 * @param r The red component.
+	 * @param g The green component.
+	 * @param b The blue component.
+	 * @param a The alpha component.
 	 */
 	public Color(float r, float g, float b, float a)
 	{
-		// Clamp the input values between 0-1
+		// Clamp the input values between [0-1]
 		r = MathUtils.clamp01(r);
 		g = MathUtils.clamp01(g);
 		b = MathUtils.clamp01(b);
 		a = MathUtils.clamp01(a);
 		
-		// Convert the values to the range of 0-255
+		// Convert the values to the range [0-255]
 		int r32 = (int)(r * 255 + 0.5);
 		int g32 = (int)(g * 255 + 0.5);
 		int b32 = (int)(b * 255 + 0.5);
@@ -76,8 +88,8 @@ public final class Color
 	}
 	
 	/**
-	 * Copy the value of another color
-	 * @param other The color to copy
+	 * Copy the value of another color.
+	 * @param other The color to copy.
 	 */
 	public Color(Color other)
 	{
@@ -85,26 +97,26 @@ public final class Color
 	}
 	
 	@Override
-	public String toString()
+	public final String toString()
 	{
-		return "(" + getRed() + ", " + getGreen() + ", " + getBlue() + ", " + getAlpha() + ")";
+		return "(r=" + getRed() + ", g=" + getGreen() + ", b=" + getBlue() + ", a=" + getAlpha() + ")";
 	}
 	
 	@Override
-	public int hashCode()
+	public final int hashCode()
 	{
 		return value.hashCode();
 	}
 	
 	@Override
-	public boolean equals(Object obj)
+	public final boolean equals(Object obj)
 	{
 		return obj instanceof Color && ((Color)obj).value.getARGB() == value.getARGB();
 	}
 	
 	/**
-	 * Set the red component of the color. Accepted value is in the range of [0-1]
-	 * @param r The red component
+	 * Set the red component of the color. Accepted values are in the range [0-1].
+	 * @param r The new red component.
 	 */
 	public final void setRed(float r)
 	{
@@ -115,8 +127,8 @@ public final class Color
 	}
 	
 	/**
-	 * Set the green component of the color. Accepted value is in the range of [0-1]
-	 * @param g The green component
+	 * Set the green component of the color. Accepted value is in the range [0-1].
+	 * @param g The new green component.
 	 */
 	public final void setGreen(float g)
 	{
@@ -127,8 +139,8 @@ public final class Color
 	}
 	
 	/**
-	 * Set the blue component of the color. Accepted value is in the range of [0-1]
-	 * @param b The blue component
+	 * Set the blue component of the color. Accepted value is in the range [0-1].
+	 * @param b The new blue component.
 	 */
 	public final void setBlue(float b)
 	{
@@ -139,8 +151,8 @@ public final class Color
 	}
 	
 	/**
-	 * Set the alpha component of the color. Accepted value is in the range of [0-1]
-	 * @param a The alpha component
+	 * Set the alpha component of the color. Accepted value is in the range [0-1].
+	 * @param a The new alpha component.
 	 */
 	public final void setAlpha(float a)
 	{
@@ -151,7 +163,7 @@ public final class Color
 	}
 	
 	/**
-	 * @return The color values to a color in the range of [0-255] 
+	 * @return The color values to a {@link Color32} in the range [0-255].
 	 */
 	public final Color32 toColor32()
 	{
@@ -159,7 +171,7 @@ public final class Color
 	}
 	
 	/**
-	 * @return The red component of the color
+	 * @return The red component of the color.
 	 */
 	public final float getRed()
 	{
@@ -167,7 +179,7 @@ public final class Color
 	}
 	
 	/**
-	 * @return The green component of the color
+	 * @return The green component of the color.
 	 */
 	public final float getGreen()
 	{
@@ -175,7 +187,7 @@ public final class Color
 	}
 	
 	/**
-	 * @return The blue component of the color
+	 * @return The blue component of the color.
 	 */
 	public final float getBlue()
 	{
@@ -183,7 +195,7 @@ public final class Color
 	}
 	
 	/**
-	 * @return The alpha component of the color
+	 * @return The alpha component of the color.
 	 */
 	public final float getAlpha()
 	{
@@ -191,7 +203,7 @@ public final class Color
 	}
 	
 	/**
-	 * @return The RGB value of the color. Bits 24-31 are alpha, 16-23 are red, 8-15 are green, 0-7 are blue
+	 * @return The ARGB value of the color. Bits 24-31 are alpha, 16-23 are red, 8-15 are green, 0-7 are blue.
 	 */
 	public final int getARGB()
 	{

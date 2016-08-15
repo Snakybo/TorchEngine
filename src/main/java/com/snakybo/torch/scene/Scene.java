@@ -50,6 +50,7 @@ public final class Scene implements IDestroyable
 	static
 	{
 		allScenes = new HashSet<>();
+		currentScene = new Scene();
 	}
 	
 	public Scene()

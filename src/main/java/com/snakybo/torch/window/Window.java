@@ -214,7 +214,7 @@ public final class Window
 	}
 	
 	/**
-	 * Set the size of the window.
+	 * @return The size of the window.
 	 */
 	public static Vector2f getSize()
 	{
@@ -226,7 +226,6 @@ public final class Window
 	}
 	
 	/**
-	 * Get the aspect ratio of the window.
 	 * @return The aspect ratio of the window.
 	 */
 	public static float getAspectRatio()
@@ -236,7 +235,6 @@ public final class Window
 	}
 	
 	/**
-	 * Get the center of the window.
 	 * @return The center of the window.
 	 */
 	public static Vector2f getCenter()
@@ -245,7 +243,6 @@ public final class Window
 	}
 	
 	/**
-	 * Get the native ID of the window.
 	 * @return The native ID of the window.
 	 */
 	public static long getNativeId()

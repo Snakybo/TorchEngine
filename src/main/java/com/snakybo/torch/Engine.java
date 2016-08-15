@@ -22,7 +22,7 @@
 
 package com.snakybo.torch;
 
-import com.snakybo.torch.component.camera.Camera;
+import com.snakybo.torch.component.Camera;
 import com.snakybo.torch.cursor.CursorController;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
@@ -42,6 +42,18 @@ import org.lwjgl.Version;
 import static org.lwjgl.glfw.GLFW.glfwGetTime;
 
 /**
+ * <p>
+ * Main class of the engine, the core update and render loop is handled by this,
+ * as well as creating and destroying dependencies.
+ * </p>
+ *
+ * <p>
+ * Aside from {@link #initialize()}, you do not need any further interaction with this class.
+ * Instead use {@link Game} for starting, pausing and stopping the game.
+ * </p>
+ *
+ * @see Game
+ *
  * @author Snakybo
  * @since 1.0
  */
@@ -51,6 +63,9 @@ public final class Engine
 	
 	private static boolean initialized;
 	
+	/**
+	 * Initialize the engine, this must be the first interaction your game has with the engine.
+	 */
 	public static void initialize()
 	{
 		if(!initialized)
@@ -62,9 +77,6 @@ public final class Engine
 			GLFW.create();
 			MonitorController.create();
 			
-			// Create an empty scene
-			new Scene();
-			
 			initialized = true;
 		}
 	}
@@ -74,13 +86,18 @@ public final class Engine
 	 */
 	static void start()
 	{
-		if(!running)
+		if(!running && initialized)
 		{
 			LoggerInternal.log("Starting");
 			
 			running = true;
 			
 			mainLoop();
+		}
+		
+		if(!initialized)
+		{
+			Logger.logError("You must initialize the engine by calling Engine.initialize() before starting the game");
 		}
 	}
 	
@@ -97,9 +114,6 @@ public final class Engine
 		}
 	}
 	
-	/**
-	 * The main loop of the engine.
-	 */
 	private static void mainLoop()
 	{
 		while(running)
@@ -178,9 +192,6 @@ public final class Engine
 		}
 	}
 	
-	/**
-	 * Destroy all engine systems.
-	 */
 	private static void destroy()
 	{
 		Scene.getCurrentScene().getAllGameObjects().forEach(GameObjectNotifier::destroy);

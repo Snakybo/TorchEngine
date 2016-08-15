@@ -24,7 +24,7 @@ package com.snakybo.torch.camera;
 
 import com.snakybo.torch.asset.Assets;
 import com.snakybo.torch.color.Color;
-import com.snakybo.torch.component.camera.Camera;
+import com.snakybo.torch.component.Camera;
 import com.snakybo.torch.object.Transform;
 import com.snakybo.torch.renderer.Renderer;
 import com.snakybo.torch.scene.Scene;
@@ -34,8 +34,8 @@ import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
@@ -43,12 +43,24 @@ import static org.lwjgl.opengl.GL11.glClear;
 import static org.lwjgl.opengl.GL11.glClearColor;
 
 /**
+ * <p>
+ * The camera used internally by the engine, all {@link Camera}s internally
+ * have a {@link CameraInternal} and are just a relay for the methods here.
+ * </p>
+ *
+ * <p>
+ * You most likely don't have a need to use this class,
+ * instead use the provided {@link Camera} component.
+ * </p>
+ *
+ * @see Camera
+ *
  * @author Snakybo
  * @since 1.0
  */
 public final class CameraInternal
 {
-	private static Set<CameraInternal> cameras = new HashSet<>();
+	private static List<CameraInternal> cameras = new ArrayList<>();
 	private static CameraInternal current;
 	private static CameraInternal main;
 	
@@ -69,6 +81,12 @@ public final class CameraInternal
 		this(projection, clearFlags, Assets.load(Texture2D.class, "skybox_default.png"));
 	}
 	
+	/**
+	 * Create a new camera.
+	 * @param projection The projection of the camera.
+	 * @param clearFlags The {@link CameraClearFlags} to use.
+	 * @param skyboxTexture The texture to use for the {@link Skybox}
+	 */
 	public CameraInternal(Matrix4f projection, CameraClearFlags clearFlags, Texture2D skyboxTexture)
 	{
 		this.projection = projection;
@@ -93,6 +111,11 @@ public final class CameraInternal
 	public final void destroy()
 	{
 		cameras.remove(this);
+		
+		if(main == this)
+		{
+			main = cameras.size() > 0 ? cameras.get(0) : null;
+		}
 	}
 	
 	/**
@@ -153,6 +176,10 @@ public final class CameraInternal
 		this.transform = transform;
 	}
 	
+	/**
+	 * Set the skybox texture of the camera.
+	 * @param texture The new texture of the skybox.
+	 */
 	public final void setSkybox(Texture texture)
 	{
 		skybox.setTexture(texture);
@@ -168,7 +195,6 @@ public final class CameraInternal
 	}
 	
 	/**
-	 * Get the {@link CameraClearFlags} this camera is using.
 	 * @return The {@link CameraClearFlags} this camera is using.
 	 */
 	public final CameraClearFlags getClearFlags()
@@ -177,7 +203,6 @@ public final class CameraInternal
 	}
 	
 	/**
-	 * Get the projection of this camera.
 	 * @return The projection of the camera.
 	 */
 	public final Matrix4f getProjection()
@@ -186,7 +211,6 @@ public final class CameraInternal
 	}
 	
 	/**
-	 * Get the view projection of this camera.
 	 * @return The view projection of the camera.
 	 */
 	public final Matrix4f getViewProjection()
@@ -202,7 +226,6 @@ public final class CameraInternal
 	}
 	
 	/**
-	 * Get the clear color of this camera.
 	 * @return The clear color of the camera.
 	 */
 	public final Color getClearColor()
@@ -210,14 +233,17 @@ public final class CameraInternal
 		return clearColor;
 	}
 	
-	
+	/**
+	 * Set the main camera, use {@link Camera#setMainCamera(Camera)} unless you specifically need an internal camera.
+	 * @param camera
+	 */
 	public static void setMainCamera(CameraInternal camera)
 	{
 		main = camera;
 	}
 	
 	/**
-	 * Get all cameras.
+	 * Get all cameras, use {@link Camera#getCameras()} unless you specifically need an internal camera.
 	 * @return All cameras.
 	 */
 	public static Iterable<CameraInternal> getCameras()
@@ -226,16 +252,20 @@ public final class CameraInternal
 	}
 	
 	/**
-	 * Get the current camera, use {@link Camera#getCurrentCamera()} unless you have to access internal cameras.
+	 * Get the main camera, use {@link Camera#getMainCamera()} unless you specifically need an internal camera.
+	 * @return The main camera.
+	 */
+	public static CameraInternal getMainCamera()
+	{
+		return main;
+	}
+	
+	/**
+	 * Get the current camera, use {@link Camera#getCurrentCamera()} unless you specifically need an internal camera.
 	 * @return The current camera.
 	 */
 	public static CameraInternal getCurrentCamera()
 	{
 		return current;
-	}
-	
-	public static CameraInternal getMainCamera()
-	{
-		return main;
 	}
 }

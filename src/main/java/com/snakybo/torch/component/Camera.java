@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.component.camera;
+package com.snakybo.torch.component;
 
 import com.snakybo.torch.asset.Assets;
 import com.snakybo.torch.camera.CameraClearFlags;
@@ -37,6 +37,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * <p>
+ * The camera component. Everything in the camera's viewport
+ * is rendered automatically every frame.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */
@@ -51,6 +56,7 @@ public final class Camera extends Component
 	@Serialized	Texture2D skyboxTexture = Assets.load(Texture2D.class, "skybox_default.png");
 	
 	private CameraInternal camera;
+	private boolean changed;
 	
 	@Override
 	protected final void onStart()
@@ -63,10 +69,20 @@ public final class Camera extends Component
 	}
 	
 	@Override
-	protected void onDestroy()
+	protected final void onDestroy()
 	{
 		cameras.remove(this);
 		camera.destroy();
+	}
+	
+	@Override
+	protected final void onPostUpdate()
+	{
+		if(changed)
+		{
+			changed = false;
+			setProjection(new Matrix4f().perspective((float)Math.toRadians(fieldOfView), Window.getAspectRatio(), zNear, zFar));
+		}
 	}
 	
 	/**
@@ -86,22 +102,34 @@ public final class Camera extends Component
 		camera.setProjection(projection);
 	}
 	
+	/**
+	 * Set the field of fiew of the camera.
+	 * @param fieldOfView The new field of view.
+	 */
 	public final void setFieldOfView(float fieldOfView)
 	{
 		this.fieldOfView = fieldOfView;
-		setProjection(new Matrix4f().perspective((float)Math.toRadians(fieldOfView), Window.getAspectRatio(), zNear, zFar));
+		this.changed = true;
 	}
 	
+	/**
+	 * Set the near clipping plane of the camera.
+	 * @param zNear The new near clipping plane.
+	 */
 	public final void setNearClippingPlane(float zNear)
 	{
 		this.zNear = zNear;
-		setProjection(new Matrix4f().perspective((float)Math.toRadians(fieldOfView), Window.getAspectRatio(), zNear, zFar));
+		this.changed = true;
 	}
 	
+	/**
+	 * Set the far clipping plane of the camera.
+	 * @param zFar The new far clipping plane.
+	 */
 	public final void setFarClippingPlane(float zFar)
 	{
 		this.zFar = zFar;
-		setProjection(new Matrix4f().perspective((float)Math.toRadians(fieldOfView), Window.getAspectRatio(), zNear, zFar));
+		this.changed = true;
 	}
 	
 	/**
@@ -113,6 +141,10 @@ public final class Camera extends Component
 		camera.setClearFlags(clearFlags);
 	}
 	
+	/**
+	 * Set the texture of the skybox.
+	 * @param texture The new texture of the skybox.
+	 */
 	public final void setSkybox(Texture texture)
 	{
 		camera.setSkybox(texture);
@@ -128,31 +160,38 @@ public final class Camera extends Component
 	}
 	
 	/**
-	 * Get the projection of this camera.
-	 * @return The projection of the camera.
+	 * @return The projection.
 	 */
 	public final Matrix4f getProjection()
 	{
 		return camera.getProjection();
 	}
 	
+	/**
+	 * @return The field of view.
+	 */
 	public final float getFieldOfView()
 	{
 		return fieldOfView;
 	}
 	
+	/**
+	 * @return The near clipping plane.
+	 */
 	public final float getNearClippingPlane()
 	{
 		return zNear;
 	}
 	
+	/**
+	 * @return The far clipping plane.
+	 */
 	public final float getFarClippingPlane()
 	{
 		return zFar ;
 	}
 	
 	/**
-	 * Get the {@link CameraClearFlags} this camera is using.
 	 * @return The {@link CameraClearFlags} this camera is using.
 	 */
 	public final CameraClearFlags getClearFlags()
@@ -161,7 +200,6 @@ public final class Camera extends Component
 	}
 	
 	/**
-	 * Get the view projection of this camera.
 	 * @return The view projection of the camera.
 	 */
 	public final Matrix4f getViewProjection()
@@ -170,7 +208,6 @@ public final class Camera extends Component
 	}
 	
 	/**
-	 * Get the clear color of this camera.
 	 * @return The clear color of the camera.
 	 */
 	public final Color getClearColor()
@@ -178,6 +215,10 @@ public final class Camera extends Component
 		return camera.getClearColor();
 	}
 	
+	/**
+	 * Set the main camera.
+	 * @param camera The new main camera.
+	 */
 	public static void setMainCamera(Camera camera)
 	{
 		CameraInternal.setMainCamera(camera.camera);
@@ -193,14 +234,14 @@ public final class Camera extends Component
 	}
 	
 	/**
-	 * Get the current camera, this will return {@code null} if the engine is rendering a {@link CameraInternal}.
-	 * @return The current camera or null.
+	 * Get the main camera.
+	 * @return The main camera.
 	 */
-	public static Camera getCurrentCamera()
+	public static Camera getMainCamera()
 	{
 		for(Camera camera : cameras)
 		{
-			if(camera.camera == CameraInternal.getCurrentCamera())
+			if(camera.camera == CameraInternal.getMainCamera())
 			{
 				return camera;
 			}
@@ -209,11 +250,15 @@ public final class Camera extends Component
 		return null;
 	}
 	
-	public static Camera getMainCamera()
+	/**
+	 * Get the current camera, this will return {@code null} if the engine is rendering a {@link CameraInternal}.
+	 * @return The current camera or null.
+	 */
+	public static Camera getCurrentCamera()
 	{
 		for(Camera camera : cameras)
 		{
-			if(camera.camera == CameraInternal.getMainCamera())
+			if(camera.camera == CameraInternal.getCurrentCamera())
 			{
 				return camera;
 			}

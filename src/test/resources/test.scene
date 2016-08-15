@@ -21,7 +21,7 @@
       </scale>
       <components>
         <component>
-          <class>com.snakybo.torch.component.camera.Camera</class>
+          <class>com.snakybo.torch.component.Camera</class>
           <fields>
             <field name="fieldOfView" type="float">75</field>
             <field name="zNear" type="float">0.01</field>
@@ -31,10 +31,10 @@
           </fields>
         </component>
         <component>
-          <class>com.snakybo.torch.component.camera.CameraFreeLook</class>
+          <class>opengl.CameraFreeLook</class>
         </component>
         <component>
-          <class>com.snakybo.torch.component.camera.CameraFreeMove</class>
+          <class>opengl.CameraFreeMove</class>
         </component>
       </components>
     </game_object>
@@ -58,7 +58,7 @@
       </scale>
       <components>
         <component>
-          <class>com.snakybo.torch.component.mesh.MeshRenderer</class>
+          <class>com.snakybo.torch.component.MeshRenderer</class>
           <fields>
             <field name="mesh" type="mesh">cube.obj</field>
             <field name="material" type="material">grassblock.mtl</field>

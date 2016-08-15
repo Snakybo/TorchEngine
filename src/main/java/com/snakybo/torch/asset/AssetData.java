@@ -26,6 +26,14 @@ import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.interfaces.IDestroyable;
 
 /**
+ * <p>
+ * The internal data of an asset, keeps track of the number of uses a specific asset has,
+ * if there are no more uses for an asset, it's automatically destroyed and unloaded from memory.
+ * </p>
+ *
+ * @see Assets
+ * @see Asset
+ *
  * @author Snakybo
  * @since 1.0
  */
@@ -49,12 +57,19 @@ public abstract class AssetData implements IDestroyable
 	@Override
 	public abstract void destroy();
 	
+	/**
+	 * Increment the use counter for the {@link AssetData}.
+	 */
 	public final void addUsage()
 	{
 		LoggerInternal.log("useCount increased for " + getClass().getSimpleName() + ":" + name);
 		useCount++;
 	}
 	
+	/**
+	 * Decrement the use counter for the {@link AssetData},
+	 * when there are no more usages remaining, the data is unloaded.
+	 */
 	public final void removeUsage()
 	{
 		LoggerInternal.log("useCount decreased for " + getClass().getSimpleName() + ":" + name);

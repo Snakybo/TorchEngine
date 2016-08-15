@@ -25,7 +25,7 @@ package com.snakybo.torch.material;
 import com.snakybo.torch.asset.Asset;
 import com.snakybo.torch.color.Color;
 import com.snakybo.torch.color.Color32;
-import com.snakybo.torch.component.camera.Camera;
+import com.snakybo.torch.component.Camera;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.object.Transform;
 import com.snakybo.torch.texture.Texture;

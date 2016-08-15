@@ -25,6 +25,12 @@ package com.snakybo.torch.color;
 import com.snakybo.torch.util.MathUtils;
 
 /**
+ * <p>
+ * A color in the range [0-255]
+ * </p>
+ *
+ * @see Color
+ *
  * @author Snakybo
  * @since 1.0
  */
@@ -33,7 +39,7 @@ public final class Color32
 	private int value;
 	
 	/**
-	 * Create a new color
+	 * Create a new color.
 	 */
 	public Color32()
 	{
@@ -41,10 +47,13 @@ public final class Color32
 	}
 	
 	/**
-	 * Create a new color. Values are in the range of [0-255]
-	 * @param r The red component
-	 * @param g The green component
-	 * @param b The blue component
+	 * Create a new color, specifying the red, green and blue component.
+	 * <p>
+	 * Values are in the range [0-255].
+	 * </p>
+	 * @param r The red component.
+	 * @param g The green component.
+	 * @param b The blue component.
 	 */
 	public Color32(int r, int g, int b)
 	{
@@ -52,11 +61,14 @@ public final class Color32
 	}
 	
 	/**
-	 * Create a new color. Values are in the range of [0-255]
-	 * @param r The red component
-	 * @param g The green component
-	 * @param b The blue component
-	 * @param a The alpha component
+	 * Create a new color, specifying the red, green blue and alpha component.
+	 * <p>
+	 * Values are in the range [0-255].
+	 * </p>
+	 * @param r The red component.
+	 * @param g The green component.
+	 * @param b The blue component.
+	 * @param a The alpha component.
 	 */
 	public Color32(int r, int g, int b, int a)
 	{
@@ -73,8 +85,8 @@ public final class Color32
 	}
 	
 	/**
-	 * Copy the value of another color
-	 * @param other The color to copy
+	 * Copy the value of another color.
+	 * @param other The color to copy.
 	 */
 	public Color32(Color32 other)
 	{
@@ -82,26 +94,26 @@ public final class Color32
 	}
 	
 	@Override
-	public String toString()
+	public final String toString()
 	{
-		return "(" + getRed() + ", " + getGreen() + ", " + getBlue() + ", " + getAlpha() + ")";
+		return "(r=" + getRed() + ", g=" + getGreen() + ", b=" + getBlue() + ", a=" + getAlpha() + ")";
 	}
 	
 	@Override
-	public int hashCode()
+	public final int hashCode()
 	{
 		return value;
 	}
 	
 	@Override
-	public boolean equals(Object obj)
+	public final boolean equals(Object obj)
 	{
 		return obj instanceof Color32 && ((Color32)obj).value == value;
 	}
 	
 	/**
-	 * Set the red component of the color. Accepted value is in the range of [0-255]
-	 * @param r The red component
+	 * Set the red component of the color. Accepted value is in the range [0-255].
+	 * @param r The new red component.
 	 */
 	public final void setRed(int r)
 	{
@@ -112,8 +124,8 @@ public final class Color32
 	}
 	
 	/**
-	 * Set the green component of the color. Accepted value is in the range of [0-255]
-	 * @param g The green component
+	 * Set the green component of the color. Accepted value is in the range [0-255].
+	 * @param g The new green component.
 	 */
 	public final void setGreen(int g)
 	{
@@ -124,8 +136,8 @@ public final class Color32
 	}
 	
 	/**
-	 * Set the blue component of the color. Accepted value is in the range of [0-255]
-	 * @param b The blue component
+	 * Set the blue component of the color. Accepted value is in the range [0-255].
+	 * @param b The new blue component.
 	 */
 	public final void setBlue(int b)
 	{
@@ -136,8 +148,8 @@ public final class Color32
 	}
 	
 	/**
-	 * Set the alpha component of the color. Accepted value is in the range of [0-255]
-	 * @param a The alpha component
+	 * Set the alpha component of the color. Accepted value is in the range [0-255].
+	 * @param a The new alpha component.
 	 */
 	public final void setAlpha(int a)
 	{
@@ -148,7 +160,7 @@ public final class Color32
 	}
 	
 	/**
-	 * @return The color values to a color in the range of [0-1] 
+	 * @return The color values to a {@link Color} in the range [0-1].
 	 */
 	public final Color toColor()
 	{
@@ -156,7 +168,7 @@ public final class Color32
 	}
 	
 	/**
-	 * @return The red component of the color
+	 * @return The red component of the color.
 	 */
 	public final int getRed()
 	{
@@ -164,7 +176,7 @@ public final class Color32
 	}
 	
 	/**
-	 * @return The green component of the color
+	 * @return The green component of the color.
 	 */
 	public final int getGreen()
 	{
@@ -172,7 +184,7 @@ public final class Color32
 	}
 	
 	/**
-	 * @return The blue component of the color
+	 * @return The blue component of the color.
 	 */
 	public final int getBlue()
 	{
@@ -180,7 +192,7 @@ public final class Color32
 	}
 	
 	/**
-	 * @return The alpha component of the color
+	 * @return The alpha component of the color.
 	 */
 	public final int getAlpha()
 	{
@@ -188,7 +200,7 @@ public final class Color32
 	}
 	
 	/**
-	 * @return The RGB value of the color. Bits 24-31 are alpha, 16-23 are red, 8-15 are green, 0-7 are blue
+	 * @return The ARGB value of the color. Bits 24-31 are alpha, 16-23 are red, 8-15 are green, 0-7 are blue.
 	 */
 	public final int getARGB()
 	{

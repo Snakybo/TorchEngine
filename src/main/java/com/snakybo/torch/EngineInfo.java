@@ -23,6 +23,10 @@
 package com.snakybo.torch;
 
 /**
+ * <p>
+ * Container class for various engine data, such as the current version number.
+ * </p>
+ *
  * @author Kevin Krol
  * @since 1.0
  */
@@ -44,7 +48,7 @@ public final class EngineInfo
 	public static final int VERSION_PATCH = 0;
 	
 	/**
-	 * The version of the engine represented as a String, in the format
+	 * The version of the engine represented as a String, in the format:
 	 * {@link #VERSION_MAJOR}.{@link #VERSION_MINOR}.{@link #VERSION_PATCH}.
 	 */
 	public static final String VERSION_STRING = VERSION_MAJOR + "." + VERSION_MINOR + "." + VERSION_PATCH;
