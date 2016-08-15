@@ -133,4 +133,14 @@ public final class MeshRendererInternal
 		
 		material.destroy();
 	}
+	
+	public final void setMaterial(Material material)
+	{
+		this.material = material;
+	}
+	
+	public final Material getMaterial()
+	{
+		return material;
+	}
 }

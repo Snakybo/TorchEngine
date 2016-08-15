@@ -40,15 +40,6 @@ public class CameraFreeLook extends Component
 {
 	@Serialized	private float sensitivity = 0.5f;
 	
-	public CameraFreeLook()
-	{
-	}
-	
-	public CameraFreeLook(float sensitivity)
-	{
-		this.sensitivity = sensitivity;
-	}
-	
 	@Override
 	protected void start()
 	{
@@ -84,5 +75,15 @@ public class CameraFreeLook extends Component
 	private void rotate(Vector3f axis, float amount)
 	{
 		getTransform().rotate(axis, -amount * sensitivity * Time.getDeltaTime());
+	}
+	
+	public final void setSensitivity(float sensitivity)
+	{
+		this.sensitivity = sensitivity;
+	}
+	
+	public final float getSensitivity()
+	{
+		return sensitivity;
 	}
 }

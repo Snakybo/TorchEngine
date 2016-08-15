@@ -22,6 +22,7 @@
 
 package com.snakybo.torch.component.mesh;
 
+import com.snakybo.torch.asset.AssetLoader;
 import com.snakybo.torch.serialized.Serialized;
 import com.snakybo.torch.material.Material;
 import com.snakybo.torch.mesh.Mesh;
@@ -34,22 +35,10 @@ import com.snakybo.torch.object.Component;
  */
 public final class MeshRenderer extends Component
 {
-	@Serialized
-	private Mesh mesh;
-	@Serialized
-	private Material material;
+	@Serialized	private Mesh mesh = AssetLoader.load(Mesh.class, "cube.obj");
+	@Serialized private Material material = AssetLoader.load(Material.class, "default.mtl");
 	
 	private MeshRendererInternal meshRenderer;
-	
-	public MeshRenderer()
-	{
-	}
-	
-	public MeshRenderer(Mesh mesh, Material material)
-	{
-		this.mesh = mesh;
-		this.material = material;
-	}
 	
 	@Override
 	protected void start()
@@ -69,5 +58,28 @@ public final class MeshRenderer extends Component
 	protected void destroy()
 	{
 		meshRenderer.destroy();
+	}
+	
+	public final void setMesh(Mesh mesh)
+	{
+		this.mesh = mesh;
+		meshRenderer.destroy();
+		meshRenderer = new MeshRendererInternal(mesh, material);
+	}
+	
+	public final void setMaterial(Material material)
+	{
+		this.material = material;
+		meshRenderer.setMaterial(material);
+	}
+	
+	public final Mesh getMesh()
+	{
+		return mesh;
+	}
+	
+	public final Material getMaterial()
+	{
+		return material;
 	}
 }

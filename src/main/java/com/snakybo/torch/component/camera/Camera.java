@@ -52,25 +52,6 @@ public final class Camera extends Component
 	
 	private CameraInternal camera;
 	
-	public Camera()
-	{
-	}
-	
-	/**
-	 * Create a new camera.
-	 * @param fieldOfView The field of view of the camera.
-	 * @param zNear The near clipping plane.
-	 * @param zFar The far clipping plane.
-	 * @param clearFlags The {@link CameraClearFlags} to use.
-	 */
-	public Camera(float fieldOfView, float zNear, float zFar, CameraClearFlags clearFlags)
-	{
-		this.fieldOfView = fieldOfView;
-		this.zNear = zNear;
-		this.zFar = zFar;
-		this.clearFlags = clearFlags;
-	}
-	
 	@Override
 	protected final void start()
 	{
@@ -97,21 +78,39 @@ public final class Camera extends Component
 	}
 	
 	/**
-	 * Set the {@link CameraClearFlags} to use.
-	 * @param clearFlags The new clear flags.
-	 */
-	public final void setClearFlags(CameraClearFlags clearFlags)
-	{
-		camera.setClearFlags(clearFlags);
-	}
-	
-	/**
 	 * Set the projection of the camera.
 	 * @param projection The new projection.
 	 */
 	public final void setProjection(Matrix4f projection)
 	{
 		camera.setProjection(projection);
+	}
+	
+	public final void setFieldOfView(float fieldOfView)
+	{
+		this.fieldOfView = fieldOfView;
+		setProjection(new Matrix4f().perspective((float)Math.toRadians(fieldOfView), Window.getAspectRatio(), zNear, zFar));
+	}
+	
+	public final void setNearClippingPlane(float zNear)
+	{
+		this.zNear = zNear;
+		setProjection(new Matrix4f().perspective((float)Math.toRadians(fieldOfView), Window.getAspectRatio(), zNear, zFar));
+	}
+	
+	public final void setFarClippingPlane(float zFar)
+	{
+		this.zFar = zFar;
+		setProjection(new Matrix4f().perspective((float)Math.toRadians(fieldOfView), Window.getAspectRatio(), zNear, zFar));
+	}
+	
+	/**
+	 * Set the {@link CameraClearFlags} to use.
+	 * @param clearFlags The new clear flags.
+	 */
+	public final void setClearFlags(CameraClearFlags clearFlags)
+	{
+		camera.setClearFlags(clearFlags);
 	}
 	
 	public final void setSkybox(Texture texture)
@@ -129,21 +128,36 @@ public final class Camera extends Component
 	}
 	
 	/**
-	 * Get the {@link CameraClearFlags} this camera is using.
-	 * @return The {@link CameraClearFlags} this camera is using.
-	 */
-	public final CameraClearFlags getClearFlags()
-	{
-		return camera.getClearFlags();
-	}
-	
-	/**
 	 * Get the projection of this camera.
 	 * @return The projection of the camera.
 	 */
 	public final Matrix4f getProjection()
 	{
 		return camera.getProjection();
+	}
+	
+	public final float getFieldOfView()
+	{
+		return fieldOfView;
+	}
+	
+	public final float getNearClippingPlane()
+	{
+		return zNear;
+	}
+	
+	public final float getFarClippingPlane()
+	{
+		return zFar ;
+	}
+	
+	/**
+	 * Get the {@link CameraClearFlags} this camera is using.
+	 * @return The {@link CameraClearFlags} this camera is using.
+	 */
+	public final CameraClearFlags getClearFlags()
+	{
+		return camera.getClearFlags();
 	}
 	
 	/**

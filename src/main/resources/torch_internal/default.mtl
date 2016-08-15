@@ -2,6 +2,6 @@
 <material>
     <shader>unlit.glsl</shader>
     <properties>
-        <property name="diffuse" type="texture">grassblock.png</property>
+        <property name="diffuse" type="texture">default.png</property>
     </properties>
 </material>

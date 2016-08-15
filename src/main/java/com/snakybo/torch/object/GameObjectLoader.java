@@ -24,6 +24,8 @@ package com.snakybo.torch.object;
 
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
+import com.snakybo.torch.object.Component;
+import com.snakybo.torch.object.GameObject;
 import com.snakybo.torch.serialized.SerializationUtils;
 import com.snakybo.torch.util.ParserUtil;
 import com.snakybo.torch.util.tuple.Tuple3;
@@ -120,6 +122,13 @@ public final class GameObjectLoader
 				try
 				{
 					Class<?> c = Class.forName(clazz);
+					
+					// If the component has a non-default constructor, throw an exception
+					if(c.getConstructor() == null)
+					{
+						throw new RuntimeException("Components should not have a constructor (" + c.getName() + ")");
+					}
+					
 					Constructor constructor = c.getConstructor();
 					Component component = (Component) constructor.newInstance();
 					
@@ -163,7 +172,7 @@ public final class GameObjectLoader
 					}
 					
 					result.add(component);
-				} catch(Exception e)
+				} catch(ReflectiveOperationException e)
 				{
 					Logger.logError(e.getMessage(), e);
 				}

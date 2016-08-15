@@ -61,7 +61,7 @@
           <class>com.snakybo.torch.component.mesh.MeshRenderer</class>
           <fields>
             <field name="mesh" type="mesh">cube.obj</field>
-            <field name="material" type="material">test.mtl</field>
+            <field name="material" type="material">grassblock.mtl</field>
           </fields>
         </component>
       </components>

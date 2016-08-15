@@ -42,28 +42,6 @@ public class CameraFreeMove extends Component
 	
 	@Serialized	private float speed = 2f;
 	
-	public CameraFreeMove()
-	{
-	}
-	
-	/**
-	 * Create a new free move component.
-	 * @param speed The movement speed.
-	 * @param forward The key to move forward.
-	 * @param left The key to move to the left.
-	 * @param back The key to move backwards.
-	 * @param right The key to move to the right.
-	 */
-	public CameraFreeMove(float speed, Key forward, Key left, Key back, Key right)
-	{
-		this.speed = speed;
-		
-		this.forward = forward;
-		this.left = left;
-		this.back = back;
-		this.right = right;
-	}
-	
 	@Override
 	protected void update()
 	{
