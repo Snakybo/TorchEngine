@@ -28,11 +28,11 @@ import java.io.Serializable;
 
 /**
  * <p>
- * A color in the range [0-255]
+ * A RGBA color in the range [0-255]
  * </p>
  *
  * <p>
- * The color is immutable, meaning usage of the various setters in
+ * The color is immutable, meaning usage of the various setters, or mathematical operations in
  * this class will instead create a new {@link Color32} object with the applied changes.
  * This instance of the color will not be changed.
  * </p>
@@ -202,6 +202,62 @@ public final class Color32 implements Serializable
 	public final boolean equals(Object obj)
 	{
 		return obj instanceof Color32 && ((Color32)obj).value == value;
+	}
+	
+	/**
+	 * Add two colors together, each component is added separately.
+	 * @param color The color to add.
+	 * @return A new color, with the result applied.
+	 */
+	public final Color32 add(Color color)
+	{
+		return new Color32(
+				(int)(getRed() + color.getRed()),
+				(int)(getGreen() + color.getGreen()),
+				(int)(getBlue() + color.getBlue()),
+				(int)(getAlpha() + color.getAlpha()));
+	}
+	
+	/**
+	 * Subtract the color from this one, each component is subtracted separately.
+	 * @param color The color to subtract.
+	 * @return A new color, with the result applied.
+	 */
+	public final Color32 sub(Color color)
+	{
+		return new Color32(
+				(int)(getRed() - color.getRed()),
+				(int)(getGreen() - color.getGreen()),
+				(int)(getBlue() - color.getBlue()),
+				(int)(getAlpha() - color.getAlpha()));
+	}
+	
+	/**
+	 * Multiply two colors together, each component is multiplied separately.
+	 * @param color The color to multiply.
+	 * @return A new color, with the result applied.
+	 */
+	public final Color32 mul(Color color)
+	{
+		return new Color32(
+				(int)(getRed() * color.getRed()),
+				(int)(getGreen() * color.getGreen()),
+				(int)(getBlue() * color.getBlue()),
+				(int)(getAlpha() * color.getAlpha()));
+	}
+	
+	/**
+	 * Divide the color by this one, each component is divided separately.
+	 * @param color The color to divide.
+	 * @return A new color, with the result applied.
+	 */
+	public final Color32 div(Color color)
+	{
+		return new Color32(
+				(int)(getRed() / color.getRed()),
+				(int)(getGreen() / color.getGreen()),
+				(int)(getBlue() / color.getBlue()),
+				(int)(getAlpha() / color.getAlpha()));
 	}
 	
 	/**
