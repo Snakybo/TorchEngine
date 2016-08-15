@@ -41,7 +41,7 @@ public final class SerializationUtils
 	}
 	
 	/**
-	 * Set the value of an {@link Serialized}
+	 * Set the value of an {@link SerializedField}
 	 * @param object The object of the field
 	 * @param field The field
 	 * @param value The value of the field
@@ -70,7 +70,7 @@ public final class SerializationUtils
 	}
 	
 	/**
-	 * Set the value of an {@link Serialized}
+	 * Set the value of an {@link SerializedField}
 	 * @param object The object of the field
 	 * @param field The field
 	 * @param value The value of the field
@@ -99,7 +99,7 @@ public final class SerializationUtils
 	}
 	
 	/**
-	 * Set the value of an {@link Serialized}
+	 * Set the value of an {@link SerializedField}
 	 * @param object The object of the field
 	 * @param field The field
 	 * @param value The value of the field
@@ -128,7 +128,7 @@ public final class SerializationUtils
 	}
 	
 	/**
-	 * Set the value of an {@link Serialized}
+	 * Set the value of an {@link SerializedField}
 	 * @param object The object of the field
 	 * @param field The field
 	 * @param value The value of the field
@@ -157,7 +157,7 @@ public final class SerializationUtils
 	}
 	
 	/**
-	 * Set the value of an {@link Serialized}
+	 * Set the value of an {@link SerializedField}
 	 * @param object The object of the field
 	 * @param field The field
 	 * @param value The value of the field
@@ -186,7 +186,7 @@ public final class SerializationUtils
 	}
 	
 	/**
-	 * Set the value of an {@link Serialized}
+	 * Set the value of an {@link SerializedField}
 	 * @param object The object of the field
 	 * @param field The field
 	 * @param value The value of the field
@@ -215,7 +215,7 @@ public final class SerializationUtils
 	}
 	
 	/**
-	 * Set the value of an {@link Serialized}
+	 * Set the value of an {@link SerializedField}
 	 * @param object The object of the field
 	 * @param field The field
 	 * @param value The value of the field
@@ -244,7 +244,7 @@ public final class SerializationUtils
 	}
 	
 	/**
-	 * Set the value of an {@link Serialized}
+	 * Set the value of an {@link SerializedField}
 	 * @param object The object of the field
 	 * @param field The field
 	 * @param value The value of the field
@@ -273,7 +273,7 @@ public final class SerializationUtils
 	}
 	
 	/**
-	 * Set the value of an {@link Serialized}
+	 * Set the value of an {@link SerializedField}
 	 * @param object The object of the field
 	 * @param field The field
 	 * @param value The value of the field
@@ -302,7 +302,7 @@ public final class SerializationUtils
 	}
 	
 	/**
-	 * Set the value of an {@link Serialized}
+	 * Set the value of an {@link SerializedField}
 	 * @param object The object of the field
 	 * @param field The field
 	 * @param value The value of the field
@@ -331,7 +331,7 @@ public final class SerializationUtils
 	}
 	
 	/**
-	 * Get all {@link Serialized}s from an object
+	 * Get all {@link SerializedField}s from an object
 	 * @param object The object
 	 * @return All accessible fields
 	 */
@@ -353,7 +353,7 @@ public final class SerializationUtils
 	}
 	
 	/**
-	 * Get an {@link Serialized} with the specified {@code name}
+	 * Get an {@link SerializedField} with the specified {@code name}
 	 * @param object The object of the field
 	 * @param name The name of the field
 	 * @return The field, or null if no field was found with the specified name
@@ -378,7 +378,7 @@ public final class SerializationUtils
 	}
 	
 	/**
-	 * Get the value of an {@link Serialized}
+	 * Get the value of an {@link SerializedField}
 	 * @param object The object of the field
 	 * @param field The field to get the value of
 	 * @return The value of the field as a string
@@ -418,8 +418,8 @@ public final class SerializationUtils
 			return false;
 		}
 		
-		// A field must have the Serialized annotation or be public
-		if(!field.isAnnotationPresent(Serialized.class) && !Modifier.isPublic(modifiers))
+		// A field must have the SerializedField annotation or be public
+		if(!field.isAnnotationPresent(SerializedField.class) && !Modifier.isPublic(modifiers))
 		{
 			return false;
 		}

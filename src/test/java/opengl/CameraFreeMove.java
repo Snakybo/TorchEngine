@@ -25,7 +25,7 @@ package opengl;
 import com.snakybo.torch.input.keyboard.Key;
 import com.snakybo.torch.input.keyboard.Keyboard;
 import com.snakybo.torch.object.Component;
-import com.snakybo.torch.serialized.Serialized;
+import com.snakybo.torch.serialized.SerializedField;
 import com.snakybo.torch.time.Time;
 import org.joml.Vector3f;
 
@@ -35,12 +35,12 @@ import org.joml.Vector3f;
  */
 public class CameraFreeMove extends Component
 {
-	@Serialized	private Key forward = Key.W;
-	@Serialized	private Key left = Key.A;
-	@Serialized	private Key back = Key.S;
-	@Serialized	private Key right = Key.D;
+	@SerializedField private Key forward = Key.W;
+	@SerializedField private Key left = Key.A;
+	@SerializedField private Key back = Key.S;
+	@SerializedField private Key right = Key.D;
 	
-	@Serialized	private float speed = 2f;
+	@SerializedField private float speed = 2f;
 	
 	@Override
 	protected void onUpdate()
