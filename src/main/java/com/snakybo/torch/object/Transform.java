@@ -26,6 +26,7 @@ import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,7 +34,7 @@ import java.util.Set;
  * @author Snakybo
  * @since 1.0
  */
-public final class Transform
+public final class Transform implements Serializable
 {
 	GameObject gameObject;
 	

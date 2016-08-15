@@ -24,11 +24,13 @@ package com.snakybo.torch.object;
 
 import com.snakybo.torch.debug.Logger;
 
+import java.io.Serializable;
+
 /**
  * @author Snakybo
  * @since 1.0
  */
-public class Object
+public class Object implements Serializable
 {
 	private String name;
 	

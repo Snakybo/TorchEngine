@@ -36,7 +36,7 @@ import java.io.Serializable;
  * @author Snakybo
  * @since 1.0
  */
-public final class Color32
+public final class Color32 implements Serializable
 {
 	/**
 	 * The color white.
