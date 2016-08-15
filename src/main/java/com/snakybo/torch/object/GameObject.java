@@ -22,6 +22,7 @@
 
 package com.snakybo.torch.object;
 
+import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.interfaces.IDestroyable;
 import com.snakybo.torch.queue.QueueOperation;
 import com.snakybo.torch.scene.Scene;
@@ -81,13 +82,40 @@ public final class GameObject extends Object implements IDestroyable
 		destroyed = true;
 	}
 	
+	final Component addComponentInternal(Class<?> component)
+	{
+		try
+		{
+			Component result = (Component)component.getConstructor().newInstance();
+			queue.put(result, QueueOperation.Add);
+			return result;
+		}
+		catch(ReflectiveOperationException e)
+		{
+			Logger.logError(e.getMessage(), e);
+		}
+		
+		return null;
+	}
+	
 	/**
 	 * Add a component to the GameObject
 	 * @param component The component to add
 	 */
-	public final void addComponent(Component component)
+	public final <T extends Component> T addComponent(Class<T> component)
 	{
-		queue.put(component, QueueOperation.Add);
+		try
+		{
+			T result = component.getConstructor().newInstance();
+			queue.put(result, QueueOperation.Add);
+			return result;
+		}
+		catch(ReflectiveOperationException e)
+		{
+			Logger.logError(e.getMessage(), e);
+		}
+		
+		return null;
 	}
 	
 	public final void removeComponent(Component component)

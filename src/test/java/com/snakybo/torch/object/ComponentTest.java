@@ -44,7 +44,7 @@ public class ComponentTest
 		@Override
 		protected void onStart()
 		{
-			addComponent(new StopComponent());
+			addComponent(StopComponent.class);
 			removeComponent(this);
 
 			called++;
@@ -87,7 +87,7 @@ public class ComponentTest
 		Window.setVSyncEnabled(false);
 		
 		GameObject go = new GameObject();
-		go.addComponent(new CallbackComponent());
+		go.addComponent(CallbackComponent.class);
 		
 		Game.setName("JUnit Test");
 		Game.start();

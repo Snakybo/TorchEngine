@@ -39,8 +39,8 @@ public class GLFWWindowTest
 	private static void createScene()
 	{
 		GameObject obj = new GameObject();
-		obj.addComponent(new GLFWInputListener());
-		obj.addComponent(new GLFWCallbackListener());
+		obj.addComponent(GLFWInputListener.class);
+		obj.addComponent(GLFWCallbackListener.class);
 		//obj.addComponent(new GLFWJoystickListener());
 	}
 	
