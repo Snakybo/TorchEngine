@@ -31,6 +31,12 @@ import java.io.Serializable;
  * A color in the range [0-1]
  * </p>
  *
+ * <p>
+ * The color is immutable, meaning usage of the various setters in
+ * this class will instead create a new {@link Color} object with the applied changes.
+ * This instance of the color will not be changed.
+ * </p>
+ *
  * @see Color32
  *
  * @author Snakybo
@@ -38,6 +44,11 @@ import java.io.Serializable;
  */
 public final class Color implements Serializable
 {
+	/**
+	 * Completely transparent, no color.
+	 */
+	public static final Color CLEAR = Color32.CLEAR.toColor();
+	
 	/**
 	 * The color white.
 	 */
