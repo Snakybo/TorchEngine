@@ -52,12 +52,12 @@ public final class SceneQueueProcessor implements IQueueProcessor
 				{
 				case Add:
 					scene.gameObjects.add(e.getKey());
-					e.getKey().notify("start");
+					e.getKey().notify("onStart");
 					scene.queue.remove(e.getKey());
 					break;
 				case Remove:
 					scene.gameObjects.remove(e.getKey());
-					e.getKey().notify("destroy");
+					e.getKey().notify("onDestroy");
 					scene.queue.remove(e.getKey());
 					break;
 				}
@@ -67,7 +67,7 @@ public final class SceneQueueProcessor implements IQueueProcessor
 			{
 				for(GameObject obj : scene.gameObjects)
 				{
-					obj.notify("destroy");
+					obj.notify("onDestroy");
 				}
 				
 				scene.gameObjects.clear();

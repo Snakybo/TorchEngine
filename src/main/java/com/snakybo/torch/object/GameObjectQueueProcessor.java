@@ -92,14 +92,14 @@ public final class GameObjectQueueProcessor implements IQueueProcessor
 		component.gameObject = gameObject;
 		
 		gameObject.components.add(component);
-		component.start();
+		component.onStart();
 	}
 	
 	private void removeComponent(GameObject gameObject, Component component, boolean unregister)
 	{
 		gameObject.queue.remove(component);
 
-		component.destroy();
+		component.onDestroy();
 		
 		// Restore the original name of the component
 		component.setName(component.getName().split(":")[1]);

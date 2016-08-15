@@ -34,7 +34,7 @@ import com.snakybo.torch.object.Component;
 public class GLFWJoystickListener extends Component
 {
 	@Override
-	protected void start()
+	protected void onStart()
 	{
 		Logger.log("Joystick Present: " + Joystick.isJoystickPresent());
 		
@@ -52,7 +52,7 @@ public class GLFWJoystickListener extends Component
 	}
 	
 	@Override
-	protected void update()
+	protected void onUpdate()
 	{
 		if(Joystick.isJoystickPresent())
 		{

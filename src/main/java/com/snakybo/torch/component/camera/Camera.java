@@ -53,7 +53,7 @@ public final class Camera extends Component
 	private CameraInternal camera;
 	
 	@Override
-	protected final void start()
+	protected final void onStart()
 	{
 		Matrix4f projection = new Matrix4f().perspective((float)Math.toRadians(fieldOfView), Window.getAspectRatio(), zNear, zFar);
 		camera = new CameraInternal(projection, clearFlags, skyboxTexture);
@@ -63,7 +63,7 @@ public final class Camera extends Component
 	}
 	
 	@Override
-	protected void destroy()
+	protected void onDestroy()
 	{
 		cameras.remove(this);
 		camera.destroy();

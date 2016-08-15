@@ -41,7 +41,7 @@ public final class MeshRenderer extends Component
 	private MeshRendererInternal meshRenderer;
 	
 	@Override
-	protected void start()
+	protected void onStart()
 	{
 		meshRenderer = new MeshRendererInternal(mesh, material);
 		material.setTransform(getTransform());
@@ -49,13 +49,13 @@ public final class MeshRenderer extends Component
 	}
 	
 	@Override
-	protected void renderObject()
+	protected void onRenderObject()
 	{
 		meshRenderer.render();
 	}
 	
 	@Override
-	protected void destroy()
+	protected void onDestroy()
 	{
 		meshRenderer.destroy();
 	}

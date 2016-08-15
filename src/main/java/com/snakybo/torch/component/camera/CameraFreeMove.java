@@ -43,7 +43,7 @@ public class CameraFreeMove extends Component
 	@Serialized	private float speed = 2f;
 	
 	@Override
-	protected void update()
+	protected void onUpdate()
 	{
 		Vector3f direction = new Vector3f();
 		

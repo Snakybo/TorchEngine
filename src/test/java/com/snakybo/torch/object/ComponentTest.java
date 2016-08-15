@@ -42,7 +42,7 @@ public class ComponentTest
 	private class CallbackComponent extends Component
 	{
 		@Override
-		protected void start()
+		protected void onStart()
 		{
 			addComponent(new StopComponent());
 			removeComponent(this);
@@ -51,19 +51,19 @@ public class ComponentTest
 		}
 		
 		@Override
-		protected void update()
+		protected void onUpdate()
 		{
 			called++;
 		}
 		
 		@Override
-		protected void postUpdate()
+		protected void onPostUpdate()
 		{
 			called++;
 		}
 
 		@Override
-		protected void destroy()
+		protected void onDestroy()
 		{
 			called++;
 		}
@@ -72,7 +72,7 @@ public class ComponentTest
 	private class StopComponent extends Component
 	{
 		@Override
-		protected void start()
+		protected void onStart()
 		{
 			Game.quit();
 		}

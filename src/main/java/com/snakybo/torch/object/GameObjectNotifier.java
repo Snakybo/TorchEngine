@@ -59,31 +59,31 @@ public final class GameObjectNotifier
 	
 	public static void update(GameObject gameObject)
 	{
-		gameObject.components.forEach(Component::update);
+		gameObject.components.forEach(Component::onUpdate);
 	}
 	
 	public static void postUpdate(GameObject gameObject)
 	{
-		gameObject.components.forEach(Component::postUpdate);
+		gameObject.components.forEach(Component::onPostUpdate);
 	}
 	
 	public static void preRender(GameObject gameObject)
 	{
-		gameObject.components.forEach(Component::preRenderObject);
+		gameObject.components.forEach(Component::onPreRenderObject);
 	}
 	
 	public static void render(GameObject gameObject)
 	{
-		gameObject.components.forEach(Component::renderObject);
+		gameObject.components.forEach(Component::onRenderObject);
 	}
 	
 	public static void postRender(GameObject gameObject)
 	{
-		gameObject.components.forEach(Component::postRenderObject);
+		gameObject.components.forEach(Component::onPostRenderObject);
 	}
 
 	public static void destroy(GameObject gameObject)
 	{
-		gameObject.components.forEach(Component::destroy);
+		gameObject.components.forEach(Component::onDestroy);
 	}
 }

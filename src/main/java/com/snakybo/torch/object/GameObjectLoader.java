@@ -72,13 +72,7 @@ public final class GameObjectLoader
 				
 				if(componentNodeList.getLength() > 0)
 				{
-					Iterable<Component> components = parseComponentList(name, componentNodeList);
-					
-					for(Component component : components)
-					{
-						LoggerInternal.log("Adding component " + component.getName() + " to GameObject " + name);
-						gameObject.addComponent(component);
-					}
+					ComponentLoader.loadComponents(gameObject, componentNodeList);
 				}
 				
 				result.add(gameObject);
@@ -97,85 +91,5 @@ public final class GameObjectLoader
 		gameObject.getTransform().setLocalPosition(ParserUtil.parseVector3(position));
 		gameObject.getTransform().setLocalRotation(ParserUtil.parseQuaternion(rotation));
 		gameObject.getTransform().setLocalScale(ParserUtil.parseVector3(scale));
-	}
-	
-	private static Iterable<Component> parseComponentList(String name, NodeList nodeList)
-	{
-		List<Component> result = new ArrayList<>();
-		LoggerInternal.log("Parsing Component nodes for GameObject node: " + name);
-		
-		for(int i = 0; i < nodeList.getLength(); i++)
-		{
-			Node node = nodeList.item(i);
-			
-			if(node.getNodeType() == Node.ELEMENT_NODE)
-			{
-				Element element = (Element) node;
-				String clazz = element.getElementsByTagName("class").item(0).getTextContent();
-				
-				LoggerInternal.log("Parsing Component node: " + clazz);
-				NodeList fieldNodeList = element.getElementsByTagName("field");
-				
-				try
-				{
-					Class<?> c = Class.forName(clazz);
-					
-					// If the component has a non-default constructor, throw an exception
-					if(c.getConstructor() == null)
-					{
-						throw new RuntimeException("Components should not have a constructor (" + c.getName() + ")");
-					}
-					
-					Constructor constructor = c.getConstructor();
-					Component component = (Component) constructor.newInstance();
-					
-					if(fieldNodeList.getLength() > 0)
-					{
-						Set<Tuple3<String, String, Object>> fields = ParserUtil.parseFieldList(fieldNodeList);
-						
-						for(Tuple3<String, String, Object> field : fields)
-						{
-							switch(field.v2)
-							{
-							case "byte":
-								SerializationUtils.set(component, SerializationUtils.get(component, field.v1), (byte)field.v3);
-								break;
-							case "short":
-								SerializationUtils.set(component, SerializationUtils.get(component, field.v1), (short)field.v3);
-								break;
-							case "int":
-								SerializationUtils.set(component, SerializationUtils.get(component, field.v1), (int)field.v3);
-								break;
-							case "float":
-								SerializationUtils.set(component, SerializationUtils.get(component, field.v1), (float)field.v3);
-								break;
-							case "long":
-								SerializationUtils.set(component, SerializationUtils.get(component, field.v1), (long)field.v3);
-								break;
-							case "double":
-								SerializationUtils.set(component, SerializationUtils.get(component, field.v1), (double)field.v3);
-								break;
-							case "char":
-								SerializationUtils.set(component, SerializationUtils.get(component, field.v1), (char)field.v3);
-								break;
-							case "boolean":
-								SerializationUtils.set(component, SerializationUtils.get(component, field.v1), (boolean)field.v3);
-								break;
-							default:
-								SerializationUtils.set(component, SerializationUtils.get(component, field.v1), field.v3);
-								break;
-							}
-						}
-					}
-					
-					result.add(component);
-				} catch(ReflectiveOperationException e)
-				{
-					Logger.logError(e.getMessage(), e);
-				}
-			}
-		}
-		
-		return result;
 	}
 }

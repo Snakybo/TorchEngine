@@ -32,11 +32,6 @@ public final class Game
 	
 	private static int targetFrameRate = 60;
 	
-	public static void setName(String name)
-	{
-		Game.name = name;
-	}
-	
 	/**
 	 * Start the game.
 	 */
@@ -51,6 +46,11 @@ public final class Game
 	public static void quit()
 	{
 		Engine.stop();
+	}
+	
+	public static void setName(String name)
+	{
+		Game.name = name;
 	}
 	
 	/**

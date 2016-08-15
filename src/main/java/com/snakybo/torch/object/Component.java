@@ -46,51 +46,51 @@ public abstract class Component extends Object
 	}
 	
 	/**
-	 * Called once when the object was first created, just before {@link #update()} is called
+	 * Called once when the object was first created, just before {@link #onUpdate()} is called
 	 */
-	protected void start()
+	protected void onStart()
 	{
 	}
 	
 	/**
 	 * Called every frame
 	 */
-	protected void update()
+	protected void onUpdate()
 	{
 	}
 	
 	/**
-	 * Called every frame, after {@link #update()} has been called on every component in the scene
+	 * Called every frame, after {@link #onUpdate()} has been called on every component in the scene
 	 */
-	protected void postUpdate()
+	protected void onPostUpdate()
 	{
 	}
 	
 	/**
 	 * Called when a camera starts rendering the object
 	 */
-	protected void preRenderObject()
+	protected void onPreRenderObject()
 	{
 	}
 	
 	/**
 	 * Called when a camera renders the object
 	 */
-	protected void renderObject()
+	protected void onRenderObject()
 	{
 	}
 	
 	/**
 	 * Called when a camera has finished rendering the object
 	 */
-	protected void postRenderObject()
+	protected void onPostRenderObject()
 	{
 	}
 	
 	/**
 	 * Called when the component or parent {@link GameObject} has been destroyed
 	 */
-	protected void destroy()
+	protected void onDestroy()
 	{
 	}
 	
@@ -130,9 +130,9 @@ public abstract class Component extends Object
 	 * Add a component to the parent GameObject
 	 * @param component The component to add
 	 */
-	public final void addComponent(Component component)
+	public final <T extends Component> T addComponent(Class<T> component)
 	{
-		gameObject.addComponent(component);
+		return gameObject.addComponent(component);
 	}
 	
 	public final void removeComponent(Component component)
