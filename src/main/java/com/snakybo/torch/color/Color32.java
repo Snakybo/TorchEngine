@@ -24,6 +24,8 @@ package com.snakybo.torch.color;
 
 import com.snakybo.torch.util.MathUtils;
 
+import java.io.Serializable;
+
 /**
  * <p>
  * A color in the range [0-255]
@@ -36,7 +38,87 @@ import com.snakybo.torch.util.MathUtils;
  */
 public final class Color32
 {
-	private int value;
+	/**
+	 * The color white.
+	 */
+	public static final Color32 WHITE = new Color32(255, 255, 255);
+	
+	/**
+	 * The color light gray.
+	 */
+	public static final Color32 LIGHT_GRAY = new Color32(192, 192, 192);
+	
+	/**
+	 * Alternative spelling for {@link #LIGHT_GRAY}
+	 */
+	public static final Color32 LIGHT_GREY = LIGHT_GRAY;
+	
+	/**
+	 * The color gray.
+	 */
+	public static final Color32 GRAY = new Color32(128, 128, 128);
+	
+	/**
+	 * Alternative spelling for {@link #GRAY};
+	 */
+	public static final Color32 GREY = GRAY;
+	
+	/**
+	 * The color dark gray.
+	 */
+	public static final Color32 DARK_GRAY = new Color32(64, 64, 64);
+	
+	/**
+	 * Alternative spelling for {@link #DARK_GRAY}
+	 */
+	public static final Color32 DARK_GREY = DARK_GRAY;
+	
+	/**
+	 * The color light gray.
+	 */
+	public static final Color32 BLACK = new Color32(0, 0, 0);
+	
+	/**
+	 * The color red.
+	 */
+	public static final Color32 RED = new Color32(255, 0, 0);
+	
+	/**
+	 * The color pink.
+	 */
+	public static final Color32 PINK = new Color32(255, 175, 175);
+	
+	/**
+	 * The color orange.
+	 */
+	public static final Color32 ORANGE = new Color32(255, 200, 0);
+	
+	/**
+	 * The color yellow.
+	 */
+	public static final Color32 YELLOW = new Color32(255, 255, 0);
+	
+	/**
+	 * The color green.
+	 */
+	public static final Color32 GREEN = new Color32(0, 255, 0);
+	
+	/**
+	 * The color magenta.
+	 */
+	public static final Color32 MAGENTA = new Color32(255, 0, 255);
+	
+	/**
+	 * The color cyan.
+	 */
+	public static final Color32 CYAN = new Color32(0, 255, 255);
+	
+	/**
+	 * The color blue.
+	 */
+	public static final Color32 BLUE = new Color32(0, 0, 255);
+	
+	private final int value;
 	
 	/**
 	 * Create a new color.
@@ -114,49 +196,41 @@ public final class Color32
 	/**
 	 * Set the red component of the color. Accepted value is in the range [0-255].
 	 * @param r The new red component.
+	 * @return A new {@link Color32}, with the new red component.
 	 */
-	public final void setRed(int r)
+	public final Color32 setRed(int r)
 	{
-		value = ((getAlpha() & 0xFF) << 24) |
-				((MathUtils.clamp(r, 0, 255) & 0xFF) << 16) |
-				((getGreen() & 0xFF) << 8)  |
-				(getBlue() & 0xFF);
+		return new Color32(r, getGreen(), getBlue(), getAlpha());
 	}
 	
 	/**
 	 * Set the green component of the color. Accepted value is in the range [0-255].
 	 * @param g The new green component.
+	 * @return A new {@link Color32}, with the new green component.
 	 */
-	public final void setGreen(int g)
+	public final Color32 setGreen(int g)
 	{
-		value = ((getAlpha() & 0xFF) << 24) |
-				((getRed() & 0xFF) << 16) |
-				((MathUtils.clamp(g, 0, 255) & 0xFF) << 8)  |
-				(getBlue() & 0xFF);
+		return new Color32(getRed(), g, getBlue(), getAlpha());
 	}
 	
 	/**
 	 * Set the blue component of the color. Accepted value is in the range [0-255].
 	 * @param b The new blue component.
+	 * @return A new {@link Color32}, with the new blue component.
 	 */
-	public final void setBlue(int b)
+	public final Color32 setBlue(int b)
 	{
-		value = ((getAlpha() & 0xFF) << 24) |
-				((getRed() & 0xFF) << 16) |
-				((getGreen() & 0xFF) << 8)  |
-				((MathUtils.clamp(b, 0, 255) & 0xFF));
+		return new Color32(getRed(), getGreen(), b, getAlpha());
 	}
 	
 	/**
 	 * Set the alpha component of the color. Accepted value is in the range [0-255].
 	 * @param a The new alpha component.
+	 * @return A new {@link Color32}, with the new alpha component.
 	 */
-	public final void setAlpha(int a)
+	public final Color32 setAlpha(int a)
 	{
-		value = ((MathUtils.clamp(a, 0, 255) & 0xFF) << 24) |
-				((getRed() & 0xFF) << 16) |
-				((getGreen() & 0xFF) << 8)  |
-				(getBlue() & 0xFF);
+		return new Color32(getRed(), getGreen(), getBlue(), a);
 	}
 	
 	/**
