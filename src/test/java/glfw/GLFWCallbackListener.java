@@ -34,18 +34,18 @@ public class GLFWCallbackListener extends Component
 	@Override
 	protected void onWindowFocus(boolean focus)
 	{
-		Logger.log("Window focus: " + focus, this);
+		Logger.log("Window focus: " + focus);
 	}
 	
 	@Override
 	protected void onWindowIconify(boolean iconified)
 	{
-		Logger.log("Window iconified: " + iconified, this);
+		Logger.log("Window iconified: " + iconified);
 	}
 	
 	@Override
 	protected void onCursorEnter(boolean entered)
 	{
-		Logger.log("Cursor enter: " + entered, this);
+		Logger.log("Cursor enter: " + entered);
 	}
 }

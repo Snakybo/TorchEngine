@@ -29,10 +29,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * <p>
+ * Holds all cursor shapes created by {@link Cursor#setShape(Texture, Vector2f)}.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */
-public class CursorShape
+class CursorShape
 {
 	private static Set<CursorShape> cursorShapeCache = new HashSet<>();
 	

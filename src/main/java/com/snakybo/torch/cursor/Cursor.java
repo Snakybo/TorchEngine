@@ -44,6 +44,10 @@ import static org.lwjgl.glfw.GLFW.glfwSetCursor;
 import static org.lwjgl.glfw.GLFW.glfwSetInputMode;
 
 /**
+ * <p>
+ * Proxy for the mouse cursor, allows you to manage various aspects of the cursor object.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */
@@ -57,7 +61,6 @@ public final class Cursor
 	}
 	
 	/**
-	 * Is the cursor currently visible?
 	 * @return Whether or not the cursor is currently visible.
 	 */
 	public static boolean isVisible()
@@ -75,7 +78,6 @@ public final class Cursor
 	}
 	
 	/**
-	 * Hide or show the cursor.
 	 * @param visible Whether or not the cursor should be visible.
 	 */
 	public static void setVisible(boolean visible)
@@ -84,7 +86,7 @@ public final class Cursor
 	}
 	
 	/**
-	 * Set the cursor's shape to the system's arrow cursor.
+	 * Set the cursor's shape to the operating system's arrow cursor.
 	 */
 	public static void setShapeArrow()
 	{
@@ -92,7 +94,7 @@ public final class Cursor
 	}
 	
 	/**
-	 * Set the cursor's shape to the system's I beam cursor.
+	 * Set the cursor's shape to the operating system's I-Beam cursor.
 	 */
 	public static void setShapeIBeam()
 	{
@@ -100,7 +102,7 @@ public final class Cursor
 	}
 	
 	/**
-	 * Set the cursor's shape to the system's crosshair cursor.
+	 * Set the cursor's shape to the operating system's crosshair cursor.
 	 */
 	public static void setShapeCrosshair()
 	{
@@ -108,7 +110,7 @@ public final class Cursor
 	}
 	
 	/**
-	 * Set the cursor's shape to the system's hand cursor.
+	 * Set the cursor's shape to the operating system's hand cursor.
 	 */
 	public static void setShapeHand()
 	{
@@ -116,7 +118,7 @@ public final class Cursor
 	}
 	
 	/**
-	 * Set the cursor's shape to the system's horizontal resize cursor.
+	 * Set the cursor's shape to the operating system's horizontal resize cursor.
 	 */
 	public static void setShapeHResize()
 	{
@@ -124,7 +126,7 @@ public final class Cursor
 	}
 	
 	/**
-	 * Set the cursor's shape to the system's vertical resize cursor.
+	 * Set the cursor's shape to the operating system's vertical resize cursor.
 	 */
 	public static void setShapeVResize()
 	{
@@ -132,7 +134,7 @@ public final class Cursor
 	}
 	
 	/**
-	 * Set the cursor's shape.
+	 * Set the shape of the cursor to a custom image.
 	 * @param texture The cursor shape.
 	 * @param hot The hot point of the shape.
 	 */
@@ -141,7 +143,6 @@ public final class Cursor
 		if(CursorShape.hasCursor(texture, hot))
 		{
 			setShape(CursorShape.getCursor(texture, hot));
-			
 			LoggerInternal.log("Loaded existing cursor shape");
 		}
 		else
@@ -152,7 +153,6 @@ public final class Cursor
 			CursorShape.addCursor(texture, hot, cursor);
 			
 			setShape(cursor);
-			
 			LoggerInternal.log("Created new cursor shape");
 		}
 	}

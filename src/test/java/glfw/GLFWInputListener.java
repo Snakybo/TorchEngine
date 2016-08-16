@@ -40,63 +40,63 @@ public class GLFWInputListener extends Component
 	{
 		if(Keyboard.onDown(Key.W))
 		{
-			Logger.log("Pressed W", this);
+			Logger.log("Pressed W");
 		}
 		
 		if(Keyboard.onUp(Key.W))
 		{
-			Logger.log("Released W", this);
+			Logger.log("Released W");
 		}
 		
 		if(Keyboard.onDown(Key.A))
 		{
-			Logger.log("Pressed A", this);
+			Logger.log("Pressed A");
 		}
 		
 		if(Keyboard.onUp(Key.A))
 		{
-			Logger.log("Released A", this);
+			Logger.log("Released A");
 		}
 		
 		if(Keyboard.onDown(Key.S))
 		{
-			Logger.log("Pressed S", this);
+			Logger.log("Pressed S");
 		}
 		
 		if(Keyboard.onUp(Key.S))
 		{
-			Logger.log("Released S", this);
+			Logger.log("Released S");
 		}
 		
 		if(Keyboard.onDown(Key.D))
 		{
-			Logger.log("Pressed D", this);
+			Logger.log("Pressed D");
 		}
 		
 		if(Keyboard.onUp(Key.D))
 		{
-			Logger.log("Released D", this);
+			Logger.log("Released D");
 		}
 		
 		if(Mouse.onDown(MouseButton.LEFT))
 		{
-			Logger.log("Pressed left mouse button", this);
+			Logger.log("Pressed left mouse button");
 		}
 		
 		if(Mouse.onUp(MouseButton.LEFT))
 		{
-			Logger.log("Released left mouse button", this);
+			Logger.log("Released left mouse button");
 		}
 		
 		if(Mouse.getScrollDelta().x != 0 || Mouse.getScrollDelta().y != 0)
 		{
-			Logger.log("Mouse scroll delta: " + Mouse.getScrollDelta(), this);
+			Logger.log("Mouse scroll delta: " + Mouse.getScrollDelta());
 		}
 	}
 	
 	@Override
 	protected void onCharPressed(char c)
 	{
-		Logger.log("Received char: " + c, this);
+		Logger.log("Received char: " + c);
 	}
 }

@@ -84,9 +84,4 @@ public final class Logger
 	{
 		LoggerInternal.logInternal(Level.SEVERE, msg, thrown);
 	}
-	
-	public static void setLogLevel(Level level)
-	{
-		LoggerInternal.logger.setLevel(level);
-	}
 }

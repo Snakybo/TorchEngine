@@ -23,6 +23,10 @@
 package com.snakybo.torch.cursor;
 
 /**
+ * <p>
+ * All available cursor lock modes.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */

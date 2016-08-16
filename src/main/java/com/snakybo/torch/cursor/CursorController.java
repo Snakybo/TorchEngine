@@ -29,6 +29,10 @@ import com.snakybo.torch.window.Window;
 import org.joml.Vector2f;
 
 /**
+ * <p>
+ * The controller for the {@link Cursor}, used internally by the engine.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */
