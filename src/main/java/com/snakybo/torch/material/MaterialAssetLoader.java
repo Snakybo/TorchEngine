@@ -86,36 +86,7 @@ public final class MaterialAssetLoader
 					String name = element.getAttribute("name");
 					Object property = ParserUtil.parseParameter(element);
 					
-					switch(element.getAttribute("type"))
-					{
-					case "texture":
-						material.setTexture(name, (Texture)property);
-						break;
-					case "color":
-						material.setColor(name, (Color)property);
-						break;
-					case "color32":
-						material.setColor(name, (Color32)property);
-						break;
-					case "int":
-						material.setInt(name, (int)property);
-						break;
-					case "float":
-						material.setFloat(name, (float)property);
-						break;
-					case "vector2":
-						material.setVector2f(name, (Vector2f)property);
-						break;
-					case "vector3":
-						material.setVector3f(name, (Vector3f)property);
-						break;
-					case "vector4":
-						material.setVector4f(name, (Vector4f)property);
-						break;
-					default:
-						Logger.logError("Invalid material type: " + element.getAttribute("type"));
-						break;
-					}
+					material.set(name, property);
 				}
 			}
 			

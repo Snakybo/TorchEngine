@@ -26,6 +26,7 @@ import com.snakybo.torch.asset.AssetData;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.util.FileUtils;
+import com.snakybo.torch.util.tuple.Tuple2;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -176,6 +177,7 @@ final class ShaderAsset extends AssetData
 			if(glGetShaderi(id, GL_COMPILE_STATUS) == NULL)
 			{
 				Logger.logError("Unable to compile shader source: " + glGetShaderInfoLog(id, 1024));
+				Logger.logError("Source dump: \n" + dumpShaderSource(source));
 				return;
 			}
 			
@@ -208,21 +210,80 @@ final class ShaderAsset extends AssetData
 		{
 			if(line.startsWith("uniform "))
 			{
-				String[] segments = line.substring("uniform ".length(), line.length() - 1).split(" ");
-				int location = glGetUniformLocation(programId, segments[1]);
+				Tuple2<String, String> uniform = getUniformFromLine(line);
+				Iterable<Tuple2<String, String>> uniforms = getSubUniform(uniform.v1, uniform.v2, source);
 				
-				if(location < 0)
+				for(Tuple2<String, String> u : uniforms)
 				{
-					Logger.logError("Unable to find uniform: " + segments[1]);
+					addUniform(uri, u.v1, u.v2);
+				}
+			}
+		}
+	}
+	
+	private void addUniform(String uri, String type, String name)
+	{
+		int location = glGetUniformLocation(programId, name);
+		
+		if(location < 0)
+		{
+			throw new RuntimeException("Unable to find a uniform with name: " + name);
+		}
+		
+		uniforms.put(name, location);
+		uniformTypes.put(name, type);
+		
+		LoggerInternal.log("Added uniform: (" + type + ") " + name + " to shader: " + FileUtils.getSimpleName(uri));
+	}
+	
+	private Iterable<Tuple2<String, String>> getSubUniform(String type, String name, String source)
+	{
+		List<Tuple2<String, String>> result = new ArrayList<>();
+		
+		if(source.contains("struct " + type))
+		{
+			int startIndex = source.indexOf("struct " + type);
+			startIndex = source.indexOf('{', startIndex);
+			int endIndex = source.indexOf('}', startIndex);
+			
+			String struct = source.substring(startIndex + 1, endIndex);
+			String[] lines = struct.split("\n");
+			
+			for(String line : lines)
+			{
+				if(line.isEmpty())
+				{
 					continue;
 				}
 				
-				uniforms.put(segments[1], location);
-				uniformTypes.put(segments[1], segments[0]);
-				
-				LoggerInternal.log("Added uniform: (" + segments[0] + ") " + segments[1] + " to shader: " + FileUtils.getSimpleName(uri));
+				Tuple2<String, String> uniform = getUniformFromLine(line);
+				result.add(new Tuple2<>(uniform.v1, name + "." + uniform.v2));
 			}
 		}
+		else
+		{
+			result.add(new Tuple2<>(type, name));
+		}
+		
+		return result;
+	}
+	
+	private Tuple2<String, String> getUniformFromLine(String line)
+	{
+		String[] segments;
+		
+		line = line.trim();
+		
+		if(line.startsWith("uniform"))
+		{
+			segments = line.substring("uniform ".length(), line.length() - 1).split(" ");
+		}
+		else
+		{
+			segments = line.substring(0, line.length() - 1).split(" ");
+		}
+		
+		return new Tuple2<>(segments[0], segments[1]);
 	}
 	
 	private String parseShader(String source, String keyword)
@@ -233,5 +294,18 @@ final class ShaderAsset extends AssetData
 		}
 		
 		return "";
+	}
+	
+	private String dumpShaderSource(String source)
+	{
+		String[] lines = source.split("\n");
+		StringBuilder prefixedSource = new StringBuilder();
+		
+		for(int i = 0; i < lines.length; i++)
+		{
+			prefixedSource.append(i + 1 + ". " + lines[i]).append("\n");
+		}
+		
+		return prefixedSource.toString();
 	}
 }

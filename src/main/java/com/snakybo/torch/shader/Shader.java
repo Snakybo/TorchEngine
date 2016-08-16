@@ -164,7 +164,7 @@ public final class Shader extends Asset
 	 * @param name The name of the uniform
 	 * @param value The value of the uniform
 	 */
-	public final void setUniform4fv(String name, Matrix3f value)
+	public final void setUniform3fv(String name, Matrix3f value)
 	{
 		FloatBuffer buffer = BufferUtils.createFloatBuffer(9);
 		value.get(buffer);

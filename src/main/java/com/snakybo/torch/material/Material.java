@@ -23,6 +23,7 @@
 package com.snakybo.torch.material;
 
 import com.snakybo.torch.asset.Asset;
+import com.snakybo.torch.camera.CameraInternal;
 import com.snakybo.torch.color.Color;
 import com.snakybo.torch.color.Color32;
 import com.snakybo.torch.component.Camera;
@@ -105,10 +106,24 @@ public final class Material extends Asset
 	 */
 	public final void update()
 	{
-		if(asset.shader.hasUniform("mvp"))
+		if(asset.shader.hasUniform("_model"))
 		{
-			Matrix4f mvp = Camera.getCurrentCamera().getViewProjection().mul(transform.getTransformation(), new Matrix4f());
-			asset.shader.setUniform4fv("mvp", mvp);
+			asset.shader.setUniform4fv("_model", transform.getTransformation());
+		}
+		
+		if(asset.shader.hasUniform("_view"))
+		{
+			asset.shader.setUniform4fv("_view", CameraInternal.getCurrentCamera().getView());
+		}
+		
+		if(asset.shader.hasUniform("_projection"))
+		{
+			asset.shader.setUniform4fv("_projection", CameraInternal.getCurrentCamera().getProjection());
+		}
+		
+		if(asset.shader.hasUniform("_cameraPosition"))
+		{
+			asset.shader.setUniform3f("_cameraPosition", CameraInternal.getCurrentCamera().getTransform().getPosition());
 		}
 		
 		for(Map.Entry<String, Object> value : asset.values.entrySet())
@@ -117,20 +132,44 @@ public final class Material extends Asset
 			
 			if(type == null)
 			{
+				Logger.logWarning("No type found for: " + value.getKey());
 				continue;
 			}
 			
 			switch(type)
 			{
 			case "sampler2D":
-				((Texture)value.getValue()).bind();
-				asset.shader.setUniform1i(value.getKey(), 0);
+				if(value.getKey().contains("diffuse"))
+				{
+					((Texture)value.getValue()).bind();
+					asset.shader.setUniform1i(value.getKey(), 0);
+				}
+				else if(value.getKey().contains("specular"))
+				{
+					((Texture)value.getValue()).bind(1);
+					asset.shader.setUniform1i(value.getKey(), 1);
+				}
+				
+				break;
+			case "float":
+				asset.shader.setUniform1f(value.getKey(), (float)value.getValue());
+				break;
+			case "vec2":
+				asset.shader.setUniform2f(value.getKey(), (Vector2f)value.getValue());
+				break;
+			case "vec3":
+				asset.shader.setUniform3f(value.getKey(), (Vector3f)value.getValue());
 				break;
 			default:
 				Logger.logWarning("Invalid uniform type: " + type);
 				break;
 			}
 		}
+	}
+	
+	public final void set(String name, Object value)
+	{
+		asset.values.put(name, value);
 	}
 	
 	/**
@@ -140,7 +179,7 @@ public final class Material extends Asset
 	 */
 	public final void setVector2f(String name, Vector2f value)
 	{
-		asset.values.put(name, value);
+		set(name, value);
 	}
 	
 	/**
@@ -150,7 +189,7 @@ public final class Material extends Asset
 	 */
 	public final void setVector3f(String name, Vector3f value)
 	{
-		asset.values.put(name, value);
+		set(name, value);
 	}
 	
 	/**
@@ -160,7 +199,7 @@ public final class Material extends Asset
 	 */
 	public final void setVector4f(String name, Vector4f value)
 	{
-		asset.values.put(name, value);
+		set(name, value);
 	}
 	
 	/**
@@ -170,7 +209,7 @@ public final class Material extends Asset
 	 */
 	public final void setColor(String name, Color value)
 	{
-		asset.values.put(name, value);
+		set(name, value);
 	}
 	
 	/**
@@ -180,7 +219,7 @@ public final class Material extends Asset
 	 */
 	public final void setColor(String name, Color32 value)
 	{
-		asset.values.put(name, value.toColor());
+		set(name, value.toColor());
 	}
 	
 	/**
@@ -190,7 +229,7 @@ public final class Material extends Asset
 	 */
 	public final void setTexture(String name, Texture value)
 	{
-		asset.values.put(name, value);
+		set(name, value);
 	}
 	
 	/**
@@ -200,7 +239,7 @@ public final class Material extends Asset
 	 */
 	public final void setFloat(String name, float value)
 	{
-		asset.values.put(name, value);
+		set(name, value);
 	}
 	
 	/**
@@ -210,7 +249,7 @@ public final class Material extends Asset
 	 */
 	public final void setInt(String name, int value)
 	{
-		asset.values.put(name, value);
+		set(name, value);
 	}
 	
 	/**

@@ -22,45 +22,70 @@
 
 package opengl;
 
-import com.snakybo.torch.Engine;
-import com.snakybo.torch.Game;
 import com.snakybo.torch.component.MeshRenderer;
+import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.input.keyboard.Key;
 import com.snakybo.torch.input.keyboard.Keyboard;
-import com.snakybo.torch.monitor.DisplayMode;
-import com.snakybo.torch.monitor.Monitor;
 import com.snakybo.torch.object.Component;
 import com.snakybo.torch.scene.Scene;
-import com.snakybo.torch.scene.SceneLoader;
-import com.snakybo.torch.serialized.SerializedField;
 import com.snakybo.torch.time.Time;
-import com.snakybo.torch.window.Window;
-import com.snakybo.torch.window.WindowMode;
 import org.joml.Vector3f;
 
 /**
- * @author Kevin
+ * @author Snakybo
  * @since 1.0
  */
-public class OpenGLTest
+public class LightController extends Component
 {
-	private static void createScene()
-	{
-		Scene scene = SceneLoader.load("test.scene");
-		scene.makeCurrent();
-	}
+	private MeshRenderer meshRenderer;
 	
-	public static void main(String[] args)
+	@Override
+	protected void onUpdate()
 	{
-		Engine.initialize();
+		if(Keyboard.isDown(Key.W))
+		{
+			getTransform().translate(new Vector3f(0, 0, 1).mul(Time.getDeltaTime()));
+		}
 		
-		Window.create(new DisplayMode(Monitor.getPrimaryMonitor(), 1280, 720), WindowMode.Windowed);
-		//Window.create(Monitor.getPrimaryMonitor().getNativeDisplayMode(), WindowMode.Fullscreen);
-		Window.setVSyncEnabled(true);
+		if(Keyboard.isDown(Key.A))
+		{
+			getTransform().translate(new Vector3f(-1, 0, 0).mul(Time.getDeltaTime()));
+		}
 		
-		createScene();
+		if(Keyboard.isDown(Key.S))
+		{
+			getTransform().translate(new Vector3f(0, 0, -1).mul(Time.getDeltaTime()));
+		}
 		
-		Game.setName("OpenGL Test");
-		Game.start();
+		if(Keyboard.isDown(Key.D))
+		{
+			getTransform().translate(new Vector3f(1, 0, 0).mul(Time.getDeltaTime()));
+		}
+		
+		if(meshRenderer == null)
+		{
+			meshRenderer = Scene.getCurrentScene().getGameObjectByName("Grassblock").getComponent(MeshRenderer.class);
+			
+			if(meshRenderer == null)
+			{
+				Logger.logError("Unable to retrieve MeshRenderer");
+			}
+		}
+		
+		if(meshRenderer != null)
+		{
+			meshRenderer.getMaterial().setVector3f("lightPosition", getTransform().getPosition());
+		}
+		
+		
+//		float r = (float)Math.sin(Time.getCurrentTime() * 2.0f);
+//		float g = (float)Math.sin(Time.getCurrentTime() * 0.7f);
+//		float b = (float)Math.sin(Time.getCurrentTime() * 1.3f);
+//
+//		Vector3f diffuseColor = new Vector3f(r, g, b).mul(0.5f);
+//		Vector3f ambientColor = diffuseColor.mul(0.2f);
+//
+//		meshRenderer.getMaterial().setVector3f("light.ambient", ambientColor);
+//		meshRenderer.getMaterial().setVector3f("light.diffuse", diffuseColor);
 	}
 }

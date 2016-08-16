@@ -148,14 +148,6 @@ public final class ParserUtil
 		return new Color(value.x, value.y, value.z, value.w);
 	}
 	
-	public static Color32 parseColor32(Element element)
-	{
-		LoggerInternal.log("Parsing Color32");
-		Vector4f value = parseVector4(element);
-		
-		return new Color32((int)value.x, (int)value.y, (int)value.z, (int)value.w);
-	}
-	
 	public static Vector2f parseVector2(Element element)
 	{
 		LoggerInternal.log("Parsing Vector2");
@@ -273,7 +265,12 @@ public final class ParserUtil
 	public static Object parseParameter(Element element)
 	{
 		String type = element.getAttribute("type");
-				
+		
+		if(type.isEmpty())
+		{
+			throw new IllegalArgumentException("Specified element does not have a \"type\" attribute: " + element.getNodeName());
+		}
+		
 		switch(type)
 		{
 		case "boolean":
@@ -288,8 +285,6 @@ public final class ParserUtil
 			return parseEnum(element);
 		case "color":
 			return parseColor(element);
-		case "color32":
-			return parseColor32(element);
 		case "vector2":
 			return parseVector2(element);
 		case "vector3":

@@ -6,7 +6,7 @@
       <position type="vector3">
         <x>0</x>
         <y>0</y>
-        <z>0</z>
+        <z>2</z>
       </position>
       <rotation type="quaternion">
         <x>0</x>
@@ -30,31 +30,25 @@
             <field name="skyboxTexture" type="texture">skybox_default.png</field>
           </fields>
         </component>
-        <component>
-          <class>opengl.CameraFreeLook</class>
-        </component>
-        <component>
-          <class>opengl.CameraFreeMove</class>
-        </component>
       </components>
     </game_object>
     <game_object>
-      <name></name>
+      <name>Grassblock</name>
       <position>
         <x>0</x>
         <y>0</y>
-        <z>-1</z>
+        <z>0</z>
       </position>
       <rotation>
-        <x>0</x>
-        <y>0</y>
-        <z>0</z>
-        <w>1</w>
+        <x>0.0</x>
+        <y>-0.21643962</y>
+        <z>0.0</z>
+        <w>0.976296</w>
       </rotation>
       <scale>
-        <x>0.25</x>
-        <y>0.25</y>
-        <z>0.25</z>
+        <x>1</x>
+        <y>1</y>
+        <z>1</z>
       </scale>
       <components>
         <component>
@@ -63,6 +57,30 @@
             <field name="mesh" type="mesh">cube.obj</field>
             <field name="material" type="material">grassblock.mtl</field>
           </fields>
+        </component>
+      </components>
+    </game_object>
+    <game_object>
+      <name>LightController</name>
+      <position>
+        <x>0.1</x>
+        <y>0</y>
+        <z>1.1</z>
+      </position>
+      <rotation>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+        <w>1</w>
+      </rotation>
+      <scale>
+        <x>1</x>
+        <y>1</y>
+        <z>1</z>
+      </scale>
+      <components>
+        <component>
+          <class>opengl.LightController</class>
         </component>
       </components>
     </game_object>

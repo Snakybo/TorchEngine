@@ -200,11 +200,11 @@ public final class Camera extends Component
 	}
 	
 	/**
-	 * @return The view projection of the camera.
+	 * @return The view of the camera.
 	 */
-	public final Matrix4f getViewProjection()
+	public final Matrix4f getView()
 	{
-		return camera.getViewProjection();
+		return camera.getView();
 	}
 	
 	/**
