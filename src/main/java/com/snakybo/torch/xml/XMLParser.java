@@ -20,67 +20,54 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.material;
+package com.snakybo.torch.xml;
 
-import com.snakybo.torch.color.Color;
-import com.snakybo.torch.color.Color32;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
-import com.snakybo.torch.texture.Texture;
 import com.snakybo.torch.util.FileUtils;
-import com.snakybo.torch.util.ParserUtil;
-import com.snakybo.torch.xml.MaterialParser;
-import com.snakybo.torch.xml.XMLParser;
-import org.joml.Vector2f;
-import org.joml.Vector3f;
-import org.joml.Vector4f;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
+import java.net.URI;
 import java.nio.file.NoSuchFileException;
-import java.util.Map;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class MaterialAssetLoader
+public final class XMLParser
 {
-	private MaterialAssetLoader()
+	private XMLParser()
 	{
 		throw new AssertionError();
 	}
 	
-	public static Material load(String path)
+	public static Object decode(String file) throws NoSuchFileException
 	{
-		LoggerInternal.log("Begin loading of material: " + path);
+		LoggerInternal.log("Begin decoding XML file: " + file);
 		
-		if(MaterialAsset.all.containsKey(path))
+		URI uri = FileUtils.toURI(file);
+		Document document = XMLParserUtils.getDocument(uri);
+		
+		if(document == null)
 		{
-			LoggerInternal.log("Material has already been loaded");
-			return new Material(MaterialAsset.all.get(path));
+			Logger.logError("Unable to decode XML: " + file);
+			return null;
 		}
 		
-		try
-		{
-			MaterialParser.MaterialData materialData = (MaterialParser.MaterialData)XMLParser.decode(path);
-			
-			Material material = new Material(materialData.shader);
-			
-			for(Map.Entry<String, Object> value : materialData.values.entrySet())
-			{
-				material.set(value.getKey(), value.getValue());
-			}
-			
-			return material;
-		}
-		catch(NoSuchFileException e)
-		{
-			Logger.logError(e.getMessage(), e);
-		}
+		String rootNode = document.getDocumentElement().getNodeName();
+		LoggerInternal.log("Document is of type: " + rootNode);
 		
-		return null;
+		switch(rootNode)
+		{
+		case "scene":
+			return null;
+		case "material":
+			return MaterialParser.decode(document.getDocumentElement());
+		case "texture":
+			return TextureParser.decode(document.getDocumentElement());
+		default:
+			Logger.logError("Unknown root node type: " + rootNode);
+			return null;
+		}
 	}
 }

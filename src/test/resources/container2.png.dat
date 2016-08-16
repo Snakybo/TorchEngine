@@ -1,11 +1,10 @@
 <?xml version="1.0"?>
-<texture>
-    <type>com.snakybo.torch.texture.Texture2D</type>
+<texture type="com.snakybo.torch.texture.Texture2D">
     <parameters>
-        <parameter type="int">0x2703</parameter>
-        <parameter type="float">16.0</parameter>
-        <parameter type="int">0x1908</parameter>
-        <parameter type="int">0x1908</parameter>
-        <parameter type="boolean">false</parameter>
+        <filters type="int">9987</filters>
+        <anisioLevel type="float">16</anisioLevel>
+        <format type="int">6408</format>
+        <internalFormat type="int">6408</internalFormat>
+        <clamp type="boolean">false</clamp>
     </parameters>
 </texture>

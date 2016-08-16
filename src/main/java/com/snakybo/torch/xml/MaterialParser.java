@@ -20,67 +20,62 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.material;
+package com.snakybo.torch.xml;
 
-import com.snakybo.torch.color.Color;
-import com.snakybo.torch.color.Color32;
-import com.snakybo.torch.debug.Logger;
-import com.snakybo.torch.debug.LoggerInternal;
-import com.snakybo.torch.texture.Texture;
-import com.snakybo.torch.util.FileUtils;
-import com.snakybo.torch.util.ParserUtil;
-import com.snakybo.torch.xml.MaterialParser;
-import com.snakybo.torch.xml.XMLParser;
-import org.joml.Vector2f;
-import org.joml.Vector3f;
-import org.joml.Vector4f;
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.w3c.dom.Text;
 
-import java.nio.file.NoSuchFileException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class MaterialAssetLoader
+public final class MaterialParser
 {
-	private MaterialAssetLoader()
+	public static final class MaterialData
+	{
+		public final Map<String, Object> values;
+		
+		public final String shader;
+		
+		public MaterialData(String shader, Map<String, Object> values)
+		{
+			this.shader = shader;
+			this.values = values;
+		}
+	}
+	
+	private MaterialParser()
 	{
 		throw new AssertionError();
 	}
 	
-	public static Material load(String path)
+	static MaterialData decode(Element element)
 	{
-		LoggerInternal.log("Begin loading of material: " + path);
+		String shader = element.getAttribute("shader");
 		
-		if(MaterialAsset.all.containsKey(path))
-		{
-			LoggerInternal.log("Material has already been loaded");
-			return new Material(MaterialAsset.all.get(path));
-		}
+		NodeList properties = element.getElementsByTagName("properties").item(0).getChildNodes();
+		Map<String, Object> values = new HashMap<>();
 		
-		try
+		for(int i = 0; i < properties.getLength(); i++)
 		{
-			MaterialParser.MaterialData materialData = (MaterialParser.MaterialData)XMLParser.decode(path);
+			Node node = properties.item(i);
 			
-			Material material = new Material(materialData.shader);
-			
-			for(Map.Entry<String, Object> value : materialData.values.entrySet())
+			if(node.getNodeType() == Node.ELEMENT_NODE)
 			{
-				material.set(value.getKey(), value.getValue());
+				Element property = (Element)node;
+
+				String name = property.getNodeName();
+				Object value = XMLParserUtils.decodeObject(property.getAttribute("type"), property.getTextContent());
+
+				values.put(name, value);
 			}
-			
-			return material;
-		}
-		catch(NoSuchFileException e)
-		{
-			Logger.logError(e.getMessage(), e);
 		}
 		
-		return null;
+		return new MaterialData(shader, values);
 	}
 }
