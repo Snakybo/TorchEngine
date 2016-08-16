@@ -28,6 +28,8 @@ import com.snakybo.torch.input.keyboard.Key;
 import com.snakybo.torch.input.keyboard.Keyboard;
 import com.snakybo.torch.object.Component;
 import com.snakybo.torch.scene.Scene;
+import com.snakybo.torch.serialized.SerializedField;
+import com.snakybo.torch.texture.Texture2D;
 import com.snakybo.torch.time.Time;
 import org.joml.Vector3f;
 
@@ -37,6 +39,9 @@ import org.joml.Vector3f;
  */
 public class LightController extends Component
 {
+	@SerializedField private Texture2D diffuse;
+	@SerializedField private Texture2D specular;
+	
 	private MeshRenderer meshRenderer;
 	
 	@Override
@@ -69,6 +74,11 @@ public class LightController extends Component
 			if(meshRenderer == null)
 			{
 				Logger.logError("Unable to retrieve MeshRenderer");
+			}
+			else
+			{
+				meshRenderer.getMaterial().setTexture("material.diffuse", diffuse);
+				meshRenderer.getMaterial().setTexture("material.specular", specular);
 			}
 		}
 		

@@ -22,10 +22,8 @@
 <!-- SOFTWARE. -->
 
 <material>
-    <shader>default.glsl</shader>
+    <shader>specular.glsl</shader>
     <properties>
-        <property name="material.diffuse" type="texture">container2.png</property>
-        <property name="material.specular" type="texture">container2_specular.png</property>
         <property name="material.shininess" type="float">32.0</property>
         <property name="light.ambient" type="vector3">
             <x>0.4</x>

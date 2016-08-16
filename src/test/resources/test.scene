@@ -1,88 +1,92 @@
 <?xml version="1.0"?>
 <scene>
-  <game_objects>
-    <game_object>
-      <name>Test</name>
-      <position type="vector3">
-        <x>0</x>
-        <y>0</y>
-        <z>2</z>
-      </position>
-      <rotation type="quaternion">
-        <x>0</x>
-        <y>0</y>
-        <z>0</z>
-        <w>1</w>
-      </rotation>
-      <scale type="vector3">
-        <x>1</x>
-        <y>1</y>
-        <z>1</z>
-      </scale>
-      <components>
-        <component>
-          <class>com.snakybo.torch.component.Camera</class>
-          <fields>
-            <field name="fieldOfView" type="float">75</field>
-            <field name="zNear" type="float">0.01</field>
-            <field name="zFar" type="float">1000</field>
-            <field name="clearFlags" type="enum">com.snakybo.torch.camera.CameraClearFlags:Skybox</field>
-            <field name="skyboxTexture" type="texture">skybox_default.png</field>
-          </fields>
-        </component>
-      </components>
-    </game_object>
-    <game_object>
-      <name>Grassblock</name>
-      <position>
-        <x>0</x>
-        <y>0</y>
-        <z>0</z>
-      </position>
-      <rotation>
-        <x>0.0</x>
-        <y>-0.21643962</y>
-        <z>0.0</z>
-        <w>0.976296</w>
-      </rotation>
-      <scale>
-        <x>1</x>
-        <y>1</y>
-        <z>1</z>
-      </scale>
-      <components>
-        <component>
-          <class>com.snakybo.torch.component.MeshRenderer</class>
-          <fields>
-            <field name="mesh" type="mesh">cube.obj</field>
-            <field name="material" type="material">grassblock.mtl</field>
-          </fields>
-        </component>
-      </components>
-    </game_object>
-    <game_object>
-      <name>LightController</name>
-      <position>
-        <x>0.1</x>
-        <y>0</y>
-        <z>1.1</z>
-      </position>
-      <rotation>
-        <x>0</x>
-        <y>0</y>
-        <z>0</z>
-        <w>1</w>
-      </rotation>
-      <scale>
-        <x>1</x>
-        <y>1</y>
-        <z>1</z>
-      </scale>
-      <components>
-        <component>
-          <class>opengl.LightController</class>
-        </component>
-      </components>
-    </game_object>
-  </game_objects>
+    <game_objects>
+        <game_object>
+            <name>Test</name>
+            <position type="vector3">
+                <x>0</x>
+                <y>0</y>
+                <z>2</z>
+            </position>
+            <rotation type="quaternion">
+                <x>0</x>
+                <y>0</y>
+                <z>0</z>
+                <w>1</w>
+            </rotation>
+            <scale type="vector3">
+                <x>1</x>
+                <y>1</y>
+                <z>1</z>
+            </scale>
+            <components>
+                <component>
+                    <class>com.snakybo.torch.component.Camera</class>
+                    <fields>
+                        <field name="fieldOfView" type="float">75</field>
+                        <field name="zNear" type="float">0.01</field>
+                        <field name="zFar" type="float">1000</field>
+                        <field name="clearFlags" type="enum">com.snakybo.torch.camera.CameraClearFlags:Skybox</field>
+                        <field name="skyboxTexture" type="texture">skybox_default.png</field>
+                    </fields>
+                </component>
+            </components>
+        </game_object>
+        <game_object>
+            <name>Grassblock</name>
+            <position>
+                <x>0</x>
+                <y>0</y>
+                <z>0</z>
+            </position>
+            <rotation>
+                <x>0.0</x>
+                <y>-0.21643962</y>
+                <z>0.0</z>
+                <w>0.976296</w>
+            </rotation>
+            <scale>
+                <x>1</x>
+                <y>1</y>
+                <z>1</z>
+            </scale>
+            <components>
+                <component>
+                    <class>com.snakybo.torch.component.MeshRenderer</class>
+                    <fields>
+                        <field name="mesh" type="mesh">cube.obj</field>
+                        <field name="material" type="material">specular.mtl</field>
+                    </fields>
+                </component>
+            </components>
+        </game_object>
+        <game_object>
+            <name>LightController</name>
+            <position>
+                <x>0.1</x>
+                <y>0</y>
+                <z>1.1</z>
+            </position>
+            <rotation>
+                <x>0</x>
+                <y>0</y>
+                <z>0</z>
+                <w>1</w>
+            </rotation>
+            <scale>
+                <x>1</x>
+                <y>1</y>
+                <z>1</z>
+            </scale>
+            <components>
+                <component>
+                    <class>opengl.LightController</class>
+                    <fields>
+                        <field name="diffuse" type="texture">container2.png</field>
+                        <field name="specular" type="texture">container2_specular.png</field>
+                    </fields>
+                </component>
+            </components>
+        </game_object>
+    </game_objects>
 </scene>

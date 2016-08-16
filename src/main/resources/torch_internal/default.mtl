@@ -2,12 +2,26 @@
 <material>
     <shader>default.glsl</shader>
     <properties>
-        <property name="material.diffuse" type="texture">default.png</property>
         <property name="material.specular" type="vector3">
             <x>0.5</x>
             <y>0.5</y>
             <z>0.5</z>
         </property>
         <property name="material.shininess" type="float">32.0</property>
+        <property name="light.ambient" type="vector3">
+            <x>0.4</x>
+            <y>0.4</y>
+            <z>0.4</z>
+        </property>
+        <property name="light.diffuse" type="vector3">
+            <x>0.5</x>
+            <y>0.5</y>
+            <z>0.5</z>
+        </property>
+        <property name="light.specular" type="vector3">
+            <x>1.0</x>
+            <y>1.0</y>
+            <z>1.0</z>
+        </property>
     </properties>
 </material>
