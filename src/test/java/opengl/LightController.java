@@ -84,7 +84,7 @@ public class LightController extends Component
 		
 		if(meshRenderer != null)
 		{
-			meshRenderer.getMaterial().setVector3f("lightPosition", getTransform().getPosition());
+			meshRenderer.getMaterial().setVector3f("light.position", getTransform().getPosition());
 		}
 		
 		
