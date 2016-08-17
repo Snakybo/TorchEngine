@@ -24,19 +24,12 @@ package opengl;
 
 import com.snakybo.torch.Engine;
 import com.snakybo.torch.Game;
-import com.snakybo.torch.component.MeshRenderer;
-import com.snakybo.torch.input.keyboard.Key;
-import com.snakybo.torch.input.keyboard.Keyboard;
 import com.snakybo.torch.monitor.DisplayMode;
 import com.snakybo.torch.monitor.Monitor;
-import com.snakybo.torch.object.Component;
 import com.snakybo.torch.scene.Scene;
 import com.snakybo.torch.scene.SceneLoader;
-import com.snakybo.torch.serialized.SerializedField;
-import com.snakybo.torch.time.Time;
 import com.snakybo.torch.window.Window;
 import com.snakybo.torch.window.WindowMode;
-import org.joml.Vector3f;
 
 /**
  * @author Kevin
@@ -46,7 +39,7 @@ public class OpenGLTest
 {
 	private static void createScene()
 	{
-		Scene scene = SceneLoader.load("test.scene");
+		Scene scene = SceneLoader.load("test");
 		scene.makeCurrent();
 	}
 	

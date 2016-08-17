@@ -20,36 +20,41 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.object;
+package com.snakybo.torch.scene;
 
-import com.snakybo.torch.scene.Scene;
-import com.snakybo.torch.xml.ComponentParser;
-import com.snakybo.torch.xml.GameObjectParser;
+import com.snakybo.torch.debug.Logger;
+import com.snakybo.torch.object.GameObject;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class GameObjectLoader
+public final class SceneRegisterer
 {
-	private GameObjectLoader()
+	private SceneRegisterer()
 	{
 		throw new AssertionError();
 	}
 	
-	public static GameObject load(Scene scene, GameObjectParser.GameObjectData gameObjectData)
+	public static void add(GameObject gameObject, Scene scene)
 	{
-		GameObject gameObject = new GameObject(scene, gameObjectData.name);
-		
-		gameObject.getTransform().setLocalPosition(gameObjectData.position);
-		gameObject.getTransform().setLocalRotation(gameObjectData.rotation);
-		gameObject.getTransform().setLocalScale(gameObjectData.scale);
-		
-		for(ComponentParser.ComponentData componentData : gameObjectData.componentData)
+		if(scene == null)
 		{
-			ComponentLoader.load(gameObject, componentData);
+			Logger.logWarning("Unable to add GameObject: " + gameObject + " to any scene");
+			return;
 		}
 		
-		return gameObject;
+		scene.addObject(gameObject);
+	}
+	
+	public static void remove(GameObject gameObject, Scene scene)
+	{
+		if(scene == null)
+		{
+			Logger.logWarning("Unable to remove GameObject: " + gameObject + " from the scene");
+			return;
+		}
+		
+		scene.removeObject(gameObject);
 	}
 }

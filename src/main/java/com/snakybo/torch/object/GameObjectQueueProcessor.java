@@ -25,6 +25,7 @@ package com.snakybo.torch.object;
 import com.snakybo.torch.queue.IQueueProcessor;
 import com.snakybo.torch.queue.QueueOperation;
 import com.snakybo.torch.scene.Scene;
+import com.snakybo.torch.scene.SceneRegisterer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -77,7 +78,7 @@ public final class GameObjectQueueProcessor implements IQueueProcessor
 					}
 
 					// Remove the GameObject from the scene
-					obj.scene.removeObject(obj);
+					SceneRegisterer.remove(obj, obj.scene);
 				}
 			}
 		}

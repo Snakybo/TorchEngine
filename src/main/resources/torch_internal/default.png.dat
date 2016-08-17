@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<texture type="com.snakybo.torch.texture.Texture2D">
+<texture type="com.snakybo.torch.texture.Texture2D" version="1">
     <parameters>
         <filters type="int" value="9728" />
         <anisioLevel type="float" value="0" />

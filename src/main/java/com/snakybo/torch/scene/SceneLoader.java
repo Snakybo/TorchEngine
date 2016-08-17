@@ -25,10 +25,9 @@ package com.snakybo.torch.scene;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.object.GameObjectLoader;
-import com.snakybo.torch.util.FileUtils;
-import com.snakybo.torch.util.ParserUtil;
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
+import com.snakybo.torch.xml.GameObjectParser;
+import com.snakybo.torch.xml.SceneParser;
+import com.snakybo.torch.xml.XMLParser;
 
 import java.nio.file.NoSuchFileException;
 
@@ -49,24 +48,12 @@ public final class SceneLoader
 		
 		try
 		{
-			LoggerInternal.log("Begin parsing of scene data file: " + path);
-			Document document = ParserUtil.getDocument(FileUtils.toURI(path));
-			
-			if(!ParserUtil.isCorrectFile(document, "scene"))
-			{
-				throw new IllegalArgumentException("Specified file (" + path + ") is not a scene");
-			}
-			
-			Scene oldScene = Scene.getCurrentScene();
+			SceneParser.SceneData sceneData = (SceneParser.SceneData)XMLParser.decode(path + ".scene");
 			Scene scene = new Scene();
-			scene.makeCurrent();
 			
-			NodeList gameObjectsNodeList = document.getElementsByTagName("game_object");
-			GameObjectLoader.parseGameObjectList(gameObjectsNodeList);
-			
-			if(oldScene != null)
+			for(GameObjectParser.GameObjectData gameObjectData : sceneData.gameObjectData)
 			{
-				oldScene.makeCurrent();
+				GameObjectLoader.load(scene, gameObjectData);
 			}
 			
 			return scene;

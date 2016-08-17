@@ -60,14 +60,13 @@ public final class XMLParser
 		switch(rootNode)
 		{
 		case "scene":
-			return null;
+			return SceneParser.decode(document.getDocumentElement());
 		case "material":
 			return MaterialParser.decode(document.getDocumentElement());
 		case "texture":
 			return TextureParser.decode(document.getDocumentElement());
 		default:
-			Logger.logError("Unknown root node type: " + rootNode);
-			return null;
+			throw new IllegalArgumentException("Unknown root node type: " + rootNode);
 		}
 	}
 }

@@ -26,6 +26,7 @@ import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.interfaces.IDestroyable;
 import com.snakybo.torch.queue.QueueOperation;
 import com.snakybo.torch.scene.Scene;
+import com.snakybo.torch.scene.SceneRegisterer;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -60,14 +61,15 @@ public final class GameObject extends Object implements IDestroyable
 	 */
 	public GameObject(String name)
 	{
+		this(Scene.getCurrentScene(), name);
+	}
+	
+	GameObject(Scene scene, String name)
+	{
 		super(name);
 		
-		// Register the GameObject
-		if(Scene.getCurrentScene() != null)
-		{
-			scene = Scene.getCurrentScene();
-			scene.addObject(this);
-		}
+		this.scene = scene;
+		SceneRegisterer.add(this, scene);
 		
 		components = new HashSet<>();
 		queue = new HashMap<>();

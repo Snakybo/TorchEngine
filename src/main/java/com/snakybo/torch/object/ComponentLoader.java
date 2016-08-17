@@ -23,15 +23,10 @@
 package com.snakybo.torch.object;
 
 import com.snakybo.torch.debug.Logger;
-import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.serialized.SerializationUtils;
-import com.snakybo.torch.util.ParserUtil;
-import com.snakybo.torch.util.tuple.Tuple3;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import com.snakybo.torch.xml.ComponentParser;
 
-import java.util.Set;
+import java.lang.reflect.Field;
 
 /**
  * @author Snakybo
@@ -44,88 +39,54 @@ public final class ComponentLoader
 		throw new AssertionError();
 	}
 	
-	public static void loadComponents(GameObject gameObject, NodeList nodeList)
-	{
-		LoggerInternal.log("Begin parsing of Component nodes for GameObject node: " + gameObject);
-		
-		for(int i = 0; i < nodeList.getLength(); i++)
-		{
-			Node node = nodeList.item(i);
-			
-			if(node.getNodeType() == Node.ELEMENT_NODE)
-			{
-				Element element = (Element)node;
-				String componentClassString = element.getElementsByTagName("class").item(0).getTextContent();
-				
-				LoggerInternal.log("Parsing Component node: " + componentClassString);
-				
-				Component component = createComponent(gameObject, componentClassString);
-				
-				NodeList fieldNodeList = element.getElementsByTagName("field");
-				
-				if(fieldNodeList.getLength() > 0)
-				{
-					setFields(component, fieldNodeList);
-				}
-			}
-		}
-	}
-	
-	private static Component createComponent(GameObject gameObject, String clazz)
+	public static void load(GameObject gameObject, ComponentParser.ComponentData componentData)
 	{
 		try
 		{
-			Class<?> componentClass = Class.forName(clazz);
-			
-			if(componentClass.getConstructors().length > 1 || componentClass.getConstructor() == null)
+			if(componentData.type.getConstructors().length > 1 || componentData.type.getConstructor() == null)
 			{
-				throw new RuntimeException("Components should not have a constructor (" + componentClass.getName() + ")");
+				throw new RuntimeException("Components should not have a constructor (" + componentData.type.getName() + ")");
 			}
-			
-			return gameObject.addComponentInternal(componentClass);
-		}
-		catch(ReflectiveOperationException e)
+		} catch(NoSuchMethodException e)
 		{
 			Logger.logError(e.getMessage(), e);
+			return;
 		}
 		
-		return null;
-	}
-	
-	private static void setFields(Component component, NodeList nodeList)
-	{
-		Set<Tuple3<String, String, java.lang.Object>> fields = ParserUtil.parseFieldList(nodeList);
+		Component component = gameObject.addComponentInternal(componentData.type);
 		
-		for(Tuple3<String, String, java.lang.Object> field : fields)
+		for(ComponentParser.ComponentFieldData fieldData : componentData.fieldData)
 		{
-			switch(field.v2)
+			Field field = SerializationUtils.get(component, fieldData.name);
+			
+			switch(fieldData.type)
 			{
 			case "byte":
-				SerializationUtils.set(component, SerializationUtils.get(component, field.v1), (byte) field.v3);
+				SerializationUtils.set(component, field, (byte)fieldData.value);
 				break;
 			case "short":
-				SerializationUtils.set(component, SerializationUtils.get(component, field.v1), (short) field.v3);
+				SerializationUtils.set(component, field, (short)fieldData.value);
 				break;
 			case "int":
-				SerializationUtils.set(component, SerializationUtils.get(component, field.v1), (int) field.v3);
+				SerializationUtils.set(component, field, (int)fieldData.value);
 				break;
 			case "float":
-				SerializationUtils.set(component, SerializationUtils.get(component, field.v1), (float) field.v3);
+				SerializationUtils.set(component, field, (float)fieldData.value);
 				break;
 			case "long":
-				SerializationUtils.set(component, SerializationUtils.get(component, field.v1), (long) field.v3);
+				SerializationUtils.set(component, field, (long)fieldData.value);
 				break;
 			case "double":
-				SerializationUtils.set(component, SerializationUtils.get(component, field.v1), (double) field.v3);
+				SerializationUtils.set(component, field, (double)fieldData.value);
 				break;
 			case "char":
-				SerializationUtils.set(component, SerializationUtils.get(component, field.v1), (char) field.v3);
+				SerializationUtils.set(component, field, (char)fieldData.value);
 				break;
 			case "boolean":
-				SerializationUtils.set(component, SerializationUtils.get(component, field.v1), (boolean) field.v3);
+				SerializationUtils.set(component, field, (boolean)fieldData.value);
 				break;
 			default:
-				SerializationUtils.set(component, SerializationUtils.get(component, field.v1), field.v3);
+				SerializationUtils.set(component, field, fieldData.value);
 				break;
 			}
 		}

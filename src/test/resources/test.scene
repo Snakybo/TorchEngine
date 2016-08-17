@@ -1,89 +1,44 @@
 <?xml version="1.0"?>
-<scene>
+<scene version="1">
     <game_objects>
-        <game_object>
-            <name>Test</name>
-            <position type="vector3">
-                <x>0</x>
-                <y>0</y>
-                <z>2</z>
-            </position>
-            <rotation type="quaternion">
-                <x>0</x>
-                <y>0</y>
-                <z>0</z>
-                <w>1</w>
-            </rotation>
-            <scale type="vector3">
-                <x>1</x>
-                <y>1</y>
-                <z>1</z>
-            </scale>
+        <game_object name="Test">
+            <position type="vector3">0, 0, 2</position>
+            <rotation type="quaternion">0, 0, 0, 1</rotation>
+            <scale type="vector3">1, 1, 1</scale>
             <components>
-                <component>
-                    <class>com.snakybo.torch.component.Camera</class>
+                <component type="com.snakybo.torch.component.Camera">
                     <fields>
-                        <field name="fieldOfView" type="float">75</field>
-                        <field name="zNear" type="float">0.01</field>
-                        <field name="zFar" type="float">1000</field>
-                        <field name="clearFlags" type="enum">com.snakybo.torch.camera.CameraClearFlags:Skybox</field>
-                        <field name="skyboxTexture" type="texture">skybox_default.png</field>
+                        <fieldOfView type="float">75</fieldOfView>
+                        <zNear type="float">0.01</zNear>
+                        <zFar type="float">1000</zFar>
+                        <clearFlags type="enum">com.snakybo.torch.camera.CameraClearFlags:0</clearFlags>
+                        <skyboxTexture type="asset">skybox_default.png</skyboxTexture>
                     </fields>
                 </component>
             </components>
         </game_object>
-        <game_object>
-            <name>Grassblock</name>
-            <position>
-                <x>0</x>
-                <y>0</y>
-                <z>0</z>
-            </position>
-            <rotation>
-                <x>0.0</x>
-                <y>-0.21643962</y>
-                <z>0.0</z>
-                <w>0.976296</w>
-            </rotation>
-            <scale>
-                <x>1</x>
-                <y>1</y>
-                <z>1</z>
-            </scale>
+        <game_object name="Grassblock">
+            <position type="vector3">0, 0, 0</position>
+            <rotation type="quaternion">0, -0.21643962, 0, 0.976296</rotation>
+            <scale type="vector3">1, 1, 1</scale>
             <components>
-                <component>
-                    <class>com.snakybo.torch.component.MeshRenderer</class>
+                <component type="com.snakybo.torch.component.MeshRenderer">
                     <fields>
-                        <field name="mesh" type="mesh">cube.obj</field>
-                        <field name="material" type="material">specular.mtl</field>
+                        <mesh type="asset">cube.obj</mesh>
+                        <material type="asset">specular.mtl</material>
                     </fields>
                 </component>
             </components>
         </game_object>
-        <game_object>
-            <name>LightController</name>
-            <position>
-                <x>0.1</x>
-                <y>0</y>
-                <z>1.1</z>
-            </position>
-            <rotation>
-                <x>0</x>
-                <y>0</y>
-                <z>0</z>
-                <w>1</w>
-            </rotation>
-            <scale>
-                <x>1</x>
-                <y>1</y>
-                <z>1</z>
-            </scale>
+        <game_object name="LightController">
+            <position type="vector3">0.1, 0, 1.1</position>
+            <rotation type="quaternion">0, 0, 0, 1</rotation>
+            <scale type="vector3">1, 1, 1</scale>
             <components>
-                <component>
-                    <class>opengl.LightController</class>
+                <component type="opengl.LightController">
                     <fields>
-                        <field name="diffuse" type="texture">container2.png</field>
-                        <field name="specular" type="texture">container2_specular.png</field>
+                        <diffuse type="asset">container2.png</diffuse>
+                        <specular type="asset">container2_specular.png</specular>
                     </fields>
                 </component>
             </components>

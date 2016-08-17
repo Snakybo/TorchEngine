@@ -22,7 +22,8 @@
 
 package com.snakybo.torch.xml;
 
-import com.snakybo.torch.texture.Texture;
+import com.snakybo.torch.debug.Logger;
+import com.snakybo.torch.debug.LoggerInternal;
 import org.w3c.dom.Element;
 
 /**
@@ -31,6 +32,8 @@ import org.w3c.dom.Element;
  */
 public final class TextureParser
 {
+	private static final String VERSION = "1";
+	
 	public static final class TextureData
 	{
 		public final Class<?> type;
@@ -59,6 +62,16 @@ public final class TextureParser
 	
 	static TextureData decode(Element element)
 	{
+		String version = element.getAttribute("version");
+		
+		LoggerInternal.log("Texture data version: " + version);
+		if(!version.equals(VERSION))
+		{
+			// TODO: Texture data version upgrade tool
+			Logger.logError("Unable to load texture data, invalid version (expected: " + VERSION + " got:" + version + ")");
+			return null;
+		}
+		
 		Class<?> type = XMLParserUtils.decodeClass(element.getAttribute("type"));
 		
 		Element parameters = (Element)element.getElementsByTagName("parameters").item(0);
@@ -78,6 +91,7 @@ public final class TextureParser
 		Element clampElement = (Element)parameters.getElementsByTagName("clamp").item(0);
 		boolean clamp = (boolean)XMLParserUtils.decodeObject(clampElement.getAttribute("type"), clampElement.getTextContent());
 		
+		LoggerInternal.log("Successfully decoded texture data");
 		return new TextureData(type, filters, anisioLevel, format, internalFormat, clamp);
 	}
 }

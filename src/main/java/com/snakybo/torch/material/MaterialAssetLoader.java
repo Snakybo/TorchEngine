@@ -22,22 +22,10 @@
 
 package com.snakybo.torch.material;
 
-import com.snakybo.torch.color.Color;
-import com.snakybo.torch.color.Color32;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
-import com.snakybo.torch.texture.Texture;
-import com.snakybo.torch.util.FileUtils;
-import com.snakybo.torch.util.ParserUtil;
 import com.snakybo.torch.xml.MaterialParser;
 import com.snakybo.torch.xml.XMLParser;
-import org.joml.Vector2f;
-import org.joml.Vector3f;
-import org.joml.Vector4f;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 import java.nio.file.NoSuchFileException;
 import java.util.Map;

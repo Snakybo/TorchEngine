@@ -25,11 +25,8 @@ package com.snakybo.torch.texture;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.util.FileUtils;
-import com.snakybo.torch.util.ParserUtil;
 import com.snakybo.torch.xml.TextureParser;
 import com.snakybo.torch.xml.XMLParser;
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
 
 import java.nio.file.NoSuchFileException;
 

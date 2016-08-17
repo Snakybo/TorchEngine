@@ -22,6 +22,7 @@
 
 package com.snakybo.torch.xml;
 
+import com.snakybo.torch.asset.Assets;
 import com.snakybo.torch.color.Color;
 import com.snakybo.torch.debug.Logger;
 import org.joml.Quaternionf;
@@ -110,21 +111,24 @@ public final class XMLParserUtils
 			return decodeQuaternion(value);
 		case "color":
 			return decodeColor(value);
+		case "asset":
+			return Assets.load(value);
 		default:
-			// TODO
-			return null;
+			throw new IllegalArgumentException("Unable to parse XML: Unknown object type: " + type + ", value is: " + value);
 		}
 	}
 	
 	private static Enum<?> decodeEnum(String value)
 	{
 		String k = value.substring(0, value.indexOf(':'));
-		String v = value.substring(value.indexOf(':') + 1);
+		int v = Integer.parseInt(value.substring(value.indexOf(':') + 1));
 		
 		try
 		{
-			Enum<?> e = Enum.valueOf((Class<Enum>)Class.forName(k), v);
-			return e;
+			Class<Enum> clazz = (Class<Enum>)Class.forName(k);
+			Enum<?>[] values = clazz.getEnumConstants();
+			
+			return values[v];
 		}
 		catch(ClassNotFoundException e)
 		{

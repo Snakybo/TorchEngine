@@ -78,7 +78,7 @@ public final class Scene implements IDestroyable
 		currentScene = this;
 	}
 	
-	public final void addObject(GameObject obj)
+	final void addObject(GameObject obj)
 	{
 		if(!gameObjects.contains(obj) && !queue.containsKey(obj))
 		{
@@ -90,7 +90,7 @@ public final class Scene implements IDestroyable
 		}
 	}
 	
-	public final void removeObject(GameObject obj)
+	final void removeObject(GameObject obj)
 	{
 		if(gameObjects.contains(obj) && !queue.containsKey(obj))
 		{
