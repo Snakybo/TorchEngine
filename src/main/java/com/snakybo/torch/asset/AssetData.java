@@ -62,8 +62,15 @@ public abstract class AssetData implements IDestroyable
 	 */
 	public final void addUsage()
 	{
-		LoggerInternal.log("useCount increased for " + getClass().getSimpleName() + ":" + name);
-		useCount++;
+		if(name != null && !name.isEmpty())
+		{
+			LoggerInternal.log("useCount increased for " + getClass().getSimpleName() + ":" + name);
+			useCount++;
+		}
+		else
+		{
+			useCount = 1;
+		}
 	}
 	
 	/**
@@ -72,12 +79,20 @@ public abstract class AssetData implements IDestroyable
 	 */
 	public final void removeUsage()
 	{
-		LoggerInternal.log("useCount decreased for " + getClass().getSimpleName() + ":" + name);
-		useCount--;
-		
-		if(useCount <= 0)
+		if(name != null && !name.isEmpty())
 		{
-			LoggerInternal.log("No more usages remaining for " + getClass().getSimpleName() + ":" + name + ", destroying");
+			LoggerInternal.log("useCount decreased for " + getClass().getSimpleName() + ":" + name);
+			useCount--;
+			
+			if(useCount <= 0)
+			{
+				LoggerInternal.log("No more usages remaining for " + getClass().getSimpleName() + ":" + name + ", destroying");
+				destroy();
+			}
+		}
+		else
+		{
+			LoggerInternal.log("No more usages remaining for runtime " + getClass().getSimpleName() + ", destroying");
 			destroy();
 		}
 	}
