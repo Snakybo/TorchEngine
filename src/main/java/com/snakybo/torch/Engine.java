@@ -129,7 +129,7 @@ public final class Engine
 	{
 		if(Window.isCloseRequested())
 		{
-			running = false;
+			stop();
 		}
 
 		TimeInternal.updateDeltaTime();
@@ -194,9 +194,14 @@ public final class Engine
 	
 	private static void destroy()
 	{
+		LoggerInternal.log("Cleaning up");
+		
 		Scene.getCurrentScene().getAllGameObjects().forEach(GameObjectNotifier::destroy);
 
 		JoystickController.destroy();
 		MonitorController.destroy();
+		
+		LoggerInternal.log("Terminating");
+		System.exit(0);
 	}
 }
