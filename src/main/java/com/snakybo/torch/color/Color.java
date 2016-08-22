@@ -22,6 +22,7 @@
 
 package com.snakybo.torch.color;
 
+import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.util.MathUtils;
 
 import java.io.Serializable;
@@ -37,8 +38,6 @@ import java.io.Serializable;
  * This instance of the color will not be changed.
  * </p>
  *
- * @see Color32
- *
  * @author Snakybo
  * @since 1.0
  */
@@ -47,17 +46,17 @@ public final class Color implements Serializable
 	/**
 	 * Completely transparent, no color.
 	 */
-	public static final Color CLEAR = Color32.CLEAR.toColor();
+	public static final Color CLEAR = new Color(0, 0, 0, 0);
 	
 	/**
 	 * The color white.
 	 */
-	public static final Color WHITE = Color32.WHITE.toColor();
+	public static final Color WHITE = new Color(1, 1, 1, 1);
 	
 	/**
 	 * The color light gray.
 	 */
-	public static final Color LIGHT_GRAY = Color32.LIGHT_GRAY.toColor();
+	public static final Color LIGHT_GRAY = new Color(0.75f, 0.75f, 0.75f);
 	
 	/**
 	 * Alternative spelling for {@link #LIGHT_GRAY}
@@ -67,7 +66,7 @@ public final class Color implements Serializable
 	/**
 	 * The color gray.
 	 */
-	public static final Color GRAY = Color32.GRAY.toColor();
+	public static final Color GRAY = new Color(0.50f, 0.50f, 0.50f);
 	
 	/**
 	 * Alternative spelling for {@link #GRAY};
@@ -77,7 +76,7 @@ public final class Color implements Serializable
 	/**
 	 * The color dark gray.
 	 */
-	public static final Color DARK_GRAY = Color32.DARK_GRAY.toColor();
+	public static final Color DARK_GRAY = new Color(0.25f, 0.25f, 0.25f);
 	
 	/**
 	 * Alternative spelling for {@link #DARK_GRAY}
@@ -87,49 +86,52 @@ public final class Color implements Serializable
 	/**
 	 * The color light gray.
 	 */
-	public static final Color BLACK = Color32.BLACK.toColor();
+	public static final Color BLACK = new Color(0, 0, 0, 1);
 	
 	/**
 	 * The color red.
 	 */
-	public static final Color RED = Color32.RED.toColor();
+	public static final Color RED = new Color(1, 0, 0, 1);
 	
 	/**
 	 * The color pink.
 	 */
-	public static final Color PINK = Color32.PINK.toColor();
+	public static final Color PINK = new Color(1, 0.68f, 0.68f, 1);
 	
 	/**
 	 * The color orange.
 	 */
-	public static final Color ORANGE = Color32.ORANGE.toColor();
+	public static final Color ORANGE = new Color(1, 0.78f, 0, 1);
 	
 	/**
 	 * The color yellow.
 	 */
-	public static final Color YELLOW = Color32.YELLOW.toColor();
+	public static final Color YELLOW = new Color(1, 1, 0, 1);
 	
 	/**
 	 * The color green.
 	 */
-	public static final Color GREEN = Color32.GREEN.toColor();
+	public static final Color GREEN = new Color(0, 1, 0, 1);
 	
 	/**
 	 * The color magenta.
 	 */
-	public static final Color MAGENTA = Color32.MAGENTA.toColor();
+	public static final Color MAGENTA = new Color(1, 0, 1, 1);
 	
 	/**
 	 * The color cyan.
 	 */
-	public static final Color CYAN = Color32.CYAN.toColor();
+	public static final Color CYAN = new Color(0, 1, 1, 1);
 	
 	/**
 	 * The color blue.
 	 */
-	public static final Color BLUE = Color32.BLUE.toColor();
+	public static final Color BLUE = new Color(0, 0, 1, 1);
 	
-	private final Color32 value;
+	private final float r;
+	private final float g;
+	private final float b;
+	private final float a;
 	
 	/**
 	 * Create a new color.
@@ -166,18 +168,10 @@ public final class Color implements Serializable
 	public Color(float r, float g, float b, float a)
 	{
 		// Clamp the input values between [0-1]
-		r = MathUtils.clamp01(r);
-		g = MathUtils.clamp01(g);
-		b = MathUtils.clamp01(b);
-		a = MathUtils.clamp01(a);
-		
-		// Convert the values to the range [0-255]
-		int r32 = (int)(r * 255 + 0.5);
-		int g32 = (int)(g * 255 + 0.5);
-		int b32 = (int)(b * 255 + 0.5);
-		int a32 = (int)(a * 255 + 0.5);
-		
-		value = new Color32(r32, g32, b32, a32);
+		this.r = MathUtils.clamp01(r);
+		this.g = MathUtils.clamp01(g);
+		this.b = MathUtils.clamp01(b);
+		this.a = MathUtils.clamp01(a);
 	}
 	
 	/**
@@ -186,25 +180,59 @@ public final class Color implements Serializable
 	 */
 	public Color(Color other)
 	{
-		value = new Color32(other.value);
+		this(other.r, other.g, other.b, other.a);
 	}
 	
 	@Override
 	public final String toString()
 	{
-		return "(r=" + getRed() + ", g=" + getGreen() + ", b=" + getBlue() + ", a=" + getAlpha() + ")";
+		return "r=" + getRed() + ", g=" + getGreen() + ", b=" + getBlue() + ", a=" + getAlpha();
 	}
 	
 	@Override
-	public final int hashCode()
+	public boolean equals(Object o)
 	{
-		return value.hashCode();
+		if(this == o)
+		{
+			return true;
+		}
+		
+		if(o == null || getClass() != o.getClass())
+		{
+			return false;
+		}
+		
+		Color color = (Color)o;
+		
+		if(Float.compare(color.r, r) != 0)
+		{
+			return false;
+		}
+		
+		if(Float.compare(color.g, g) != 0)
+		{
+			return false;
+		}
+		
+		if(Float.compare(color.b, b) != 0)
+		{
+			return false;
+		}
+		
+		return Float.compare(color.a, a) == 0;
 	}
 	
 	@Override
-	public final boolean equals(Object obj)
+	public int hashCode()
 	{
-		return obj instanceof Color && ((Color)obj).value.getARGB() == value.getARGB();
+		int result = 0;
+		
+		result = result + r != +0.0f ? Float.floatToIntBits(r) : 0;
+		result = 31 * result + (g != +0.0f ? Float.floatToIntBits(g) : 0);
+		result = 31 * result + (b != +0.0f ? Float.floatToIntBits(b) : 0);
+		result = 31 * result + (a != +0.0f ? Float.floatToIntBits(a) : 0);
+		
+		return result;
 	}
 	
 	/**
@@ -304,19 +332,11 @@ public final class Color implements Serializable
 	}
 	
 	/**
-	 * @return The color values to a {@link Color32} in the range [0-255].
-	 */
-	public final Color32 toColor32()
-	{
-		return new Color32(value);
-	}
-	
-	/**
 	 * @return The red component of the color.
 	 */
 	public final float getRed()
 	{
-		return value.getARGB() / 255f;
+		return r;
 	}
 	
 	/**
@@ -324,7 +344,7 @@ public final class Color implements Serializable
 	 */
 	public final float getGreen()
 	{
-		return value.getARGB() / 255f;
+		return g;
 	}
 	
 	/**
@@ -332,7 +352,7 @@ public final class Color implements Serializable
 	 */
 	public final float getBlue()
 	{
-		return value.getARGB() / 255f;
+		return b;
 	}
 	
 	/**
@@ -340,14 +360,6 @@ public final class Color implements Serializable
 	 */
 	public final float getAlpha()
 	{
-		return value.getARGB() / 255f;
-	}
-	
-	/**
-	 * @return The ARGB value of the color. Bits 24-31 are alpha, 16-23 are red, 8-15 are green, 0-7 are blue.
-	 */
-	public final int getARGB()
-	{
-		return value.getARGB();
+		return a;
 	}
 }

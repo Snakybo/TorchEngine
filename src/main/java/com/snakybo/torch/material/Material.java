@@ -25,7 +25,6 @@ package com.snakybo.torch.material;
 import com.snakybo.torch.asset.Asset;
 import com.snakybo.torch.camera.CameraInternal;
 import com.snakybo.torch.color.Color;
-import com.snakybo.torch.color.Color32;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.object.Transform;
 import com.snakybo.torch.texture.Texture;
@@ -208,16 +207,6 @@ public final class Material extends Asset
 	public final void setColor(String name, Color value)
 	{
 		set(name, value);
-	}
-	
-	/**
-	 * Set a {@link Color32} value
-	 * @param name The name of the uniform in the shader
-	 * @param value The value of the uniform
-	 */
-	public final void setColor(String name, Color32 value)
-	{
-		set(name, value.toColor());
 	}
 	
 	/**

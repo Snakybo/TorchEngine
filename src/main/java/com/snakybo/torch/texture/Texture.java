@@ -24,9 +24,10 @@ package com.snakybo.torch.texture;
 
 import com.snakybo.torch.asset.Asset;
 import com.snakybo.torch.color.Color;
-import com.snakybo.torch.color.Color32;
+import com.snakybo.torch.color.ColorUtil;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
+import com.snakybo.torch.util.MathUtils;
 import com.snakybo.torch.util.ToByteBuffer;
 
 import javax.imageio.ImageIO;
@@ -133,32 +134,10 @@ public abstract class Texture extends Asset
 	 */
 	public final void setPixel(int x, int y, Color pixel)
 	{
-		setPixel(x, y, pixel.getARGB());
+		asset.bufferedImage.setRGB(x, y, ColorUtil.colorToARGB(pixel));
 	}
 	
-	/**
-	 * Set the pixel data at (x, y).
-	 * @param x The X position of the pixel.
-	 * @param y The Y position of the pixel.
-	 * @param pixel The new data of the pixel.
-	 */
-	public final void setPixel(int x, int y, Color32 pixel)
-	{
-		setPixel(x, y, pixel.getARGB());
-	}
-	
-	/**
-	 * Set the pixel data at (x, y).
-	 * @param x The X position of the pixel.
-	 * @param y The Y position of the pixel.
-	 * @param pixel The new data of the pixel.
-	 */
-	public final void setPixel(int x, int y, int pixel)
-	{
-		asset.bufferedImage.setRGB(x, y, pixel);
-	}
-	
-	/**
+	/*
 	 * Convert the bitmap to a ByteBuffer.
 	 * @return The {@link ByteBuffer} representation of the bitmap.
 	 */
@@ -167,13 +146,31 @@ public abstract class Texture extends Asset
 		return ToByteBuffer.convert(asset.bufferedImage);
 	}
 	
+	public final Color[] getPixels()
+	{
+		return getPixels(0, 0, getWidth(), getHeight());
+	}
+	
 	/**
-	 * Getthe pixel data of the texture.
+	 * Get the pixel data of the texture.
 	 * @return The pixel data.
 	 */
-	public final int[] getPixels()
+	public final Color[] getPixels(int x, int y, int width, int height)
 	{
-		return asset.bufferedImage.getRGB(0, 0, getWidth(), getHeight(), null, 0, getWidth());
+		x = MathUtils.clamp(x, 0, getWidth());
+		y = MathUtils.clamp(y, 0, getHeight());
+		width = MathUtils.clamp(width, 0, getWidth());
+		height = MathUtils.clamp(height, 0, getHeight());
+		
+		int[] pixels = asset.bufferedImage.getRGB(x, y, width, height, null, 0, width);
+		Color[] colors = new Color[pixels.length];
+		
+		for(int i = 0; i < pixels.length; i++)
+		{
+			colors[i] = ColorUtil.RGBToColor(pixels[i]);
+		}
+		
+		return colors;
 	}
 	
 	/**
@@ -182,9 +179,9 @@ public abstract class Texture extends Asset
 	 * @param y The Y position of the pixel.
 	 * @return The pixel data at (x, y).
 	 */
-	public final int getPixel(int x, int y)
+	public final Color getPixel(int x, int y)
 	{
-		return asset.bufferedImage.getRGB(x, y);
+		return ColorUtil.RGBToColor(asset.bufferedImage.getRGB(x, y));
 	}
 	
 	public int getWidth()
