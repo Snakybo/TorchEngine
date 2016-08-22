@@ -52,7 +52,7 @@ public class Object implements Serializable
 	 * Set the name of the object.
 	 * @param name The new name.
 	 */
-	public void setName(String name)
+	public final void setName(String name)
 	{
 		if(name == null || name.isEmpty())
 		{
@@ -66,7 +66,7 @@ public class Object implements Serializable
 	/**
 	 * @return The name of the object.
 	 */
-	public String getName()
+	public final String getName()
 	{
 		return name;
 	}
