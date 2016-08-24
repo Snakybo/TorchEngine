@@ -47,25 +47,25 @@ public class LightController extends Component
 	@Override
 	protected void onUpdate()
 	{
-		if(Keyboard.isDown(Key.W))
-		{
-			getTransform().translate(new Vector3f(0, 0, 1).mul(Time.getDeltaTime()));
-		}
-		
-		if(Keyboard.isDown(Key.A))
-		{
-			getTransform().translate(new Vector3f(-1, 0, 0).mul(Time.getDeltaTime()));
-		}
-		
-		if(Keyboard.isDown(Key.S))
-		{
-			getTransform().translate(new Vector3f(0, 0, -1).mul(Time.getDeltaTime()));
-		}
-		
-		if(Keyboard.isDown(Key.D))
-		{
-			getTransform().translate(new Vector3f(1, 0, 0).mul(Time.getDeltaTime()));
-		}
+//		if(Keyboard.isDown(Key.W))
+//		{
+//			getTransform().translate(new Vector3f(0, 0, 1).mul(Time.getDeltaTime()));
+//		}
+//
+//		if(Keyboard.isDown(Key.A))
+//		{
+//			getTransform().translate(new Vector3f(-1, 0, 0).mul(Time.getDeltaTime()));
+//		}
+//
+//		if(Keyboard.isDown(Key.S))
+//		{
+//			getTransform().translate(new Vector3f(0, 0, -1).mul(Time.getDeltaTime()));
+//		}
+//
+//		if(Keyboard.isDown(Key.D))
+//		{
+//			getTransform().translate(new Vector3f(1, 0, 0).mul(Time.getDeltaTime()));
+//		}
 		
 		if(meshRenderer == null)
 		{
@@ -84,7 +84,7 @@ public class LightController extends Component
 		
 		if(meshRenderer != null)
 		{
-			meshRenderer.getMaterial().setVector3f("light.position", getTransform().getPosition());
+			meshRenderer.getMaterial().setVector3f("light.direction", new Vector3f(-0.2f, -1.0f, -0.3f));
 		}
 		
 		
