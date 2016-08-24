@@ -45,13 +45,12 @@ final class Skybox
 	private Transform transform;
 	private Material material;
 	
-	public Skybox(Texture texture)
+	public Skybox()
 	{
 		transform = new Transform();
 		transform.setLocalScale(new Vector3f(50));
 		
 		material = new Material("unlit.glsl");
-		material.setTexture("diffuse", texture);
 		material.setTransform(transform);
 		
 		meshRenderer = new MeshRendererInternal(Assets.load(Mesh.class, "skybox.obj"), material);

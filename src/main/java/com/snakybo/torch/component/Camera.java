@@ -54,6 +54,7 @@ public final class Camera extends Component
 	@SerializedField private float zFar = 1000f;
 	@SerializedField private CameraClearFlags clearFlags = CameraClearFlags.Skybox;
 	@SerializedField private Texture2D skyboxTexture = Assets.load(Texture2D.class, "skybox_default.png");
+	@SerializedField private Color clearColor = Color.BLACK;
 	
 	private CameraInternal camera;
 	private boolean changed;
@@ -62,10 +63,13 @@ public final class Camera extends Component
 	protected final void onStart()
 	{
 		Matrix4f projection = new Matrix4f().perspective((float)Math.toRadians(fieldOfView), Window.getAspectRatio(), zNear, zFar);
-		camera = new CameraInternal(projection, clearFlags, skyboxTexture);
+		
+		camera = new CameraInternal(projection, clearFlags);
+		camera.setTransform(getTransform());
+		camera.setSkybox(skyboxTexture);
+		camera.setClearColor(clearColor);
 		
 		cameras.add(this);
-		camera.setTransform(getTransform());
 	}
 	
 	@Override

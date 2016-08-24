@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <scene version="1">
     <game_objects>
-        <game_object name="Test">
-            <position type="vector3">0, 0, 2</position>
+        <game_object name="Camera">
+            <position type="vector3">0, 0, -2</position>
             <rotation type="quaternion">0, 0, 0, 1</rotation>
             <scale type="vector3">1, 1, 1</scale>
             <components>
@@ -13,6 +13,7 @@
                         <zFar type="float">1000</zFar>
                         <clearFlags type="enum">com.snakybo.torch.camera.CameraClearFlags:0</clearFlags>
                         <skyboxTexture type="asset">skybox_default.png</skyboxTexture>
+                        <clearColor type="color">0, 0, 0, 1</clearColor>
                     </fields>
                 </component>
             </components>

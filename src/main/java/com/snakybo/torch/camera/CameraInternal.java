@@ -78,22 +78,11 @@ public final class CameraInternal
 	 */
 	public CameraInternal(Matrix4f projection, CameraClearFlags clearFlags)
 	{
-		this(projection, clearFlags, Assets.load(Texture2D.class, "skybox_default.png"));
-	}
-	
-	/**
-	 * Create a new camera.
-	 * @param projection The projection of the camera.
-	 * @param clearFlags The {@link CameraClearFlags} to use.
-	 * @param skyboxTexture The texture to use for the {@link Skybox}
-	 */
-	public CameraInternal(Matrix4f projection, CameraClearFlags clearFlags, Texture2D skyboxTexture)
-	{
 		this.projection = projection;
 		this.clearFlags = clearFlags;
 		
 		clearColor = new Color(0, 0, 0, 0);
-		skybox = new Skybox(skyboxTexture);
+		skybox = new Skybox();
 		
 		transform = new Transform();
 		
@@ -215,14 +204,7 @@ public final class CameraInternal
 	 */
 	public final Matrix4f getView()
 	{
-		Vector3f position = transform.getPosition().mul(-1);
-		Quaternionf rotation = transform.getRotation().conjugate();
-		
-		Matrix4f viewProjection = new Matrix4f();
-		viewProjection.translate(position);
-		viewProjection.rotate(rotation);
-		
-		return viewProjection;
+		return new Matrix4f().translate(transform.getPosition()).rotate(transform.getRotation());
 	}
 	
 	/**
