@@ -154,7 +154,7 @@ public final class Shader extends Asset
 	 * @param name The name of the uniform
 	 * @param value The value of the uniform
 	 */
-	public final void setUniform2f(String name, Vector4f value)
+	public final void setUniform4f(String name, Vector4f value)
 	{
 		glUniform4f(asset.uniforms.get(name), value.x, value.y, value.z, value.w);
 	}
