@@ -38,12 +38,14 @@ import java.util.Set;
  * @since 1.0
  */
 public final class GameObject extends Object implements IDestroyable
-{	
+{
+	Collection<Component> componentsToAdd;
+	Collection<Component> componentsToRemove;
+	
 	Set<Component> components;
 	Map<Component, QueueOperation> queue;
 	
 	Transform transform;
-	Scene scene;
 	
 	boolean destroyed;
 	
