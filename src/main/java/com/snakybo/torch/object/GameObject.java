@@ -23,7 +23,6 @@
 package com.snakybo.torch.object;
 
 import com.snakybo.torch.debug.Logger;
-import com.snakybo.torch.scene.Scene;
 import com.snakybo.torch.scene.SceneInternal;
 import com.snakybo.torch.util.interfaces.IDestroyable;
 import com.snakybo.torch.util.queue.QueueOperation;
@@ -39,9 +38,6 @@ import java.util.Set;
  */
 public final class GameObject extends Object implements IDestroyable
 {
-	Collection<Component> componentsToAdd;
-	Collection<Component> componentsToRemove;
-	
 	Set<Component> components;
 	Map<Component, QueueOperation> queue;
 	
