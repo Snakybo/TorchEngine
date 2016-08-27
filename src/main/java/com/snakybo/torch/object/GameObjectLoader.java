@@ -37,9 +37,9 @@ public final class GameObjectLoader
 		throw new AssertionError();
 	}
 	
-	public static GameObject load(Scene scene, GameObjectParser.GameObjectData gameObjectData)
+	public static GameObject load(GameObjectParser.GameObjectData gameObjectData)
 	{
-		GameObject gameObject = new GameObject(scene, gameObjectData.name);
+		GameObject gameObject = new GameObject(gameObjectData.name);
 		
 		gameObject.getTransform().setLocalPosition(gameObjectData.position);
 		gameObject.getTransform().setLocalRotation(gameObjectData.rotation);

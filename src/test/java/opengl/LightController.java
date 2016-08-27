@@ -66,7 +66,7 @@ public class LightController extends Component
 		
 		if(meshRenderer == null)
 		{
-			meshRenderer = Scene.getCurrentScene().getGameObjectByName("Grassblock").getComponent(MeshRenderer.class);
+			meshRenderer = Scene.getGameObjectByName("Grassblock").getComponent(MeshRenderer.class);
 			
 			if(meshRenderer == null)
 			{

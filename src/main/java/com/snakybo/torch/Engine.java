@@ -31,7 +31,9 @@ import com.snakybo.torch.input.joystick.JoystickController;
 import com.snakybo.torch.input.keyboard.KeyboardController;
 import com.snakybo.torch.input.mouse.MouseController;
 import com.snakybo.torch.graphics.monitor.MonitorController;
+import com.snakybo.torch.object.GameObject;
 import com.snakybo.torch.object.GameObjectNotifier;
+import com.snakybo.torch.scene.SceneInternal;
 import com.snakybo.torch.util.queue.QueueProcessor;
 import com.snakybo.torch.scene.Scene;
 import com.snakybo.torch.util.time.Time;
@@ -119,27 +121,44 @@ public final class Engine
 	{
 		while(running)
 		{
-			frame();
+			if(WindowInternal.isCloseRequested())
+			{
+				stop();
+			}
+			
+			TimeInternal.updateDeltaTime();
+			
+			// Call onStart() on all GameObjects added in the previous frame
+			SceneInternal.processAdditions();
+			
+			WindowInternal.pollEvents();
+			
+			update();
+			updateInput();
+			
+			render();
+			
+			// Call onDestroy() on all GameObjects removed in this frame
+			SceneInternal.processRemovals();
 		}
 
 		QueueProcessor.process();
 		destroy();
 	}
-
-	private static void frame()
+	
+	private static void update()
 	{
-		if(WindowInternal.isCloseRequested())
+		for(GameObject gameObject : Scene.getAllGameObjects())
 		{
-			stop();
+			GameObjectNotifier.update(gameObject);
 		}
-
-		TimeInternal.updateDeltaTime();
 		
-		WindowInternal.pollEvents();
-		update();
-		updateInput();
+		for(GameObject gameObject : Scene.getAllGameObjects())
+		{
+			GameObjectNotifier.postUpdate(gameObject);
+		}
 		
-		render();
+		QueueProcessor.process();
 	}
 	
 	private static void updateInput()
@@ -148,14 +167,6 @@ public final class Engine
 		MouseController.update();
 		JoystickController.update();
 		CursorController.update();
-	}
-	
-	private static void update()
-	{
-		Scene.getCurrentScene().getAllGameObjects().forEach(GameObjectNotifier::update);
-		Scene.getCurrentScene().getAllGameObjects().forEach(GameObjectNotifier::postUpdate);
-		
-		QueueProcessor.process();
 	}
 	
 	private static void render()
@@ -200,7 +211,10 @@ public final class Engine
 	{
 		LoggerInternal.log("Cleaning up");
 		
-		Scene.getCurrentScene().getAllGameObjects().forEach(GameObjectNotifier::destroy);
+		for(GameObject gameObject : Scene.getAllGameObjects())
+		{
+			GameObjectNotifier.destroy(gameObject);
+		}
 
 		JoystickController.destroy();
 		MonitorController.destroy();

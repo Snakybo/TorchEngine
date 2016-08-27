@@ -22,92 +22,44 @@
 
 package com.snakybo.torch.scene;
 
-import com.snakybo.torch.util.interfaces.IDestroyable;
+import com.snakybo.torch.debug.Logger;
+import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.object.GameObject;
-import com.snakybo.torch.util.queue.QueueOperation;
+import com.snakybo.torch.object.GameObjectLoader;
+import com.snakybo.torch.object.GameObjectNotifier;
+import com.snakybo.torch.xml.GameObjectParser;
+import com.snakybo.torch.xml.SceneParser;
+import com.snakybo.torch.xml.XMLParser;
 
+import java.nio.file.NoSuchFileException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class Scene implements IDestroyable
+public final class Scene
 {
-	static Set<Scene> allScenes;
-	static Scene currentScene;
+	static Collection<GameObject> gameObjectsToAdd = new HashSet<>();
+	static Collection<GameObject> gameObjectsToRemove = new HashSet<>();
 	
-	Set<GameObject> gameObjects;
-	Map<GameObject, QueueOperation> queue;
+	static Set<GameObject> gameObjects = new HashSet<>();
 	
-	boolean destroyed;
-	
-	static
+	private Scene()
 	{
-		allScenes = new HashSet<>();
-		currentScene = new Scene();
+		throw new AssertionError();
 	}
 	
-	public Scene()
+	public static GameObject[] getAllGameObjects()
 	{
-		gameObjects = new HashSet<>();
-		queue = new HashMap<>();
-		
-		allScenes.add(this);
-		
-		if(currentScene == null)
-		{
-			makeCurrent();
-		}
+		return gameObjects.toArray(new GameObject[gameObjects.size()]);
 	}
 	
-	@Override
-	public void destroy()
-	{
-		queue.clear();
-		destroyed = true;
-	}
-	
-	public void makeCurrent()
-	{
-		currentScene = this;
-	}
-	
-	final void addObject(GameObject obj)
-	{
-		if(!gameObjects.contains(obj) && !queue.containsKey(obj))
-		{
-			queue.put(obj, QueueOperation.Add);
-		}
-		else if(queue.containsKey(obj) && queue.get(obj) == QueueOperation.Remove)
-		{
-			queue.remove(obj);
-		}
-	}
-	
-	final void removeObject(GameObject obj)
-	{
-		if(gameObjects.contains(obj) && !queue.containsKey(obj))
-		{
-			queue.put(obj, QueueOperation.Remove);
-		}
-		else if(queue.containsKey(obj) && queue.get(obj) == QueueOperation.Add)
-		{
-			queue.remove(obj);
-		}
-	}
-	
-	public final Iterable<GameObject> getAllGameObjects()
-	{
-		return gameObjects;
-	}
-	
-	public final Iterable<GameObject> getGameObjectsByName(String name)
+	public static GameObject[] getGameObjectsByName(String name)
 	{
 		List<GameObject> result = new ArrayList<>();
 		
@@ -119,10 +71,10 @@ public final class Scene implements IDestroyable
 			}
 		}
 		
-		return result;
+		return result.toArray(new GameObject[result.size()]);
 	}
 	
-	public final GameObject getGameObjectByName(String name)
+	public static GameObject getGameObjectByName(String name)
 	{
 		for(GameObject gameObject : gameObjects)
 		{
@@ -138,18 +90,35 @@ public final class Scene implements IDestroyable
 	/**
 	 * @return The number of {@link GameObject}s in the scene
 	 */
-	public final int getSize()
+	public static int getSize()
 	{
 		return gameObjects.size();
 	}
 	
-	public static Iterable<Scene> getAllScenes()
+	public static void create()
 	{
-		return allScenes;
+		gameObjectsToRemove.addAll(gameObjects);
+		gameObjects.clear();
 	}
 	
-	public static Scene getCurrentScene()
+	public static void load(String name)
 	{
-		return currentScene;
+		LoggerInternal.log("Begin loading of scene: " + name);
+		
+		try
+		{
+			SceneParser.SceneData sceneData = (SceneParser.SceneData)XMLParser.decode(name + ".scene");
+			
+			create();
+			
+			for(GameObjectParser.GameObjectData gameObjectData : sceneData.gameObjectData)
+			{
+				GameObjectLoader.load(gameObjectData);
+			}
+		}
+		catch(NoSuchFileException e)
+		{
+			Logger.logError(e.getMessage(), e);
+		}
 	}
 }

@@ -22,10 +22,10 @@
 
 package com.snakybo.torch.object;
 
+import com.snakybo.torch.scene.SceneInternal;
 import com.snakybo.torch.util.queue.IQueueProcessor;
 import com.snakybo.torch.util.queue.QueueOperation;
 import com.snakybo.torch.scene.Scene;
-import com.snakybo.torch.scene.SceneRegisterer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,7 +41,7 @@ public final class GameObjectQueueProcessor implements IQueueProcessor
 	@Override
 	public final void processQueue()
 	{
-		for(GameObject gameObject : Scene.getCurrentScene().getAllGameObjects())
+		for(GameObject gameObject : Scene.getAllGameObjects())
 		{
 			Map<Component, QueueOperation> queueCopy = new HashMap<>(gameObject.queue);
 
@@ -78,7 +78,7 @@ public final class GameObjectQueueProcessor implements IQueueProcessor
 					}
 
 					// Remove the GameObject from the scene
-					SceneRegisterer.remove(obj, obj.scene);
+					SceneInternal.remove(obj);
 				}
 			}
 		}

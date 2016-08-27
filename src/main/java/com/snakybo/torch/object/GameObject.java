@@ -23,10 +23,10 @@
 package com.snakybo.torch.object;
 
 import com.snakybo.torch.debug.Logger;
+import com.snakybo.torch.scene.Scene;
+import com.snakybo.torch.scene.SceneInternal;
 import com.snakybo.torch.util.interfaces.IDestroyable;
 import com.snakybo.torch.util.queue.QueueOperation;
-import com.snakybo.torch.scene.Scene;
-import com.snakybo.torch.scene.SceneRegisterer;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -61,15 +61,9 @@ public final class GameObject extends Object implements IDestroyable
 	 */
 	public GameObject(String name)
 	{
-		this(Scene.getCurrentScene(), name);
-	}
-	
-	GameObject(Scene scene, String name)
-	{
 		super(name);
 		
-		this.scene = scene;
-		SceneRegisterer.add(this, scene);
+		SceneInternal.add(this);
 		
 		components = new HashSet<>();
 		queue = new HashMap<>();
@@ -112,11 +106,6 @@ public final class GameObject extends Object implements IDestroyable
 	public final void removeComponent(Component component)
 	{
 		queue.put(component, QueueOperation.Remove);
-	}
-	
-	public final void notify(String methodName, java.lang.Object... parameters)
-	{
-		GameObjectNotifier.notify(this, methodName, parameters);
 	}
 	
 	/**
@@ -165,10 +154,5 @@ public final class GameObject extends Object implements IDestroyable
 	public final Transform getTransform()
 	{
 		return transform;
-	}
-	
-	public static void notifyAll(String methodName, java.lang.Object... parameters)
-	{
-		Scene.getCurrentScene().getAllGameObjects().forEach(gameObject -> gameObject.notify(methodName, parameters));
 	}
 }

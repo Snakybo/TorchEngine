@@ -27,7 +27,6 @@ import com.snakybo.torch.Game;
 import com.snakybo.torch.graphics.monitor.DisplayMode;
 import com.snakybo.torch.graphics.monitor.Monitor;
 import com.snakybo.torch.scene.Scene;
-import com.snakybo.torch.scene.SceneLoader;
 import com.snakybo.torch.graphics.window.Window;
 import com.snakybo.torch.graphics.window.WindowMode;
 
@@ -39,8 +38,7 @@ public class OpenGLTest
 {
 	private static void createScene()
 	{
-		Scene scene = SceneLoader.load("test");
-		scene.makeCurrent();
+		Scene.load("test");
 	}
 	
 	public static void main(String[] args)

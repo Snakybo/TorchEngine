@@ -108,11 +108,6 @@ public abstract class Component extends Object
 		gameObject.removeComponent(component);
 	}
 	
-	public final void notify(String methodName, java.lang.Object... parameters)
-	{
-		gameObject.notify(methodName, parameters);
-	}
-	
 	/**
 	 * Attempt to retrieve a component of {@code type} from the parent GameObject
 	 * @param <T> The type of the component to retrieve

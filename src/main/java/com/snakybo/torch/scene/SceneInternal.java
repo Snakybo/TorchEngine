@@ -22,47 +22,41 @@
 
 package com.snakybo.torch.scene;
 
-import com.snakybo.torch.debug.Logger;
-import com.snakybo.torch.debug.LoggerInternal;
-import com.snakybo.torch.object.GameObjectLoader;
-import com.snakybo.torch.xml.GameObjectParser;
-import com.snakybo.torch.xml.SceneParser;
-import com.snakybo.torch.xml.XMLParser;
-
-import java.nio.file.NoSuchFileException;
+import com.snakybo.torch.object.GameObject;
+import com.snakybo.torch.object.GameObjectNotifier;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class SceneLoader
+public final class SceneInternal
 {
-	private SceneLoader()
+	private SceneInternal()
 	{
 		throw new AssertionError();
 	}
 	
-	public static Scene load(String path)
+	public static void processAdditions()
 	{
-		LoggerInternal.log("Begin loading of scene: " + path);
-		
-		try
-		{
-			SceneParser.SceneData sceneData = (SceneParser.SceneData)XMLParser.decode(path + ".scene");
-			Scene scene = new Scene();
-			
-			for(GameObjectParser.GameObjectData gameObjectData : sceneData.gameObjectData)
-			{
-				GameObjectLoader.load(scene, gameObjectData);
-			}
-			
-			return scene;
-		}
-		catch(NoSuchFileException e)
-		{
-			Logger.logError(e.getMessage(), e);
-		}
-		
-		return null;
+		Scene.gameObjectsToAdd.forEach(GameObjectNotifier::start);
+		Scene.gameObjectsToAdd.clear();
+	}
+	
+	public static void processRemovals()
+	{
+		Scene.gameObjectsToRemove.forEach(GameObjectNotifier::destroy);
+		Scene.gameObjects.removeAll(Scene.gameObjectsToRemove);
+		Scene.gameObjectsToRemove.clear();
+	}
+	
+	public static void add(GameObject obj)
+	{
+		Scene.gameObjectsToAdd.add(obj);
+		Scene.gameObjects.add(obj);
+	}
+	
+	public static void remove(GameObject obj)
+	{
+		Scene.gameObjectsToRemove.add(obj);
 	}
 }

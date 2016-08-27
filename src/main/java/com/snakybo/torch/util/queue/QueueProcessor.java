@@ -23,7 +23,6 @@
 package com.snakybo.torch.util.queue;
 
 import com.snakybo.torch.object.GameObjectQueueProcessor;
-import com.snakybo.torch.scene.SceneQueueProcessor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +38,6 @@ public final class QueueProcessor
 	static
 	{
 		processors = new ArrayList<>();
-		processors.add(new SceneQueueProcessor());
 		processors.add(new GameObjectQueueProcessor());
 	}
 	

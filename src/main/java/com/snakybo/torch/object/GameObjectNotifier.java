@@ -33,29 +33,7 @@ import java.lang.reflect.Method;
  */
 public final class GameObjectNotifier
 {
-	public static void notify(GameObject obj, String methodName, java.lang.Object... parameters)
-	{
-		Class<?>[] parameterTypes = ReflectionUtil.getObjectTypes(parameters);
-		
-		try
-		{
-			Method target = Component.class.getDeclaredMethod(methodName, parameterTypes);
-			
-			if(target == null)
-			{
-				throw new NoSuchMethodError("No method found with name \"" + methodName + "\" in Component.class");
-			}
-			
-			for(Component component : obj.components)
-			{
-				target.invoke(component, parameters);
-			}
-		}
-		catch(Exception e)
-		{
-			Logger.logError(e.toString(), e);
-		}
-	}
+	public static void start(GameObject gameObject) { gameObject.components.forEach(Component::onStart); }
 	
 	public static void update(GameObject gameObject)
 	{
