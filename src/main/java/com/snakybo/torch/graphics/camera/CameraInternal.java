@@ -190,7 +190,7 @@ public final class CameraInternal
 	/**
 	 * @return The projection of the camera.
 	 */
-	public final Matrix4f getProjection()
+	public final Matrix4f getProjectionMatrix()
 	{
 		return new Matrix4f(projection);
 	}
@@ -198,7 +198,7 @@ public final class CameraInternal
 	/**
 	 * @return The view projection of the camera.
 	 */
-	public final Matrix4f getView()
+	public final Matrix4f getViewMatrix()
 	{
 		return new Matrix4f().translate(transform.getPosition()).rotate(transform.getRotation());
 	}
