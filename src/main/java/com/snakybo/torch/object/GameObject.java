@@ -79,6 +79,8 @@ public final class GameObject extends Object
 			componentsToAdd.add(result);
 			components.add(result);
 			
+			result.onCreate();
+			
 			return result;
 		}
 		catch(ReflectiveOperationException e)

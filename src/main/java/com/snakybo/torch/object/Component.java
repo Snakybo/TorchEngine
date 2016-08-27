@@ -45,6 +45,10 @@ public abstract class Component extends Object
 		}
 	}
 	
+	protected void onCreate()
+	{
+	}
+	
 	/**
 	 * Called once when the object was first created, just before {@link #onUpdate()} is called
 	 */
