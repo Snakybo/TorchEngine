@@ -70,6 +70,18 @@ import static org.lwjgl.system.MemoryUtil.NULL;
  */
 final class ShaderAsset extends AssetData
 {
+	private static class Uniform
+	{
+		public final String type;
+		public final String name;
+		
+		public Uniform(String type, String name)
+		{
+			this.type = type;
+			this.name = name;
+		}
+	}
+	
 	static Map<String, ShaderAsset> all = new HashMap<>();
 	
 	Map<String, Integer> uniforms;
@@ -210,12 +222,12 @@ final class ShaderAsset extends AssetData
 		{
 			if(line.startsWith("uniform "))
 			{
-				Tuple2<String, String> uniform = getUniformFromLine(line);
-				Iterable<Tuple2<String, String>> uniforms = getSubUniform(uniform.v1, uniform.v2, source);
+				Uniform uniform = getUniformFromLine(line);
+				Iterable<Uniform> uniforms = getSubUniform(uniform.type, uniform.name, source);
 				
-				for(Tuple2<String, String> u : uniforms)
+				for(Uniform u : uniforms)
 				{
-					addUniform(uri, u.v1, u.v2);
+					addUniform(uri, u.type, u.name);
 				}
 			}
 		}
@@ -236,9 +248,9 @@ final class ShaderAsset extends AssetData
 		LoggerInternal.log("Added uniform: (" + type + ") " + name + " to shader: " + FileUtils.getSimpleName(uri));
 	}
 	
-	private Iterable<Tuple2<String, String>> getSubUniform(String type, String name, String source)
+	private Iterable<Uniform> getSubUniform(String type, String name, String source)
 	{
-		List<Tuple2<String, String>> result = new ArrayList<>();
+		List<Uniform> result = new ArrayList<>();
 		
 		if(source.contains("struct " + type))
 		{
@@ -256,19 +268,19 @@ final class ShaderAsset extends AssetData
 					continue;
 				}
 				
-				Tuple2<String, String> uniform = getUniformFromLine(line);
-				result.add(new Tuple2<>(uniform.v1, name + "." + uniform.v2));
+				Uniform uniform = getUniformFromLine(line);
+				result.add(new Uniform(uniform.type, name + "." + uniform.name));
 			}
 		}
 		else
 		{
-			result.add(new Tuple2<>(type, name));
+			result.add(new Uniform(type, name));
 		}
 		
 		return result;
 	}
 	
-	private Tuple2<String, String> getUniformFromLine(String line)
+	private Uniform getUniformFromLine(String line)
 	{
 		String[] segments;
 		
@@ -283,7 +295,7 @@ final class ShaderAsset extends AssetData
 			segments = line.substring(0, line.length() - 1).split(" ");
 		}
 		
-		return new Tuple2<>(segments[0], segments[1]);
+		return new Uniform(segments[0], segments[1]);
 	}
 	
 	private String parseShader(String source, String keyword)

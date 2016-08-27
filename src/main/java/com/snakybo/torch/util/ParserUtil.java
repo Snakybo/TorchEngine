@@ -52,6 +52,20 @@ import java.util.Set;
  */
 public final class ParserUtil
 {
+	public static class Field
+	{
+		public final String name;
+		public final String type;
+		public final Object value;
+		
+		public Field(String name, String type, Object value)
+		{
+			this.name = name;
+			this.type = type;
+			this.value = value;
+		}
+	}
+	
 	private ParserUtil()
 	{
 		throw new AssertionError();
@@ -214,10 +228,10 @@ public final class ParserUtil
 		return new Quaternionf(x, y, z, w);
 	}
 	
-	public static Set<Tuple3<String, String, Object>> parseFieldList(NodeList nodeList)
+	public static Set<Field> parseFieldList(NodeList nodeList)
 	{
 		LoggerInternal.log("Parsing field nodes");
-		Set<Tuple3<String, String, Object>> result = new HashSet<>();
+		Set<Field> result = new HashSet<>();
 		
 		for(int i = 0; i < nodeList.getLength(); i++)
 		{
@@ -252,13 +266,13 @@ public final class ParserUtil
 		return result.toArray(new Object[result.size()]);
 	}
 	
-	public static Tuple3<String, String, Object> parseField(Element element)
+	public static Field parseField(Element element)
 	{
-		String key = element.getAttribute("name");
+		String name = element.getAttribute("name");
 		String type = element.getAttribute("type");
 		Object value = parseParameter(element);
 		
-		return new Tuple3<>(key, type, value);
+		return new Field(name, type, value);
 	}
 	
 	public static Object parseParameter(Element element)
