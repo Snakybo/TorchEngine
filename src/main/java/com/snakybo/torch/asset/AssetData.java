@@ -43,6 +43,13 @@ public abstract class AssetData implements IDestroyable
 	
 	private int useCount;
 	
+	/**
+	 * <p>
+	 * Create a new {@code AssetData} instance.
+	 * </p>
+	 *
+	 * @param name The name of the asset.
+	 */
 	public AssetData(String name)
 	{
 		this.name = name;
@@ -52,13 +59,17 @@ public abstract class AssetData implements IDestroyable
 	}
 	
 	/**
+	 * <p>
 	 * Destroy the asset immediately.
+	 * </p>
 	 */
 	@Override
 	public abstract void destroy();
 	
 	/**
-	 * Increment the use counter for the {@link AssetData}.
+	 * <p>
+	 * Increment the number of uses this {@code AssetData} has.
+	 * </p>
 	 */
 	public final void addUsage()
 	{
@@ -74,8 +85,13 @@ public abstract class AssetData implements IDestroyable
 	}
 	
 	/**
-	 * Decrement the use counter for the {@link AssetData},
-	 * when there are no more usages remaining, the data is unloaded.
+	 * <p>
+	 * Decrement the number of uses this {@code AssetData} has.
+	 * </p>
+	 *
+	 * <p>
+	 * The {@code AssetData} is not unload until there are no more usages.
+	 * </p>
 	 */
 	public final void removeUsage()
 	{

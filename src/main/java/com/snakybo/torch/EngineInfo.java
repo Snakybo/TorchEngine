@@ -33,23 +33,31 @@ package com.snakybo.torch;
 public final class EngineInfo
 {
 	/**
+	 * <p>
 	 * The major version of the engine.
+	 * </p>
 	 */
 	public static final int VERSION_MAJOR = 1;
 	
 	/**
+	 * <p>
 	 * The minor version of the engine.
+	 * </p>
 	 */
 	public static final int VERSION_MINOR = 0;
 	
 	/**
+	 * <p>
 	 * The patch version of the engine.
+	 * </p>
 	 */
 	public static final int VERSION_PATCH = 0;
 	
 	/**
+	 * <p>
 	 * The version of the engine represented as a String, in the format:
 	 * {@link #VERSION_MAJOR}.{@link #VERSION_MINOR}.{@link #VERSION_PATCH}.
+	 * </p>
 	 */
 	public static final String VERSION_STRING = VERSION_MAJOR + "." + VERSION_MINOR + "." + VERSION_PATCH;
 }

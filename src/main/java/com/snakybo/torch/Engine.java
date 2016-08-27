@@ -50,7 +50,7 @@ import static org.lwjgl.glfw.GLFW.glfwGetTime;
  *
  * <p>
  * Aside from {@link #initialize()}, you do not need any further interaction with this class.
- * Instead use {@link Game} for starting, pausing and stopping the game.
+ * Instead use {@link Game} for starting and stopping the game.
  * </p>
  *
  * @see Game
@@ -65,7 +65,9 @@ public final class Engine
 	private static boolean initialized;
 	
 	/**
+	 * <p>
 	 * Initialize the engine, this must be the first interaction your game has with the engine.
+	 * </p>
 	 */
 	public static void initialize()
 	{
@@ -82,9 +84,6 @@ public final class Engine
 		}
 	}
 	
-	/**
-	 * Start the engine, called by {@link Game#start()}.
-	 */
 	static void start()
 	{
 		if(!running && initialized)
@@ -102,9 +101,6 @@ public final class Engine
 		}
 	}
 	
-	/**
-	 * Stop the engine, called by {@link Game#quit()}.
-	 */
 	static void stop()
 	{
 		if(running)

@@ -23,6 +23,10 @@
 package com.snakybo.torch.graphics.color;
 
 /**
+ * <p>
+ * A collection of utilities for {@link Color}.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */
@@ -33,6 +37,20 @@ public final class ColorUtil
 		throw new AssertionError();
 	}
 	
+	/**
+	 * <p>
+	 * Convert a color to an RGB value.
+	 * </p>
+	 *
+	 * <p>
+	 * The resulting value contains the red, green, and blue component.
+	 * Bits 0-7 are blue, bits 8-15 are green, and bits 16-23 are red.
+	 * Bits 24-31 are alpha, but is always 255.
+	 * </p>
+	 *
+	 * @param color The color to convert.
+	 * @return The {@code color} represented as a single integer.
+	 */
 	public static int colorToRGB(Color color)
 	{
 		int r = Math.round(255 * color.getRed());
@@ -46,6 +64,19 @@ public final class ColorUtil
 		return 0xFF000000 | r | g | b;
 	}
 	
+	/**
+	 * <p>
+	 * Convert a color to an RGBA value.
+	 * </p>
+	 *
+	 * <p>
+	 * The resulting value contains the red, green, blue, and alpha component.
+	 * Bits 0-7 are blue, bits 8-15 are green, bits 16-23 are red, and bits 24-31 are alpha.
+	 * </p>
+	 *
+	 * @param color The color to convert.
+	 * @return The {@code color} represented as a single integer.
+	 */
 	public static int colorToARGB(Color color)
 	{
 		int r = Math.round(255 * color.getRed());
@@ -61,6 +92,19 @@ public final class ColorUtil
 		return a | r | g | b;
 	}
 	
+	/**
+	 * <p>
+	 * Convert an RGB (or RGBA) value back to a {@link Color}.
+	 * </p>
+	 *
+	 * <p>
+	 * The input value should represent a color in the following format:
+	 * Bits 0-7 are blue, bits 8-15 are green, bits 16-23 are red, and bits 24-31 are alpha.
+	 * </p>
+	 *
+	 * @param rgb The input RGB(A) value.
+	 * @return A color constructed from the RGB(A) value.
+	 */
 	public static Color RGBToColor(int rgb)
 	{
 		int r32 = (rgb >> 16) & 0xFF;

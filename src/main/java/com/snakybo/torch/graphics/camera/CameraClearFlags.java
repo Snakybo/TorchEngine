@@ -36,22 +36,30 @@ import com.snakybo.torch.component.Camera;
 public enum CameraClearFlags
 {
 	/**
+	 * <p>
 	 * Make the camera render a skybox.
+	 * </p>
 	 */
 	Skybox,
 	
 	/**
+	 * <p>
 	 * Make the camera only render the depth component.
+	 * </p>
 	 */
 	DepthOnly,
 	
 	/**
+	 * <p>
 	 * Make the camera render a solid color.
+	 * </p>
 	 */
 	SolidColor,
 	
 	/**
+	 * <p>
 	 * Don't clear at all.
+	 * </p>
 	 */
 	NoClear
 }

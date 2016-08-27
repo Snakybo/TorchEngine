@@ -25,6 +25,15 @@ package com.snakybo.torch.debug;
 import java.util.logging.Level;
 
 /**
+ * <p>
+ * The main logging utility of the engine.
+ * </p>
+ *
+ * <p>
+ * All logs are written to both the console,
+ * and a file located at {@code %appdata%/TorchEngine/log.txt}.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */
@@ -35,21 +44,50 @@ public final class Logger
 		throw new AssertionError();
 	}
 	
+	/**
+	 * <p>
+	 * Log a message.
+	 * </p>
+	 *
+	 * @param msg The message to log.
+	 */
 	public static void log(Object msg)
 	{
 		LoggerInternal.logInternal(Level.INFO, msg);
 	}
 	
+	/**
+	 * <p>
+	 * Log a warning.
+	 * </p>
+	 *
+	 * @param msg The warning to log.
+	 */
 	public static void logWarning(Object msg)
 	{
 		LoggerInternal.logInternal(Level.WARNING, msg);
 	}
 	
+	/**
+	 * <p>
+	 * Log an error.
+	 * </p>
+	 *
+	 * @param msg The error to log.
+	 */
 	public static void logError(Object msg)
 	{
 		LoggerInternal.logInternal(Level.SEVERE, msg);
 	}
 	
+	/**
+	 * <p>
+	 * Log an error.
+	 * </p>
+	 *
+	 * @param msg The error to log.
+	 * @param thrown The related exception.
+	 */
 	public static void logError(Object msg, Throwable thrown)
 	{
 		LoggerInternal.logInternal(Level.SEVERE, msg, thrown);

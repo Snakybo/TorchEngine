@@ -30,8 +30,9 @@ import com.snakybo.torch.util.interfaces.IDestroyable;
  * </p>
  *
  * <p>
- * Assets should internally store all of their data in an {@link AssetData} instance,
- * and upon creation an asset should check if a simmilar asset has already been loaded,
+ * Assets should internally store all of their data in an {@link AssetData} instance.
+ *
+ * Upon creation an asset should check if a similar asset has already been loaded,
  * and if so it should use the existing {@link AssetData} instead of loading everything again.
  * </p>
  *
@@ -44,8 +45,10 @@ import com.snakybo.torch.util.interfaces.IDestroyable;
 public abstract class Asset implements IDestroyable
 {
 	/**
-	 * Destroy the asset, this merely disables the {@link Asset},
-	 * and does not necessarily unload data bound to the Asset.
+	 * <p>
+	 * Destroy the asset, this disables the {@code Asset},
+	 * but does not necessarily unload data bound to the Asset.
+	 * </p>
 	 */
 	@Override
 	public abstract void destroy();

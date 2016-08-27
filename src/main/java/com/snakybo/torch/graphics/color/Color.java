@@ -28,7 +28,7 @@ import java.io.Serializable;
 
 /**
  * <p>
- * A RGBA color in the range [0-1]
+ * An RGBA color in the range [0-1]
  * </p>
  *
  * <p>
@@ -43,87 +43,121 @@ import java.io.Serializable;
 public final class Color implements Serializable
 {
 	/**
+	 * <p>
 	 * Completely transparent, no color.
+	 * </p>
 	 */
 	public static final Color CLEAR = new Color(0, 0, 0, 0);
 	
 	/**
+	 * <p>
 	 * The color white.
+	 * </p>
 	 */
 	public static final Color WHITE = new Color(1, 1, 1, 1);
 	
 	/**
+	 * <p>
 	 * The color light gray.
+	 * </p>
 	 */
 	public static final Color LIGHT_GRAY = new Color(0.75f, 0.75f, 0.75f);
 	
 	/**
+	 * <p>
 	 * Alternative spelling for {@link #LIGHT_GRAY}
+	 * </p>
 	 */
 	public static final Color LIGHT_GREY = LIGHT_GRAY;
 	
 	/**
+	 * <p>
 	 * The color gray.
+	 * </p>
 	 */
 	public static final Color GRAY = new Color(0.50f, 0.50f, 0.50f);
 	
 	/**
+	 * <p>
 	 * Alternative spelling for {@link #GRAY};
+	 * </p>
 	 */
 	public static final Color GREY = GRAY;
 	
 	/**
+	 * <p>
 	 * The color dark gray.
+	 * </p>
 	 */
 	public static final Color DARK_GRAY = new Color(0.25f, 0.25f, 0.25f);
 	
 	/**
+	 * <p>
 	 * Alternative spelling for {@link #DARK_GRAY}
+	 * </p>
 	 */
 	public static final Color DARK_GREY = DARK_GRAY;
 	
 	/**
-	 * The color light gray.
+	 * <p>
+	 * The color black.
+	 * </p>
 	 */
 	public static final Color BLACK = new Color(0, 0, 0, 1);
 	
 	/**
+	 * <p>
 	 * The color red.
+	 * </p>
 	 */
 	public static final Color RED = new Color(1, 0, 0, 1);
 	
 	/**
+	 * <p>
 	 * The color pink.
+	 * </p>
 	 */
 	public static final Color PINK = new Color(1, 0.68f, 0.68f, 1);
 	
 	/**
+	 * <p>
 	 * The color orange.
+	 * </p>
 	 */
 	public static final Color ORANGE = new Color(1, 0.78f, 0, 1);
 	
 	/**
+	 * <p>
 	 * The color yellow.
+	 * </p>
 	 */
 	public static final Color YELLOW = new Color(1, 1, 0, 1);
 	
 	/**
+	 * <p>
 	 * The color green.
+	 * </p>
 	 */
 	public static final Color GREEN = new Color(0, 1, 0, 1);
 	
 	/**
+	 * <p>
 	 * The color magenta.
+	 * </p>
 	 */
 	public static final Color MAGENTA = new Color(1, 0, 1, 1);
 	
 	/**
+	 * <p>
 	 * The color cyan.
+	 * </p>
 	 */
 	public static final Color CYAN = new Color(0, 1, 1, 1);
 	
 	/**
+	 * <p>
 	 * The color blue.
+	 * </p>
 	 */
 	public static final Color BLUE = new Color(0, 0, 1, 1);
 	
@@ -133,7 +167,9 @@ public final class Color implements Serializable
 	private final float a;
 	
 	/**
+	 * <p>
 	 * Create a new color.
+	 * </p>
 	 */
 	public Color()
 	{
@@ -141,10 +177,14 @@ public final class Color implements Serializable
 	}
 	
 	/**
+	 * <p>
 	 * Create a new color, specifying the red, green and blue component.
+	 * </p>
+	 *
 	 * <p>
 	 * Values are in the range [0-1].
 	 * </p>
+	 *
 	 * @param r The red component.
 	 * @param g The green component.
 	 * @param b The blue component.
@@ -155,10 +195,14 @@ public final class Color implements Serializable
 	}
 	
 	/**
+	 * <p>
 	 * Create a new color, specifying the red, green, blue and alpha component.
+	 * </p>
+	 *
 	 * <p>
 	 * Values are in the range [0-1].
 	 * </p>
+	 *
 	 * @param r The red component.
 	 * @param g The green component.
 	 * @param b The blue component.
@@ -174,7 +218,10 @@ public final class Color implements Serializable
 	}
 	
 	/**
-	 * Copy the value of another color.
+	 * <p>
+	 * Copy another color.
+	 * </p>
+	 *
 	 * @param other The color to copy.
 	 */
 	public Color(Color other)
@@ -235,7 +282,10 @@ public final class Color implements Serializable
 	}
 	
 	/**
+	 * <p>
 	 * Add two colors together, each component is added separately.
+	 * </p>
+	 *
 	 * @param color The color to add.
 	 * @return A new color, with the result applied.
 	 */
@@ -249,7 +299,10 @@ public final class Color implements Serializable
 	}
 	
 	/**
+	 * <p>
 	 * Subtract the color from this one, each component is subtracted separately.
+	 * </p>
+	 *
 	 * @param color The color to subtract.
 	 * @return A new color, with the result applied.
 	 */
@@ -263,7 +316,10 @@ public final class Color implements Serializable
 	}
 	
 	/**
+	 * <p>
 	 * Multiply two colors together, each component is multiplied separately.
+	 * </p>
+	 *
 	 * @param color The color to multiply.
 	 * @return A new color, with the result applied.
 	 */
@@ -277,7 +333,10 @@ public final class Color implements Serializable
 	}
 	
 	/**
+	 * <p>
 	 * Divide the color by this one, each component is divided separately.
+	 * </p>
+	 *
 	 * @param color The color to divide.
 	 * @return A new color, with the result applied.
 	 */
@@ -291,7 +350,10 @@ public final class Color implements Serializable
 	}
 	
 	/**
+	 * <p>
 	 * Set the red component of the color. Accepted values are in the range [0-1].
+	 * </p>
+	 *
 	 * @param r The new red component.
 	 * @return A new {@link Color}, with the new red component.
 	 */
@@ -301,7 +363,10 @@ public final class Color implements Serializable
 	}
 	
 	/**
+	 * <p>
 	 * Set the green component of the color. Accepted value is in the range [0-1].
+	 * </p>
+	 *
 	 * @param g The new green component.
 	 * @return A new {@link Color}, with the new green component.
 	 */
@@ -311,7 +376,10 @@ public final class Color implements Serializable
 	}
 	
 	/**
+	 * <p>
 	 * Set the blue component of the color. Accepted value is in the range [0-1].
+	 * </p>
+	 *
 	 * @param b The new blue component.
 	 * @return A new {@link Color}, with the new blue component.
 	 */
@@ -321,7 +389,10 @@ public final class Color implements Serializable
 	}
 	
 	/**
+	 * <p>
 	 * Set the alpha component of the color. Accepted value is in the range [0-1].
+	 * </p>
+	 *
 	 * @param a The new alpha component.
 	 * @return A new {@link Color}, with the new alpha component.
 	 */
@@ -331,6 +402,10 @@ public final class Color implements Serializable
 	}
 	
 	/**
+	 * <p>
+	 * Get the red component.
+	 * </p>
+	 *
 	 * @return The red component of the color.
 	 */
 	public final float getRed()
@@ -339,6 +414,10 @@ public final class Color implements Serializable
 	}
 	
 	/**
+	 * <p>
+	 * Get the green component.
+	 * </p>
+	 *
 	 * @return The green component of the color.
 	 */
 	public final float getGreen()
@@ -347,6 +426,10 @@ public final class Color implements Serializable
 	}
 	
 	/**
+	 * <p>
+	 * Get the blue component.
+	 * </p>
+	 *
 	 * @return The blue component of the color.
 	 */
 	public final float getBlue()
@@ -355,6 +438,10 @@ public final class Color implements Serializable
 	}
 	
 	/**
+	 * <p>
+	 * Get the alpha component.
+	 * </p>
+	 *
 	 * @return The alpha component of the color.
 	 */
 	public final float getAlpha()

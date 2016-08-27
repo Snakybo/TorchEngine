@@ -72,7 +72,15 @@ public final class MeshRenderer extends Component
 	}
 	
 	/**
+	 * <p>
 	 * Set the {@link Mesh}.
+	 * </p>
+	 *
+	 * <p>
+	 * Setting a new mesh is relatively expensive,
+	 * since it has to compute new vertex and index buffers.
+	 * </p>
+	 *
 	 * @param mesh The new mesh.
 	 */
 	public final void setMesh(Mesh mesh)
@@ -83,7 +91,10 @@ public final class MeshRenderer extends Component
 	}
 	
 	/**
+	 * <p>
 	 * Set the {@link Material}.
+	 * </p>
+	 *
 	 * @param material The new material.
 	 */
 	public final void setMaterial(Material material)
@@ -93,6 +104,10 @@ public final class MeshRenderer extends Component
 	}
 	
 	/**
+	 * <p>
+	 * Get the {@link Mesh}.
+	 * </p>
+	 *
 	 * @return The current mesh.
 	 */
 	public final Mesh getMesh()
@@ -101,6 +116,10 @@ public final class MeshRenderer extends Component
 	}
 	
 	/**
+	 * <p>
+	 * Get the {@link Material}.
+	 * </p>
+	 *
 	 * @return The current material.
 	 */
 	public final Material getMaterial()

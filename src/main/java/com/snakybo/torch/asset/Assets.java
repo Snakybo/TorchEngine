@@ -36,6 +36,8 @@ import java.nio.file.NoSuchFileException;
  * The {@link Asset} loader. Attempts to load assets based on their file extension.
  * </p>
  *
+ * @see Asset
+ *
  * @author Snakybo
  * @since 1.0
  */
@@ -47,7 +49,10 @@ public final class Assets
 	}
 	
 	/**
-	 * Load an asset by file name.
+	 * <p>
+	 * Load an {@link Asset} by file name.
+	 * </p>
+	 *
 	 * @param file The file to load.
 	 * @return The loaded asset if it exists and has a known type. Returns {@code null} otherwise.
 	 */
@@ -83,10 +88,10 @@ public final class Assets
 	}
 	
 	/**
-	 * Load an asset by file name.
-	 * @param clazz The class to cast the resulting {@link Asset} to.
+	 * Load an {@link Asset} by file name.
+	 * @param clazz The class to cast the resulting {@code Asset} to.
 	 * @param file The file to load.
-	 * @param <T> The class to cast the resulting {@link Asset} to.
+	 * @param <T> The class to cast the resulting {@code Asset} to.
 	 * @return The loaded asset if it exists and has a known type. Returns {@code null} otherwise.
 	 * @see #load(String)
 	 */

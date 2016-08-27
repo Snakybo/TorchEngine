@@ -90,7 +90,9 @@ public final class Camera extends Component
 	}
 	
 	/**
+	 * <p>
 	 * Make the camera render now.
+	 * </p>
 	 */
 	public final void render()
 	{
@@ -98,7 +100,10 @@ public final class Camera extends Component
 	}
 	
 	/**
+	 * <p>
 	 * Set the projection of the camera.
+	 * </p>
+	 *
 	 * @param projection The new projection.
 	 */
 	public final void setProjection(Matrix4f projection)
@@ -107,7 +112,10 @@ public final class Camera extends Component
 	}
 	
 	/**
-	 * Set the field of fiew of the camera.
+	 * <p>
+	 * Set the field of view of the camera.
+	 * </p>
+	 *
 	 * @param fieldOfView The new field of view.
 	 */
 	public final void setFieldOfView(float fieldOfView)
@@ -117,7 +125,10 @@ public final class Camera extends Component
 	}
 	
 	/**
+	 * <p>
 	 * Set the near clipping plane of the camera.
+	 * </p>
+	 *
 	 * @param zNear The new near clipping plane.
 	 */
 	public final void setNearClippingPlane(float zNear)
@@ -127,7 +138,10 @@ public final class Camera extends Component
 	}
 	
 	/**
+	 * <p>
 	 * Set the far clipping plane of the camera.
+	 * </p>
+	 *
 	 * @param zFar The new far clipping plane.
 	 */
 	public final void setFarClippingPlane(float zFar)
@@ -137,7 +151,10 @@ public final class Camera extends Component
 	}
 	
 	/**
+	 * <p>
 	 * Set the {@link CameraClearFlags} to use.
+	 * </p>
+	 *
 	 * @param clearFlags The new clear flags.
 	 */
 	public final void setClearFlags(CameraClearFlags clearFlags)
@@ -146,7 +163,10 @@ public final class Camera extends Component
 	}
 	
 	/**
+	 * <p>
 	 * Set the texture of the skybox.
+	 * </p>
+	 *
 	 * @param texture The new texture of the skybox.
 	 */
 	public final void setSkybox(Texture texture)
@@ -155,7 +175,10 @@ public final class Camera extends Component
 	}
 	
 	/**
+	 * <p>
 	 * Set the clear color of the camera, only used in {@link CameraClearFlags#SolidColor}.
+	 * </p>
+	 *
 	 * @param clearColor The new clear color.
 	 */
 	public final void setClearColor(Color clearColor)
@@ -164,7 +187,11 @@ public final class Camera extends Component
 	}
 	
 	/**
-	 * @return The projection.
+	 * <p>
+	 * Get the projection matrix.
+	 * </p>
+	 *
+	 * @return The projection matrix.
 	 */
 	public final Matrix4f getProjectionMatrix()
 	{
@@ -172,6 +199,10 @@ public final class Camera extends Component
 	}
 	
 	/**
+	 * <p>
+	 * Get the field of view.
+	 * </p>
+	 *
 	 * @return The field of view.
 	 */
 	public final float getFieldOfView()
@@ -180,6 +211,10 @@ public final class Camera extends Component
 	}
 	
 	/**
+	 * <p>
+	 * Get the near clipping plane.
+	 * </p>
+	 *
 	 * @return The near clipping plane.
 	 */
 	public final float getNearClippingPlane()
@@ -188,6 +223,10 @@ public final class Camera extends Component
 	}
 	
 	/**
+	 * <p>
+	 * Get the far clipping plane.
+	 * </p>
+	 *
 	 * @return The far clipping plane.
 	 */
 	public final float getFarClippingPlane()
@@ -196,6 +235,10 @@ public final class Camera extends Component
 	}
 	
 	/**
+	 * <p>
+	 * Get the {@link CameraClearFlags}.
+	 * </p>
+	 *
 	 * @return The {@link CameraClearFlags} this camera is using.
 	 */
 	public final CameraClearFlags getClearFlags()
@@ -204,7 +247,11 @@ public final class Camera extends Component
 	}
 	
 	/**
-	 * @return The view of the camera.
+	 * <p>
+	 * Get the view matrix.
+	 * </p>
+	 *
+	 * @return The view matrix of the camera.
 	 */
 	public final Matrix4f getViewMatrix()
 	{
@@ -212,6 +259,10 @@ public final class Camera extends Component
 	}
 	
 	/**
+	 * <p>
+	 * Get the clear color.
+	 * </p>
+	 *
 	 * @return The clear color of the camera.
 	 */
 	public final Color getClearColor()
@@ -220,7 +271,10 @@ public final class Camera extends Component
 	}
 	
 	/**
+	 * <p>
 	 * Set the main camera.
+	 * </p>
+	 *
 	 * @param camera The new main camera.
 	 */
 	public static void setMainCamera(Camera camera)
@@ -229,7 +283,10 @@ public final class Camera extends Component
 	}
 	
 	/**
-	 * Get all cameras.
+	 * <p>
+	 * Get an {@code Iterable} containing all cameras.
+	 * </p>
+	 *
 	 * @return All cameras.
 	 */
 	public static Iterable<Camera> getCameras()
@@ -238,7 +295,10 @@ public final class Camera extends Component
 	}
 	
 	/**
+	 * <p>
 	 * Get the main camera.
+	 * </p>
+	 *
 	 * @return The main camera.
 	 */
 	public static Camera getMainCamera()
@@ -255,7 +315,11 @@ public final class Camera extends Component
 	}
 	
 	/**
-	 * Get the current camera, this will return {@code null} if the engine is rendering a {@link CameraInternal}.
+	 * <p>
+	 * Get the current camera, this will return {@code null} if
+	 * the engine is rendering a {@link CameraInternal}.
+	 * </p>
+	 *
 	 * @return The current camera or null.
 	 */
 	public static Camera getCurrentCamera()

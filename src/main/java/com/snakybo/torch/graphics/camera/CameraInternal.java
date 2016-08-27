@@ -39,18 +39,6 @@ import static org.lwjgl.opengl.GL11.glClear;
 import static org.lwjgl.opengl.GL11.glClearColor;
 
 /**
- * <p>
- * The camera used internally by the engine, all {@link Camera}s internally
- * have a {@link CameraInternal} and are just a relay for the methods here.
- * </p>
- *
- * <p>
- * You most likely don't have a need to use this class,
- * instead use the provided {@link Camera} component.
- * </p>
- *
- * @see Camera
- *
  * @author Snakybo
  * @since 1.0
  */
@@ -67,11 +55,6 @@ public final class CameraInternal
 	private Color clearColor;
 	private Skybox skybox;
 	
-	/**
-	 * Create a new camera.
-	 * @param projection The projection of the camera.
-	 * @param clearFlags The {@link CameraClearFlags} to use.
-	 */
 	public CameraInternal(Matrix4f projection, CameraClearFlags clearFlags)
 	{
 		this.projection = projection;
@@ -90,9 +73,6 @@ public final class CameraInternal
 		}
 	}
 	
-	/**
-	 * Destroy the camera.
-	 */
 	public final void destroy()
 	{
 		cameras.remove(this);
@@ -103,9 +83,6 @@ public final class CameraInternal
 		}
 	}
 	
-	/**
-	 * Make the camera render now.
-	 */
 	public final void render()
 	{
 		current = this;
@@ -134,122 +111,71 @@ public final class CameraInternal
 		current = null;
 	}
 	
-	/**
-	 * Set the {@link CameraClearFlags} to use.
-	 * @param clearFlags The new clear flags.
-	 */
 	public final void setClearFlags(CameraClearFlags clearFlags)
 	{
 		this.clearFlags = clearFlags;
 	}
 	
-	/**
-	 * Set the projection of the camera.
-	 * @param projection The new projection.
-	 */
 	public final void setProjection(Matrix4f projection)
 	{
 		this.projection = projection;
 	}
 	
-	/**
-	 * Set the transform of the camera.
-	 * @param transform The new transform.
-	 */
 	public final void setTransform(Transform transform)
 	{
 		this.transform = transform;
 	}
 	
-	/**
-	 * Set the skybox texture of the camera.
-	 * @param texture The new texture of the skybox.
-	 */
 	public final void setSkybox(Texture texture)
 	{
 		skybox.setTexture(texture);
 	}
 	
-	/**
-	 * Set the clear color of the camera, only used in {@link CameraClearFlags#SolidColor}.
-	 * @param clearColor The new clear color.
-	 */
 	public final void setClearColor(Color clearColor)
 	{
 		this.clearColor = clearColor;
 	}
 	
-	/**
-	 * @return The {@link CameraClearFlags} this camera is using.
-	 */
 	public final CameraClearFlags getClearFlags()
 	{
 		return clearFlags;
 	}
 	
-	/**
-	 * @return The projection of the camera.
-	 */
 	public final Matrix4f getProjectionMatrix()
 	{
 		return new Matrix4f(projection);
 	}
 	
-	/**
-	 * @return The view projection of the camera.
-	 */
 	public final Matrix4f getViewMatrix()
 	{
 		return new Matrix4f().translate(transform.getPosition()).rotate(transform.getRotation());
 	}
 	
-	/**
-	 * @return The transform of the camera.
-	 */
 	public final Transform getTransform()
 	{
 		return transform;
 	}
 	
-	/**
-	 * @return The clear color of the camera.
-	 */
 	public final Color getClearColor()
 	{
 		return clearColor;
 	}
 	
-	/**
-	 * Set the main camera, use {@link Camera#setMainCamera(Camera)} unless you specifically need an internal camera.
-	 * @param camera
-	 */
 	public static void setMainCamera(CameraInternal camera)
 	{
 		main = camera;
 	}
 	
-	/**
-	 * Get all cameras, use {@link Camera#getCameras()} unless you specifically need an internal camera.
-	 * @return All cameras.
-	 */
 	public static Iterable<CameraInternal> getCameras()
 	{
 		return cameras;
 	}
 	
-	/**
-	 * Get the main camera, use {@link Camera#getMainCamera()} unless you specifically need an internal camera.
-	 * @return The main camera.
-	 */
 	public static CameraInternal getMainCamera()
 	{
 		return main;
 	}
 	
-	/**
-	 * Get the current camera, use {@link Camera#getCurrentCamera()} unless you specifically need an internal camera.
-	 * @return The current camera.
-	 */
 	public static CameraInternal getCurrentCamera()
 	{
 		return current;

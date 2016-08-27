@@ -24,8 +24,8 @@ package com.snakybo.torch;
 
 /**
  * <p>
- * Representation of the game, handles starting, pausing and stopping.
- * As well as holding data such as the name of the game and the target frame rate.
+ * Representation of the game, handles starting and stopping,
+ * as well as holding data such as the name of the game and the target frame rate.
  * </p>
  *
  * @author Snakybo
@@ -38,7 +38,9 @@ public final class Game
 	private static int targetFrameRate = 60;
 	
 	/**
+	 * <p>
 	 * Start the game.
+	 * </p>
 	 */
 	public static void start()
 	{
@@ -46,7 +48,9 @@ public final class Game
 	}
 	
 	/**
+	 * <p>
 	 * Quit the game.
+	 * </p>
 	 */
 	public static void quit()
 	{
@@ -54,7 +58,10 @@ public final class Game
 	}
 	
 	/**
+	 * <p>
 	 * Set the name of the game.
+	 * </p>
+	 *
 	 * @param name The new name of the game.
 	 */
 	public static void setName(String name)
@@ -63,7 +70,10 @@ public final class Game
 	}
 	
 	/**
+	 * <p>
 	 * Set the target frame rate of the game.
+	 * </p>
+	 *
 	 * @param targetFrameRate The new target frame rate.
 	 */
 	public static void setTargetFrameRate(int targetFrameRate)
@@ -77,6 +87,10 @@ public final class Game
 	}
 	
 	/**
+	 * <p>
+	 * Get the name of the game.
+	 * </p>
+	 *
 	 * @return The name of the game.
 	 */
 	public static String getName()
@@ -85,6 +99,10 @@ public final class Game
 	}
 	
 	/**
+	 * <p>
+	 * Get the target frame rate.
+	 * </p>
+	 *
 	 * @return The target frame rate.
 	 */
 	public static int getTargetFrameRate()
