@@ -143,13 +143,17 @@ public final class Window
 		JoystickController.create();
 	}
 	
+	public static void pollEvents()
+	{
+		glfwPollEvents();
+	}
+	
 	/**
 	 * Update the window.
 	 */
 	public static void update()
 	{
 		glfwSwapBuffers(nativeId);
-		glfwPollEvents();
 	}
 	
 	/**

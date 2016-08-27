@@ -133,7 +133,8 @@ public final class Engine
 		}
 
 		TimeInternal.updateDeltaTime();
-
+		
+		Window.pollEvents();
 		update();
 		updateInput();
 		
