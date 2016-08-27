@@ -166,6 +166,8 @@ public final class Engine
 		{
 			sync();
 		}
+		
+		TimeInternal.updateFrameCount();
 	}
 	
 	private static void sync()
