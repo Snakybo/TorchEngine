@@ -23,6 +23,8 @@
 package com.snakybo.torch.graphics.shader;
 
 import com.snakybo.torch.asset.Asset;
+import com.snakybo.torch.graphics.material.Material;
+import com.snakybo.torch.object.Component;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 import org.joml.Vector2f;
@@ -42,6 +44,15 @@ import static org.lwjgl.opengl.GL20.glUniformMatrix4fv;
 import static org.lwjgl.opengl.GL20.glUseProgram;
 
 /**
+ * <p>
+ * The shader class is a direct link to the low-level GLSL shaders.
+ * </p>
+ *
+ * <p>
+ * A shader is usually attached to a {@link Material}, however it is possible to manually
+ * use a shader in the {@link Component#onRenderObject()} method.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */
@@ -85,7 +96,9 @@ public final class Shader extends Asset
 	}
 	
 	/**
-	 * Tell OpenGL to use this program
+	 * <p>
+	 * Bind the shader for use in OpenGL.
+	 * </p>
 	 */
 	public final void bind()
 	{
@@ -93,7 +106,9 @@ public final class Shader extends Asset
 	}
 	
 	/**
-	 * Tell OpenGL to stop using this program
+	 * <p>
+	 * Unbind the shader.
+	 * </p>
 	 */
 	public final void unbind()
 	{
@@ -101,8 +116,12 @@ public final class Shader extends Asset
 	}
 	
 	/**
-	 * @param name The name of the uniform
-	 * @return Whether or not the shader has a uniform with the specified name
+	 * <p>
+	 * Check whether or not the shader has an uniform with the given {@code name}.
+	 * </p>
+	 *
+	 * @param name The name of the uniform.
+	 * @return Whether or not the shader has a uniform with the specified .
 	 */
 	public final boolean hasUniform(String name)
 	{
@@ -110,9 +129,12 @@ public final class Shader extends Asset
 	}
 	
 	/**
-	 * Set an integer value
-	 * @param name The name of the uniform
-	 * @param value The value of the uniform
+	 * <p>
+	 * Set the value of an {@code int} uniform.
+	 * </p>
+	 *
+	 * @param name The name of the uniform.
+	 * @param value The value of the uniform.
 	 */
 	public final void setUniform1i(String name, int value)
 	{
@@ -120,9 +142,12 @@ public final class Shader extends Asset
 	}
 	
 	/**
-	 * Set a float value
-	 * @param name The name of the uniform
-	 * @param value The value of the uniform
+	 * <p>
+	 * Set the value of a {@code float} uniform.
+	 * </p>
+	 *
+	 * @param name The name of the uniform.
+	 * @param value The value of the uniform.
 	 */
 	public final void setUniform1f(String name, float value)
 	{
@@ -130,9 +155,12 @@ public final class Shader extends Asset
 	}
 	
 	/**
-	 * Set a {@link Vector2f} value
-	 * @param name The name of the uniform
-	 * @param value The value of the uniform
+	 * <p>
+	 * Set the value of a {@link Vector2f} uniform.
+	 * </p>
+	 *
+	 * @param name The name of the uniform.
+	 * @param value The value of the uniform.
 	 */
 	public final void setUniform2f(String name, Vector2f value)
 	{
@@ -140,9 +168,12 @@ public final class Shader extends Asset
 	}
 	
 	/**
-	 * Set a {@link Vector3f} value
-	 * @param name The name of the uniform
-	 * @param value The value of the uniform
+	 * <p>
+	 * Set the value of a {@link Vector3f} uniform.
+	 * </p>
+	 *
+	 * @param name The name of the uniform.
+	 * @param value The value of the uniform.
 	 */
 	public final void setUniform3f(String name, Vector3f value)
 	{
@@ -150,9 +181,12 @@ public final class Shader extends Asset
 	}
 	
 	/**
-	 * Set a {@link Vector4f} value
-	 * @param name The name of the uniform
-	 * @param value The value of the uniform
+	 * <p>
+	 * Set the value of a {@link Vector4f} uniform.
+	 * </p>
+	 *
+	 * @param name The name of the uniform.
+	 * @param value The value of the uniform.
 	 */
 	public final void setUniform4f(String name, Vector4f value)
 	{
@@ -160,9 +194,12 @@ public final class Shader extends Asset
 	}
 	
 	/**
-	 * Set a {@link Matrix3f} value
-	 * @param name The name of the uniform
-	 * @param value The value of the uniform
+	 * <p>
+	 * Set the value of a {@link Matrix3f} uniform.
+	 * </p>
+	 *
+	 * @param name The name of the uniform.
+	 * @param value The value of the uniform.
 	 */
 	public final void setUniform3fv(String name, Matrix3f value)
 	{
@@ -173,9 +210,12 @@ public final class Shader extends Asset
 	}
 	
 	/**
-	 * Set a {@link Matrix4f} value
-	 * @param name The name of the uniform
-	 * @param value The value of the uniform
+	 * <p>
+	 * Set the value of a {@link Matrix4f} uniform.
+	 * </p>
+	 *
+	 * @param name The name of the uniform.
+	 * @param value The value of the uniform.
 	 */
 	public final void setUniform4fv(String name, Matrix4f value)
 	{
@@ -186,9 +226,12 @@ public final class Shader extends Asset
 	}
 	
 	/**
-	 * Get the type of a uniform, returns {@code null} if the shader has no uniform with the specified name
-	 * @param name The name of the uniform
-	 * @return The type of the uniform, or {@code null}
+	 * <p>
+	 * Get the type of a uniform, returns {@code null} if the shader has no uniform with the given {@code name}.
+	 * </p>
+	 *
+	 * @param name The name of the uniform.
+	 * @return The type of the uniform as a {@code String}, or {@code null}.
 	 */
 	public final String getUniformType(String name)
 	{
@@ -200,6 +243,14 @@ public final class Shader extends Asset
 		return null;
 	}
 	
+	/**
+	 * <p>
+	 * Load a shader.
+	 * </p>
+	 *
+	 * @param path The path/name of the shader.
+	 * @return The loaded shader.
+	 */
 	public static Shader load(String path)
 	{
 		if(ShaderAsset.all.containsKey(path))
