@@ -23,10 +23,10 @@
 package com.snakybo.torch.asset;
 
 import com.snakybo.torch.debug.Logger;
-import com.snakybo.torch.material.MaterialAssetLoader;
-import com.snakybo.torch.mesh.MeshAssetLoader;
-import com.snakybo.torch.shader.ShaderAssetLoader;
-import com.snakybo.torch.texture.TextureAssetLoader;
+import com.snakybo.torch.graphics.material.MaterialAssetLoader;
+import com.snakybo.torch.graphics.mesh.MeshAssetLoader;
+import com.snakybo.torch.graphics.shader.ShaderAssetLoader;
+import com.snakybo.torch.graphics.texture.TextureAssetLoader;
 import com.snakybo.torch.util.FileUtils;
 
 import java.nio.file.NoSuchFileException;

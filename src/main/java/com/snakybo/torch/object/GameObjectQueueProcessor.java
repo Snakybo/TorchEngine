@@ -22,8 +22,8 @@
 
 package com.snakybo.torch.object;
 
-import com.snakybo.torch.queue.IQueueProcessor;
-import com.snakybo.torch.queue.QueueOperation;
+import com.snakybo.torch.util.queue.IQueueProcessor;
+import com.snakybo.torch.util.queue.QueueOperation;
 import com.snakybo.torch.scene.Scene;
 import com.snakybo.torch.scene.SceneRegisterer;
 

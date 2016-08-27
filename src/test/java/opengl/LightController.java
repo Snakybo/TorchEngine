@@ -24,13 +24,10 @@ package opengl;
 
 import com.snakybo.torch.component.MeshRenderer;
 import com.snakybo.torch.debug.Logger;
-import com.snakybo.torch.input.keyboard.Key;
-import com.snakybo.torch.input.keyboard.Keyboard;
 import com.snakybo.torch.object.Component;
 import com.snakybo.torch.scene.Scene;
-import com.snakybo.torch.serialized.SerializedField;
-import com.snakybo.torch.texture.Texture2D;
-import com.snakybo.torch.time.Time;
+import com.snakybo.torch.util.serialized.SerializedField;
+import com.snakybo.torch.graphics.texture.Texture2D;
 import org.joml.Vector3f;
 
 /**

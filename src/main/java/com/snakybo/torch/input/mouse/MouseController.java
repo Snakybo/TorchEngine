@@ -22,7 +22,7 @@
 
 package com.snakybo.torch.input.mouse;
 
-import com.snakybo.torch.window.WindowInternal;
+import com.snakybo.torch.graphics.window.WindowInternal;
 import org.joml.Vector2f;
 import org.lwjgl.BufferUtils;
 

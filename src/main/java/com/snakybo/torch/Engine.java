@@ -23,21 +23,21 @@
 package com.snakybo.torch;
 
 import com.snakybo.torch.component.Camera;
-import com.snakybo.torch.cursor.CursorController;
+import com.snakybo.torch.input.cursor.CursorController;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
-import com.snakybo.torch.glfw.GLFW;
+import com.snakybo.torch.graphics.glfw.GLFW;
 import com.snakybo.torch.input.joystick.JoystickController;
 import com.snakybo.torch.input.keyboard.KeyboardController;
 import com.snakybo.torch.input.mouse.MouseController;
-import com.snakybo.torch.monitor.MonitorController;
+import com.snakybo.torch.graphics.monitor.MonitorController;
 import com.snakybo.torch.object.GameObjectNotifier;
-import com.snakybo.torch.queue.QueueProcessor;
+import com.snakybo.torch.util.queue.QueueProcessor;
 import com.snakybo.torch.scene.Scene;
-import com.snakybo.torch.time.Time;
-import com.snakybo.torch.time.TimeInternal;
-import com.snakybo.torch.window.Window;
-import com.snakybo.torch.window.WindowInternal;
+import com.snakybo.torch.util.time.Time;
+import com.snakybo.torch.util.time.TimeInternal;
+import com.snakybo.torch.graphics.window.Window;
+import com.snakybo.torch.graphics.window.WindowInternal;
 import org.lwjgl.Version;
 
 import static org.lwjgl.glfw.GLFW.glfwGetTime;

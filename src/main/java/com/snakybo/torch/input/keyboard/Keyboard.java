@@ -22,7 +22,7 @@
 
 package com.snakybo.torch.input.keyboard;
 
-import com.snakybo.torch.window.WindowInternal;
+import com.snakybo.torch.graphics.window.WindowInternal;
 
 import java.util.Map;
 

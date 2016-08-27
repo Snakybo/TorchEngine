@@ -23,14 +23,14 @@
 package com.snakybo.torch.component;
 
 import com.snakybo.torch.asset.Assets;
-import com.snakybo.torch.camera.CameraClearFlags;
-import com.snakybo.torch.camera.CameraInternal;
-import com.snakybo.torch.color.Color;
+import com.snakybo.torch.graphics.camera.CameraClearFlags;
+import com.snakybo.torch.graphics.camera.CameraInternal;
+import com.snakybo.torch.graphics.color.Color;
 import com.snakybo.torch.object.Component;
-import com.snakybo.torch.serialized.SerializedField;
-import com.snakybo.torch.texture.Texture;
-import com.snakybo.torch.texture.Texture2D;
-import com.snakybo.torch.window.Window;
+import com.snakybo.torch.util.serialized.SerializedField;
+import com.snakybo.torch.graphics.texture.Texture;
+import com.snakybo.torch.graphics.texture.Texture2D;
+import com.snakybo.torch.graphics.window.Window;
 import org.joml.Matrix4f;
 
 import java.util.HashSet;

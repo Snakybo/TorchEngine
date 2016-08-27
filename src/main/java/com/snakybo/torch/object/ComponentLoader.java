@@ -23,7 +23,7 @@
 package com.snakybo.torch.object;
 
 import com.snakybo.torch.debug.Logger;
-import com.snakybo.torch.serialized.SerializationUtils;
+import com.snakybo.torch.util.serialized.SerializationUtils;
 import com.snakybo.torch.xml.ComponentParser;
 
 import java.lang.reflect.Field;

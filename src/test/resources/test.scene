@@ -11,7 +11,7 @@
                         <fieldOfView type="float">75</fieldOfView>
                         <zNear type="float">0.01</zNear>
                         <zFar type="float">1000</zFar>
-                        <clearFlags type="enum">com.snakybo.torch.camera.CameraClearFlags:0</clearFlags>
+                        <clearFlags type="enum">com.snakybo.torch.graphics.camera.CameraClearFlags:0</clearFlags>
                         <skyboxTexture type="asset">skybox_default.png</skyboxTexture>
                         <clearColor type="color">0, 0, 0, 1</clearColor>
                     </fields>

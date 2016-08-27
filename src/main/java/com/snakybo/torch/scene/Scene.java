@@ -22,9 +22,9 @@
 
 package com.snakybo.torch.scene;
 
-import com.snakybo.torch.interfaces.IDestroyable;
+import com.snakybo.torch.util.interfaces.IDestroyable;
 import com.snakybo.torch.object.GameObject;
-import com.snakybo.torch.queue.QueueOperation;
+import com.snakybo.torch.util.queue.QueueOperation;
 
 import java.util.ArrayList;
 import java.util.HashMap;

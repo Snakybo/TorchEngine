@@ -23,8 +23,8 @@
 package com.snakybo.torch.scene;
 
 import com.snakybo.torch.object.GameObject;
-import com.snakybo.torch.queue.IQueueProcessor;
-import com.snakybo.torch.queue.QueueOperation;
+import com.snakybo.torch.util.queue.IQueueProcessor;
+import com.snakybo.torch.util.queue.QueueOperation;
 
 import java.util.HashMap;
 import java.util.HashSet;

@@ -23,8 +23,8 @@
 package com.snakybo.torch.object;
 
 import com.snakybo.torch.debug.Logger;
-import com.snakybo.torch.interfaces.IDestroyable;
-import com.snakybo.torch.queue.QueueOperation;
+import com.snakybo.torch.util.interfaces.IDestroyable;
+import com.snakybo.torch.util.queue.QueueOperation;
 import com.snakybo.torch.scene.Scene;
 import com.snakybo.torch.scene.SceneRegisterer;
 
