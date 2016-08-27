@@ -110,7 +110,7 @@ public final class Material extends Asset
 		
 		if(asset.shader.hasUniform("_view"))
 		{
-			asset.shader.setUniform4fv("_view", CameraInternal.getCurrentCamera().getView());
+			asset.shader.setUniform4fv("_view", CameraInternal.getCurrentCamera().getViewMatrix());
 		}
 		
 		if(asset.shader.hasUniform("_projection"))
