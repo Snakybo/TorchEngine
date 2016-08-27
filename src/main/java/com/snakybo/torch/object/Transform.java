@@ -133,11 +133,6 @@ public final class Transform implements Serializable
 			throw new UnsupportedOperationException("You cannot parent the transform to itself, or it's children");
 		}
 		
-		if(gameObject.scene != parent.gameObject.scene)
-		{
-			throw new UnsupportedOperationException("Currently it is not possible to parent to an object in another scene");
-		}
-		
 		if(this.parent != null)
 		{
 			this.parent.children.remove(this);
