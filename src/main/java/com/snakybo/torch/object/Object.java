@@ -23,6 +23,7 @@
 package com.snakybo.torch.object;
 
 import com.snakybo.torch.debug.Logger;
+import com.snakybo.torch.scene.SceneInternal;
 
 import java.io.Serializable;
 
@@ -69,5 +70,26 @@ public class Object implements Serializable
 	public final String getName()
 	{
 		return name;
+	}
+	
+	public static void destroy(Object obj)
+	{
+		if(obj instanceof GameObject)
+		{
+			// Destroy the GameObject
+			GameObject gameObject = (GameObject)obj;
+			SceneInternal.remove(gameObject);
+			
+			// Also destroy all components
+			gameObject.components.forEach(Object::destroy);
+			
+			// Destroy all children of the GameObject
+			gameObject.getTransform().getChildren().forEach((t) -> destroy(t.gameObject));
+		}
+		else if(obj instanceof Component)
+		{
+			Component component = (Component)obj;
+			component.gameObject.componentsToRemove.add(component);
+		}
 	}
 }

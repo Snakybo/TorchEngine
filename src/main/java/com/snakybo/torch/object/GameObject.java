@@ -24,26 +24,23 @@ package com.snakybo.torch.object;
 
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.scene.SceneInternal;
-import com.snakybo.torch.util.interfaces.IDestroyable;
-import com.snakybo.torch.util.queue.QueueOperation;
 
-import java.util.HashMap;
+import java.util.Collection;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class GameObject extends Object implements IDestroyable
+public final class GameObject extends Object
 {
+	Collection<Component> componentsToAdd;
+	Collection<Component> componentsToRemove;
+	
 	Set<Component> components;
-	Map<Component, QueueOperation> queue;
 	
-	Transform transform;
-	
-	boolean destroyed;
+	private Transform transform;
 	
 	/**
 	 * Create a new {@link GameObject}
@@ -61,19 +58,15 @@ public final class GameObject extends Object implements IDestroyable
 	{
 		super(name);
 		
-		SceneInternal.add(this);
+		componentsToAdd = new HashSet<>();
+		componentsToRemove = new HashSet<>();
 		
 		components = new HashSet<>();
-		queue = new HashMap<>();
 		
 		transform = new Transform();
 		transform.gameObject = this;
-	}
-	
-	@Override
-	public void destroy()
-	{
-		destroyed = true;
+		
+		SceneInternal.add(this);
 	}
 	
 	final Component addComponentInternal(Class<?> component)
@@ -81,7 +74,11 @@ public final class GameObject extends Object implements IDestroyable
 		try
 		{
 			Component result = (Component)component.getConstructor().newInstance();
-			queue.put(result, QueueOperation.Add);
+			result.gameObject = this;
+			
+			componentsToAdd.add(result);
+			components.add(result);
+			
 			return result;
 		}
 		catch(ReflectiveOperationException e)
@@ -99,11 +96,6 @@ public final class GameObject extends Object implements IDestroyable
 	public final <T extends Component> T addComponent(Class<T> component)
 	{
 		return component.cast(addComponentInternal(component));
-	}
-	
-	public final void removeComponent(Component component)
-	{
-		queue.put(component, QueueOperation.Remove);
 	}
 	
 	/**

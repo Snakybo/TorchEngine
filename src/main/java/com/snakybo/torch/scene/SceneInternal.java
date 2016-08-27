@@ -23,7 +23,9 @@
 package com.snakybo.torch.scene;
 
 import com.snakybo.torch.object.GameObject;
-import com.snakybo.torch.object.GameObjectNotifier;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Snakybo
@@ -38,13 +40,11 @@ public final class SceneInternal
 	
 	public static void processAdditions()
 	{
-		Scene.gameObjectsToAdd.forEach(GameObjectNotifier::start);
 		Scene.gameObjectsToAdd.clear();
 	}
 	
 	public static void processRemovals()
 	{
-		Scene.gameObjectsToRemove.forEach(GameObjectNotifier::destroy);
 		Scene.gameObjects.removeAll(Scene.gameObjectsToRemove);
 		Scene.gameObjectsToRemove.clear();
 	}
@@ -58,5 +58,13 @@ public final class SceneInternal
 	public static void remove(GameObject obj)
 	{
 		Scene.gameObjectsToRemove.add(obj);
+	}
+	
+	public static Iterable<GameObject> getAllInitializedGameObjects()
+	{
+		Set<GameObject> result = new HashSet<>(Scene.gameObjects);
+		result.removeAll(Scene.gameObjectsToAdd);
+		
+		return result;
 	}
 }

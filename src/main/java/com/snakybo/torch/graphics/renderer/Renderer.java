@@ -24,7 +24,7 @@ package com.snakybo.torch.graphics.renderer;
 
 import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.object.GameObject;
-import com.snakybo.torch.object.GameObjectNotifier;
+import com.snakybo.torch.object.GameObjectInternal;
 
 import static org.lwjgl.opengl.GL.createCapabilities;
 import static org.lwjgl.opengl.GL11.GL_BACK;
@@ -74,8 +74,8 @@ public final class Renderer
 	 */
 	public static void render(GameObject gameObject)
 	{
-		GameObjectNotifier.preRender(gameObject);
-		GameObjectNotifier.render(gameObject);
-		GameObjectNotifier.postRender(gameObject);
+		GameObjectInternal.onPreRender(gameObject);
+		GameObjectInternal.onRender(gameObject);
+		GameObjectInternal.onPostRender(gameObject);
 	}
 }

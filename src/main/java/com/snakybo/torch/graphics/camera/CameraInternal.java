@@ -22,13 +22,12 @@
 
 package com.snakybo.torch.graphics.camera;
 
-import com.snakybo.torch.graphics.color.Color;
 import com.snakybo.torch.component.Camera;
-import com.snakybo.torch.object.GameObject;
-import com.snakybo.torch.object.Transform;
+import com.snakybo.torch.graphics.color.Color;
 import com.snakybo.torch.graphics.renderer.Renderer;
-import com.snakybo.torch.scene.Scene;
 import com.snakybo.torch.graphics.texture.Texture;
+import com.snakybo.torch.object.Transform;
+import com.snakybo.torch.scene.SceneInternal;
 import org.joml.Matrix4f;
 
 import java.util.ArrayList;
@@ -125,10 +124,7 @@ public final class CameraInternal
 			break;
 		}
 		
-		for(GameObject gameObject : Scene.getAllGameObjects())
-		{
-			Renderer.render(gameObject);
-		}
+		SceneInternal.getAllInitializedGameObjects().forEach(Renderer::render);
 		
 		if(clearFlags == CameraClearFlags.Skybox)
 		{

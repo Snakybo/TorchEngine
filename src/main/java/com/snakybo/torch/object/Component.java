@@ -103,11 +103,6 @@ public abstract class Component extends Object
 		return gameObject.addComponent(component);
 	}
 	
-	public final void removeComponent(Component component)
-	{
-		gameObject.removeComponent(component);
-	}
-	
 	/**
 	 * Attempt to retrieve a component of {@code type} from the parent GameObject
 	 * @param <T> The type of the component to retrieve

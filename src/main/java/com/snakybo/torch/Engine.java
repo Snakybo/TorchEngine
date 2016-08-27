@@ -23,23 +23,21 @@
 package com.snakybo.torch;
 
 import com.snakybo.torch.component.Camera;
-import com.snakybo.torch.input.cursor.CursorController;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.graphics.glfw.GLFW;
+import com.snakybo.torch.graphics.monitor.MonitorController;
+import com.snakybo.torch.graphics.window.Window;
+import com.snakybo.torch.graphics.window.WindowInternal;
+import com.snakybo.torch.input.cursor.CursorController;
 import com.snakybo.torch.input.joystick.JoystickController;
 import com.snakybo.torch.input.keyboard.KeyboardController;
 import com.snakybo.torch.input.mouse.MouseController;
-import com.snakybo.torch.graphics.monitor.MonitorController;
-import com.snakybo.torch.object.GameObject;
-import com.snakybo.torch.object.GameObjectNotifier;
+import com.snakybo.torch.object.GameObjectInternal;
+import com.snakybo.torch.object.Object;
 import com.snakybo.torch.scene.SceneInternal;
-import com.snakybo.torch.util.queue.QueueProcessor;
-import com.snakybo.torch.scene.Scene;
 import com.snakybo.torch.util.time.Time;
 import com.snakybo.torch.util.time.TimeInternal;
-import com.snakybo.torch.graphics.window.Window;
-import com.snakybo.torch.graphics.window.WindowInternal;
 import org.lwjgl.Version;
 
 import static org.lwjgl.glfw.GLFW.glfwGetTime;
@@ -130,6 +128,7 @@ public final class Engine
 			
 			// Call onStart() on all GameObjects added in the previous frame
 			SceneInternal.processAdditions();
+			SceneInternal.getAllInitializedGameObjects().forEach(GameObjectInternal::processAdditions);
 			
 			WindowInternal.pollEvents();
 			
@@ -139,26 +138,26 @@ public final class Engine
 			render();
 			
 			// Call onDestroy() on all GameObjects removed in this frame
+			SceneInternal.getAllInitializedGameObjects().forEach(GameObjectInternal::processRemovals);
 			SceneInternal.processRemovals();
+			
+			if(!running)
+			{
+				SceneInternal.getAllInitializedGameObjects().forEach(Object::destroy);
+				
+				// Call onDestroy() on all remaining GameObjects
+				SceneInternal.getAllInitializedGameObjects().forEach(GameObjectInternal::processRemovals);
+				SceneInternal.processRemovals();
+			}
 		}
-
-		QueueProcessor.process();
+		
 		destroy();
 	}
 	
 	private static void update()
 	{
-		for(GameObject gameObject : Scene.getAllGameObjects())
-		{
-			GameObjectNotifier.update(gameObject);
-		}
-		
-		for(GameObject gameObject : Scene.getAllGameObjects())
-		{
-			GameObjectNotifier.postUpdate(gameObject);
-		}
-		
-		QueueProcessor.process();
+		SceneInternal.getAllInitializedGameObjects().forEach(GameObjectInternal::onUpdate);
+		SceneInternal.getAllInitializedGameObjects().forEach(GameObjectInternal::onPostUpdate);
 	}
 	
 	private static void updateInput()
@@ -210,11 +209,6 @@ public final class Engine
 	private static void destroy()
 	{
 		LoggerInternal.log("Cleaning up");
-		
-		for(GameObject gameObject : Scene.getAllGameObjects())
-		{
-			GameObjectNotifier.destroy(gameObject);
-		}
 
 		JoystickController.destroy();
 		MonitorController.destroy();

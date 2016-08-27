@@ -22,46 +22,52 @@
 
 package com.snakybo.torch.object;
 
-import com.snakybo.torch.debug.Logger;
-import com.snakybo.torch.util.ReflectionUtil;
-
-import java.lang.reflect.Method;
-
 /**
- * @author Kevin Krol
+ * @author Snakybo
  * @since 1.0
  */
-public final class GameObjectNotifier
+public final class GameObjectInternal
 {
-	public static void start(GameObject gameObject) { gameObject.components.forEach(Component::onStart); }
+	private GameObjectInternal()
+	{
+		throw new AssertionError();
+	}
 	
-	public static void update(GameObject gameObject)
+	public static void processAdditions(GameObject gameObject)
+	{
+		gameObject.componentsToAdd.forEach(Component::onStart);
+		gameObject.componentsToAdd.clear();
+	}
+	
+	public static void processRemovals(GameObject gameObject)
+	{
+		gameObject.componentsToRemove.forEach(Component::onDestroy);
+		gameObject.components.removeAll(gameObject.componentsToRemove);
+		gameObject.componentsToRemove.clear();
+	}
+	
+	public static void onUpdate(GameObject gameObject)
 	{
 		gameObject.components.forEach(Component::onUpdate);
 	}
 	
-	public static void postUpdate(GameObject gameObject)
+	public static void onPostUpdate(GameObject gameObject)
 	{
 		gameObject.components.forEach(Component::onPostUpdate);
 	}
 	
-	public static void preRender(GameObject gameObject)
+	public static void onPreRender(GameObject gameObject)
 	{
 		gameObject.components.forEach(Component::onPreRenderObject);
 	}
 	
-	public static void render(GameObject gameObject)
+	public static void onRender(GameObject gameObject)
 	{
 		gameObject.components.forEach(Component::onRenderObject);
 	}
 	
-	public static void postRender(GameObject gameObject)
+	public static void onPostRender(GameObject gameObject)
 	{
 		gameObject.components.forEach(Component::onPostRenderObject);
-	}
-
-	public static void destroy(GameObject gameObject)
-	{
-		gameObject.components.forEach(Component::onDestroy);
 	}
 }
