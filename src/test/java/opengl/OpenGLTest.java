@@ -24,6 +24,7 @@ package opengl;
 
 import com.snakybo.torch.Engine;
 import com.snakybo.torch.Game;
+import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.graphics.monitor.DisplayMode;
 import com.snakybo.torch.graphics.monitor.Monitor;
 import com.snakybo.torch.scene.Scene;

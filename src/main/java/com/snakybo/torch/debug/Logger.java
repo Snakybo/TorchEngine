@@ -35,52 +35,52 @@ public final class Logger
 		throw new AssertionError();
 	}
 	
-	public static void log(String msg)
+	public static void log(Object msg)
 	{
 		LoggerInternal.logInternal(Level.INFO, msg);
 	}
 	
-	public static void log(String msg, Object param1)
+	public static void log(Object msg, Object param1)
 	{
 		LoggerInternal.logInternal(Level.INFO, msg, param1);
 	}
 	
-	public static void log(String msg, Object[] params)
+	public static void log(Object msg, Object[] params)
 	{
 		LoggerInternal.logInternal(Level.INFO, msg, params);
 	}
 	
-	public static void logWarning(String msg)
+	public static void logWarning(Object msg)
 	{
 		LoggerInternal.logInternal(Level.WARNING, msg);
 	}
 	
-	public static void logWarning(String msg, Object param1)
+	public static void logWarning(Object msg, Object param1)
 	{
 		LoggerInternal.logInternal(Level.WARNING, msg, param1);
 	}
 	
-	public static void logWarning(String msg, Object[] params)
+	public static void logWarning(Object msg, Object[] params)
 	{
 		LoggerInternal.logInternal(Level.WARNING, msg, params);
 	}
 	
-	public static void logError(String msg)
+	public static void logError(Object msg)
 	{
 		LoggerInternal.logInternal(Level.SEVERE, msg);
 	}
 	
-	public static void logError(String msg, Object param1)
+	public static void logError(Object msg, Object param1)
 	{
 		LoggerInternal.logInternal(Level.SEVERE, msg, param1);
 	}
 	
-	public static void logError(String msg, Object[] params)
+	public static void logError(Object msg, Object[] params)
 	{
 		LoggerInternal.logInternal(Level.SEVERE, msg, params);
 	}
 	
-	public static void logError(String msg, Throwable thrown)
+	public static void logError(Object msg, Throwable thrown)
 	{
 		LoggerInternal.logInternal(Level.SEVERE, msg, thrown);
 	}

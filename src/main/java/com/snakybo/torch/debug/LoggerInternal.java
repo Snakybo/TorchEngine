@@ -64,43 +64,43 @@ public final class LoggerInternal
 		throw new AssertionError();
 	}
 	
-	public static void log(String msg)
+	public static void log(Object msg)
 	{
 		logInternal(Level.FINE, msg);
 	}
 	
-	public static void log(String msg, Object param1)
+	public static void log(Object msg, Object param1)
 	{
 		logInternal(Level.FINE, msg, param1);
 	}
 	
-	public static void log(String msg, Object[] params)
+	public static void log(Object msg, Object[] params)
 	{
 		logInternal(Level.FINE, msg, params);
 	}
 	
-	static void logInternal(Level level, String msg)
+	static void logInternal(Level level, Object msg)
 	{
 		StackTraceElement ste = getStackTraceElement();
-		logger.logp(level, ste.getClassName(), ste.getMethodName(), msg);
+		logger.logp(level, ste.getClassName(), ste.getMethodName(), msg.toString());
 	}
 	
-	static void logInternal(Level level, String msg, Object param1)
+	static void logInternal(Level level, Object msg, Object param1)
 	{
 		StackTraceElement ste = getStackTraceElement();
-		logger.logp(level, ste.getClassName(), ste.getMethodName(), msg, param1);
+		logger.logp(level, ste.getClassName(), ste.getMethodName(), msg.toString(), param1);
 	}
 	
-	static void logInternal(Level level, String msg, Object[] params)
+	static void logInternal(Level level, Object msg, Object[] params)
 	{
 		StackTraceElement ste = getStackTraceElement();
-		logger.logp(level, ste.getClassName(), ste.getMethodName(), msg, params);
+		logger.logp(level, ste.getClassName(), ste.getMethodName(), msg.toString(), params);
 	}
 	
-	static void logInternal(Level level, String msg, Throwable thrown)
+	static void logInternal(Level level, Object msg, Throwable thrown)
 	{
 		StackTraceElement ste = getStackTraceElement();
-		logger.logp(level, ste.getClassName(), ste.getMethodName(), msg, thrown);
+		logger.logp(level, ste.getClassName(), ste.getMethodName(), msg.toString(), thrown);
 	}
 	
 	private static StackTraceElement getStackTraceElement()
