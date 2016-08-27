@@ -32,6 +32,7 @@ import java.nio.IntBuffer;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.lwjgl.opengl.EXTTextureFilterAnisotropic.GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT;
 import static org.lwjgl.opengl.EXTTextureFilterAnisotropic.GL_TEXTURE_MAX_ANISOTROPY_EXT;
 import static org.lwjgl.opengl.GL11.GL_LINEAR;
 import static org.lwjgl.opengl.GL11.GL_LINEAR_MIPMAP_LINEAR;
@@ -48,6 +49,7 @@ import static org.lwjgl.opengl.GL11.GL_UNSIGNED_BYTE;
 import static org.lwjgl.opengl.GL11.glBindTexture;
 import static org.lwjgl.opengl.GL11.glDeleteTextures;
 import static org.lwjgl.opengl.GL11.glGenTextures;
+import static org.lwjgl.opengl.GL11.glGetFloat;
 import static org.lwjgl.opengl.GL11.glTexImage2D;
 import static org.lwjgl.opengl.GL11.glTexParameterf;
 import static org.lwjgl.opengl.GL11.glTexParameteri;
@@ -132,8 +134,8 @@ final class TextureAsset extends AssetData
 		{
 			glGenerateMipmap(type);
 			
-			float maxAnisotropic = MathUtils.clamp(anisoLevel, 0, 8);
-			glTexParameterf(type, GL_TEXTURE_MAX_ANISOTROPY_EXT, maxAnisotropic);
+			anisoLevel = MathUtils.clamp(anisoLevel, 0, glGetFloat(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT));
+			glTexParameterf(type, GL_TEXTURE_MAX_ANISOTROPY_EXT, anisoLevel);
 		}
 		else
 		{
