@@ -22,48 +22,18 @@
 
 package com.snakybo.torch.window;
 
-import com.snakybo.torch.Game;
-import com.snakybo.torch.debug.LoggerInternal;
-import com.snakybo.torch.input.joystick.JoystickController;
-import com.snakybo.torch.input.keyboard.KeyboardController;
-import com.snakybo.torch.input.mouse.Mouse;
-import com.snakybo.torch.input.mouse.MouseController;
 import com.snakybo.torch.monitor.DisplayMode;
-import com.snakybo.torch.object.GameObject;
-import com.snakybo.torch.renderer.Renderer;
 import org.joml.Vector2f;
 import org.lwjgl.BufferUtils;
-import org.lwjgl.glfw.Callbacks;
 
 import java.nio.IntBuffer;
 
-import static org.lwjgl.glfw.GLFW.GLFW_BLUE_BITS;
-import static org.lwjgl.glfw.GLFW.GLFW_DECORATED;
-import static org.lwjgl.glfw.GLFW.GLFW_GREEN_BITS;
-import static org.lwjgl.glfw.GLFW.GLFW_RED_BITS;
-import static org.lwjgl.glfw.GLFW.GLFW_REFRESH_RATE;
-import static org.lwjgl.glfw.GLFW.GLFW_RESIZABLE;
-import static org.lwjgl.glfw.GLFW.GLFW_VISIBLE;
-import static org.lwjgl.glfw.GLFW.glfwCreateWindow;
-import static org.lwjgl.glfw.GLFW.glfwDefaultWindowHints;
-import static org.lwjgl.glfw.GLFW.glfwDestroyWindow;
 import static org.lwjgl.glfw.GLFW.glfwFocusWindow;
 import static org.lwjgl.glfw.GLFW.glfwGetWindowSize;
-import static org.lwjgl.glfw.GLFW.glfwMakeContextCurrent;
-import static org.lwjgl.glfw.GLFW.glfwPollEvents;
-import static org.lwjgl.glfw.GLFW.glfwSetCharCallback;
-import static org.lwjgl.glfw.GLFW.glfwSetCursorEnterCallback;
-import static org.lwjgl.glfw.GLFW.glfwSetScrollCallback;
-import static org.lwjgl.glfw.GLFW.glfwSetWindowFocusCallback;
-import static org.lwjgl.glfw.GLFW.glfwSetWindowIconifyCallback;
+import static org.lwjgl.glfw.GLFW.glfwIconifyWindow;
+import static org.lwjgl.glfw.GLFW.glfwRestoreWindow;
 import static org.lwjgl.glfw.GLFW.glfwSetWindowSize;
-import static org.lwjgl.glfw.GLFW.glfwShowWindow;
-import static org.lwjgl.glfw.GLFW.glfwSwapBuffers;
 import static org.lwjgl.glfw.GLFW.glfwSwapInterval;
-import static org.lwjgl.glfw.GLFW.glfwWindowHint;
-import static org.lwjgl.glfw.GLFW.glfwWindowShouldClose;
-import static org.lwjgl.opengl.GL11.GL_FALSE;
-import static org.lwjgl.system.MemoryUtil.NULL;
 
 /**
  * @author Snakybo
@@ -71,10 +41,6 @@ import static org.lwjgl.system.MemoryUtil.NULL;
  */
 public final class Window
 {
-	private static DisplayMode displayMode;
-	
-	private static long nativeId;
-	
 	private static boolean vsyncEnabled;
 	
 	private Window()
@@ -89,86 +55,7 @@ public final class Window
 	 */
 	public static void create(DisplayMode displayMode, WindowMode windowMode)
 	{
-		if(Window.displayMode != null || nativeId != NULL)
-		{
-			destroy();
-		}
-		
-		LoggerInternal.log("Creating window: " + displayMode);
-		
-		Window.displayMode = displayMode;
-		
-		long monitor = NULL;
-		
-		glfwDefaultWindowHints();
-		glfwWindowHint(GLFW_VISIBLE, GL_FALSE);
-		glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-		
-		if(windowMode == WindowMode.Borderless)
-		{
-			glfwWindowHint(GLFW_RED_BITS, displayMode.getBitsPerPixel());
-			glfwWindowHint(GLFW_GREEN_BITS, displayMode.getBitsPerPixel());
-			glfwWindowHint(GLFW_BLUE_BITS, displayMode.getBitsPerPixel());
-			glfwWindowHint(GLFW_REFRESH_RATE, displayMode.getFrequency());
-			
-			glfwWindowHint(GLFW_DECORATED, GL_FALSE);
-		}
-		else if(windowMode == WindowMode.Fullscreen)
-		{
-			monitor = displayMode.getMonitor().getNativeId();
-		}
-		
-		nativeId = glfwCreateWindow(displayMode.getWidth(), displayMode.getHeight(), Game.getName(), monitor, NULL);
-		if(nativeId == NULL)
-		{
-			throw new RuntimeException("Unable to create GLFW window");
-		}
-		
-		glfwSetWindowFocusCallback(nativeId, (window, focus) -> GameObject.notifyAll("onWindowFocus", focus));
-		glfwSetWindowIconifyCallback(nativeId, (window, iconified) -> GameObject.notifyAll("onWindowIconify", iconified));
-		
-		glfwSetCharCallback(nativeId, (window, codepoint) -> GameObject.notifyAll("onCharPressed", (char)codepoint));
-		
-		glfwSetCursorEnterCallback(nativeId, (window, entered) -> GameObject.notifyAll("onCursorEnter", entered));
-		glfwSetScrollCallback(nativeId, (window, x, y) -> Mouse.setScrollDelta(new Vector2f((float)x, (float)y)));
-		
-		glfwMakeContextCurrent(nativeId);
-		glfwShowWindow(nativeId);
-		setVSyncEnabled(true);
-		
-		Renderer.create();
-		
-		KeyboardController.create();
-		MouseController.create();
-		JoystickController.create();
-	}
-	
-	public static void pollEvents()
-	{
-		glfwPollEvents();
-	}
-	
-	/**
-	 * Update the window.
-	 */
-	public static void update()
-	{
-		glfwSwapBuffers(nativeId);
-	}
-	
-	/**
-	 * Destroy the active window.
-	 */
-	public static void destroy()
-	{
-		LoggerInternal.log("Destroying window");
-		
-		Callbacks.glfwFreeCallbacks(nativeId);
-		
-		glfwDestroyWindow(nativeId);
-		
-		displayMode = null;
-		nativeId = NULL;
+		WindowInternal.create(displayMode, windowMode);
 	}
 	
 	/**
@@ -176,16 +63,17 @@ public final class Window
 	 */
 	public static void focus()
 	{
-		glfwFocusWindow(nativeId);
+		glfwFocusWindow(WindowInternal.getNativeId());
 	}
 	
-	/**
-	 * Check whether or not the window wants to close.
-	 * @return Whether or not the window wants to close.
-	 */
-	public static boolean isCloseRequested()
+	public static void restore()
 	{
-		return glfwWindowShouldClose(nativeId);
+		glfwRestoreWindow(WindowInternal.getNativeId());
+	}
+	
+	public static void iconify()
+	{
+		glfwIconifyWindow(WindowInternal.getNativeId());
 	}
 	
 	/**
@@ -203,7 +91,7 @@ public final class Window
 	 */
 	public static void setSize(Vector2f size)
 	{
-		glfwSetWindowSize(nativeId, (int)size.x, (int)size.y);
+		glfwSetWindowSize(WindowInternal.getNativeId(), (int)size.x, (int)size.y);
 	}
 	
 	/**
@@ -212,7 +100,7 @@ public final class Window
 	 */
 	public static void setVSyncEnabled(boolean enabled)
 	{
-		Window.vsyncEnabled = enabled;
+		vsyncEnabled = enabled;
 		
 		glfwSwapInterval(enabled ? 1 : 0);
 	}
@@ -225,7 +113,7 @@ public final class Window
 		IntBuffer width = BufferUtils.createIntBuffer(1);
 		IntBuffer height = BufferUtils.createIntBuffer(1);
 		
-		glfwGetWindowSize(nativeId, width, height);
+		glfwGetWindowSize(WindowInternal.getNativeId(), width, height);
 		return new Vector2f(width.get(), height.get());
 	}
 	
@@ -244,13 +132,5 @@ public final class Window
 	public static Vector2f getCenter()
 	{
 		return getSize().mul(0.5f);
-	}
-	
-	/**
-	 * @return The native ID of the window.
-	 */
-	public static long getNativeId()
-	{
-		return nativeId;
 	}
 }

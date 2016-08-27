@@ -22,7 +22,7 @@
 
 package com.snakybo.torch.input.mouse;
 
-import com.snakybo.torch.window.Window;
+import com.snakybo.torch.window.WindowInternal;
 import org.joml.Vector2f;
 import org.lwjgl.BufferUtils;
 
@@ -63,7 +63,7 @@ public final class MouseController
 		
 		for(int i = 0; i < Mouse.current.length; i++)
 		{
-			int state = glfwGetMouseButton(Window.getNativeId(), i);
+			int state = glfwGetMouseButton(WindowInternal.getNativeId(), i);
 			boolean pressed = false;
 			
 			if(state == GLFW_PRESS || state == GLFW_REPEAT)
@@ -92,7 +92,7 @@ public final class MouseController
 	{
 		DoubleBuffer xBuffer = BufferUtils.createDoubleBuffer(1);
 		DoubleBuffer yBuffer = BufferUtils.createDoubleBuffer(1);
-		glfwGetCursorPos(Window.getNativeId(), xBuffer, yBuffer);
+		glfwGetCursorPos(WindowInternal.getNativeId(), xBuffer, yBuffer);
 		
 		return new Vector2f((float)xBuffer.get(), (float)yBuffer.get());
 	}

@@ -24,7 +24,7 @@ package com.snakybo.torch.cursor;
 
 import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.texture.Texture;
-import com.snakybo.torch.window.Window;
+import com.snakybo.torch.window.WindowInternal;
 import org.joml.Vector2f;
 import org.lwjgl.glfw.GLFWImage;
 
@@ -65,7 +65,7 @@ public final class Cursor
 	 */
 	public static boolean isVisible()
 	{
-		return glfwGetInputMode(Window.getNativeId(), GLFW_CURSOR) == GLFW_CURSOR_NORMAL;
+		return glfwGetInputMode(WindowInternal.getNativeId(), GLFW_CURSOR) == GLFW_CURSOR_NORMAL;
 	}
 	
 	/**
@@ -82,7 +82,7 @@ public final class Cursor
 	 */
 	public static void setVisible(boolean visible)
 	{
-		glfwSetInputMode(Window.getNativeId(), GLFW_CURSOR, visible ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_DISABLED);
+		glfwSetInputMode(WindowInternal.getNativeId(), GLFW_CURSOR, visible ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_DISABLED);
 	}
 	
 	/**
@@ -168,6 +168,6 @@ public final class Cursor
 	
 	private static void setShape(long shape)
 	{
-		glfwSetCursor(Window.getNativeId(), shape);
+		glfwSetCursor(WindowInternal.getNativeId(), shape);
 	}
 }

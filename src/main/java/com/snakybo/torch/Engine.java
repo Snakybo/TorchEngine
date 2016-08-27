@@ -37,6 +37,7 @@ import com.snakybo.torch.scene.Scene;
 import com.snakybo.torch.time.Time;
 import com.snakybo.torch.time.TimeInternal;
 import com.snakybo.torch.window.Window;
+import com.snakybo.torch.window.WindowInternal;
 import org.lwjgl.Version;
 
 import static org.lwjgl.glfw.GLFW.glfwGetTime;
@@ -127,14 +128,14 @@ public final class Engine
 
 	private static void frame()
 	{
-		if(Window.isCloseRequested())
+		if(WindowInternal.isCloseRequested())
 		{
 			stop();
 		}
 
 		TimeInternal.updateDeltaTime();
 		
-		Window.pollEvents();
+		WindowInternal.pollEvents();
 		update();
 		updateInput();
 		
@@ -161,7 +162,7 @@ public final class Engine
 	{
 		Camera.getCameras().forEach(Camera::render);
 		
-		Window.update();
+		WindowInternal.update();
 		
 		if(!Window.isVSyncEnabled())
 		{

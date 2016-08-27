@@ -22,7 +22,7 @@
 
 package com.snakybo.torch.input.keyboard;
 
-import com.snakybo.torch.window.Window;
+import com.snakybo.torch.window.WindowInternal;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -62,7 +62,7 @@ public final class KeyboardController
 		
 		for(Integer id : Keyboard.current.keySet())
 		{
-			int state = glfwGetKey(Window.getNativeId(), id);
+			int state = glfwGetKey(WindowInternal.getNativeId(), id);
 			boolean pressed = false;
 			
 			if(state == GLFW_PRESS)

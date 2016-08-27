@@ -22,7 +22,7 @@
 
 package com.snakybo.torch.input.keyboard;
 
-import com.snakybo.torch.window.Window;
+import com.snakybo.torch.window.WindowInternal;
 
 import java.util.Map;
 
@@ -88,7 +88,7 @@ public final class Keyboard
 	 */
 	public static void setClipboardString(String string)
 	{
-		glfwSetClipboardString(Window.getNativeId(), string);
+		glfwSetClipboardString(WindowInternal.getNativeId(), string);
 	}
 	
 	/**
@@ -97,6 +97,6 @@ public final class Keyboard
 	 */
 	public static String getClipboardString()
 	{
-		return glfwGetClipboardString(Window.getNativeId());
+		return glfwGetClipboardString(WindowInternal.getNativeId());
 	}
 }

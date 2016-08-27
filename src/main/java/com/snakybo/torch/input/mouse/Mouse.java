@@ -22,7 +22,7 @@
 
 package com.snakybo.torch.input.mouse;
 
-import com.snakybo.torch.window.Window;
+import com.snakybo.torch.window.WindowInternal;
 import org.joml.Vector2f;
 
 import static org.lwjgl.glfw.GLFW.glfwSetCursorPos;
@@ -94,7 +94,7 @@ public final class Mouse
 	 */
 	public static void setCursorPosition(Vector2f position)
 	{
-		glfwSetCursorPos(Window.getNativeId(), (int)position.x, (int)position.y);
+		glfwSetCursorPos(WindowInternal.getNativeId(), (int)position.x, (int)position.y);
 		
 		// Set the mouse position directly to prevent delta calculations
 		mousePosition = position;
