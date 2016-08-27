@@ -22,7 +22,6 @@
 
 package com.snakybo.torch.graphics.camera;
 
-import com.snakybo.torch.component.Camera;
 import com.snakybo.torch.graphics.color.Color;
 import com.snakybo.torch.graphics.renderer.Renderer;
 import com.snakybo.torch.graphics.texture.Texture;

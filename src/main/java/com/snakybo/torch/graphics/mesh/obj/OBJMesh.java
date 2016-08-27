@@ -32,6 +32,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * <p>
+ * OBJ mesh loader.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */

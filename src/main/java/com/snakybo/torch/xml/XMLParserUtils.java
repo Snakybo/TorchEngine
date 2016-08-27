@@ -23,8 +23,8 @@
 package com.snakybo.torch.xml;
 
 import com.snakybo.torch.asset.Assets;
-import com.snakybo.torch.graphics.color.Color;
 import com.snakybo.torch.debug.Logger;
+import com.snakybo.torch.graphics.color.Color;
 import org.joml.Quaternionf;
 import org.joml.Vector2f;
 import org.joml.Vector3f;

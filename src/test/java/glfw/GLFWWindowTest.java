@@ -26,9 +26,9 @@ import com.snakybo.torch.Engine;
 import com.snakybo.torch.Game;
 import com.snakybo.torch.graphics.monitor.DisplayMode;
 import com.snakybo.torch.graphics.monitor.Monitor;
-import com.snakybo.torch.object.GameObject;
 import com.snakybo.torch.graphics.window.Window;
 import com.snakybo.torch.graphics.window.WindowMode;
+import com.snakybo.torch.object.GameObject;
 
 /**
  * @author Snakybo

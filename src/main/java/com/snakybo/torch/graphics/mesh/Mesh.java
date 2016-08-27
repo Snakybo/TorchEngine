@@ -29,9 +29,15 @@ import org.lwjgl.BufferUtils;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * <p>
+ * A mesh represents a 3D model the engine can read, it can contain {@code vertices}, {@code texCoords},
+ * {@code normals}, {@code tangents}, and {@code indices}.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */
@@ -51,7 +57,7 @@ public final class Mesh extends Asset
 	}
 	
 	/**
-	 * Create a new mesh
+	 * Create a new, empty mesh.
 	 */
 	public Mesh()
 	{
@@ -82,7 +88,9 @@ public final class Mesh extends Asset
 	}
 	
 	/**
-	 * Attempt to calculate the normals of a mesh automatically
+	 * <p>
+	 * Attempt to calculate the normals automatically
+	 * </p>
 	 */
 	public final void generateNormals()
 	{
@@ -110,7 +118,9 @@ public final class Mesh extends Asset
 	}
 	
 	/**
-	 * Attempt to calculate the tangents of a mesh automatically
+	 * <p>
+	 * Attempt to calculate the tangents automatically.
+	 * </p>
 	 */
 	public final void generateTangents()
 	{
@@ -148,7 +158,10 @@ public final class Mesh extends Asset
 	}
 	
 	/**
-	 * Add a vertex to the mesh
+	 * <p>
+	 * Add a new {@code vertex}.
+	 * </p>
+	 *
 	 * @param vertex The vertex to add
 	 */
 	public final void addVertex(Vector3f vertex)
@@ -157,8 +170,11 @@ public final class Mesh extends Asset
 	}
 	
 	/**
-	 * Add a texture coordinate to the mesh
-	 * @param texCoord The texture coordinate to add
+	 * <p>
+	 * Add a new {@code texCoord}.
+	 * </p>
+	 *
+	 * @param texCoord The {@code texCoord} to add.
 	 */
 	public final void addTexCoord(Vector2f texCoord)
 	{
@@ -166,8 +182,11 @@ public final class Mesh extends Asset
 	}
 	
 	/**
-	 * Add a normal to the mesh
-	 * @param normal The mesh to add
+	 * <p>
+	 * Add a new {@code normal}.
+	 * </p>
+	 *
+	 * @param normal The {@code normal} to add.
 	 */
 	public final void addNormal(Vector3f normal)
 	{
@@ -175,8 +194,11 @@ public final class Mesh extends Asset
 	}
 	
 	/**
-	 * Add a tangent to the mesh
-	 * @param tangent The tangent to add
+	 * <p>
+	 * Add a new {@code tangent}.
+	 * </p>
+	 *
+	 * @param tangent The {@code tangent} to add.
 	 */
 	public final void addTangent(Vector3f tangent)
 	{
@@ -184,8 +206,11 @@ public final class Mesh extends Asset
 	}
 	
 	/**
-	 * Add a single index to the mesh
-	 * @param index The index to add
+	 * <p>
+	 * Add a new {@code index}.
+	 * </p>
+	 *
+	 * @param index The {@code index} to add.
 	 */
 	public final void addIndex(int index)
 	{
@@ -193,10 +218,17 @@ public final class Mesh extends Asset
 	}
 	
 	/**
-	 * Add a face, or 3 indices to the mesh
-	 * @param i0 The first index
-	 * @param i1 The second index
-	 * @param i2 The third index
+	 * <p>
+	 * Add a new face.
+	 * </p>
+	 *
+	 * <p>
+	 * This is a shortcut for calling {@link #addIndex(int)} 3 times.
+	 * </p>
+	 *
+	 * @param i0 The first {@code index}.
+	 * @param i1 The second {@code index}.
+	 * @param i2 The third {@code index}.
 	 */
 	public final void addFace(int i0, int i1, int i2)
 	{
@@ -206,48 +238,72 @@ public final class Mesh extends Asset
 	}
 	
 	/**
-	 * @return The vertices of the mesh
+	 * <p>
+	 * Get a list containing all {@code vertices}.
+	 * </p>
+	 *
+	 * @return All {@code Vertices}.
 	 */
 	public final List<Vector3f> getVertices()
 	{
-		return asset.vertices;
+		return new ArrayList<>(asset.vertices);
 	}
 	
 	/**
-	 * @return The texture coordinates of the mesh
+	 * <p>
+	 * Get a list containing all {@code texCoords}.
+	 * </p>
+	 *
+	 * @return All {@code TexCoords}.
 	 */
 	public final List<Vector2f> getTexCoords()
 	{
-		return asset.texCoords;
+		return new ArrayList<>(asset.texCoords);
 	}
 	
 	/**
-	 * @return The normals of the mesh
+	 * <p>
+	 * Get a list containing all {@code indices}.
+	 * </p>
+	 *
+	 * @return All {@code normals}.
 	 */
 	public final List<Vector3f> getNormals()
 	{
-		return asset.normals;
+		return new ArrayList<>(asset.normals);
 	}
 	
 	/**
-	 * @return The tangents of the mesh
+	 * <p>
+	 * Get a list containing all {@code tangents}.
+	 * </p>
+	 *
+	 * @return All {@code tangents}.
 	 */
 	public final List<Vector3f> getTangents()
 	{
-		return asset.tangents;
+		return new ArrayList<>(asset.tangents);
 	}
 	
 	/**
-	 * @return The indices of the mesh
+	 * <p>
+	 * Get a list containing all {@code indices}.
+	 * </p>
+	 *
+	 * @return All {@code indices}.
 	 */
 	public final List<Integer> getIndices()
 	{
-		return asset.indices;
+		return new ArrayList<>(asset.indices);
 	}
 	
 	/**
-	 * @param index The index of the vertex
-	 * @return The vertex at the specified index
+	 * <p>
+	 * Get the {@code vertex} at the specified {@code index}.
+	 * </p>
+	 *
+	 * @param index The index of the vertex.
+	 * @return The vertex at the specified index.
 	 */
 	public final Vector3f getVertex(int index)
 	{
@@ -255,8 +311,12 @@ public final class Mesh extends Asset
 	}
 	
 	/**
-	 * @param index The index of the texCoord
-	 * @return The texCoord at the specified index
+	 * <p>
+	 * Get the {@code texCoord} at the specified {@code index}.
+	 * </p>
+	 *
+	 * @param index The index of the texCoord.
+	 * @return The texCoord at the specified index.
 	 */
 	public final Vector2f getTexCoord(int index)
 	{
@@ -264,8 +324,12 @@ public final class Mesh extends Asset
 	}
 	
 	/**
-	 * @param index The index of the normal
-	 * @return The normal at the specified index
+	 * <p>
+	 * Get the {@code normal} at the specified {@code index}.
+	 * </p>
+	 *
+	 * @param index The index of the normal.
+	 * @return The normal at the specified index.
 	 */
 	public final Vector3f getNormal(int index)
 	{
@@ -273,8 +337,12 @@ public final class Mesh extends Asset
 	}
 	
 	/**
-	 * @param index The index of the tangent
-	 * @return The tangent at the specified index
+	 * <p>
+	 * Get the {@code tangent} at the specified {@code index}.
+	 * </p>
+	 *
+	 * @param index The index of the tangent.
+	 * @return The tangent at the specified index.
 	 */
 	public final Vector3f getTangent(int index)
 	{
@@ -282,7 +350,11 @@ public final class Mesh extends Asset
 	}
 	
 	/**
-	 * @return The vertices array to a FloatBuffer
+	 * <p>
+	 * Get the vertices array as an {@code FloatBuffer}.
+	 * </p>
+	 *
+	 * @return The vertices array as an {@code FloatBuffer}.
 	 */
 	public final FloatBuffer getVertexBuffer()
 	{
@@ -300,7 +372,11 @@ public final class Mesh extends Asset
 	}
 	
 	/**
-	 * @return The texCoord array to a FloatBuffer
+	 * <p>
+	 * Get the texCoords array as an {@code FloatBuffer}.
+	 * </p>
+	 *
+	 * @return The texCoords array as an {@code FloatBuffer}.
 	 */
 	public final FloatBuffer getTexCoordBuffer()
 	{
@@ -317,7 +393,11 @@ public final class Mesh extends Asset
 	}
 	
 	/**
-	 * @return The normal array to a FloatBuffer
+	 * <p>
+	 * Get the normals array as an {@code FloatBuffer}.
+	 * </p>
+	 *
+	 * @return The normals array as an {@code FloatBuffer}.
 	 */
 	public final FloatBuffer getNormalBuffer()
 	{
@@ -335,7 +415,33 @@ public final class Mesh extends Asset
 	}
 	
 	/**
-	 * @return The indices array to a FloatBuffer
+	 * <p>
+	 * Get the tangents array as an {@code FloatBuffer}.
+	 * </p>
+	 *
+	 * @return The tangents array as an {@code FloatBuffer}.
+	 */
+	public final FloatBuffer getTangentBuffer()
+	{
+		FloatBuffer result = BufferUtils.createFloatBuffer(asset.vertices.size() * 3);
+		
+		for(Vector3f tangent : asset.tangents)
+		{
+			result.put(tangent.x);
+			result.put(tangent.y);
+			result.put(tangent.z);
+		}
+		
+		result.flip();
+		return result;
+	}
+	
+	/**
+	 * <p>
+	 * Get the indces array as an {@code IntBuffer}.
+	 * </p>
+	 *
+	 * @return The indices array as an {@code IntBuffer}.
 	 */
 	public final IntBuffer getIndexBuffer()
 	{
@@ -348,7 +454,11 @@ public final class Mesh extends Asset
 	}
 	
 	/**
-	 * @return The number of indices the mesh contains
+	 * <p>
+	 * Get the number of indices the mesh contains.
+	 * </p>
+	 *
+	 * @return The number of indices the mesh contains.
 	 */
 	public final int getNumIndices()
 	{
@@ -356,7 +466,11 @@ public final class Mesh extends Asset
 	}
 	
 	/**
-	 * @return The number of triangles, or faces the mesh contains
+	 * <p>
+	 * Get the number of triangles this mesh contains.
+	 * </p>
+	 *
+	 * @return The number of triangles, or faces the mesh contains.
 	 */
 	public final int getNumTriangles()
 	{

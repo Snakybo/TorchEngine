@@ -22,10 +22,10 @@
 
 package com.snakybo.torch.input.cursor;
 
+import com.snakybo.torch.graphics.window.Window;
 import com.snakybo.torch.input.keyboard.Key;
 import com.snakybo.torch.input.keyboard.Keyboard;
 import com.snakybo.torch.input.mouse.Mouse;
-import com.snakybo.torch.graphics.window.Window;
 import org.joml.Vector2f;
 
 /**

@@ -23,11 +23,13 @@
 package com.snakybo.torch.graphics.material;
 
 import com.snakybo.torch.asset.Asset;
+import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.graphics.camera.CameraInternal;
 import com.snakybo.torch.graphics.color.Color;
-import com.snakybo.torch.debug.Logger;
-import com.snakybo.torch.object.Transform;
+import com.snakybo.torch.graphics.mesh.Mesh;
+import com.snakybo.torch.graphics.shader.Shader;
 import com.snakybo.torch.graphics.texture.Texture;
+import com.snakybo.torch.object.Transform;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
@@ -35,6 +37,10 @@ import org.joml.Vector4f;
 import java.util.Map;
 
 /**
+ * <p>
+ * Materials contain the properties of how a {@link Mesh} should be rendered.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */
@@ -54,6 +60,13 @@ public final class Material extends Asset
 		asset = new MaterialAsset(path, shader);
 	}
 	
+	/**
+	 * <p>
+	 * Create a new Material with the specified {@link Shader}
+	 * </p>
+	 *
+	 * @param shader The shader of the material.
+	 */
 	public Material(String shader)
 	{
 		asset = new MaterialAsset("", shader);
@@ -83,7 +96,9 @@ public final class Material extends Asset
 	}
 	
 	/**
-	 * Bind the material's shader
+	 * <p>
+	 * Bind the shader.
+	 * </p>
 	 */
 	public final void bind()
 	{
@@ -91,7 +106,9 @@ public final class Material extends Asset
 	}
 
 	/**
-	 * Unbind the material's shader
+	 * <p>
+	 * Unbind the shader.
+	 * </p>
 	 */
 	public final void unbind()
 	{
@@ -99,7 +116,9 @@ public final class Material extends Asset
 	}
 	
 	/**
-	 * Update the material's shader
+	 * <p>
+	 * Update the shader.
+	 * </p>
 	 */
 	public final void update()
 	{
@@ -164,15 +183,26 @@ public final class Material extends Asset
 		}
 	}
 	
+	/**
+	 * <p>
+	 * Set the value of an uniform to an {@code Object}.
+	 * </p>
+	 *
+	 * @param name The name of the uniform in the shader.
+	 * @param value The value of the uniform.
+	 */
 	public final void set(String name, Object value)
 	{
 		asset.values.put(name, value);
 	}
 	
 	/**
-	 * Set a {@link Vector2f} value
-	 * @param name The name of the uniform in the shader
-	 * @param value The value of the uniform
+	 * <p>
+	 * Set the value of an uniform to a {@code Vector2f}.
+	 * </p>
+	 *
+	 * @param name The name of the uniform in the shader.
+	 * @param value The value of the uniform.
 	 */
 	public final void setVector2f(String name, Vector2f value)
 	{
@@ -180,9 +210,12 @@ public final class Material extends Asset
 	}
 	
 	/**
-	 * Set a {@link Vector3f} value
-	 * @param name The name of the uniform in the shader
-	 * @param value The value of the uniform
+	 * <p>
+	 * Set the value of an uniform to a {@code Vector3f}.
+	 * </p>
+	 *
+	 * @param name The name of the uniform in the shader.
+	 * @param value The value of the uniform.
 	 */
 	public final void setVector3f(String name, Vector3f value)
 	{
@@ -190,9 +223,12 @@ public final class Material extends Asset
 	}
 	
 	/**
-	 * Set a {@link Vector4f} value
-	 * @param name The name of the uniform in the shader
-	 * @param value The value of the uniform
+	 * <p>
+	 * Set the value of an uniform to a {@code Vector4f}.
+	 * </p>
+	 *
+	 * @param name The name of the uniform in the shader.
+	 * @param value The value of the uniform.
 	 */
 	public final void setVector4f(String name, Vector4f value)
 	{
@@ -200,9 +236,12 @@ public final class Material extends Asset
 	}
 	
 	/**
-	 * Set a {@link Color} value
-	 * @param name The name of the uniform in the shader
-	 * @param value The value of the uniform
+	 * <p>
+	 * Set the value of an uniform to a {@code Color}.
+	 * </p>
+	 *
+	 * @param name The name of the uniform in the shader.
+	 * @param value The value of the uniform.
 	 */
 	public final void setColor(String name, Color value)
 	{
@@ -210,9 +249,12 @@ public final class Material extends Asset
 	}
 	
 	/**
-	 * Set a {@link Texture} value
-	 * @param name The name of the uniform in the shader
-	 * @param value The value of the uniform
+	 * <p>
+	 * Set the value of an uniform to a {@code Texture}.
+	 * </p>
+	 *
+	 * @param name The name of the uniform in the shader.
+	 * @param value The value of the uniform.
 	 */
 	public final void setTexture(String name, Texture value)
 	{
@@ -220,9 +262,12 @@ public final class Material extends Asset
 	}
 	
 	/**
-	 * Set a float value
-	 * @param name The name of the uniform in the shader
-	 * @param value The value of the uniform
+	 * <p>
+	 * Set the value of an uniform to a {@code float}.
+	 * </p>
+	 *
+	 * @param name The name of the uniform in the shader.
+	 * @param value The value of the uniform.
 	 */
 	public final void setFloat(String name, float value)
 	{
@@ -230,28 +275,29 @@ public final class Material extends Asset
 	}
 	
 	/**
-	 * Set an integer value
-	 * @param name The name of the uniform in the shader
-	 * @param value The value of the uniform
+	 * <p>
+	 * Set the value of an uniform to an {@code int}.
+	 * </p>
+	 * @param name The name of the uniform in the shader.
+	 * @param value The value of the uniform.
 	 */
 	public final void setInt(String name, int value)
 	{
 		set(name, value);
 	}
 	
-	/**
-	 * Set the parent {@link Transform} of this material.
-	 * @param transform The new transform of the material.
-	 */
 	public final void setTransform(Transform transform)
 	{
 		this.transform = transform;
 	}
 	
 	/**
-	 * Get a {@link Vector2f} value
-	 * @param name The name of the uniform in the shader
-	 * @return The value of the uniform
+	 * <p>
+	 * Get a {@link Vector2f} value.
+	 * </p>
+	 *
+	 * @param name The name of the uniform in the shader.
+	 * @return The value of the uniform.
 	 */
 	public final Vector2f getVector2f(String name)
 	{
@@ -259,9 +305,12 @@ public final class Material extends Asset
 	}
 	
 	/**
-	 * Get a {@link Vector3f} value
-	 * @param name The name of the uniform in the shader
-	 * @return The value of the uniform
+	 * <p>
+	 * Get a {@link Vector3f} value.
+	 * </p>
+	 *
+	 * @param name The name of the uniform in the shader.
+	 * @return The value of the uniform.
 	 */
 	public final Vector3f getVector3f(String name)
 	{
@@ -269,9 +318,12 @@ public final class Material extends Asset
 	}
 	
 	/**
-	 * Get a {@link Vector4f} value
-	 * @param name The name of the uniform in the shader
-	 * @return The value of the uniform
+	 * <p>
+	 * Get a {@link Vector4f} value.
+	 * </p>
+	 *
+	 * @param name The name of the uniform in the shader.
+	 * @return The value of the uniform.
 	 */
 	public final Vector4f getVector4f(String name)
 	{
@@ -279,9 +331,12 @@ public final class Material extends Asset
 	}
 	
 	/**
-	 * Get a {@link Color} value
-	 * @param name The name of the uniform in the shader
-	 * @return The value of the uniform
+	 * <p>
+	 * Get a {@link Color} value.
+	 * </p>
+	 *
+	 * @param name The name of the uniform in the shader.
+	 * @return The value of the uniform.
 	 */
 	public final Color getColor(String name)
 	{
@@ -289,9 +344,12 @@ public final class Material extends Asset
 	}
 	
 	/**
-	 * Get a {@link Texture} value
-	 * @param name The name of the uniform in the shader
-	 * @return The value of the uniform
+	 * <p>
+	 * Get a {@link Texture} value.
+	 * </p>
+	 *
+	 * @param name The name of the uniform in the shader.
+	 * @return The value of the uniform.
 	 */
 	public final Texture getTexture(String name)
 	{
@@ -299,9 +357,12 @@ public final class Material extends Asset
 	}
 	
 	/**
-	 * Get a float value
-	 * @param name The name of the uniform in the shader
-	 * @return The value of the uniform
+	 * <p>
+	 * Get a float value.
+	 * </p>
+	 *
+	 * @param name The name of the uniform in the shader.
+	 * @return The value of the uniform.
 	 */
 	public final float getFloat(String name)
 	{
@@ -309,21 +370,18 @@ public final class Material extends Asset
 	}
 	
 	/**
-	 * Get an integer value
-	 * @param name The name of the uniform in the shader
-	 * @return The value of the uniform
+	 * <p>
+	 * Get an integer value.
+	 * </p>
+	 *
+	 * @param name The name of the uniform in the shader.
+	 * @return The value of the uniform.
 	 */
 	public final int getInt(String name)
 	{
 		return get(int.class, name);
 	}
 	
-	/**
-	 * Convenience method to get values from the material
-	 * @param clazz The type of the object to retrieve
-	 * @param name The name of the object
-	 * @return The object casted to {@code clazz}
-	 */
 	private <T> T get(Class<T> clazz, String name)
 	{
 		if(asset.values.containsKey(name) && asset.values.get(name).getClass() == clazz)

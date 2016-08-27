@@ -22,7 +22,6 @@
 
 package com.snakybo.torch.object;
 
-import com.snakybo.torch.scene.Scene;
 import com.snakybo.torch.xml.ComponentParser;
 import com.snakybo.torch.xml.GameObjectParser;
 

@@ -23,14 +23,14 @@
 package com.snakybo.torch.graphics.window;
 
 import com.snakybo.torch.Game;
-import com.snakybo.torch.util.callback.TorchCallbacks;
 import com.snakybo.torch.debug.LoggerInternal;
+import com.snakybo.torch.graphics.monitor.DisplayMode;
+import com.snakybo.torch.graphics.renderer.Renderer;
 import com.snakybo.torch.input.joystick.JoystickController;
 import com.snakybo.torch.input.keyboard.KeyboardController;
 import com.snakybo.torch.input.mouse.Mouse;
 import com.snakybo.torch.input.mouse.MouseController;
-import com.snakybo.torch.graphics.monitor.DisplayMode;
-import com.snakybo.torch.graphics.renderer.Renderer;
+import com.snakybo.torch.util.callback.TorchCallbacks;
 import org.joml.Vector2f;
 import org.lwjgl.glfw.Callbacks;
 

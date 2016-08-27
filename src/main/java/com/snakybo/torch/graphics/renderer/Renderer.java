@@ -68,10 +68,6 @@ public final class Renderer
 		glCullFace(GL_BACK);
 	}
 	
-	/**
-	 * Render a single {@link GameObject}.
-	 * @param gameObject The {@link GameObject} to render.
-	 */
 	public static void render(GameObject gameObject)
 	{
 		GameObjectInternal.onPreRender(gameObject);

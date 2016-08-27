@@ -23,8 +23,8 @@
 package com.snakybo.torch.graphics.texture;
 
 import com.snakybo.torch.debug.Logger;
-import com.snakybo.torch.util.interfaces.IDestroyable;
 import com.snakybo.torch.util.FileUtils;
+import com.snakybo.torch.util.interfaces.IDestroyable;
 
 import java.nio.file.NoSuchFileException;
 

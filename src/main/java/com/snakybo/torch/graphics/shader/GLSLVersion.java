@@ -34,9 +34,6 @@ import static org.lwjgl.opengl.GL30.GL_MINOR_VERSION;
  */
 final class GLSLVersion
 {
-	/**
-	 * The GLSL version to append to shaders
-	 */
 	static final int GLSL_VERSION;
 	
 	static

@@ -37,6 +37,10 @@ import static org.lwjgl.glfw.GLFW.glfwGetVideoMode;
 import static org.lwjgl.glfw.GLFW.glfwGetVideoModes;
 
 /**
+ * <p>
+ * Container class for all available monitors.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */
@@ -76,7 +80,10 @@ public final class Monitor
 	}
 	
 	/**
+	 * <p>
 	 * Is this the primary monitor?
+	 * </p>
+	 *
 	 * @return <code>true</code> if this is the primary monitor.
 	 */
 	public final boolean isPrimaryMonitor()
@@ -85,7 +92,10 @@ public final class Monitor
 	}
 	
 	/**
+	 * <p>
 	 * Get all available window modes.
+	 * </p>
+	 *
 	 * @return All available window modes.
 	 */
 	public final DisplayMode[] getAllDisplayModes()
@@ -94,7 +104,10 @@ public final class Monitor
 	}
 	
 	/**
+	 * <p>
 	 * Get the native window mode of the monitor.
+	 * </p>
+	 *
 	 * @return The native window mode.
 	 */
 	public final DisplayMode getNativeDisplayMode()
@@ -116,7 +129,10 @@ public final class Monitor
 	}
 	
 	/**
+	 * <p>
 	 * Get the physical size of the monitor.
+	 * </p>
+	 *
 	 * @return The physical size.
 	 */
 	public final Vector2f getPhysicalSize()
@@ -130,7 +146,10 @@ public final class Monitor
 	}
 	
 	/**
+	 * <p>
 	 * Get the name of the monitor.
+	 * </p>
+	 *
 	 * @return The name.
 	 */
 	public final String getName()
@@ -139,7 +158,10 @@ public final class Monitor
 	}
 	
 	/**
+	 * <p>
 	 * Get the native ID of the monitor.
+	 * </p>
+	 *
 	 * @return The native ID.
 	 */
 	public final long getNativeId()
@@ -148,7 +170,10 @@ public final class Monitor
 	}
 	
 	/**
+	 * <p>
 	 * Get the system's primary monitor.
+	 * </p>
+	 *
 	 * @return The primary monitor.
 	 */
 	public static Monitor getPrimaryMonitor()
@@ -165,7 +190,10 @@ public final class Monitor
 	}
 	
 	/**
+	 * <p>
 	 * Get all monitors.
+	 * </p>
+	 *
 	 * @return All monitors.
 	 */
 	public static Monitor[] getMonitors()

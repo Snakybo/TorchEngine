@@ -23,6 +23,20 @@
 package com.snakybo.torch.graphics.monitor;
 
 /**
+ * <p>
+ * A {@code DisplayMode} is a container class with all the information to create a window.
+ * </p>
+ *
+ * <p>
+ * A {@code DisplayMode} can be created manually using one of the constructors, but there is no guarantee
+ * the user's system has support for it.
+ * </p>
+ *
+ * <p>
+ * You can also get all available display modes for a monitor using {@link Monitor#getAllDisplayModes()}, or just
+ * the native display mode using {@link Monitor#getNativeDisplayMode()}.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */
@@ -37,7 +51,10 @@ public class DisplayMode
 	private int freq;
 
 	/**
-	 * Create a new window mode.
+	 * <p>
+	 * Create a new {@code DisplayMode}.
+	 * </p>
+	 *
 	 * @param monitor The monitor this display mode belongs to.
 	 * @param width The width.
 	 * @param height The height.
@@ -48,7 +65,10 @@ public class DisplayMode
 	}
 	
 	/**
-	 * Create a new window mode.
+	 * <p>
+	 * Create a new {@code DisplayMode}.
+	 * </p>
+	 *
 	 * @param monitor The monitor this display mode belongs to.
 	 * @param width The width.
 	 * @param height The height.
@@ -92,7 +112,10 @@ public class DisplayMode
 	}
 	
 	/**
-	 * Get the monitor this display mode belongs to.
+	 * <p>
+	 * Get the monitor this {@code DisplayMode} belongs to.
+	 * </p>
+	 *
 	 * @return The monitor.
 	 */
 	public final Monitor getMonitor()
@@ -101,7 +124,10 @@ public class DisplayMode
 	}
 	
 	/**
+	 * <p>
 	 * Get the width.
+	 * </p>
+	 *
 	 * @return The width.
 	 */
 	public final int getWidth()
@@ -110,7 +136,10 @@ public class DisplayMode
 	}
 	
 	/**
+	 * <p>
 	 * Get the height.
+	 * </p>
+	 *
 	 * @return The height.
 	 */
 	public final int getHeight()
@@ -119,7 +148,15 @@ public class DisplayMode
 	}
 	
 	/**
+	 * <p>
 	 * Get the number of bits per pixel.
+	 * </p>
+	 *
+	 * <p>
+	 * Bits per pixel is not stored as a separate value for the R, G, B, and A channels.
+	 * This value is used for all 4.
+	 * </p>
+	 *
 	 * @return The number of bits per pixel.
 	 */
 	public final int getBitsPerPixel()
@@ -128,7 +165,10 @@ public class DisplayMode
 	}
 	
 	/**
+	 * <p>
 	 * Get the refresh rate.
+	 * </p>
+	 *
 	 * @return The refresh rate.
 	 */
 	public final int getFrequency()

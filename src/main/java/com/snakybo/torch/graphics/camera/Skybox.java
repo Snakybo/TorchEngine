@@ -26,9 +26,9 @@ import com.snakybo.torch.asset.Assets;
 import com.snakybo.torch.component.Camera;
 import com.snakybo.torch.graphics.material.Material;
 import com.snakybo.torch.graphics.mesh.Mesh;
-import com.snakybo.torch.object.Transform;
 import com.snakybo.torch.graphics.renderer.MeshRendererInternal;
 import com.snakybo.torch.graphics.texture.Texture;
+import com.snakybo.torch.object.Transform;
 import org.joml.Vector3f;
 
 /**

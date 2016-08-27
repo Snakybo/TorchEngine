@@ -24,9 +24,6 @@ package com.snakybo.torch.graphics.mesh;
 
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
-import com.snakybo.torch.graphics.mesh.IMeshLoader;
-import com.snakybo.torch.graphics.mesh.Mesh;
-import com.snakybo.torch.graphics.mesh.MeshAsset;
 import com.snakybo.torch.graphics.mesh.obj.OBJMesh;
 import com.snakybo.torch.util.FileUtils;
 

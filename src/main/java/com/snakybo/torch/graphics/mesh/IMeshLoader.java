@@ -23,14 +23,27 @@
 package com.snakybo.torch.graphics.mesh;
 
 /**
+ * <p>
+ * Base type for all mesh loaders.
+ * </p>
+ *
+ * <p>
+ * {@link #toModel(Mesh)} is called automatically by the engine after a mesh
+ * has been loaded. The implementation of this method should convert all loaded data to a format the engine
+ * can read.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */
 public interface IMeshLoader
 {
 	/**
+	 * <p>
 	 * Convert an imported mesh to a format the engine can read
-	 * @return The converted mesh
+	 * </p>
+	 *
+	 * @return The data in a format the engine can read.
 	 */
 	Mesh toModel(Mesh result);
 }
