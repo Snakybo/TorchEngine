@@ -20,32 +20,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package glfw;
-
-import com.snakybo.torch.debug.Logger;
-import com.snakybo.torch.object.Component;
+package com.snakybo.torch.callback;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public class GLFWCallbackListener extends Component
+@FunctionalInterface
+public interface ICharPressedCallback
 {
-	@Override
-	protected void onWindowFocus(boolean focus)
-	{
-		Logger.log("Window focus: " + focus);
-	}
-	
-	@Override
-	protected void onWindowIconify(boolean iconified)
-	{
-		Logger.log("Window iconified: " + iconified);
-	}
-	
-	@Override
-	protected void onCursorEnter(boolean entered)
-	{
-		Logger.log("Cursor enter: " + entered);
-	}
+	void onCharPressed(char codepoint);
 }

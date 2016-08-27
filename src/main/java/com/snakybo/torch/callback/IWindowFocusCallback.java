@@ -20,38 +20,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package glfw;
-
-import com.snakybo.torch.Engine;
-import com.snakybo.torch.Game;
-import com.snakybo.torch.monitor.DisplayMode;
-import com.snakybo.torch.monitor.Monitor;
-import com.snakybo.torch.object.GameObject;
-import com.snakybo.torch.window.Window;
-import com.snakybo.torch.window.WindowMode;
+package com.snakybo.torch.callback;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public class GLFWWindowTest
+@FunctionalInterface
+public interface IWindowFocusCallback
 {
-	private static void createScene()
-	{
-		GameObject obj = new GameObject();
-		obj.addComponent(GLFWInputListener.class);
-		//obj.addComponent(new GLFWJoystickListener());
-	}
-	
-	public static void main(String[] args)
-	{
-		Engine.initialize();
-		
-		Window.create(new DisplayMode(Monitor.getPrimaryMonitor(), 1280, 720), WindowMode.Windowed);
-		
-		createScene();
-		
-		Game.setName("GLFW Window Test");
-		Game.start();
-	}
+	void onWindowFocus(boolean focused);
 }

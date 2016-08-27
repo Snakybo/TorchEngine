@@ -20,38 +20,54 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package glfw;
+package com.snakybo.torch.callback;
 
-import com.snakybo.torch.Engine;
-import com.snakybo.torch.Game;
-import com.snakybo.torch.monitor.DisplayMode;
-import com.snakybo.torch.monitor.Monitor;
-import com.snakybo.torch.object.GameObject;
-import com.snakybo.torch.window.Window;
-import com.snakybo.torch.window.WindowMode;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public class GLFWWindowTest
+public final class TorchCallbacks
 {
-	private static void createScene()
+	public static final class Callback<T>
 	{
-		GameObject obj = new GameObject();
-		obj.addComponent(GLFWInputListener.class);
-		//obj.addComponent(new GLFWJoystickListener());
+		private Set<T> callbacks;
+		
+		private Callback()
+		{
+			callbacks = new HashSet<>();
+		}
+		
+		public final void addListener(T callback)
+		{
+			callbacks.add(callback);
+		}
+		
+		public final void removeListener(T callback)
+		{
+			callbacks.remove(callback);
+		}
+		
+		public final void removeAllListeners()
+		{
+			callbacks.clear();
+		}
+		
+		public final Iterable<T> getCallbacks()
+		{
+			return callbacks;
+		}
 	}
 	
-	public static void main(String[] args)
+	public static final Callback<ICharPressedCallback> onCharPressed = new Callback<>();
+	public static final Callback<ICursorEnterCallback> onCursorEnter = new Callback<>();
+	public static final Callback<IWindowFocusCallback> onWindowFocus = new Callback<>();
+	public static final Callback<IWindowIconifyCallback> onWindowIconify = new Callback<>();
+	
+	private TorchCallbacks()
 	{
-		Engine.initialize();
-		
-		Window.create(new DisplayMode(Monitor.getPrimaryMonitor(), 1280, 720), WindowMode.Windowed);
-		
-		createScene();
-		
-		Game.setName("GLFW Window Test");
-		Game.start();
+		throw new AssertionError();
 	}
 }

@@ -93,10 +93,4 @@ public class GLFWInputListener extends Component
 			Logger.log("Mouse scroll delta: " + Mouse.getScrollDelta());
 		}
 	}
-	
-	@Override
-	protected void onCharPressed(char c)
-	{
-		Logger.log("Received char: " + c);
-	}
 }
