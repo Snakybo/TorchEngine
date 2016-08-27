@@ -27,7 +27,6 @@ import com.snakybo.torch.graphics.camera.CameraClearFlags;
 import com.snakybo.torch.graphics.camera.CameraInternal;
 import com.snakybo.torch.graphics.color.Color;
 import com.snakybo.torch.graphics.texture.Texture;
-import com.snakybo.torch.graphics.texture.Texture2D;
 import com.snakybo.torch.graphics.window.Window;
 import com.snakybo.torch.object.Component;
 import com.snakybo.torch.util.serialized.SerializedField;
@@ -53,7 +52,7 @@ public final class Camera extends Component
 	@SerializedField private float zNear = 0.01f;
 	@SerializedField private float zFar = 1000f;
 	@SerializedField private CameraClearFlags clearFlags = CameraClearFlags.Skybox;
-	@SerializedField private Texture2D skyboxTexture = Assets.load(Texture2D.class, "skybox_default.png");
+	@SerializedField private Texture skyboxTexture = Assets.load(Texture.class, "skybox_default.png");
 	@SerializedField private Color clearColor = Color.BLACK;
 	
 	private CameraInternal camera;

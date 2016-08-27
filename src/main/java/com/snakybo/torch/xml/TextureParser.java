@@ -36,15 +36,14 @@ public final class TextureParser
 	
 	public static final class TextureData
 	{
-		public final Class<?> type;
-		
+		public final int type;
 		public final int filters;
 		public final float anisoLevel;
 		public final int format;
 		public final int internalFormat;
 		public final boolean clamp;
 		
-		public TextureData(Class<?> type, int filters, float anisoLevel, int format, int internalFormat, boolean clamp)
+		public TextureData(int type, int filters, float anisoLevel, int format, int internalFormat, boolean clamp)
 		{
 			this.type = type;
 			this.filters = filters;
@@ -72,9 +71,10 @@ public final class TextureParser
 			return null;
 		}
 		
-		Class<?> type = XMLParserUtils.decodeClass(element.getAttribute("type"));
-		
 		Element parameters = (Element)element.getElementsByTagName("parameters").item(0);
+		
+		Element typeElement = (Element)parameters.getElementsByTagName("type").item(0);
+		int type = (int)XMLParserUtils.decodeObject(typeElement.getAttribute("type"), typeElement.getTextContent());
 		
 		Element filtersElement = (Element)parameters.getElementsByTagName("filters").item(0);
 		int filters = (int)XMLParserUtils.decodeObject(filtersElement.getAttribute("type"), filtersElement.getTextContent());

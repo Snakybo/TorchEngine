@@ -24,7 +24,7 @@ package opengl;
 
 import com.snakybo.torch.component.MeshRenderer;
 import com.snakybo.torch.debug.Logger;
-import com.snakybo.torch.graphics.texture.Texture2D;
+import com.snakybo.torch.graphics.texture.Texture;
 import com.snakybo.torch.object.Component;
 import com.snakybo.torch.scene.Scene;
 import com.snakybo.torch.util.serialized.SerializedField;
@@ -36,8 +36,8 @@ import org.joml.Vector3f;
  */
 public class LightController extends Component
 {
-	@SerializedField private Texture2D diffuse;
-	@SerializedField private Texture2D specular;
+	@SerializedField private Texture diffuse;
+	@SerializedField private Texture specular;
 	
 	private MeshRenderer meshRenderer;
 	

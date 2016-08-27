@@ -31,17 +31,95 @@ import com.snakybo.torch.util.MathUtils;
 import com.snakybo.torch.util.ToByteBuffer;
 
 import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+
+import static org.lwjgl.opengl.EXTTextureFilterAnisotropic.GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT;
+import static org.lwjgl.opengl.GL11.GL_LINEAR_MIPMAP_LINEAR;
+import static org.lwjgl.opengl.GL11.GL_RGBA;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
+import static org.lwjgl.opengl.GL11.glBindTexture;
+import static org.lwjgl.opengl.GL11.glGetFloat;
+import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
+import static org.lwjgl.opengl.GL13.glActiveTexture;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public abstract class Texture extends Asset
+public final class Texture extends Asset
 {
 	protected TextureAsset asset;
+	
+	Texture(TextureAsset asset)
+	{
+		this.asset = asset;
+		this.asset.addUsage();
+	}
+	
+	Texture(String name, BufferedImage bufferedImage, int type, int filters, float anisoLevel, int internalFormat, int format, boolean clamp)
+	{
+		asset = new TextureAsset(name, bufferedImage, 1);
+		asset.init(type, filters, anisoLevel, internalFormat, format, clamp);
+	}
+	
+	public Texture(int type, int width, int height)
+	{
+		this(type, width, height, GL_LINEAR_MIPMAP_LINEAR);
+	}
+	
+	public Texture(int type, int width, int height, int filters)
+	{
+		this(type, width, height, filters, glGetFloat(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT));
+	}
+	
+	public Texture(int type, int width, int height, int filters, float anisoLevel)
+	{
+		this(type, width, height, filters, anisoLevel, GL_RGBA);
+	}
+	
+	public Texture(int type, int width, int height, int filters, float anisoLevel, int internalFormat)
+	{
+		this(type, width, height, filters, anisoLevel, internalFormat, GL_RGBA);
+	}
+	
+	public Texture(int type, int width, int height, int filters, float anisoLevel, int internalFormat, int format)
+	{
+		this(type, width, height, filters, anisoLevel, internalFormat, format, false);
+	}
+	
+	public Texture(int type, int width, int height, int filters, float anisoLevel, int internalFormat, int format, boolean clamp)
+	{
+		this(new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB), type, filters, anisoLevel, internalFormat, format, clamp);
+	}
+	
+	public Texture(BufferedImage bufferedImage, int type)
+	{
+		this(bufferedImage, type, GL_LINEAR_MIPMAP_LINEAR);
+	}
+	
+	public Texture(BufferedImage bufferedImage, int type, int filters)
+	{
+		this(bufferedImage, type, filters, glGetFloat(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT));
+	}
+	
+	public Texture(BufferedImage bufferedImage, int type, int filters, float anisoLevel)
+	{
+		this(bufferedImage, type, filters, anisoLevel, GL_RGBA, GL_RGBA);
+	}
+	
+	public Texture(BufferedImage bufferedImage, int type, int filters, float anisoLevel, int internalFormat, int format)
+	{
+		this(bufferedImage, type, filters, anisoLevel, internalFormat, format, false);
+	}
+	
+	public Texture(BufferedImage bufferedImage, int type, int filters, float anisoLevel, int internalFormat, int format, boolean clamp)
+	{
+		asset = new TextureAsset("", bufferedImage, 1);
+		asset.init(type, filters, anisoLevel, internalFormat, format, clamp);
+	}
 	
 	@Override
 	public final void finalize() throws Throwable
@@ -79,18 +157,29 @@ public abstract class Texture extends Asset
 	}
 	
 	/**
-	 * Bind the texture to the specified unit
-	 * @param unit The unit to bind to
-	 */
-	public abstract void bind(int unit);
-	
-	/**
-	 * Bind the cube map
+	 * Bind the texture.
 	 */
 	public final void bind()
 	{
 		bind(0);
 	}
+	
+	/**
+	 * Bind the texture to the specified unit
+	 * @param unit The unit to bind to
+	 */
+	public final void bind(int unit)
+	{
+		if(unit < 0 || unit >= 32)
+		{
+			throw new IllegalArgumentException("The texture unit " + unit + " is out of bounds");
+		}
+		
+		glActiveTexture(GL_TEXTURE0 + unit);
+		glBindTexture(asset.type, asset.id.get(0));
+	}
+	
+	
 	
 	public final void savePNG(String outputFile)
 	{
@@ -184,12 +273,12 @@ public abstract class Texture extends Asset
 		return ColorUtil.RGBToColor(asset.bufferedImage.getRGB(x, y));
 	}
 	
-	public int getWidth()
+	public final int getWidth()
 	{
 		return asset.bufferedImage.getWidth();
 	}
 	
-	public int getHeight()
+	public final int getHeight()
 	{
 		return asset.bufferedImage.getHeight();
 	}

@@ -65,9 +65,11 @@ final class TextureAsset extends AssetData
 {
 	static Map<String, TextureAsset> all = new HashMap<>();
 	
+	BufferedImage bufferedImage;
+	
 	IntBuffer id;
 	
-	BufferedImage bufferedImage;
+	int type;
 	
 	TextureAsset(String name, BufferedImage bufferedImage, int size)
 	{
@@ -98,27 +100,29 @@ final class TextureAsset extends AssetData
 		glDeleteTextures(id);
 	}
 	
-	final void init(int filters, float anisoLevel, int internalFormat, int format, boolean clamp)
+	final void init(int type, int filters, float anisoLevel, int internalFormat, int format, boolean clamp)
 	{
-		glBindTexture(GL_TEXTURE_2D, id.get(0));
+		this.type = type;
+		
+		glBindTexture(type, id.get(0));
 		
 		// Filters
 		assert( filters == GL_LINEAR || filters == GL_NEAREST ||
 				filters == GL_LINEAR_MIPMAP_LINEAR || filters == GL_NEAREST_MIPMAP_NEAREST ||
 				filters == GL_LINEAR_MIPMAP_NEAREST || filters == GL_NEAREST_MIPMAP_LINEAR);
 		
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, filters);
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, filters);
+		glTexParameterf(type, GL_TEXTURE_MIN_FILTER, filters);
+		glTexParameterf(type, GL_TEXTURE_MAG_FILTER, filters);
 		
 		// Clamp
 		if(clamp)
 		{
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+			glTexParameteri(type, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+			glTexParameteri(type, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+			glTexParameteri(type, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 		}
 		
-		glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, bufferedImage.getWidth(), bufferedImage.getHeight(), 0, format, GL_UNSIGNED_BYTE, ToByteBuffer.convert(bufferedImage));
+		glTexImage2D(type, 0, internalFormat, bufferedImage.getWidth(), bufferedImage.getHeight(), 0, format, GL_UNSIGNED_BYTE, ToByteBuffer.convert(bufferedImage));
 		
 		// Mipmaps
 		boolean hasMipmaps = filters == GL_LINEAR_MIPMAP_LINEAR || filters == GL_LINEAR_MIPMAP_NEAREST ||
@@ -126,15 +130,15 @@ final class TextureAsset extends AssetData
 		
 		if(hasMipmaps)
 		{
-			glGenerateMipmap(GL_TEXTURE_2D);
+			glGenerateMipmap(type);
 			
 			float maxAnisotropic = MathUtils.clamp(anisoLevel, 0, 8);
-			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, maxAnisotropic);
+			glTexParameterf(type, GL_TEXTURE_MAX_ANISOTROPY_EXT, maxAnisotropic);
 		}
 		else
 		{
-			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, 0);
-			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+			glTexParameterf(type, GL_TEXTURE_BASE_LEVEL, 0);
+			glTexParameterf(type, GL_TEXTURE_MAX_LEVEL, 0);
 		}
 	}
 }

@@ -48,24 +48,22 @@ public final class TextureAssetLoader
 		if(TextureAsset.all.containsKey(path))
 		{
 			LoggerInternal.log("Texture has already been loaded");
-			return new Texture2D(TextureAsset.all.get(path));
+			return new Texture(TextureAsset.all.get(path));
 		}
 		
 		try
 		{
 			TextureParser.TextureData textureData = (TextureParser.TextureData)XMLParser.decode(path + ".dat");
 			
-			if(textureData.type == Texture2D.class)
-			{
-				return new Texture2D(
-						path,
-						FileUtils.getBufferedImage(path),
-						textureData.filters,
-						textureData.anisoLevel,
-						textureData.format,
-						textureData.internalFormat,
-						textureData.clamp);
-			}
+			return new Texture(
+					path,
+					FileUtils.getBufferedImage(path),
+					textureData.type,
+					textureData.filters,
+					textureData.anisoLevel,
+					textureData.format,
+					textureData.internalFormat,
+					textureData.clamp);
 		}
 		catch(NoSuchFileException e)
 		{
