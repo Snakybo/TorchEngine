@@ -33,7 +33,7 @@ import java.util.Set;
  * @author Snakybo
  * @since 1.0
  */
-public final class GameObject extends Object
+public final class GameObject extends TorchObject
 {
 	Collection<Component> componentsToAdd;
 	Collection<Component> componentsToRemove;

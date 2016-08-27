@@ -31,11 +31,11 @@ import java.io.Serializable;
  * @author Snakybo
  * @since 1.0
  */
-public class Object implements Serializable
+public class TorchObject implements Serializable
 {
 	private String name;
 	
-	public Object(String name)
+	public TorchObject(String name)
 	{
 		setName(name);
 	}
@@ -72,7 +72,7 @@ public class Object implements Serializable
 		return name;
 	}
 	
-	public static void destroy(Object obj)
+	public static void destroy(TorchObject obj)
 	{
 		if(obj instanceof GameObject)
 		{
@@ -81,7 +81,7 @@ public class Object implements Serializable
 			SceneInternal.remove(gameObject);
 			
 			// Also destroy all components
-			gameObject.components.forEach(Object::destroy);
+			gameObject.components.forEach(TorchObject::destroy);
 			
 			// Destroy all children of the GameObject
 			gameObject.getTransform().getChildren().forEach((t) -> destroy(t.gameObject));

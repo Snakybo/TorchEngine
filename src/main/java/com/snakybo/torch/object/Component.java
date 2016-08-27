@@ -26,7 +26,7 @@ package com.snakybo.torch.object;
  * @author Snakybo
  * @since 1.0
  */
-public abstract class Component extends Object
+public abstract class Component extends TorchObject
 {	
 	transient GameObject gameObject;
 	

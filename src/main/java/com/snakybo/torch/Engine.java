@@ -34,7 +34,7 @@ import com.snakybo.torch.input.joystick.JoystickController;
 import com.snakybo.torch.input.keyboard.KeyboardController;
 import com.snakybo.torch.input.mouse.MouseController;
 import com.snakybo.torch.object.GameObjectInternal;
-import com.snakybo.torch.object.Object;
+import com.snakybo.torch.object.TorchObject;
 import com.snakybo.torch.scene.SceneInternal;
 import com.snakybo.torch.util.time.Time;
 import com.snakybo.torch.util.time.TimeInternal;
@@ -143,7 +143,7 @@ public final class Engine
 			
 			if(!running)
 			{
-				SceneInternal.getAllInitializedGameObjects().forEach(Object::destroy);
+				SceneInternal.getAllInitializedGameObjects().forEach(TorchObject::destroy);
 				
 				// Call onDestroy() on all remaining GameObjects
 				SceneInternal.getAllInitializedGameObjects().forEach(GameObjectInternal::processRemovals);
