@@ -60,7 +60,7 @@ public final class Camera extends Component
 	private boolean changed;
 	
 	@Override
-	protected final void onStart()
+	protected void onCreate()
 	{
 		Matrix4f projection = new Matrix4f().perspective((float)Math.toRadians(fieldOfView), Window.getAspectRatio(), zNear, zFar);
 		
