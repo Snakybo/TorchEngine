@@ -26,7 +26,6 @@ import com.snakybo.torch.asset.AssetData;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.util.FileUtils;
-import com.snakybo.torch.util.tuple.Tuple2;
 
 import java.io.IOException;
 import java.nio.file.Files;

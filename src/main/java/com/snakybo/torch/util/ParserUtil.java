@@ -26,7 +26,6 @@ import com.snakybo.torch.asset.Assets;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.graphics.color.Color;
-import com.snakybo.torch.util.tuple.Tuple3;
 import org.joml.Quaternionf;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
