@@ -61,6 +61,10 @@ public final class Cursor
 	}
 	
 	/**
+	 * <p>
+	 * Check whether or not the cursor is currently visible.
+	 * </p>
+	 *
 	 * @return Whether or not the cursor is currently visible.
 	 */
 	public static boolean isVisible()
@@ -69,7 +73,10 @@ public final class Cursor
 	}
 	
 	/**
+	 * <p>
 	 * Set the lock mode of the cursor.
+	 * </p>
+	 *
 	 * @param lockMode The new {@link CursorLockMode}.
 	 */
 	public static void setLockMode(CursorLockMode lockMode)
@@ -78,6 +85,10 @@ public final class Cursor
 	}
 	
 	/**
+	 * <p>
+	 * Set whether or not the cursor is currently visible.
+	 * </p>
+	 *
 	 * @param visible Whether or not the cursor should be visible.
 	 */
 	public static void setVisible(boolean visible)
@@ -86,7 +97,9 @@ public final class Cursor
 	}
 	
 	/**
+	 * <p>
 	 * Set the cursor's shape to the operating system's arrow cursor.
+	 * </p>
 	 */
 	public static void setShapeArrow()
 	{
@@ -94,7 +107,9 @@ public final class Cursor
 	}
 	
 	/**
+	 * <p>
 	 * Set the cursor's shape to the operating system's I-Beam cursor.
+	 * </p>
 	 */
 	public static void setShapeIBeam()
 	{
@@ -102,7 +117,9 @@ public final class Cursor
 	}
 	
 	/**
+	 * <p>
 	 * Set the cursor's shape to the operating system's crosshair cursor.
+	 * </p>
 	 */
 	public static void setShapeCrosshair()
 	{
@@ -110,7 +127,9 @@ public final class Cursor
 	}
 	
 	/**
+	 * <p>
 	 * Set the cursor's shape to the operating system's hand cursor.
+	 * </p>
 	 */
 	public static void setShapeHand()
 	{
@@ -118,7 +137,9 @@ public final class Cursor
 	}
 	
 	/**
+	 * <p>
 	 * Set the cursor's shape to the operating system's horizontal resize cursor.
+	 * </p>
 	 */
 	public static void setShapeHResize()
 	{
@@ -126,7 +147,9 @@ public final class Cursor
 	}
 	
 	/**
+	 * <p>
 	 * Set the cursor's shape to the operating system's vertical resize cursor.
+	 * </p>
 	 */
 	public static void setShapeVResize()
 	{
@@ -134,7 +157,10 @@ public final class Cursor
 	}
 	
 	/**
+	 * <p>
 	 * Set the shape of the cursor to a custom image.
+	 * </p>
+	 *
 	 * @param texture The cursor shape.
 	 * @param hot The hot point of the shape.
 	 */
@@ -158,7 +184,10 @@ public final class Cursor
 	}
 	
 	/**
+	 * <p>
 	 * Get the current cursor lock mode.
+	 * </p>
+	 *
 	 * @return The current cursor lock mode.
 	 */
 	public static CursorLockMode getLockMode()

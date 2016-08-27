@@ -23,6 +23,14 @@
 package com.snakybo.torch.object;
 
 /**
+ * <p>
+ * Base class for all components.
+ * </p>
+ *
+ * <p>
+ * All components on a {@link GameObject} are a subclass of this class.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */
@@ -45,62 +53,84 @@ public abstract class Component extends TorchObject
 		}
 	}
 	
+	/**
+	 * <p>
+	 * Called as soon as the component is created.
+	 * </p>
+	 */
 	protected void onCreate()
 	{
 	}
 	
 	/**
-	 * Called once when the object was first created, just before {@link #onUpdate()} is called
+	 * <p>
+	 * Called just before the first time {@link #onUpdate()} is called.
+	 * </p>
 	 */
 	protected void onStart()
 	{
 	}
 	
 	/**
-	 * Called every frame
+	 * <p>
+	 * Called every frame.
+	 * </p>
 	 */
 	protected void onUpdate()
 	{
 	}
 	
 	/**
-	 * Called every frame, after {@link #onUpdate()} has been called on every component in the scene
+	 * <p>
+	 * Called every frame, after {@link #onUpdate()} has been called on every component in the scene.
+	 * </p>
 	 */
 	protected void onPostUpdate()
 	{
 	}
 	
 	/**
-	 * Called when a camera starts rendering the object
+	 * <p>
+	 * Called when a camera starts rendering the object.
+	 * </p>
 	 */
 	protected void onPreRenderObject()
 	{
 	}
 	
 	/**
-	 * Called when a camera renders the object
+	 * <p>
+	 * Called when a camera renders the object.
+	 * </p>
 	 */
 	protected void onRenderObject()
 	{
 	}
 	
 	/**
+	 * <p>
 	 * Called when a camera has finished rendering the object
+	 * </p>
 	 */
 	protected void onPostRenderObject()
 	{
 	}
 	
 	/**
+	 * <p>
 	 * Called when the component or parent {@link GameObject} has been destroyed
+	 * </p>
 	 */
 	protected void onDestroy()
 	{
 	}
 	
 	/**
-	 * Add a component to the parent GameObject
-	 * @param component The component to add
+	 * <p>
+	 * Add a component to the parent {@code GameObject}.
+	 * </p>
+	 *
+	 * @param component The component to add.
 	 */
 	public final <T extends Component> T addComponent(Class<T> component)
 	{
@@ -108,10 +138,13 @@ public abstract class Component extends TorchObject
 	}
 	
 	/**
-	 * Attempt to retrieve a component of {@code type} from the parent GameObject
-	 * @param <T> The type of the component to retrieve
-	 * @param type The type of the component to retrieve 
-	 * @return The component, or {@code null} if no component of {@code type} was found
+	 * <p>
+	 * Attempt to retrieve a component of {@code type} from the parent {@code GameObject}.
+	 * </p>
+	 *
+	 * @param <T> The type of the component to retrieve.
+	 * @param type The type of the component to retrieve.
+	 * @return The component, or {@code null} if no component of {@code type} was found.
 	 * @see GameObject#getComponent(Class)
 	 */
 	public final <T extends Component> T getComponent(Class<T> type)
@@ -120,10 +153,13 @@ public abstract class Component extends TorchObject
 	}
 	
 	/**
-	 * Attempt to retrieve all components of {@code type} from the parent GameObject
-	 * @param <T> The type of the components to retrieve
-	 * @param type The type of components to retrieve
-	 * @return The components, it's empty if no components of {@code type} are found
+	 * <p>
+	 * Attempt to retrieve all components of {@code type} from the parent {@code GameObject}.
+	 * </p>
+	 *
+	 * @param <T> The type of the components to retrieve.
+	 * @param type The type of components to retrieve.
+	 * @return The components, it's empty if no components of {@code type} are found.
 	 * @see GameObject#getComponents(Class)
 	 */
 	public final <T extends Component> Iterable<T> getComponents(Class<T> type)
@@ -132,6 +168,9 @@ public abstract class Component extends TorchObject
 	}
 	
 	/**
+	 * <p>
+	 * Get the parent {@code GameObject}.
+	 * </p>
 	 * @return The parent {@link GameObject}
 	 */
 	public final GameObject getGameObject()
@@ -140,7 +179,10 @@ public abstract class Component extends TorchObject
 	}
 	
 	/**
-	 * @return The transform of the {@link GameObject}
+	 * <p>
+	 * Get the {@link Transform} of the parent {@code GameObject}.
+	 * </p>
+	 * @return The {@code transform} of the parent {@link GameObject}
 	 */
 	public final Transform getTransform()
 	{

@@ -29,10 +29,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * <p>
- * Holds all cursor shapes created by {@link Cursor#setShape(Texture, Vector2f)}.
- * </p>
- *
  * @author Snakybo
  * @since 1.0
  */
@@ -57,12 +53,6 @@ class CursorShape
 		return texture.equals(this.texture) && hot.equals(this.hot);
 	}
 	
-	/**
-	 * Check whether or not the specified cursor has been registered already.
-	 * @param texture The image of the cursor.
-	 * @param hot The hotzone of the cursor.
-	 * @return Whether or not the specified cursor has already been registered.
-	 */
 	public static boolean hasCursor(Texture texture, Vector2f hot)
 	{
 		for(CursorShape shape : cursorShapeCache)
@@ -76,12 +66,6 @@ class CursorShape
 		return false;
 	}
 	
-	/**
-	 * Add a new cursor shape to the cache.
-	 * @param texture The image of the cursor.
-	 * @param hot The hotzone of the cursor.
-	 * @param cursor The GLFW generated ID of the cursor shape.
-	 */
 	public static void addCursor(Texture texture, Vector2f hot, long cursor)
 	{
 		if(!hasCursor(texture, hot))
@@ -90,12 +74,6 @@ class CursorShape
 		}
 	}
 	
-	/**
-	 * Get the cursor ID from the specified texture and hot.
-	 * @param texture The image of the cursor.
-	 * @param hot The hotzone of the cursor.
-	 * @return The GLFW generated ID of the cursor shape.
-	 */
 	public static long getCursor(Texture texture, Vector2f hot)
 	{
 		for(CursorShape shape : cursorShapeCache)

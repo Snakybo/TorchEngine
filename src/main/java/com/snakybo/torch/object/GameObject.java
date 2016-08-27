@@ -30,6 +30,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * <p>
+ * The {@code GameObject}.
+ * </p>
+ *
+ * <p>
+ * All objects visible in the {@code scene} are {@code GameObjects}.
+ * A {@code GameObject} consists of one or multiple {@link Component}s.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */
@@ -43,7 +52,9 @@ public final class GameObject extends TorchObject
 	private Transform transform;
 	
 	/**
-	 * Create a new {@link GameObject}
+	 * <p>
+	 * Create a new {@code GameObject}.
+	 * </p>
 	 */
 	public GameObject()
 	{
@@ -51,8 +62,11 @@ public final class GameObject extends TorchObject
 	}
 	
 	/**
-	 * Create a new {@link GameObject} with the specified name
-	 * @param name The name of the {@link GameObject}
+	 * <p>
+	 * Create a new {@code GameObject} with the specified name.
+	 * </p>
+	 *
+	 * @param name The name of the {@link GameObject}.
 	 */
 	public GameObject(String name)
 	{
@@ -92,19 +106,24 @@ public final class GameObject extends TorchObject
 	}
 	
 	/**
-	 * Add a component to the GameObject
-	 * @param component The component to add
+	 * <p>
+	 * Add a {@link Component} to the {@code GameObject}.
+	 * </p>
+	 *
+	 * @param component The component to add.
 	 */
 	public final <T extends Component> T addComponent(Class<T> component)
 	{
 		return component.cast(addComponentInternal(component));
 	}
 	
-	/**
-	 * Attempt to retrieve a component of {@code type} from the GameObject
-	 * @param <T> The type of the component to retrieve
-	 * @param type The type of component to retrieve
-	 * @return The component, or {@code null} if no component of {@code type} was found
+	/**<p>
+	 * Attempt to retrieve a component of {@code type} from the {@code GameObject}.
+	 * </p>
+	 *
+	 * @param <T> The type of the component to retrieve.
+	 * @param type The type of component to retrieve.
+	 * @return The component, or {@code null} if no component of {@code type} was found.
 	 */
 	public final <T extends Component> T getComponent(Class<T> type)
 	{
@@ -120,10 +139,13 @@ public final class GameObject extends TorchObject
 	}
 	
 	/**
-	 * Attempt to retrieve all components of {@code type} from the GameObject
-	 * @param <T> The type of the component to retrieve
-	 * @param type The type of component to retrieve
-	 * @return The components, it's empty if no components of {@code type} are found
+	 * <p>
+	 * Attempt to retrieve all components of {@code type} from the {@code GameObject}.
+	 * </p>
+	 *
+	 * @param <T> The type of the component to retrieve.
+	 * @param type The type of component to retrieve.
+	 * @return The components, it's empty if no components of {@code type} are found.
 	 */
 	public final <T extends Component> Iterable<T> getComponents(Class<T> type)
 	{
@@ -141,7 +163,10 @@ public final class GameObject extends TorchObject
 	}
 	
 	/**
-	 * @return The {@link Transform} attached to this {@link GameObject}
+	 * <p>
+	 * Get the {@link Transform} attached to this {@code GameObject}.
+	 * </p>
+	 * @return The {@link Transform} attached to this {@code GameObject}
 	 */
 	public final Transform getTransform()
 	{

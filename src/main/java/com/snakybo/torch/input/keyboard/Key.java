@@ -23,12 +23,20 @@
 package com.snakybo.torch.input.keyboard;
 
 /**
+ * <p>
+ * All available keyboard buttons.
+ * </p>
+ *
+ * <p>
+ * This is a direct implementation of the GLFW keys.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */
 public enum Key
 {
-	/** key. */
+	/** Key. */
 	SPACE         (32),
 	
 	/** ' Key. */

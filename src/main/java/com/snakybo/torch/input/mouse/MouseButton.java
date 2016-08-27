@@ -23,6 +23,10 @@
 package com.snakybo.torch.input.mouse;
 
 /**
+ * <p>
+ * All available mouse buttons.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */

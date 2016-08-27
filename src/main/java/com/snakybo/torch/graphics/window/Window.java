@@ -36,6 +36,10 @@ import static org.lwjgl.glfw.GLFW.glfwSetWindowSize;
 import static org.lwjgl.glfw.GLFW.glfwSwapInterval;
 
 /**
+ * <p>
+ * The Window allows for manipulation of the low-level GLFW window.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */
@@ -49,7 +53,10 @@ public final class Window
 	}
 	
 	/**
+	 * <p>
 	 * Create a new window.
+	 * </p>
+	 *
 	 * @param displayMode The window properties.
 	 * @param windowMode The window mode.
 	 */
@@ -59,25 +66,45 @@ public final class Window
 	}
 	
 	/**
-	 * Bring the window to the front and give it focus.
+	 * <p>
+	 * Bring the window to the front and give it input focus.
+	 * </p>
+	 *
+	 * <p>
+	 * If the window is currently iconfied, this will also call {@link #restore()}.
+	 * </p>
 	 */
 	public static void focus()
 	{
+		restore();
 		glfwFocusWindow(WindowInternal.getNativeId());
 	}
 	
+	/**
+	 * <p>
+	 * Restore the window from an iconified position.
+	 * </p>
+	 */
 	public static void restore()
 	{
 		glfwRestoreWindow(WindowInternal.getNativeId());
 	}
 	
+	/**
+	 * <p>
+	 * Iconify the window.
+	 * </p>
+	 */
 	public static void iconify()
 	{
 		glfwIconifyWindow(WindowInternal.getNativeId());
 	}
 	
 	/**
+	 * <p>
 	 * Check whether or not vsync is enabled.
+	 * </p>
+	 *
 	 * @return Whether or not vsync is enabled.
 	 */
 	public static boolean isVSyncEnabled()
@@ -86,8 +113,11 @@ public final class Window
 	}
 	
 	/**
+	 * <p>
 	 * Set the size of the window.
-	 * @param size The new size of the window.
+	 * </p>
+	 *
+	 * @param size The new size.
 	 */
 	public static void setSize(Vector2f size)
 	{
@@ -95,8 +125,11 @@ public final class Window
 	}
 	
 	/**
+	 * <p>
 	 * Enable or disable vsync.
-	 * @param enabled Whether or not to enable vsync
+	 * </p>
+	 *
+	 * @param enabled Whether or not to enable vsync.
 	 */
 	public static void setVSyncEnabled(boolean enabled)
 	{
@@ -106,7 +139,11 @@ public final class Window
 	}
 	
 	/**
-	 * @return The size of the window.
+	 * <p>
+	 * Get the size in pixels.
+	 * </p>
+	 *
+	 * @return The size in pixels.
 	 */
 	public static Vector2f getSize()
 	{
@@ -118,7 +155,11 @@ public final class Window
 	}
 	
 	/**
-	 * @return The aspect ratio of the window.
+	 * <p>
+	 * Get the aspect ratio.
+	 * </p>
+	 *
+	 * @return The aspect ratio.
 	 */
 	public static float getAspectRatio()
 	{
@@ -127,7 +168,11 @@ public final class Window
 	}
 	
 	/**
-	 * @return The center of the window.
+	 * <p>
+	 * Get the center coordinates.
+	 * </p>
+	 *
+	 * @return The coordinates of the pixel in the center.
 	 */
 	public static Vector2f getCenter()
 	{

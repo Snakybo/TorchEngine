@@ -30,6 +30,10 @@ import static org.lwjgl.glfw.GLFW.glfwGetClipboardString;
 import static org.lwjgl.glfw.GLFW.glfwSetClipboardString;
 
 /**
+ * <p>
+ * Proxy for the keyboard.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */
@@ -44,8 +48,11 @@ public final class Keyboard
 	}
 	
 	/**
+	 * <p>
 	 * Check if the {@link Key} is currently being pressed.
-	 * @param id The {@link Key} to check.
+	 * </p>
+	 *
+	 * @param id The {@code Key} to check.
 	 */
 	public static boolean isDown(Key id)
 	{
@@ -53,9 +60,12 @@ public final class Keyboard
 	}
 	
 	/**
+	 * <p>
 	 * Check if the {@link Key} is currently not being pressed.
-	 * @param id The {@link Key} to check.
-	 * @return True if the specified {@link Key} is currently not being pressed.
+	 * </p>
+	 *
+	 * @param id The {@code Key} to check.
+	 * @return True if the specified {@code Key} is currently not being pressed.
 	 */
 	public static boolean isUp(Key id)
 	{
@@ -63,9 +73,12 @@ public final class Keyboard
 	}
 	
 	/**
+	 * <p>
 	 * Check if the {@link Key} is currently being pressed.
-	 * @param id The {@link Key} to check.
-	 * @return True the first frame {@link Key} is being pressed.
+	 * </p>
+	 *
+	 * @param id The {@code Key} to check.
+	 * @return True the first frame {@code Key} is being pressed.
 	 */
 	public static boolean onDown(Key id)
 	{
@@ -73,9 +86,12 @@ public final class Keyboard
 	}
 	
 	/**
+	 * <p>
 	 * Check if the {@link Key} is currently not being pressed.
-	 * @param id The {@link Key} to check.
-	 * @return True the first frame {@link Key} has been released.
+	 * </p>
+	 *
+	 * @param id The {@code Key} to check.
+	 * @return True the first frame {@code Key} has been released.
 	 */
 	public static boolean onUp(Key id)
 	{
@@ -83,7 +99,10 @@ public final class Keyboard
 	}
 	
 	/**
+	 * <p>
 	 * Set the value of the clipboard.
+	 * </p>
+	 *
 	 * @param string The new value of the clipboard.
 	 */
 	public static void setClipboardString(String string)
@@ -92,7 +111,10 @@ public final class Keyboard
 	}
 	
 	/**
+	 * <p>
 	 * Get the value of the clipboard.
+	 * </p>
+	 *
 	 * @return The value of the clipboard.
 	 */
 	public static String getClipboardString()

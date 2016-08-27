@@ -25,6 +25,10 @@ package com.snakybo.torch.input.joystick;
 import java.util.List;
 
 /**
+ * <p>
+ * Proxy for available joysticks and game controllers.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */
@@ -38,7 +42,10 @@ public final class Joystick
 	}
 	
 	/**
+	 * <p>
 	 * Check whether or not a joystick is present.
+	 * </p>
+	 *
 	 * @return Whether or not a joystick is present.
 	 */
 	public static boolean isJoystickPresent()
@@ -47,7 +54,10 @@ public final class Joystick
 	}
 	
 	/**
+	 * <p>
 	 * Get the first available joystick.
+	 * </p>
+	 *
 	 * @return The first available joystick.
 	 */
 	public static JoystickDevice getJoystick()
@@ -61,7 +71,10 @@ public final class Joystick
 	}
 	
 	/**
+	 * <p>
 	 * Get all available joysticks.
+	 * </p>
+	 *
 	 * @return All available joysticks.
 	 */
 	public static JoystickDevice[] getJoysticks()
@@ -70,7 +83,10 @@ public final class Joystick
 	}
 	
 	/**
+	 * <p>
 	 * Get the number of joysticks present.
+	 * </p>
+	 *
 	 * @return The number of joysticks present.
 	 */
 	public static int getNumJoysticksPresent()

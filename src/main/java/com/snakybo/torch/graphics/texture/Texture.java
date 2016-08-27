@@ -46,6 +46,10 @@ import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
 import static org.lwjgl.opengl.GL13.glActiveTexture;
 
 /**
+ * <p>
+ * You can create new {@code Texture}, or create a {@code Texture} from an image.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */
@@ -65,56 +69,358 @@ public final class Texture extends Asset
 		asset.init(type, filters, anisoLevel, internalFormat, format, clamp);
 	}
 	
+	/**
+	 * <p>
+	 * Create a new texture with the specified width and height.
+	 * </p>
+	 *
+	 * @param type The OpenGL type (e.g. GL_TEXTURE_2D, or GL_TEXTURE_3D).
+	 * @param width The desired width.
+	 * @param height The desired height.
+	 */
 	public Texture(int type, int width, int height)
 	{
 		this(type, width, height, GL_LINEAR_MIPMAP_LINEAR);
 	}
 	
+	/**
+	 * <p>
+	 * Create a new texture with the specified width and height.
+	 * </p>
+	 *
+	 * <p>
+	 * Valid values for the {@code filters} parameter are:
+	 * <ul>
+	 *     <li>{@code GL_LINEAR}</li>
+	 *     <li>{@code GL_NEAREST}</li>
+	 *     <li>{@code GL_LINEAR_MIPMAP_LINEAR}</li>
+	 *     <li>{@code GL_LINEAR_MIPMAP_NEAREST}</li>
+	 *     <li>{@code GL_NEAREST_MIPMAP_LINEAR}</li>
+	 *     <li>{@code GL_NEAREST_MIPMAP_NEAREST}</li>
+	 * </ul>
+	 * </p>
+	 *
+	 * @param type The OpenGL type (e.g. GL_TEXTURE_2D, or GL_TEXTURE_3D).
+	 * @param width The desired width.
+	 * @param height The desired height.
+	 * @param filters The OpenGL filters (see JavaDoc for info).
+	 */
 	public Texture(int type, int width, int height, int filters)
 	{
 		this(type, width, height, filters, glGetFloat(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT));
 	}
 	
+	/**
+	 * <p>
+	 * Create a new texture with the specified width and height.
+	 * </p>
+	 *
+	 * <p>
+	 * Valid values for the {@code filters} parameter are:
+	 * <ul>
+	 *     <li>{@code GL_LINEAR}</li>
+	 *     <li>{@code GL_NEAREST}</li>
+	 *     <li>{@code GL_LINEAR_MIPMAP_LINEAR}</li>
+	 *     <li>{@code GL_LINEAR_MIPMAP_NEAREST}</li>
+	 *     <li>{@code GL_NEAREST_MIPMAP_LINEAR}</li>
+	 *     <li>{@code GL_NEAREST_MIPMAP_NEAREST}</li>
+	 * </ul>
+	 * </p>
+	 *
+	 * <p>
+	 * Note: Anisotropic filtering ({@code anisoLevel}) is only used if {@filters} is set to one
+	 * of the mipmap-enabled filters.
+	 * </p>
+	 *
+	 * @param type The OpenGL type (e.g. GL_TEXTURE_2D, or GL_TEXTURE_3D).
+	 * @param width The desired width.
+	 * @param height The desired height.
+	 * @param filters The OpenGL filters (see JavaDoc for info).
+	 * @param anisoLevel The desired anisotropic filtering level. If automatically clamped
+	 *                   to the highest value the system supports.
+	 */
 	public Texture(int type, int width, int height, int filters, float anisoLevel)
 	{
 		this(type, width, height, filters, anisoLevel, GL_RGBA);
 	}
 	
+	/**
+	 * <p>
+	 * Create a new texture with the specified width and height.
+	 * </p>
+	 *
+	 * <p>
+	 * Valid values for the {@code filters} parameter are:
+	 * <ul>
+	 *     <li>{@code GL_LINEAR}</li>
+	 *     <li>{@code GL_NEAREST}</li>
+	 *     <li>{@code GL_LINEAR_MIPMAP_LINEAR}</li>
+	 *     <li>{@code GL_LINEAR_MIPMAP_NEAREST}</li>
+	 *     <li>{@code GL_NEAREST_MIPMAP_LINEAR}</li>
+	 *     <li>{@code GL_NEAREST_MIPMAP_NEAREST}</li>
+	 * </ul>
+	 * </p>
+	 *
+	 * <p>
+	 * Note: Anisotropic filtering ({@code anisoLevel}) is only used if {@filters} is set to one
+	 * of the mipmap-enabled filters.
+	 * </p>
+	 *
+	 * @param type The OpenGL type (e.g. GL_TEXTURE_2D, or GL_TEXTURE_3D).
+	 * @param width The desired width.
+	 * @param height The desired height.
+	 * @param filters The OpenGL filters (see JavaDoc for info).
+	 * @param anisoLevel The desired anisotropic filtering level. If automatically clamped
+	 *                   to the highest value the system supports.
+	 * @param internalFormat The internal format of the texture, usually {@code GL_RGBA}.
+	 */
 	public Texture(int type, int width, int height, int filters, float anisoLevel, int internalFormat)
 	{
 		this(type, width, height, filters, anisoLevel, internalFormat, GL_RGBA);
 	}
 	
+	/**
+	 * <p>
+	 * Create a new texture with the specified width and height.
+	 * </p>
+	 *
+	 * <p>
+	 * Valid values for the {@code filters} parameter are:
+	 * <ul>
+	 *     <li>{@code GL_LINEAR}</li>
+	 *     <li>{@code GL_NEAREST}</li>
+	 *     <li>{@code GL_LINEAR_MIPMAP_LINEAR}</li>
+	 *     <li>{@code GL_LINEAR_MIPMAP_NEAREST}</li>
+	 *     <li>{@code GL_NEAREST_MIPMAP_LINEAR}</li>
+	 *     <li>{@code GL_NEAREST_MIPMAP_NEAREST}</li>
+	 * </ul>
+	 * </p>
+	 *
+	 * <p>
+	 * Note: Anisotropic filtering ({@code anisoLevel}) is only used if {@filters} is set to one
+	 * of the mipmap-enabled filters.
+	 * </p>
+	 *
+	 * @param type The OpenGL type (e.g. GL_TEXTURE_2D, or GL_TEXTURE_3D).
+	 * @param width The desired width.
+	 * @param height The desired height.
+	 * @param filters The OpenGL filters (see JavaDoc for info).
+	 * @param anisoLevel The desired anisotropic filtering level. If automatically clamped
+	 *                   to the highest value the system supports.
+	 * @param internalFormat The internal format of the texture, usually {@code GL_RGBA}.
+	 * @param format The format of the texture, usually the same as {@code internalFormat}.
+	 */
 	public Texture(int type, int width, int height, int filters, float anisoLevel, int internalFormat, int format)
 	{
 		this(type, width, height, filters, anisoLevel, internalFormat, format, false);
 	}
 	
+	/**
+	 * <p>
+	 * Create a new texture with the specified width and height.
+	 * </p>
+	 *
+	 * <p>
+	 * Valid values for the {@code filters} parameter are:
+	 * <ul>
+	 *     <li>{@code GL_LINEAR}</li>
+	 *     <li>{@code GL_NEAREST}</li>
+	 *     <li>{@code GL_LINEAR_MIPMAP_LINEAR}</li>
+	 *     <li>{@code GL_LINEAR_MIPMAP_NEAREST}</li>
+	 *     <li>{@code GL_NEAREST_MIPMAP_LINEAR}</li>
+	 *     <li>{@code GL_NEAREST_MIPMAP_NEAREST}</li>
+	 * </ul>
+	 * </p>
+	 *
+	 * <p>
+	 * Note: Anisotropic filtering ({@code anisoLevel}) is only used if {@filters} is set to one
+	 * of the mipmap-enabled filters.
+	 * </p>
+	 *
+	 * @param type The OpenGL type (e.g. GL_TEXTURE_2D, or GL_TEXTURE_3D).
+	 * @param width The desired width.
+	 * @param height The desired height.
+	 * @param filters The OpenGL filters (see JavaDoc for info).
+	 * @param anisoLevel The desired anisotropic filtering level. If automatically clamped
+	 *                   to the highest value the system supports.
+	 * @param internalFormat The internal format of the texture, usually {@code GL_RGBA}.
+	 * @param format The format of the texture, usually the same as {@code internalFormat}.
+	 * @param clamp If clamp is set to {@code true}, the texture will clamp, if it's set to {@code false}, the texture
+	 *              will repeat instead.
+	 */
 	public Texture(int type, int width, int height, int filters, float anisoLevel, int internalFormat, int format, boolean clamp)
 	{
 		this(new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB), type, filters, anisoLevel, internalFormat, format, clamp);
 	}
 	
+	/**
+	 * <p>
+	 * Create a texture from the given image.
+	 * </p>
+	 *
+	 * @param bufferedImage The image to create a texture from.
+	 * @param type The OpenGL type (e.g. GL_TEXTURE_2D, or GL_TEXTURE_3D).
+	 */
 	public Texture(BufferedImage bufferedImage, int type)
 	{
 		this(bufferedImage, type, GL_LINEAR_MIPMAP_LINEAR);
 	}
 	
+	/**
+	 * <p>
+	 * Create a texture from the given image.
+	 * </p>
+	 *
+	 * <p>
+	 * Valid values for the {@code filters} parameter are:
+	 * <ul>
+	 *     <li>{@code GL_LINEAR}</li>
+	 *     <li>{@code GL_NEAREST}</li>
+	 *     <li>{@code GL_LINEAR_MIPMAP_LINEAR}</li>
+	 *     <li>{@code GL_LINEAR_MIPMAP_NEAREST}</li>
+	 *     <li>{@code GL_NEAREST_MIPMAP_LINEAR}</li>
+	 *     <li>{@code GL_NEAREST_MIPMAP_NEAREST}</li>
+	 * </ul>
+	 * </p>
+	 *
+	 * @param bufferedImage The image to create a texture from.
+	 * @param type The OpenGL type (e.g. GL_TEXTURE_2D, or GL_TEXTURE_3D).
+	 */
 	public Texture(BufferedImage bufferedImage, int type, int filters)
 	{
 		this(bufferedImage, type, filters, glGetFloat(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT));
 	}
 	
+	/**
+	 * <p>
+	 * Create a texture from the given image.
+	 * </p>
+	 *
+	 * <p>
+	 * Valid values for the {@code filters} parameter are:
+	 * <ul>
+	 *     <li>{@code GL_LINEAR}</li>
+	 *     <li>{@code GL_NEAREST}</li>
+	 *     <li>{@code GL_LINEAR_MIPMAP_LINEAR}</li>
+	 *     <li>{@code GL_LINEAR_MIPMAP_NEAREST}</li>
+	 *     <li>{@code GL_NEAREST_MIPMAP_LINEAR}</li>
+	 *     <li>{@code GL_NEAREST_MIPMAP_NEAREST}</li>
+	 * </ul>
+	 * </p>
+	 *
+	 * <p>
+	 * Note: Anisotropic filtering ({@code anisoLevel}) is only used if {@filters} is set to one
+	 * of the mipmap-enabled filters.
+	 * </p>
+	 *
+	 * @param bufferedImage The image to create a texture from.
+	 * @param type The OpenGL type (e.g. GL_TEXTURE_2D, or GL_TEXTURE_3D).
+	 * @param anisoLevel The desired anisotropic filtering level. If automatically clamped
+	 *                   to the highest value the system supports.
+	 */
 	public Texture(BufferedImage bufferedImage, int type, int filters, float anisoLevel)
 	{
 		this(bufferedImage, type, filters, anisoLevel, GL_RGBA, GL_RGBA);
 	}
 	
+	/**
+	 * <p>
+	 * Create a texture from the given image.
+	 * </p>
+	 *
+	 * <p>
+	 * Valid values for the {@code filters} parameter are:
+	 * <ul>
+	 *     <li>{@code GL_LINEAR}</li>
+	 *     <li>{@code GL_NEAREST}</li>
+	 *     <li>{@code GL_LINEAR_MIPMAP_LINEAR}</li>
+	 *     <li>{@code GL_LINEAR_MIPMAP_NEAREST}</li>
+	 *     <li>{@code GL_NEAREST_MIPMAP_LINEAR}</li>
+	 *     <li>{@code GL_NEAREST_MIPMAP_NEAREST}</li>
+	 * </ul>
+	 * </p>
+	 *
+	 * <p>
+	 * Note: Anisotropic filtering ({@code anisoLevel}) is only used if {@filters} is set to one
+	 * of the mipmap-enabled filters.
+	 * </p>
+	 *
+	 * @param bufferedImage The image to create a texture from.
+	 * @param type The OpenGL type (e.g. GL_TEXTURE_2D, or GL_TEXTURE_3D).
+	 * @param anisoLevel The desired anisotropic filtering level. If automatically clamped
+	 *                   to the highest value the system supports.
+	 * @param internalFormat The internal format of the texture, usually {@code GL_RGBA}.
+	 */
+	public Texture(BufferedImage bufferedImage, int type, int filters, float anisoLevel, int internalFormat)
+	{
+		this(bufferedImage, type, filters, anisoLevel, internalFormat, GL_RGBA);
+	}
+	
+	/**
+	 * <p>
+	 * Create a texture from the given image.
+	 * </p>
+	 *
+	 * <p>
+	 * Valid values for the {@code filters} parameter are:
+	 * <ul>
+	 *     <li>{@code GL_LINEAR}</li>
+	 *     <li>{@code GL_NEAREST}</li>
+	 *     <li>{@code GL_LINEAR_MIPMAP_LINEAR}</li>
+	 *     <li>{@code GL_LINEAR_MIPMAP_NEAREST}</li>
+	 *     <li>{@code GL_NEAREST_MIPMAP_LINEAR}</li>
+	 *     <li>{@code GL_NEAREST_MIPMAP_NEAREST}</li>
+	 * </ul>
+	 * </p>
+	 *
+	 * <p>
+	 * Note: Anisotropic filtering ({@code anisoLevel}) is only used if {@filters} is set to one
+	 * of the mipmap-enabled filters.
+	 * </p>
+	 *
+	 * @param bufferedImage The image to create a texture from.
+	 * @param type The OpenGL type (e.g. GL_TEXTURE_2D, or GL_TEXTURE_3D).
+	 * @param anisoLevel The desired anisotropic filtering level. If automatically clamped
+	 *                   to the highest value the system supports.
+	 * @param internalFormat The internal format of the texture, usually {@code GL_RGBA}.
+	 * @param format The format of the texture, usually the same as {@code internalFormat}.
+	 */
 	public Texture(BufferedImage bufferedImage, int type, int filters, float anisoLevel, int internalFormat, int format)
 	{
 		this(bufferedImage, type, filters, anisoLevel, internalFormat, format, false);
 	}
 	
+	/**
+	 * <p>
+	 * Create a texture from the given image.
+	 * </p>
+	 *
+	 * <p>
+	 * Valid values for the {@code filters} parameter are:
+	 * <ul>
+	 *     <li>{@code GL_LINEAR}</li>
+	 *     <li>{@code GL_NEAREST}</li>
+	 *     <li>{@code GL_LINEAR_MIPMAP_LINEAR}</li>
+	 *     <li>{@code GL_LINEAR_MIPMAP_NEAREST}</li>
+	 *     <li>{@code GL_NEAREST_MIPMAP_LINEAR}</li>
+	 *     <li>{@code GL_NEAREST_MIPMAP_NEAREST}</li>
+	 * </ul>
+	 * </p>
+	 *
+	 * <p>
+	 * Note: Anisotropic filtering ({@code anisoLevel}) is only used if {@filters} is set to one
+	 * of the mipmap-enabled filters.
+	 * </p>
+	 *
+	 * @param bufferedImage The image to create a texture from.
+	 * @param type The OpenGL type (e.g. GL_TEXTURE_2D, or GL_TEXTURE_3D).
+	 * @param anisoLevel The desired anisotropic filtering level. If automatically clamped
+	 *                   to the highest value the system supports.
+	 * @param internalFormat The internal format of the texture, usually {@code GL_RGBA}.
+	 * @param format The format of the texture, usually the same as {@code internalFormat}.
+	 * @param clamp If clamp is set to {@code true}, the texture will clamp, if it's set to {@code false}, the texture
+	 *              will repeat instead.
+	 */
 	public Texture(BufferedImage bufferedImage, int type, int filters, float anisoLevel, int internalFormat, int format, boolean clamp)
 	{
 		asset = new TextureAsset("", bufferedImage, 1);
@@ -157,7 +463,9 @@ public final class Texture extends Asset
 	}
 	
 	/**
+	 * <p>
 	 * Bind the texture.
+	 * </p>
 	 */
 	public final void bind()
 	{
@@ -165,8 +473,11 @@ public final class Texture extends Asset
 	}
 	
 	/**
-	 * Bind the texture to the specified unit
-	 * @param unit The unit to bind to
+	 * <p>
+	 * Bind the texture to the specified texture unit.
+	 * </p>
+	 *
+	 * @param unit The unit.
 	 */
 	public final void bind(int unit)
 	{
@@ -179,13 +490,25 @@ public final class Texture extends Asset
 		glBindTexture(asset.type, asset.id.get(0));
 	}
 	
-	
-	
+	/**
+	 * <p>
+	 * Save the texture to the disk as a {@code png} file..
+	 * </p>
+	 *
+	 * @param outputFile The output file.
+	 */
 	public final void savePNG(String outputFile)
 	{
 		save(outputFile, "png");
 	}
 	
+	/**
+	 * <p>
+	 * Save the texture to the disk as a {@code jpg} file..
+	 * </p>
+	 *
+	 * @param outputFile The output file.
+	 */
 	public final void saveJPG(String outputFile)
 	{
 		save(outputFile, "jpg");
@@ -207,7 +530,10 @@ public final class Texture extends Asset
 	}
 	
 	/**
-	 * Set the pixel data of the texture.
+	 * <p>
+	 * Set the pixel data.
+	 * </p>
+	 *
 	 * @param pixels The new pixel data.
 	 */
 	public final void setPixels(int[] pixels)
@@ -216,7 +542,10 @@ public final class Texture extends Asset
 	}
 	
 	/**
-	 * Set the pixel data at (x, y).
+	 * <p>
+	 * Set the pixel data at {@code (x, y)}.
+	 * </p>
+	 *
 	 * @param x The X position of the pixel.
 	 * @param y The Y position of the pixel.
 	 * @param pixel The new data of the pixel.
@@ -226,23 +555,40 @@ public final class Texture extends Asset
 		asset.bufferedImage.setRGB(x, y, ColorUtil.colorToARGB(pixel));
 	}
 	
-	/*
-	 * Convert the bitmap to a ByteBuffer.
-	 * @return The {@link ByteBuffer} representation of the bitmap.
+	/**
+	 * <p>
+	 * Convert the texture to a {@code ByteBuffer}.
+	 * </p>
+	 *
+	 * @return A {@link ByteBuffer} containing the pixel data.
 	 */
 	public final ByteBuffer getByteByffer()
 	{
 		return ToByteBuffer.convert(asset.bufferedImage);
 	}
 	
+	/**
+	 * <p>
+	 * Get an array containing all pixels.
+	 * </p>
+	 *
+	 * @return An array containing all pixels.
+	 */
 	public final Color[] getPixels()
 	{
 		return getPixels(0, 0, getWidth(), getHeight());
 	}
 	
 	/**
-	 * Get the pixel data of the texture.
-	 * @return The pixel data.
+	 * <p>
+	 * Get an array containing the pixels in the specified range.
+	 * </p>
+	 *
+	 * @param x The starting X position.
+	 * @param y The starting Y position.
+	 * @param width The width of the region.
+	 * @param height The height of the region.
+	 * @return The pixel data in the specified range.
 	 */
 	public final Color[] getPixels(int x, int y, int width, int height)
 	{
@@ -263,7 +609,10 @@ public final class Texture extends Asset
 	}
 	
 	/**
-	 * Get the pixel data at (x, y).
+	 * <p>
+	 * Get the pixel data at {@code (x, y)}.
+	 * </p>
+	 *
 	 * @param x The X position of the pixel.
 	 * @param y The Y position of the pixel.
 	 * @return The pixel data at (x, y).
@@ -273,11 +622,25 @@ public final class Texture extends Asset
 		return ColorUtil.RGBToColor(asset.bufferedImage.getRGB(x, y));
 	}
 	
+	/**
+	 * <p>
+	 * Get the width.
+	 * </p>
+	 *
+	 * @return The width.
+	 */
 	public final int getWidth()
 	{
 		return asset.bufferedImage.getWidth();
 	}
 	
+	/**
+	 * <p>
+	 * Get the height.
+	 * </p>
+	 *
+	 * @return The height.
+	 */
 	public final int getHeight()
 	{
 		return asset.bufferedImage.getHeight();

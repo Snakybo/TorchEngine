@@ -28,6 +28,10 @@ import org.joml.Vector2f;
 import static org.lwjgl.glfw.GLFW.glfwSetCursorPos;
 
 /**
+ * <p>
+ * Proxy for the mouse.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */
@@ -49,9 +53,12 @@ public final class Mouse
 	}
 	
 	/**
+	 * <p>
 	 * Check if the {@link MouseButton} is currently being pressed.
-	 * @param id The {@link MouseButton} to check.
-	 * @return True if the specified {@link MouseButton} is currently being pressed.
+	 * </p>
+	 *
+	 * @param id The {@code MouseButton} to check.
+	 * @return True if the specified {@code MouseButton} is currently being pressed.
 	 */
 	public static boolean isDown(MouseButton id)
 	{
@@ -59,9 +66,12 @@ public final class Mouse
 	}
 	
 	/**
+	 * <p>
 	 * Check if the {@link MouseButton} is currently not being pressed.
-	 * @param id The {@link MouseButton} to check.
-	 * @return True if the specified {@link MouseButton} is currently not being pressed.
+	 * </p>
+	 *
+	 * @param id The {@code MouseButton} to check.
+	 * @return True if the specified {@code MouseButton} is currently not being pressed.
 	 */
 	public static boolean isUp(MouseButton id)
 	{
@@ -69,9 +79,12 @@ public final class Mouse
 	}
 	
 	/**
+	 * <p>
 	 * Check if the {@link MouseButton} is currently being pressed.
-	 * @param id The {@link MouseButton} to check.
-	 * @return True the first frame {@link MouseButton} is being pressed.
+	 * </p>
+	 *
+	 * @param id The {@code MouseButton} to check.
+	 * @return True the first frame {@code MouseButton} is being pressed.
 	 */
 	public static boolean onDown(MouseButton id)
 	{
@@ -79,7 +92,10 @@ public final class Mouse
 	}
 	
 	/**
+	 * <p>
 	 * Check if the {@link MouseButton} is currently not being pressed.
+	 * </p>
+	 *
 	 * @param id The {@link MouseButton} to check.
 	 * @return True the first frame {@link MouseButton} has been released.
 	 */
@@ -89,7 +105,10 @@ public final class Mouse
 	}
 	
 	/**
+	 * <p>
 	 * Set the cursor position.
+	 * </p>
+	 *
 	 * @param position The new position of the cursor.
 	 */
 	public static void setCursorPosition(Vector2f position)
@@ -100,17 +119,16 @@ public final class Mouse
 		mousePosition = position;
 	}
 	
-	/**
-	 * Set the scroll wheel delta.
-	 * @param scrollDelta The new scroll wheel delta.
-	 */
 	public static void setScrollDelta(Vector2f scrollDelta)
 	{
 		Mouse.scrollDelta = scrollDelta;
 	}
 	
 	/**
+	 * <p>
 	 * Get the mouse scroll wheel delta.
+	 * </p>
+	 *
 	 * @return The mouse scroll wheel delta.
 	 */
 	public static Vector2f getScrollDelta()
@@ -119,7 +137,10 @@ public final class Mouse
 	}
 	
 	/**
+	 * <p>
 	 * Get the cursor position.
+	 * </p>
+	 *
 	 * @return The cursor position.
 	 */
 	public static Vector2f getCursorPosition()
@@ -128,7 +149,10 @@ public final class Mouse
 	}
 	
 	/**
+	 * <p>
 	 * Get the cursor position delta.
+	 * </p>
+	 *
 	 * @return The cursor position delta.
 	 */
 	public static Vector2f getCursorPositionDelta()

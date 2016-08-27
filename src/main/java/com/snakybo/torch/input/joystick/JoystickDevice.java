@@ -30,6 +30,14 @@ import static org.lwjgl.glfw.GLFW.glfwGetJoystickButtons;
 import static org.lwjgl.glfw.GLFW.glfwGetJoystickName;
 
 /**
+ * <p>
+ * The {@code JoystickDevice} represents a single joystick or game controller.
+ * </p>
+ *
+ * <p>
+ * Input from the joystick is polled once every frame.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */
@@ -47,7 +55,7 @@ public final class JoystickDevice
 	
 	private int nativeId;
 	
-	public JoystickDevice(int joystickId)
+	JoystickDevice(int joystickId)
 	{
 		this.nativeId = joystickId;
 		
@@ -63,47 +71,114 @@ public final class JoystickDevice
 		axes = new float[numAxes];
 	}
 	
-	public boolean isDown(Integer id)
+	@Override
+	public final String toString()
+	{
+		return getName();
+	}
+	
+	/**
+	 * <p>
+	 * Check if the button with the given {@code id} is currently down.
+	 * </p>
+	 *
+	 * @param id The ID of the button.
+	 * @return Whether or not the button is currently down.
+	 */
+	public final boolean isDown(int id)
 	{
 		return id >= 0 && id < current.length && current[id];
 	}
 	
-	public boolean isUp(Integer id)
+	/**
+	 * <p>
+	 * Check if the button with the given {@code id} is currently up.
+	 * </p>
+	 *
+	 * @param id The ID of the button.
+	 * @return Whether or not the button is currently up.
+	 */
+	public final boolean isUp(int id)
 	{
 		return id >= 0 && id < current.length && !current[id];
 	}
 	
-	public boolean onDown(Integer id)
+	/**
+	 * <p>
+	 * Returns {@code true} on the first frame the button with the given {@code id} was down.
+	 * </p>
+	 *
+	 * @param id The ID of the button.
+	 * @return Whether or not this is the first frame the button is don.
+	 */
+	public final boolean onDown(int id)
 	{
 		return id >= 0 && id < current.length && current[id] && !last[id];
 	}
 	
-	public boolean onUp(Integer id)
+	/**
+	 * <p>
+	 * Returns {@code true} on the first frame the button with the given {@code id} was up.
+	 * </p>
+	 *
+	 * @param id The ID of the button.
+	 * @return Whether or not this is the first frame the button is up.
+	 */
+	public final boolean onUp(int id)
 	{
 		return id >= 0 && id < current.length && !current[id] && last[id];
 	}
 	
-	public String getName()
+	/**
+	 * <p>
+	 * Get the name of this device.
+	 * </p>
+	 *
+	 * @return The name of this device.
+	 */
+	public final String getName()
 	{
 		return name;
 	}
 	
-	public float getAxis(int id)
+	/**
+	 * <p>
+	 * Get the current value of the axis with the given {@code id}.
+	 * </p>
+	 *
+	 * @param id The ID of the axis.
+	 * @return The value of the axis.
+	 */
+	public final float getAxis(int id)
 	{
 		return id >= 0 && id < axes.length ? axes[id] : 0;
 	}
 	
-	public int getNumButtons()
+	/**
+	 * <p>
+	 * Get the number of buttons on the joystick.
+	 * </p>
+	 *
+	 * @return The number of buttons on the joystick.
+	 */
+	public final int getNumButtons()
 	{
 		return numButtons;
 	}
 	
-	public int getNumAxes()
+	/**
+	 * <p>
+	 * Get the number of axes on the joystick.
+	 * </p>
+	 *
+	 * @return The number of axes on the joystick.
+	 */
+	public final int getNumAxes()
 	{
 		return numAxes;
 	}
 	
-	public long getNativeId()
+	public final long getNativeId()
 	{
 		return nativeId;
 	}

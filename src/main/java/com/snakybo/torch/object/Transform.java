@@ -31,6 +31,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * <p>
+ * Holds transform data for {@link GameObject}s.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */
@@ -48,7 +52,7 @@ public final class Transform implements Serializable
 	private Vector3f scale;
 	
 	/**
-	 * Create a new {@link Transform}
+	 * Create a new {@code Transform}.
 	 */
 	public Transform()
 	{
@@ -61,7 +65,7 @@ public final class Transform implements Serializable
 	}
 	
 	@Override
-	public String toString()
+	public final String toString()
 	{
 		String position = "Position(" + this.position.x +", " + this.position.y + ", " + this.position.z + ")";
 		String rotation = "Rotation(" + this.rotation.x +", " + this.rotation.y + ", " + this.rotation.z + ", " + this.rotation.w + ")";
@@ -71,8 +75,11 @@ public final class Transform implements Serializable
 	}
 	
 	/**
-	 * Translate the transform
-	 * @param direction The direction to translate in
+	 * <p>
+	 * Translate the transform.
+	 * </p>
+	 *
+	 * @param direction The direction to translate in.
 	 */
 	public final void translate(Vector3f direction)
 	{
@@ -80,9 +87,12 @@ public final class Transform implements Serializable
 	}
 	
 	/**
-	 * Rotate the transform
-	 * @param axis The axis to rotate on
-	 * @param angle The angle to add to the rotation
+	 * <p>
+	 * Rotate the transform.
+	 * </p>
+	 *
+	 * @param axis The axis to rotate on.
+	 * @param angle The angle to rotate by.
 	 */
 	public final void rotate(Vector3f axis, double angle)
 	{
@@ -90,9 +100,12 @@ public final class Transform implements Serializable
 	}
 	
 	/**
-	 * Rotate the transform
-	 * @param axis The axis to rotate on
-	 * @param angle The angle to add to the rotation
+	 * <p>
+	 * Rotate the transform.
+	 * </p>
+	 *
+	 * @param axis The axis to rotate on.
+	 * @param angle The angle to rotate by.
 	 */
 	public final void rotate(Vector3f axis, float angle)
 	{
@@ -100,8 +113,11 @@ public final class Transform implements Serializable
 	}
 	
 	/**
-	 * Look at a position
-	 * @param position The position in world space to look at
+	 * <p>
+	 * Look at a position.
+	 * </p>
+	 *
+	 * @param position The position in world space to look at.
 	 */
 	public final void lookAt(Vector3f position)
 	{
@@ -109,9 +125,12 @@ public final class Transform implements Serializable
 	}
 	
 	/**
-	 * Look at a position
-	 * @param position The position in world space to look at
-	 * @param up The up direction
+	 * <p>
+	 * Look at a position.
+	 * </p>
+	 *
+	 * @param position The position in world space to look at.
+	 * @param up The up direction.
 	 */
 	public final void lookAt(Vector3f position, Vector3f up)
 	{
@@ -123,8 +142,11 @@ public final class Transform implements Serializable
 	}
 	
 	/**
-	 * Set the parent of the {@link Transform}
-	 * @param parent The new parent
+	 * <p>
+	 * Set the parent of the {@code Transform}.
+	 * </p>
+	 *
+	 * @param parent The new parent.
 	 */
 	public final void setParent(Transform parent)
 	{
@@ -142,31 +164,60 @@ public final class Transform implements Serializable
 		this.parent.children.add(this);
 	}
 	
+	/**
+	 * <p>
+	 * Set the local position of the {@code Transform}.
+	 * </p>
+	 *
+	 * @param position The new position.
+	 */
 	public final void setLocalPosition(Vector3f position)
 	{
 		this.position = position;
 	}
 	
+	/**
+	 * <p>
+	 * Set the local rotation of the {@code Transform}.
+	 * </p>
+	 *
+	 * @param rotation The new rotation.
+	 */
 	public final void setLocalRotation(Quaternionf rotation)
 	{
 		this.rotation = rotation;
 	}
 	
+	/**
+	 * <p>
+	 * Set the local scale of the {@code Transform}.
+	 * </p>
+	 *
+	 * @param scale The new scale.
+	 */
 	public final void setLocalScale(Vector3f scale)
 	{
 		this.scale = scale;
 	}
 	
 	/**
-	 * @return All children of the {@link Transform}
+	 * <p>
+	 * Get an array containing all children.
+	 * </p>
+	 *
+	 * @return All children.
 	 */
-	public final Iterable<Transform> getChildren()
+	public final Transform[] getChildren()
 	{
-		return children;
+		return children.toArray(new Transform[children.size()]);
 	}
 	
 	/**
-	 * @return The transformation matrix of the transform
+	 * <p>
+	 * Get the transformation matrix.
+	 * </p>
+	 *
+	 * @return The transformation matrix.
 	 */
 	public final Matrix4f getTransformation()
 	{
@@ -174,7 +225,11 @@ public final class Transform implements Serializable
 	}
 	
 	/**
-	 * @return The attached {@link GameObject}
+	 * <p>
+	 * Get the attached {@code GameObject}.
+	 * </p>
+	 *
+	 * @return The attached {@code GameObject}
 	 */
 	public final GameObject getGameObject()
 	{
@@ -182,7 +237,11 @@ public final class Transform implements Serializable
 	}
 	
 	/**
-	 * @return The root {@link Transform}, if this transform is the root transform, it will return this transform
+	 * <p>
+	 * Get the root {@code Transform}.
+	 * </p>
+	 *
+	 * @return The root {@code Transform}, if this is the root {@code Transform}, it will return {@code this}.
 	 */
 	public final Transform getRoot()
 	{
@@ -197,7 +256,11 @@ public final class Transform implements Serializable
 	}
 	
 	/**
-	 * @return The parent {@link Transform}
+	 * <p>
+	 * Get this {@code Transform}'s parent.
+	 * </p>
+	 *
+	 * @return The parent.
 	 */
 	public final Transform getParent()
 	{
@@ -205,7 +268,11 @@ public final class Transform implements Serializable
 	}
 	
 	/**
-	 * @return The position of the transform in world space (parent.position + position)
+	 * <p>
+	 * Get the position in world-space (parent.position + position).
+	 * </p>
+	 *
+	 * @return The position in world-space.
 	 */
 	public final Vector3f getPosition()
 	{
@@ -213,7 +280,11 @@ public final class Transform implements Serializable
 	}
 	
 	/**
-	 * @return The rotation of the transform in world space (parent.rotation + rotation)
+	 * <p>
+	 * Get the rotation in world-space (parent.rotation + rotation).
+	 * </p>
+	 *
+	 * @return The rotation world space.
 	 */
 	public final Quaternionf getRotation()
 	{
@@ -222,7 +293,11 @@ public final class Transform implements Serializable
 	}
 	
 	/**
-	 * @return The position of the transform in local space
+	 * <p>
+	 * Get the position in local-space.
+	 * </p>
+	 *
+	 * @return The position in local-space.
 	 */
 	public final Vector3f getLocalPosition()
 	{
@@ -230,7 +305,11 @@ public final class Transform implements Serializable
 	}
 	
 	/**
-	 * @return The rotation of the transform in local space
+	 * <p>
+	 * Get the rotation in local-space.
+	 * </p>
+	 *
+	 * @return The rotation of the transform in local-space.
 	 */
 	public final Quaternionf getLocalRotation()
 	{
@@ -238,7 +317,11 @@ public final class Transform implements Serializable
 	}
 	
 	/**
-	 * @return The scale of the transform
+	 * <p>
+	 * Get the scale in local-space.
+	 * </p>
+	 *
+	 * @return The scale in local-space.
 	 */
 	public final Vector3f getLocalScale()
 	{
@@ -246,15 +329,22 @@ public final class Transform implements Serializable
 	}
 	
 	/**
-	 * @return The direction that is forward for this {@link Transform}
+	 * <p>
+	 * Get the forward direction.
+	 * </p>
+	 *
+	 * @return The forward direction.
 	 */
 	public final Vector3f getForward()
 	{
 		return new Vector3f(0, 0, 1).rotate(rotation);
 	}
-	
 	/**
-	 * @return The direction that is backward for this {@link Transform}
+	 * <p>
+	 * Get the backward direction.
+	 * </p>
+	 *
+	 * @return The backward direction.
 	 */
 	public final Vector3f getBack()
 	{
@@ -262,7 +352,11 @@ public final class Transform implements Serializable
 	}
 	
 	/**
-	 * @return The direction that is left for this {@link Transform}
+	 * <p>
+	 * Get the left direction.
+	 * </p>
+	 *
+	 * @return The left direction.
 	 */
 	public final Vector3f getLeft()
 	{
@@ -270,7 +364,11 @@ public final class Transform implements Serializable
 	}
 	
 	/**
-	 * @return The direction that is right for this {@link Transform}
+	 * <p>
+	 * Get the right direction.
+	 * </p>
+	 *
+	 * @return The right direction.
 	 */
 	public final Vector3f getRight()
 	{
@@ -278,7 +376,11 @@ public final class Transform implements Serializable
 	}
 	
 	/**
-	 * @return The direction that is up for this {@link Transform}
+	 * <p>
+	 * Get the up direction.
+	 * </p>
+	 *
+	 * @return The up direction.
 	 */
 	public final Vector3f getUp()
 	{
@@ -286,7 +388,11 @@ public final class Transform implements Serializable
 	}
 	
 	/**
-	 * @return The direction that is down for this {@link Transform}
+	 * <p>
+	 * Get the down direction.
+	 * </p>
+	 *
+	 * @return The down direction.
 	 */
 	public final Vector3f getDown()
 	{
@@ -294,16 +400,17 @@ public final class Transform implements Serializable
 	}
 	
 	/**
-	 * @return The amount of children the {@link Transform} has
+	 * <p>
+	 * Get the number of children this {@code Transform} has.
+	 * </p>
+	 *
+	 * @return The number of children.
 	 */
 	public final int getNumChildren()
 	{
 		return children.size();
 	}
 	
-	/**
-	 * @return The parent's {@link #getTransformation()} matrix
-	 */
 	private Matrix4f getParentMatrix()
 	{
 		parentMatrix = parent == null ? parentMatrix.identity() : parentMatrix.set(parent.getTransformation());

@@ -33,17 +33,23 @@ package com.snakybo.torch.input.cursor;
 public enum CursorLockMode
 {
 	/**
+	 * <p>
 	 * No restrictions on the cursor.
+	 * </p>
 	 */
 	None,
 	
 	/**
+	 * <p>
 	 * Lock the cursor to the center of the window.
+	 * </p>
 	 */
 	Locked,
 	
 	/**
+	 * <p>
 	 * Prevent the cursor from leaving the window.
+	 * </p>
 	 */
 	Confined
 }

@@ -28,6 +28,13 @@ import com.snakybo.torch.scene.SceneInternal;
 import java.io.Serializable;
 
 /**
+ * <p>
+ * Base class for all {@link GameObject}s and {@link Component}s.
+ * </p>
+ *
+ * @see GameObject
+ * @see Component
+ *
  * @author Snakybo
  * @since 1.0
  */
@@ -35,14 +42,18 @@ public class TorchObject implements Serializable
 {
 	private String name;
 	
+	/**
+	 * <p>
+	 * Create a new object.
+	 * </p>
+	 *
+	 * @param name The name.
+	 */
 	public TorchObject(String name)
 	{
 		setName(name);
 	}
 	
-	/**
-	 * @return The name of the object.
-	 */
 	@Override
 	public String toString()
 	{
@@ -50,7 +61,10 @@ public class TorchObject implements Serializable
 	}
 	
 	/**
-	 * Set the name of the object.
+	 * <p>
+	 * Set the name.
+	 * </p>
+	 *
 	 * @param name The new name.
 	 */
 	public final void setName(String name)
@@ -65,13 +79,38 @@ public class TorchObject implements Serializable
 	}
 	
 	/**
-	 * @return The name of the object.
+	 * <p>.
+	 * Get the name.
+	 * </p>
+	 *
+	 * @return The name.
 	 */
 	public final String getName()
 	{
 		return name;
 	}
 	
+	/**
+	 * <p>
+	 * Destroy an {@code Object}.
+	 * </p>
+	 *
+	 * <p>
+	 * This method has a slightly different behaviour depending on what the type of the {@code obj} is:
+	 * </p>
+	 *
+	 * <p>
+	 * If the {@code obj} is a {@link Component}, it will simply schedule the component for removal.
+	 * </p>
+	 *
+	 * <p>
+	 * If the {@code obj} is a {@link GameObject}, it will work in a recursive manner, it will first schedule the
+	 * {@code GameObject} itself, and all components for removal.
+	 * After that it will work recursively for all children of the {@code GameObject}.
+	 * </p>
+	 *
+	 * @param obj The object to destroy.
+	 */
 	public static void destroy(TorchObject obj)
 	{
 		if(obj instanceof GameObject)
@@ -84,7 +123,10 @@ public class TorchObject implements Serializable
 			gameObject.components.forEach(TorchObject::destroy);
 			
 			// Destroy all children of the GameObject
-			gameObject.getTransform().getChildren().forEach((t) -> destroy(t.gameObject));
+			for(Transform transform : gameObject.getTransform().getChildren())
+			{
+				destroy(transform.gameObject);
+			}
 		}
 		else if(obj instanceof Component)
 		{

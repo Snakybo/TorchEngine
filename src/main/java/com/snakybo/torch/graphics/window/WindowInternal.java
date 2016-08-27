@@ -73,11 +73,6 @@ public final class WindowInternal
 		throw new AssertionError();
 	}
 	
-	/**
-	 * Create a new window.
-	 * @param displayMode The window properties.
-	 * @param windowMode The window mode.
-	 */
 	static void create(DisplayMode displayMode, WindowMode windowMode)
 	{
 		if(WindowInternal.displayMode != null || nativeId != NULL)
@@ -139,17 +134,11 @@ public final class WindowInternal
 		glfwPollEvents();
 	}
 	
-	/**
-	 * Update the window.
-	 */
 	public static void update()
 	{
 		glfwSwapBuffers(nativeId);
 	}
 	
-	/**
-	 * Destroy the active window.
-	 */
 	public static void destroy()
 	{
 		LoggerInternal.log("Destroying window");
@@ -162,18 +151,11 @@ public final class WindowInternal
 		nativeId = NULL;
 	}
 	
-	/**
-	 * Check whether or not the window wants to close.
-	 * @return Whether or not the window wants to close.
-	 */
 	public static boolean isCloseRequested()
 	{
 		return glfwWindowShouldClose(nativeId);
 	}
 	
-	/**
-	 * @return The native ID of the window.
-	 */
 	public static long getNativeId()
 	{
 		return nativeId;

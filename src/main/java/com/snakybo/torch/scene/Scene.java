@@ -53,11 +53,26 @@ public final class Scene
 		throw new AssertionError();
 	}
 	
+	/**
+	 * <p>
+	 * Get an array containing all {@code GameObject}s active in the scene.
+	 * </p>
+	 *
+	 * @return Get an array containing all {@code GameObject}s active in the scene.
+	 */
 	public static GameObject[] getAllGameObjects()
 	{
 		return gameObjects.toArray(new GameObject[gameObjects.size()]);
 	}
 	
+	/**
+	 * <p>
+	 * Find all {@link GameObject}s by their name.
+	 * </p>
+	 *
+	 * @param name The name of the {@code GameObject}s.
+	 * @return An array containing the {@code GameObject}s.
+	 */
 	public static GameObject[] getGameObjectsByName(String name)
 	{
 		List<GameObject> result = new ArrayList<>();
@@ -73,6 +88,14 @@ public final class Scene
 		return result.toArray(new GameObject[result.size()]);
 	}
 	
+	/**
+	 * <p>
+	 * Find a {@link GameObject} by it's name.
+	 * </p>
+	 *
+	 * @param name The name of the {@code GameObject}.
+	 * @return The {@code GameObject}, or {@code null} if none exists.
+	 */
 	public static GameObject getGameObjectByName(String name)
 	{
 		for(GameObject gameObject : gameObjects)
@@ -87,19 +110,35 @@ public final class Scene
 	}
 	
 	/**
-	 * @return The number of {@link GameObject}s in the scene
+	 * <p>
+	 * Get the number of active {@link GameObject}s in the scene.
+	 * </p>
+	 *
+	 * @return The number of active {@code GameObject}s in the scene.
 	 */
 	public static int getSize()
 	{
 		return gameObjects.size();
 	}
 	
+	/**
+	 * <p>
+	 * Create a new, empty scene.
+	 * </p>
+	 */
 	public static void create()
 	{
 		gameObjectsToRemove.addAll(gameObjects);
 		gameObjects.clear();
 	}
 	
+	/**
+	 * <p>
+	 * Load the scene with the given {@code name}.
+	 * </p>
+	 *
+	 * @param name The name of the scene.
+	 */
 	public static void load(String name)
 	{
 		LoggerInternal.log("Begin loading of scene: " + name);

@@ -23,23 +23,33 @@
 package com.snakybo.torch.graphics.window;
 
 /**
+ * <p>
+ * An enum containing all available window modes.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */
 public enum WindowMode
 {
 	/**
+	 * <p>
 	 * Windowed.
+	 * </p>
 	 */
 	Windowed,
 	
 	/**
+	 * <p>
 	 * Borderless fullscreen.
+	 * </p>
 	 */
 	Borderless,
 	
 	/**
+	 * <p>
 	 * Fullscreen.
+	 * </p>
 	 */
 	Fullscreen
 }
