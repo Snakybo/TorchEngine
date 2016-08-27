@@ -199,4 +199,14 @@ public final class Shader extends Asset
 		
 		return null;
 	}
+	
+	public static Shader load(String path)
+	{
+		if(ShaderAsset.all.containsKey(path))
+		{
+			return new Shader(ShaderAsset.all.get(path));
+		}
+		
+		return new Shader(path);
+	}
 }
