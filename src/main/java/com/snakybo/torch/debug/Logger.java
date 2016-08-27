@@ -40,44 +40,14 @@ public final class Logger
 		LoggerInternal.logInternal(Level.INFO, msg);
 	}
 	
-	public static void log(Object msg, Object param1)
-	{
-		LoggerInternal.logInternal(Level.INFO, msg, param1);
-	}
-	
-	public static void log(Object msg, Object[] params)
-	{
-		LoggerInternal.logInternal(Level.INFO, msg, params);
-	}
-	
 	public static void logWarning(Object msg)
 	{
 		LoggerInternal.logInternal(Level.WARNING, msg);
 	}
 	
-	public static void logWarning(Object msg, Object param1)
-	{
-		LoggerInternal.logInternal(Level.WARNING, msg, param1);
-	}
-	
-	public static void logWarning(Object msg, Object[] params)
-	{
-		LoggerInternal.logInternal(Level.WARNING, msg, params);
-	}
-	
 	public static void logError(Object msg)
 	{
 		LoggerInternal.logInternal(Level.SEVERE, msg);
-	}
-	
-	public static void logError(Object msg, Object param1)
-	{
-		LoggerInternal.logInternal(Level.SEVERE, msg, param1);
-	}
-	
-	public static void logError(Object msg, Object[] params)
-	{
-		LoggerInternal.logInternal(Level.SEVERE, msg, params);
 	}
 	
 	public static void logError(Object msg, Throwable thrown)

@@ -35,7 +35,7 @@ import java.util.logging.SimpleFormatter;
  */
 public final class LoggerInternal
 {
-	static Logger logger;
+	private static Logger logger;
 	
 	static
 	{
@@ -69,32 +69,10 @@ public final class LoggerInternal
 		logInternal(Level.FINE, msg);
 	}
 	
-	public static void log(Object msg, Object param1)
-	{
-		logInternal(Level.FINE, msg, param1);
-	}
-	
-	public static void log(Object msg, Object[] params)
-	{
-		logInternal(Level.FINE, msg, params);
-	}
-	
 	static void logInternal(Level level, Object msg)
 	{
 		StackTraceElement ste = getStackTraceElement();
 		logger.logp(level, ste.getClassName(), ste.getMethodName(), msg.toString());
-	}
-	
-	static void logInternal(Level level, Object msg, Object param1)
-	{
-		StackTraceElement ste = getStackTraceElement();
-		logger.logp(level, ste.getClassName(), ste.getMethodName(), msg.toString(), param1);
-	}
-	
-	static void logInternal(Level level, Object msg, Object[] params)
-	{
-		StackTraceElement ste = getStackTraceElement();
-		logger.logp(level, ste.getClassName(), ste.getMethodName(), msg.toString(), params);
 	}
 	
 	static void logInternal(Level level, Object msg, Throwable thrown)
