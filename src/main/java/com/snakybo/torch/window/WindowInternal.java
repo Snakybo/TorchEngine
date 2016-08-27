@@ -117,12 +117,12 @@ public final class WindowInternal
 			throw new RuntimeException("Unable to create GLFW window");
 		}
 		
-		glfwSetWindowFocusCallback(nativeId, (window, focus) -> GameObject.notifyAll("onWindowFocus", focus));
-		glfwSetWindowIconifyCallback(nativeId, (window, iconified) -> GameObject.notifyAll("onWindowIconify", iconified));
+		glfwSetWindowFocusCallback(nativeId, (window, focus) -> TorchCallbacks.onWindowFocus.getCallbacks().forEach(cb -> cb.onWindowFocus(focus)));
+		glfwSetWindowIconifyCallback(nativeId, (window, iconified) -> TorchCallbacks.onWindowIconify.getCallbacks().forEach(cb -> cb.onWindowIconify(iconified)));
 		
-		glfwSetCharCallback(nativeId, (window, codepoint) -> GameObject.notifyAll("onCharPressed", (char)codepoint));
+		glfwSetCharCallback(nativeId, (window, codepoint) -> TorchCallbacks.onCharPressed.getCallbacks().forEach(cb -> cb.onCharPressed((char)codepoint)));
 		
-		glfwSetCursorEnterCallback(nativeId, (window, entered) -> GameObject.notifyAll("onCursorEnter", entered));
+		glfwSetCursorEnterCallback(nativeId, (window, entered) -> TorchCallbacks.onCursorEnter.getCallbacks().forEach(cb -> cb.onCursorEnter(entered)));
 		glfwSetScrollCallback(nativeId, (window, x, y) -> Mouse.setScrollDelta(new Vector2f((float)x, (float)y)));
 		
 		glfwMakeContextCurrent(nativeId);
