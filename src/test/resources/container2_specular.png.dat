@@ -3,7 +3,7 @@
     <parameters>
         <type type="int">3553</type>
         <filters type="int">9987</filters>
-        <anisioLevel type="float">16</anisioLevel>
+        <anisoLevel type="float">16</anisoLevel>
         <format type="int">6408</format>
         <internalFormat type="int">6408</internalFormat>
         <clamp type="boolean">false</clamp>

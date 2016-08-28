@@ -71,7 +71,7 @@ public final class Window
 	 * </p>
 	 *
 	 * <p>
-	 * If the window is currently iconfied, this will also call {@link #restore()}.
+	 * If the window is currently iconified, this will also call {@link #restore()}.
 	 * </p>
 	 */
 	public static void focus()

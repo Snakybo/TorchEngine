@@ -2,10 +2,10 @@
 <texture version="1">
     <parameters>
         <type type="int">3553</type>
-        <filters type="int" value="9728" />
-        <anisioLevel type="float" value="0" />
-        <format type="int" value="6408" />
-        <internalFormat type="int" value="6408" />
-        <clamp type="boolean" value="false" />
+        <filters type="int">9728</filters>
+        <anisoLevel type="float">0</anisoLevel>
+        <format type="int">6408</format>
+        <internalFormat type="int">6408</internalFormat>
+        <clamp type="boolean">false</clamp>
     </parameters>
 </texture>

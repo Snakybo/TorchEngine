@@ -80,8 +80,8 @@ public final class TextureParser
 		Element filtersElement = (Element)parameters.getElementsByTagName("filters").item(0);
 		int filters = (int)XMLParserUtils.decodeObject(filtersElement.getAttribute("type"), filtersElement.getTextContent());
 		
-		Element anisioLevelElement = (Element)parameters.getElementsByTagName("anisioLevel").item(0);
-		float anisioLevel = (float)XMLParserUtils.decodeObject(anisioLevelElement.getAttribute("type"), anisioLevelElement.getTextContent());
+		Element anisoLevelElement = (Element)parameters.getElementsByTagName("anisoLevel").item(0);
+		float anisoLevel = (float)XMLParserUtils.decodeObject(anisoLevelElement.getAttribute("type"), anisoLevelElement.getTextContent());
 		
 		Element formatElement = (Element)parameters.getElementsByTagName("format").item(0);
 		int format = (int)XMLParserUtils.decodeObject(formatElement.getAttribute("type"), formatElement.getTextContent());
@@ -93,6 +93,6 @@ public final class TextureParser
 		boolean clamp = (boolean)XMLParserUtils.decodeObject(clampElement.getAttribute("type"), clampElement.getTextContent());
 		
 		LoggerInternal.log("Successfully decoded texture data");
-		return new TextureData(type, filters, anisioLevel, format, internalFormat, clamp);
+		return new TextureData(type, filters, anisoLevel, format, internalFormat, clamp);
 	}
 }

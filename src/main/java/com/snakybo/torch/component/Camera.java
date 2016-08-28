@@ -283,7 +283,7 @@ public final class Camera extends Component
 	
 	/**
 	 * <p>
-	 * Get an {@code Iterable} containing all cameras.
+	 * Get an {@code Iterator} containing all cameras.
 	 * </p>
 	 *
 	 * @return All cameras.

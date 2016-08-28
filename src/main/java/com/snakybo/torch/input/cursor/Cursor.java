@@ -173,7 +173,7 @@ public final class Cursor
 		}
 		else
 		{
-			GLFWImage image = GLFWImage.malloc().set(texture.getWidth(), texture.getHeight(), texture.getByteByffer());
+			GLFWImage image = GLFWImage.malloc().set(texture.getWidth(), texture.getHeight(), texture.getByteBuffer());
 			
 			long cursor = glfwCreateCursor(image, Math.round(hot.x), Math.round(hot.y));
 			CursorShape.addCursor(texture, hot, cursor);

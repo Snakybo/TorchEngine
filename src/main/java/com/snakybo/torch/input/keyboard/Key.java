@@ -569,39 +569,39 @@ public enum Key
 		case INSERT:
 			return "Insert";
 		case KP_0:
-			return "Numpad 0";
+			return "Keypad 0";
 		case KP_1:
-			return "Numpad 1";
+			return "Keypad 1";
 		case KP_2:
-			return "Numpad 2";
+			return "Keypad 2";
 		case KP_3:
-			return "Numpad 3";
+			return "Keypad 3";
 		case KP_4:
-			return "Numpad 4";
+			return "Keypad 4";
 		case KP_5:
-			return "Numpad 5";
+			return "Keypad 5";
 		case KP_6:
-			return "Numpad 6";
+			return "Keypad 6";
 		case KP_7:
-			return "Numpad 7";
+			return "Keypad 7";
 		case KP_8:
-			return "Numpad 8";
+			return "Keypad 8";
 		case KP_9:
-			return "Numpad 9";
+			return "Keypad 9";
 		case KP_ADD:
-			return "Numpad Add";
+			return "Keypad Add";
 		case KP_DECIMAL:
-			return "Numpad Decimal";
+			return "Keypad Decimal";
 		case KP_DIVIDE:
-			return "Numpad Divide";
+			return "Keypad Divide";
 		case KP_ENTER:
-			return "Numpad Enter";
+			return "Keypad Enter";
 		case KP_EQUAL:
-			return "Numpad Equal";
+			return "Keypad Equal";
 		case KP_MULTIPLY:
-			return "Numpad Multiply";
+			return "Keypad Multiply";
 		case KP_SUBTRACT:
-			return "Numpad Subtract";
+			return "Keypad Subtract";
 		case LEFT:
 			return "Left Arrow";
 		case LEFT_ALT:

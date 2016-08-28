@@ -576,7 +576,7 @@ public final class Texture extends Asset
 	 *
 	 * @return A {@link ByteBuffer} containing the pixel data.
 	 */
-	public final ByteBuffer getByteByffer()
+	public final ByteBuffer getByteBuffer()
 	{
 		return BufferUtils.toByteBuffer(asset.bufferedImage);
 	}

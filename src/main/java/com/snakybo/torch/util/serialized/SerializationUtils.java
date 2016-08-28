@@ -254,7 +254,7 @@ public final class SerializationUtils
 	public static void set(Object object, Field field, Object value)
 	{
 		Class<?> t = field.getType();
-		if(t.equals(value.getClass()) || value == null)
+		if(value == null || t.equals(value.getClass()))
 		{
 			try
 			{
@@ -276,7 +276,7 @@ public final class SerializationUtils
 	
 	public static Field[] getAll(Object object)
 	{
-		List<Field> result = new ArrayList<Field>();
+		List<Field> result = new ArrayList<>();
 		
 		for(Field field : object.getClass().getDeclaredFields())
 		{

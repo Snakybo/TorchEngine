@@ -438,7 +438,7 @@ public final class Mesh extends Asset
 	
 	/**
 	 * <p>
-	 * Get the indces array as an {@code IntBuffer}.
+	 * Get the indices array as an {@code IntBuffer}.
 	 * </p>
 	 *
 	 * @return The indices array as an {@code IntBuffer}.

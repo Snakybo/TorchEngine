@@ -314,7 +314,7 @@ final class ShaderAsset extends AssetData
 		
 		for(int i = 0; i < lines.length; i++)
 		{
-			prefixedSource.append(i + 1 + ". " + lines[i]).append("\n");
+			prefixedSource.append(i + 1).append(". ").append(lines[i]).append("\n");
 		}
 		
 		return prefixedSource.toString();
