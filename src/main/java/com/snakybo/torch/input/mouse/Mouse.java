@@ -58,7 +58,7 @@ public final class Mouse
 	 * </p>
 	 *
 	 * @param id The {@code MouseButton} to check.
-	 * @return True if the specified {@code MouseButton} is currently being pressed.
+	 * @return {@code true} if the specified {@code MouseButton} is currently being pressed.
 	 */
 	public static boolean isDown(MouseButton id)
 	{
@@ -71,7 +71,7 @@ public final class Mouse
 	 * </p>
 	 *
 	 * @param id The {@code MouseButton} to check.
-	 * @return True if the specified {@code MouseButton} is currently not being pressed.
+	 * @return {@code true} if the specified {@code MouseButton} is currently not being pressed.
 	 */
 	public static boolean isUp(MouseButton id)
 	{
@@ -84,7 +84,7 @@ public final class Mouse
 	 * </p>
 	 *
 	 * @param id The {@code MouseButton} to check.
-	 * @return True the first frame {@code MouseButton} is being pressed.
+	 * @return {@code true} the first frame {@code MouseButton} is being pressed.
 	 */
 	public static boolean onDown(MouseButton id)
 	{
@@ -97,7 +97,7 @@ public final class Mouse
 	 * </p>
 	 *
 	 * @param id The {@link MouseButton} to check.
-	 * @return True the first frame {@link MouseButton} has been released.
+	 * @return {@code true} the first frame {@link MouseButton} has been released.
 	 */
 	public static boolean onUp(MouseButton id)
 	{

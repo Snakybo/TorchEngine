@@ -40,21 +40,22 @@ import java.util.Set;
  *
  * <p>
  * <strong>Lambda example:</strong>
+ * </p>
  *
  * <pre>
  * ICharPressedCallback charPressedCallback;
  *
- * charPressedCallback = (c) -> onCharPressed(c);
+ *{@code charPressedCallback = (c) -> onCharPressed(c)};
  *
  * private void onCharPressed(char c)
  * {
  *     Logger.log("Character " + c + " has been pressed");
  * }
  * </pre>
- * </p>
  *
  * <p>
  * <strong>Anonymous class example:</strong>
+ * </p>
  *
  * <pre>
  * ICharPressedCallback charPressedCallback;
@@ -68,16 +69,15 @@ import java.util.Set;
  *   }
  * };
  * </pre>
- * </p>
  *
  * <p>
  * <strong>Subscribing and un-subscribing:</strong>
+ * </p>
  *
  * <pre>
  * TorchCallbacks.onCharPressed.addListener(charPressedCallback);
  * TorchCallbacks.onCharPressed.removeListener(charPressedCallback);
  * </pre>
- * </p>
  *
  * @author Snakybo
  * @since 1.0

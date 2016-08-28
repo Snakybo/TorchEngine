@@ -131,6 +131,8 @@ public abstract class Component extends TorchObject
 	 * </p>
 	 *
 	 * @param component The component to add.
+	 * @param <T> The class of the component to add.
+	 * @return The component.
 	 */
 	public final <T extends Component> T addComponent(Class<T> component)
 	{

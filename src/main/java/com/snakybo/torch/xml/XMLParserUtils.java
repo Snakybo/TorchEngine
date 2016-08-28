@@ -110,6 +110,8 @@ public final class XMLParserUtils
 	 *
 	 * <p>
 	 * Valid object types are:
+	 * </p>
+	 *
 	 * <ul>
 	 *     <li>boolean</li>
 	 *     <li>byte</li>
@@ -126,6 +128,7 @@ public final class XMLParserUtils
 	 *     <li>asset</li>
 	 * </ul>
 	 *
+	 * <p>
 	 * It's worth noting that the expected format of these types can differ.
 	 * </p>
 	 *
@@ -189,6 +192,7 @@ public final class XMLParserUtils
 		
 		try
 		{
+			@SuppressWarnings("unchecked")
 			Class<Enum> clazz = (Class<Enum>)Class.forName(k);
 			Enum<?>[] values = clazz.getEnumConstants();
 			

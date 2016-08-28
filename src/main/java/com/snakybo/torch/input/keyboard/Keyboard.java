@@ -53,6 +53,7 @@ public final class Keyboard
 	 * </p>
 	 *
 	 * @param id The {@code Key} to check.
+	 * @return {@code true} if the specified {@code Key} is currently being pressed.
 	 */
 	public static boolean isDown(Key id)
 	{
@@ -65,7 +66,7 @@ public final class Keyboard
 	 * </p>
 	 *
 	 * @param id The {@code Key} to check.
-	 * @return True if the specified {@code Key} is currently not being pressed.
+	 * @return {@code true} if the specified {@code Key} is currently not being pressed.
 	 */
 	public static boolean isUp(Key id)
 	{
@@ -78,7 +79,7 @@ public final class Keyboard
 	 * </p>
 	 *
 	 * @param id The {@code Key} to check.
-	 * @return True the first frame {@code Key} is being pressed.
+	 * @return {@code true} the first frame {@code Key} is being pressed.
 	 */
 	public static boolean onDown(Key id)
 	{
@@ -91,7 +92,7 @@ public final class Keyboard
 	 * </p>
 	 *
 	 * @param id The {@code Key} to check.
-	 * @return True the first frame {@code Key} has been released.
+	 * @return {@code true} the first frame {@code Key} has been released.
 	 */
 	public static boolean onUp(Key id)
 	{

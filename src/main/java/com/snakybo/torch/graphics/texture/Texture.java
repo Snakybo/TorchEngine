@@ -89,6 +89,8 @@ public final class Texture extends Asset
 	 *
 	 * <p>
 	 * Valid values for the {@code filters} parameter are:
+	 * </p>
+	 *
 	 * <ul>
 	 *     <li>{@code GL_LINEAR}</li>
 	 *     <li>{@code GL_NEAREST}</li>
@@ -97,7 +99,6 @@ public final class Texture extends Asset
 	 *     <li>{@code GL_NEAREST_MIPMAP_LINEAR}</li>
 	 *     <li>{@code GL_NEAREST_MIPMAP_NEAREST}</li>
 	 * </ul>
-	 * </p>
 	 *
 	 * @param type The OpenGL type (e.g. GL_TEXTURE_2D, or GL_TEXTURE_3D).
 	 * @param width The desired width.
@@ -116,6 +117,8 @@ public final class Texture extends Asset
 	 *
 	 * <p>
 	 * Valid values for the {@code filters} parameter are:
+	 * </p>
+	 *
 	 * <ul>
 	 *     <li>{@code GL_LINEAR}</li>
 	 *     <li>{@code GL_NEAREST}</li>
@@ -124,10 +127,9 @@ public final class Texture extends Asset
 	 *     <li>{@code GL_NEAREST_MIPMAP_LINEAR}</li>
 	 *     <li>{@code GL_NEAREST_MIPMAP_NEAREST}</li>
 	 * </ul>
-	 * </p>
 	 *
 	 * <p>
-	 * Note: Anisotropic filtering ({@code anisoLevel}) is only used if {@filters} is set to one
+	 * Note: Anisotropic filtering ({@code anisoLevel}) is only used if {@code filters} is set to one
 	 * of the mipmap-enabled filters.
 	 * </p>
 	 *
@@ -150,6 +152,8 @@ public final class Texture extends Asset
 	 *
 	 * <p>
 	 * Valid values for the {@code filters} parameter are:
+	 * </p>
+	 *
 	 * <ul>
 	 *     <li>{@code GL_LINEAR}</li>
 	 *     <li>{@code GL_NEAREST}</li>
@@ -158,10 +162,9 @@ public final class Texture extends Asset
 	 *     <li>{@code GL_NEAREST_MIPMAP_LINEAR}</li>
 	 *     <li>{@code GL_NEAREST_MIPMAP_NEAREST}</li>
 	 * </ul>
-	 * </p>
 	 *
 	 * <p>
-	 * Note: Anisotropic filtering ({@code anisoLevel}) is only used if {@filters} is set to one
+	 * Note: Anisotropic filtering ({@code anisoLevel}) is only used if {@code filters} is set to one
 	 * of the mipmap-enabled filters.
 	 * </p>
 	 *
@@ -185,6 +188,8 @@ public final class Texture extends Asset
 	 *
 	 * <p>
 	 * Valid values for the {@code filters} parameter are:
+	 * </p>
+	 *
 	 * <ul>
 	 *     <li>{@code GL_LINEAR}</li>
 	 *     <li>{@code GL_NEAREST}</li>
@@ -193,10 +198,9 @@ public final class Texture extends Asset
 	 *     <li>{@code GL_NEAREST_MIPMAP_LINEAR}</li>
 	 *     <li>{@code GL_NEAREST_MIPMAP_NEAREST}</li>
 	 * </ul>
-	 * </p>
 	 *
 	 * <p>
-	 * Note: Anisotropic filtering ({@code anisoLevel}) is only used if {@filters} is set to one
+	 * Note: Anisotropic filtering ({@code anisoLevel}) is only used if {@code filters} is set to one
 	 * of the mipmap-enabled filters.
 	 * </p>
 	 *
@@ -221,6 +225,8 @@ public final class Texture extends Asset
 	 *
 	 * <p>
 	 * Valid values for the {@code filters} parameter are:
+	 * </p>
+	 *
 	 * <ul>
 	 *     <li>{@code GL_LINEAR}</li>
 	 *     <li>{@code GL_NEAREST}</li>
@@ -229,10 +235,9 @@ public final class Texture extends Asset
 	 *     <li>{@code GL_NEAREST_MIPMAP_LINEAR}</li>
 	 *     <li>{@code GL_NEAREST_MIPMAP_NEAREST}</li>
 	 * </ul>
-	 * </p>
 	 *
 	 * <p>
-	 * Note: Anisotropic filtering ({@code anisoLevel}) is only used if {@filters} is set to one
+	 * Note: Anisotropic filtering ({@code anisoLevel}) is only used if {@code filters} is set to one
 	 * of the mipmap-enabled filters.
 	 * </p>
 	 *
@@ -272,6 +277,8 @@ public final class Texture extends Asset
 	 *
 	 * <p>
 	 * Valid values for the {@code filters} parameter are:
+	 * </p>
+	 *
 	 * <ul>
 	 *     <li>{@code GL_LINEAR}</li>
 	 *     <li>{@code GL_NEAREST}</li>
@@ -280,10 +287,10 @@ public final class Texture extends Asset
 	 *     <li>{@code GL_NEAREST_MIPMAP_LINEAR}</li>
 	 *     <li>{@code GL_NEAREST_MIPMAP_NEAREST}</li>
 	 * </ul>
-	 * </p>
 	 *
 	 * @param bufferedImage The image to create a texture from.
 	 * @param type The OpenGL type (e.g. GL_TEXTURE_2D, or GL_TEXTURE_3D).
+	 * @param filters The OpenGL filters (see JavaDoc for info).
 	 */
 	public Texture(BufferedImage bufferedImage, int type, int filters)
 	{
@@ -297,6 +304,8 @@ public final class Texture extends Asset
 	 *
 	 * <p>
 	 * Valid values for the {@code filters} parameter are:
+	 * </p>
+	 *
 	 * <ul>
 	 *     <li>{@code GL_LINEAR}</li>
 	 *     <li>{@code GL_NEAREST}</li>
@@ -305,15 +314,15 @@ public final class Texture extends Asset
 	 *     <li>{@code GL_NEAREST_MIPMAP_LINEAR}</li>
 	 *     <li>{@code GL_NEAREST_MIPMAP_NEAREST}</li>
 	 * </ul>
-	 * </p>
 	 *
 	 * <p>
-	 * Note: Anisotropic filtering ({@code anisoLevel}) is only used if {@filters} is set to one
+	 * Note: Anisotropic filtering ({@code anisoLevel}) is only used if {@code filters} is set to one
 	 * of the mipmap-enabled filters.
 	 * </p>
 	 *
 	 * @param bufferedImage The image to create a texture from.
 	 * @param type The OpenGL type (e.g. GL_TEXTURE_2D, or GL_TEXTURE_3D).
+	 * @param filters The OpenGL filters (see JavaDoc for info).
 	 * @param anisoLevel The desired anisotropic filtering level. If automatically clamped
 	 *                   to the highest value the system supports.
 	 */
@@ -329,6 +338,8 @@ public final class Texture extends Asset
 	 *
 	 * <p>
 	 * Valid values for the {@code filters} parameter are:
+	 * </p>
+	 *
 	 * <ul>
 	 *     <li>{@code GL_LINEAR}</li>
 	 *     <li>{@code GL_NEAREST}</li>
@@ -337,15 +348,15 @@ public final class Texture extends Asset
 	 *     <li>{@code GL_NEAREST_MIPMAP_LINEAR}</li>
 	 *     <li>{@code GL_NEAREST_MIPMAP_NEAREST}</li>
 	 * </ul>
-	 * </p>
 	 *
 	 * <p>
-	 * Note: Anisotropic filtering ({@code anisoLevel}) is only used if {@filters} is set to one
+	 * Note: Anisotropic filtering ({@code anisoLevel}) is only used if {@code filters} is set to one
 	 * of the mipmap-enabled filters.
 	 * </p>
 	 *
 	 * @param bufferedImage The image to create a texture from.
 	 * @param type The OpenGL type (e.g. GL_TEXTURE_2D, or GL_TEXTURE_3D).
+	 * @param filters The OpenGL filters (see JavaDoc for info).
 	 * @param anisoLevel The desired anisotropic filtering level. If automatically clamped
 	 *                   to the highest value the system supports.
 	 * @param internalFormat The internal format of the texture, usually {@code GL_RGBA}.
@@ -362,6 +373,8 @@ public final class Texture extends Asset
 	 *
 	 * <p>
 	 * Valid values for the {@code filters} parameter are:
+	 * </p>
+	 *
 	 * <ul>
 	 *     <li>{@code GL_LINEAR}</li>
 	 *     <li>{@code GL_NEAREST}</li>
@@ -370,15 +383,15 @@ public final class Texture extends Asset
 	 *     <li>{@code GL_NEAREST_MIPMAP_LINEAR}</li>
 	 *     <li>{@code GL_NEAREST_MIPMAP_NEAREST}</li>
 	 * </ul>
-	 * </p>
 	 *
 	 * <p>
-	 * Note: Anisotropic filtering ({@code anisoLevel}) is only used if {@filters} is set to one
+	 * Note: Anisotropic filtering ({@code anisoLevel}) is only used if {@code filters} is set to one
 	 * of the mipmap-enabled filters.
 	 * </p>
 	 *
 	 * @param bufferedImage The image to create a texture from.
 	 * @param type The OpenGL type (e.g. GL_TEXTURE_2D, or GL_TEXTURE_3D).
+	 * @param filters The OpenGL filters (see JavaDoc for info).
 	 * @param anisoLevel The desired anisotropic filtering level. If automatically clamped
 	 *                   to the highest value the system supports.
 	 * @param internalFormat The internal format of the texture, usually {@code GL_RGBA}.
@@ -396,6 +409,8 @@ public final class Texture extends Asset
 	 *
 	 * <p>
 	 * Valid values for the {@code filters} parameter are:
+	 * </p>
+	 *
 	 * <ul>
 	 *     <li>{@code GL_LINEAR}</li>
 	 *     <li>{@code GL_NEAREST}</li>
@@ -404,15 +419,15 @@ public final class Texture extends Asset
 	 *     <li>{@code GL_NEAREST_MIPMAP_LINEAR}</li>
 	 *     <li>{@code GL_NEAREST_MIPMAP_NEAREST}</li>
 	 * </ul>
-	 * </p>
 	 *
 	 * <p>
-	 * Note: Anisotropic filtering ({@code anisoLevel}) is only used if {@filters} is set to one
+	 * Note: Anisotropic filtering ({@code anisoLevel}) is only used if {@code filters} is set to one
 	 * of the mipmap-enabled filters.
 	 * </p>
 	 *
 	 * @param bufferedImage The image to create a texture from.
 	 * @param type The OpenGL type (e.g. GL_TEXTURE_2D, or GL_TEXTURE_3D).
+	 * @param filters The OpenGL filters (see JavaDoc for info).
 	 * @param anisoLevel The desired anisotropic filtering level. If automatically clamped
 	 *                   to the highest value the system supports.
 	 * @param internalFormat The internal format of the texture, usually {@code GL_RGBA}.
