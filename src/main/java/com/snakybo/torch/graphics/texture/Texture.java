@@ -28,7 +28,7 @@ import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.graphics.color.Color;
 import com.snakybo.torch.graphics.color.ColorUtil;
 import com.snakybo.torch.util.MathUtils;
-import com.snakybo.torch.util.ToByteBuffer;
+import com.snakybo.torch.util.BufferUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -39,7 +39,6 @@ import java.nio.ByteBuffer;
 import static org.lwjgl.opengl.EXTTextureFilterAnisotropic.GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT;
 import static org.lwjgl.opengl.GL11.GL_LINEAR_MIPMAP_LINEAR;
 import static org.lwjgl.opengl.GL11.GL_RGBA;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
 import static org.lwjgl.opengl.GL11.glBindTexture;
 import static org.lwjgl.opengl.GL11.glGetFloat;
 import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
@@ -564,7 +563,7 @@ public final class Texture extends Asset
 	 */
 	public final ByteBuffer getByteByffer()
 	{
-		return ToByteBuffer.convert(asset.bufferedImage);
+		return BufferUtils.toByteBuffer(asset.bufferedImage);
 	}
 	
 	/**

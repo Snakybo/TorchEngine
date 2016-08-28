@@ -26,8 +26,8 @@ import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.object.GameObject;
 import com.snakybo.torch.object.GameObjectLoader;
-import com.snakybo.torch.xml.GameObjectParser;
-import com.snakybo.torch.xml.SceneParser;
+import com.snakybo.torch.xml.parsers.GameObjectParser;
+import com.snakybo.torch.xml.parsers.SceneParser;
 import com.snakybo.torch.xml.XMLParser;
 
 import java.nio.file.NoSuchFileException;

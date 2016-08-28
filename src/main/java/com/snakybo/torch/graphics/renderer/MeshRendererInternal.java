@@ -47,6 +47,10 @@ import static org.lwjgl.opengl.GL30.glDeleteVertexArrays;
 import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
 /**
+ * <p>
+ * Used internally by the engine.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */

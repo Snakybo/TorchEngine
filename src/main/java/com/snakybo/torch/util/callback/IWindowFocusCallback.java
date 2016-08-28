@@ -23,11 +23,22 @@
 package com.snakybo.torch.util.callback;
 
 /**
+ * <p>
+ * Callback interface for window focus events.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */
 @FunctionalInterface
 public interface IWindowFocusCallback
 {
+	/**
+	 * <p>
+	 * Called when the window gains or loses focus.
+	 * </p>
+	 *
+	 * @param focused {@code true} if the window has gained focus, {@code false} if the window has lost focus.
+	 */
 	void onWindowFocus(boolean focused);
 }

@@ -26,11 +26,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Kevin Krol
+ * <p>
+ * A collection of reflection utilities.
+ * </p>
+ *
+ * @author Snakybo
  * @since 1.0
  */
 public final class ReflectionUtil
 {
+	/**
+	 * <p>
+	 * Get the type of all provided {@code objects}.
+	 * </p>
+	 *
+	 * <p>
+	 * This method will automatically sanitize primitive types by calling {@link #sanitizePrimitives(Class)}.
+	 * </p>
+	 *
+	 * @param objects The objects to get the type of.
+	 * @return The type of all objects.
+	 */
 	public static Class<?>[] getObjectTypes(Iterable<Object> objects)
 	{
 		List<Object> objectsArrayList  = new ArrayList<>();
@@ -44,6 +60,18 @@ public final class ReflectionUtil
 		return getObjectTypes(objectsArray);
 	}
 	
+	/**
+	 * <p>
+	 * Get the type of all provided {@code objects}.
+	 * </p>
+	 *
+	 * <p>
+	 * This method will automatically sanitize primitive types by calling {@link #sanitizePrimitives(Class)}.
+	 * </p>
+	 *
+	 * @param objects The objects to get the type of.
+	 * @return The type of all objects.
+	 */
 	public static Class<?>[] getObjectTypes(Object... objects)
 	{
 		List<Class<?>> result = new ArrayList<>();
@@ -57,6 +85,18 @@ public final class ReflectionUtil
 		return result.toArray(new Class<?>[result.size()]);
 	}
 	
+	/**
+	 * <p>
+	 * This method checks if the input {@code clazz} can be converted to a primitive type.
+	 * </p>
+	 *
+	 * <p>
+	 * For example, if the input {@code clazz} is an {@code Integer}, it will convert it to an {@code int}.
+	 * </p>
+	 *
+	 * @param clazz The class to sanitize.
+	 * @return The primitive version of the input class if it exists.
+	 */
 	public static Class<?> sanitizePrimitives(Class<?> clazz)
 	{
 		if(clazz == Byte.class)

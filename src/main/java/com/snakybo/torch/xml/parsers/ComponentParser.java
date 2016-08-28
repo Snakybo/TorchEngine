@@ -20,9 +20,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.xml;
+package com.snakybo.torch.xml.parsers;
 
 import com.snakybo.torch.debug.LoggerInternal;
+import com.snakybo.torch.xml.XMLParserUtils;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -67,7 +68,7 @@ public final class ComponentParser
 		throw new AssertionError();
 	}
 	
-	static ComponentData decode(Element element)
+	public static ComponentData decode(Element element)
 	{
 		Class<?> type = XMLParserUtils.decodeClass(element.getAttribute("type"));
 		LoggerInternal.log("Component type: " + type);

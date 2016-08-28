@@ -22,25 +22,35 @@
 
 package com.snakybo.torch.util;
 
-import org.lwjgl.BufferUtils;
-
 import java.awt.image.BufferedImage;
 import java.nio.ByteBuffer;
 
 /**
+ * <p>
+ * A collection of buffer utilities.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */
-public final class ToByteBuffer
+public final class BufferUtils
 {
-	private ToByteBuffer()
+	private BufferUtils()
 	{
 		throw new AssertionError();
 	}
 	
-	public static ByteBuffer convert(BufferedImage bufferedImage)
+	/**
+	 * <p>
+	 * Convert a {@code BufferedImage} to a {@code ByteBuffer}.
+	 * </p>
+	 *
+	 * @param bufferedImage The {@code BufferedImage} to convert.
+	 * @return A {@code ByteBuffer} containing all pixel data of the {@code BufferedImage}.
+	 */
+	public static ByteBuffer toByteBuffer(BufferedImage bufferedImage)
 	{
-		ByteBuffer buffer = BufferUtils.createByteBuffer(bufferedImage.getWidth() * bufferedImage.getHeight() * 4);
+		ByteBuffer buffer = org.lwjgl.BufferUtils.createByteBuffer(bufferedImage.getWidth() * bufferedImage.getHeight() * 4);
 		
 		for(int y = 0; y < bufferedImage.getHeight(); y++)
 		{

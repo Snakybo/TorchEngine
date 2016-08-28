@@ -23,7 +23,6 @@
 package com.snakybo.torch.asset;
 
 import com.snakybo.torch.debug.LoggerInternal;
-import com.snakybo.torch.util.interfaces.IDestroyable;
 
 /**
  * <p>
@@ -37,7 +36,7 @@ import com.snakybo.torch.util.interfaces.IDestroyable;
  * @author Snakybo
  * @since 1.0
  */
-public abstract class AssetData implements IDestroyable
+public abstract class AssetData
 {
 	protected String name;
 	
@@ -63,7 +62,6 @@ public abstract class AssetData implements IDestroyable
 	 * Destroy the asset immediately.
 	 * </p>
 	 */
-	@Override
 	public abstract void destroy();
 	
 	/**

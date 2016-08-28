@@ -22,8 +22,8 @@
 
 package com.snakybo.torch.object;
 
-import com.snakybo.torch.xml.ComponentParser;
-import com.snakybo.torch.xml.GameObjectParser;
+import com.snakybo.torch.xml.parsers.ComponentParser;
+import com.snakybo.torch.xml.parsers.GameObjectParser;
 
 /**
  * @author Snakybo

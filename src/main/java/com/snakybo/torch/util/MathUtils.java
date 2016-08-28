@@ -23,6 +23,10 @@
 package com.snakybo.torch.util;
 
 /**
+ * <p>
+ * A collection of math utilities.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */
@@ -34,9 +38,12 @@ public final class MathUtils
 	}
 	
 	/**
-	 * Clamp the value between 0 and 1
-	 * @param value The value to clamp
-	 * @return The clamped value
+	 * <p>
+	 * Clamp the given {@code value} between {@code 0} and {@code 1}.
+	 * </p>
+	 *
+	 * @param value The value to clamp.
+	 * @return The clamped value.
 	 */
 	public static long clamp01(long value)
 	{
@@ -44,11 +51,14 @@ public final class MathUtils
 	}
 	
 	/**
-	 * Clamp the value between a min and a max value
-	 * @param value The value to clamp
-	 * @param min The minimum value
-	 * @param max The maximum value
-	 * @return The clamped value
+	 * <p>
+	 * Clamp the given {@code value} between a {@code min} and a {@code max} value.
+	 * </p>
+	 *
+	 * @param value The value to clamp.
+	 * @param min The minimum value.
+	 * @param max The maximum value.
+	 * @return The clamped value.
 	 */
 	public static long clamp(long value, long min, long max)
 	{
@@ -56,9 +66,12 @@ public final class MathUtils
 	}
 	
 	/**
-	 * Clamp the value between 0 and 1
-	 * @param value The value to clamp
-	 * @return The clamped value
+	 * <p>
+	 * Clamp the given {@code value} between {@code 0} and {@code 1}.
+	 * </p>
+	 *
+	 * @param value The value to clamp.
+	 * @return The clamped value.
 	 */
 	public static double clamp01(double value)
 	{
@@ -66,11 +79,14 @@ public final class MathUtils
 	}
 	
 	/**
-	 * Clamp the value between a min and a max value
-	 * @param value The value to clamp
-	 * @param min The minimum value
-	 * @param max The maximum value
-	 * @return The clamped value
+	 * <p>
+	 * Clamp the given {@code value} between a {@code min} and a {@code max} value.
+	 * </p>
+	 *
+	 * @param value The value to clamp.
+	 * @param min The minimum value.
+	 * @param max The maximum value.
+	 * @return The clamped value.
 	 */
 	public static double clamp(double value, double min, double max)
 	{
@@ -78,9 +94,12 @@ public final class MathUtils
 	}
 	
 	/**
-	 * Clamp the value between 0 and 1
-	 * @param value The value to clamp
-	 * @return The clamped value
+	 * <p>
+	 * Clamp the given {@code value} between {@code 0} and {@code 1}.
+	 * </p>
+	 *
+	 * @param value The value to clamp.
+	 * @return The clamped value.
 	 */
 	public static float clamp01(float value)
 	{
@@ -88,11 +107,14 @@ public final class MathUtils
 	}
 	
 	/**
-	 * Clamp the value between a min and a max value
-	 * @param value The value to clamp
-	 * @param min The minimum value
-	 * @param max The maximum value
-	 * @return The clamped value
+	 * <p>
+	 * Clamp the given {@code value} between a {@code min} and a {@code max} value.
+	 * </p>
+	 *
+	 * @param value The value to clamp.
+	 * @param min The minimum value.
+	 * @param max The maximum value.
+	 * @return The clamped value.
 	 */
 	public static float clamp(float value, float min, float max)
 	{
@@ -100,9 +122,12 @@ public final class MathUtils
 	}
 	
 	/**
-	 * Clamp the value between 0 and 1
-	 * @param value The value to clamp
-	 * @return The clamped value
+	 * <p>
+	 * Clamp the given {@code value} between {@code 0} and {@code 1}.
+	 * </p>
+	 *
+	 * @param value The value to clamp.
+	 * @return The clamped value.
 	 */
 	public static int clamp01(int value)
 	{
@@ -110,11 +135,14 @@ public final class MathUtils
 	}
 	
 	/**
-	 * Clamp the value between a min and a max value
-	 * @param value The value to clamp
-	 * @param min The minimum value
-	 * @param max The maximum value
-	 * @return The clamped value
+	 * <p>
+	 * Clamp the given {@code value} between a {@code min} and a {@code max} value.
+	 * </p>
+	 *
+	 * @param value The value to clamp.
+	 * @param min The minimum value.
+	 * @param max The maximum value.
+	 * @return The clamped value.
 	 */
 	public static int clamp(int value, int min, int max)
 	{

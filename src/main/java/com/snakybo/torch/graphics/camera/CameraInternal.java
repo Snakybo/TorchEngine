@@ -38,6 +38,10 @@ import static org.lwjgl.opengl.GL11.glClear;
 import static org.lwjgl.opengl.GL11.glClearColor;
 
 /**
+ * <p>
+ * Used internally by the engine.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */

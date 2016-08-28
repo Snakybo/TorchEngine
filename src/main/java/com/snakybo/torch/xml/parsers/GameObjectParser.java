@@ -20,9 +20,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.xml;
+package com.snakybo.torch.xml.parsers;
 
 import com.snakybo.torch.debug.LoggerInternal;
+import com.snakybo.torch.xml.XMLParserUtils;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 import org.w3c.dom.Element;
@@ -63,7 +64,7 @@ public final class GameObjectParser
 		throw new AssertionError();
 	}
 	
-	static GameObjectData decode(Element element)
+	public static GameObjectData decode(Element element)
 	{
 		String name = element.getAttribute("name");
 		LoggerInternal.log("GameObject name: " + name);

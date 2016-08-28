@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.xml;
+package com.snakybo.torch.xml.parsers;
 
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
@@ -54,7 +54,7 @@ public final class SceneParser
 		throw new AssertionError();
 	}
 	
-	static SceneData decode(Element element)
+	public static SceneData decode(Element element)
 	{
 		String version = element.getAttribute("version");
 		

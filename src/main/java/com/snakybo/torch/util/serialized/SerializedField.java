@@ -28,7 +28,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Add this annotation before a private, protected or internal field to expose it to the engine
+ * <p>
+ * Add this annotation before a private, protected or internal field to expose it to the engine.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */

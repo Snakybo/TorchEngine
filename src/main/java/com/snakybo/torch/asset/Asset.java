@@ -22,8 +22,6 @@
 
 package com.snakybo.torch.asset;
 
-import com.snakybo.torch.util.interfaces.IDestroyable;
-
 /**
  * <p>
  * An asset, everything loadable with {@link Assets#load(String)} is an asset.
@@ -42,7 +40,7 @@ import com.snakybo.torch.util.interfaces.IDestroyable;
  * @author Snakybo
  * @since 1.0
  */
-public abstract class Asset implements IDestroyable
+public abstract class Asset
 {
 	/**
 	 * <p>
@@ -50,6 +48,5 @@ public abstract class Asset implements IDestroyable
 	 * but does not necessarily unload data bound to the Asset.
 	 * </p>
 	 */
-	@Override
 	public abstract void destroy();
 }

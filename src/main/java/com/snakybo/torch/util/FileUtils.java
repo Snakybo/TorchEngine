@@ -36,6 +36,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
+ * <p>
+ * A collection of file utilities.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */
@@ -46,6 +50,15 @@ public final class FileUtils
 		throw new AssertionError();
 	}
 	
+	/**
+	 * <p>
+	 * Convert the path to a file to an {@link URI}.
+	 * </p>
+	 *
+	 * @param path The path to the file.
+	 * @return An {@code URI} representing the path.
+	 * @throws NoSuchFileException Thrown if the specified {@code path} does not exist.
+	 */
 	public static URI toURI(String path) throws NoSuchFileException
 	{
 		try
@@ -64,24 +77,12 @@ public final class FileUtils
 		throw new NoSuchFileException("No file found at: " + path);
 	}
 	
-	public static BufferedImage getBufferedImage(String path) throws NoSuchFileException
-	{
-		try
-		{
-			URI uri = toURI(path);
-			return ImageIO.read(new File(uri));
-		}
-		catch(IOException e)
-		{
-			Logger.logError(e.toString(), e);
-		}
-		
-		throw new NoSuchFileException("No file found at: " + path);
-	}
-	
 	/**
-	 * Get the name and extension of a file
-	 * @param uri The path to the file.
+	 * <p>
+	 * Get the name and extension of a file.
+	 * </p>
+	 *
+	 * @param uri The {@link URI} of the file.
 	 * @return The file name and extension.
 	 */
 	public static String getName(URI uri)
@@ -90,7 +91,10 @@ public final class FileUtils
 	}
 	
 	/**
+	 * <p>
 	 * Get the name and extension of a file
+	 * </p>
+	 *
 	 * @param path The path to the file.
 	 * @return The file name and extension.
 	 */
@@ -100,8 +104,11 @@ public final class FileUtils
 	}
 	
 	/**
-	 * Get the name of a file
-	 * @param uri The path to the file.
+	 * <p>
+	 * Get the name of a file.
+	 * </p>
+	 *
+	 * @param uri The {@link URI} of the file.
 	 * @return The file name.
 	 */
 	public static String getSimpleName(URI uri)
@@ -110,7 +117,10 @@ public final class FileUtils
 	}
 	
 	/**
-	 * Get the name of a file
+	 * <p>
+	 * Get the name of a file.
+	 * </p>
+	 *
 	 * @param path The path to the file.
 	 * @return The file name.
 	 */
@@ -120,8 +130,11 @@ public final class FileUtils
 	}
 	
 	/**
-	 * Get the extension of a file
-	 * @param uri The path to the file.
+	 * <p>
+	 * Get the extension of a file.
+	 * </p>
+	 *
+	 * @param uri The {@link URI} of the file.
 	 * @return The file extension.
 	 */
 	public static String getExtension(URI uri)
@@ -130,7 +143,10 @@ public final class FileUtils
 	}
 	
 	/**
-	 * Get the extension of a file
+	 * <p>
+	 * Get the extension of a file.
+	 * </p>
+	 *
 	 * @param path The path to the file.
 	 * @return The file extension.
 	 */

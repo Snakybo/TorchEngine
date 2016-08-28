@@ -24,7 +24,7 @@ package com.snakybo.torch.graphics.material;
 
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
-import com.snakybo.torch.xml.MaterialParser;
+import com.snakybo.torch.xml.parsers.MaterialParser;
 import com.snakybo.torch.xml.XMLParser;
 
 import java.nio.file.NoSuchFileException;

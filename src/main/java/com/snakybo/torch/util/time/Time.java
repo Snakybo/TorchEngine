@@ -23,6 +23,10 @@
 package com.snakybo.torch.util.time;
 
 /**
+ * <p>
+ * Manages the time.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */
@@ -41,20 +45,39 @@ public final class Time
 	}
 	
 	/**
-	 * @return The time in microseconds since the engine was started
+	 * <p>
+	 * Get the time in microseconds since the engine was started.
+	 * </p>
+	 *
+	 * @return The time in microseconds since the engine was started.
 	 */
 	public static double getCurrentTime()
 	{
 		return currentTime;
 	}
 	
+	/**
+	 * <p>
+	 * Get the time of the previous frame.
+	 * </p>
+	 *
+	 * <p>
+	 * Can be used for delta calculations by doing {@code getCurrentTime() - getLastTime()}.
+	 * </p>
+	 *
+	 * @return The time in microseconds of the last frame.
+	 */
 	public static double getLastTime()
 	{
 		return lastTime;
 	}
 	
 	/**
-	 * @return The time in milliseconds since the engine was started
+	 * <p>
+	 * Get the time in milliseconds since the engine was started.
+	 * </p>
+	 *
+	 * @return The time in milliseconds since the engine was started.
 	 */
 	public static double getCurrentTimeMillis()
 	{
@@ -62,7 +85,11 @@ public final class Time
 	}
 	
 	/**
-	 * @return The delta time since the last frame
+	 * <p>
+	 * Get the time it took to get from the previous frame to this frame.
+	 * </p>
+	 *
+	 * @return The current delta time.
 	 */
 	public static float getDeltaTime()
 	{
@@ -70,7 +97,11 @@ public final class Time
 	}
 	
 	/**
-	 * @return The current frame ID
+	 * <p>
+	 * Get the ID of this frame, the frame ID is incremented at the start of every frame.
+	 * </p>
+	 *
+	 * @return The current frame ID.
 	 */
 	public static long getFrameId()
 	{

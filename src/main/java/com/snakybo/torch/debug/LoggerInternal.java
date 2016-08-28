@@ -30,6 +30,10 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 /**
+ * <p>
+ * Used internally by the engine.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */

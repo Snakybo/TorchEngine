@@ -23,6 +23,10 @@
 package com.snakybo.torch.object;
 
 /**
+ * <p>
+ * Used internally by the engine.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */

@@ -40,6 +40,10 @@ import java.io.IOException;
 import java.net.URI;
 
 /**
+ * <p>
+ * A collection of XML parsing utilities.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */
@@ -50,6 +54,14 @@ public final class XMLParserUtils
 		throw new AssertionError();
 	}
 	
+	/**
+	 * <p>
+	 * Attempt to create a DOM document from an {@code URI}.
+	 * </p>
+	 *
+	 * @param uri The {@code URI} to load.
+	 * @return The DOM document.
+	 */
 	public static Document getDocument(URI uri)
 	{
 		try
@@ -69,6 +81,14 @@ public final class XMLParserUtils
 		return null;
 	}
 	
+	/**
+	 * <p>
+	 * Attempt to load a class from the given {@code className}.
+	 * </p>
+	 *
+	 * @param className The name of the class to load, must be in the format {@code package.class}.
+	 * @return The resulting class, or {@code null}.
+	 */
 	public static Class<?> decodeClass(String className)
 	{
 		try
@@ -83,6 +103,50 @@ public final class XMLParserUtils
 		return null;
 	}
 	
+	/**
+	 * <p>
+	 * Attempt to decode an object from the given {@code type} and {@code value}.
+	 * </p>
+	 *
+	 * <p>
+	 * Valid object types are:
+	 * <ul>
+	 *     <li>boolean</li>
+	 *     <li>byte</li>
+	 *     <li>int</li>
+	 *     <li>float</li>
+	 *     <li>double</li>
+	 *     <li>long</li>
+	 *     <li>enum</li>
+	 *     <li>vector2</li>
+	 *     <li>vector3</li>
+	 *     <li>vector4</li>
+	 *     <li>quaternion</li>
+	 *     <li>color</li>
+	 *     <li>asset</li>
+	 * </ul>
+	 *
+	 * It's worth noting that the expected format of these types can differ.
+	 * </p>
+	 *
+	 * <p>
+	 * {@code enum} expects the value to be in a {@code package.class#index} format, where {@code index} is the
+	 * enum value index.
+	 * </p>
+	 *
+	 * <p>
+	 * {@code vector2}, {@code vector3}, {@code vector4}, {@code quaternion} and {@code color} expect the value to
+	 * be separated by comments, for example: {@code x, y, z, w} for {@code vector4} and {@code quaternion}.
+	 * </p>
+	 *
+	 * <p>
+	 * {@code asset}s will be passed to {@link Assets#load(String)}, so a path is expected.
+	 * </p>
+	 *
+	 * @param type The type of the object, this can only be from a set of predefined values.
+	 * @param value The target value.
+	 * @return The resulting object. It must be manually cast to the expected type.
+	 */
 	public static Object decodeObject(String type, String value)
 	{
 		switch(type)

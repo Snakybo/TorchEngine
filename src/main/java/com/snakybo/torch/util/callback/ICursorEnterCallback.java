@@ -23,11 +23,22 @@
 package com.snakybo.torch.util.callback;
 
 /**
+ * <p>
+ * Callback interface for cursor enter/exit events.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */
 @FunctionalInterface
 public interface ICursorEnterCallback
 {
+	/**
+	 * <p>
+	 * Called when the cursor enters or exits the window.
+	 * </p>
+	 *
+	 * @param entered {@code true} if the cursor has entered the window, {@code false} if the cursor has left the window.
+	 */
 	void onCursorEnter(boolean entered);
 }

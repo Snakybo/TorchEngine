@@ -20,10 +20,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.xml;
+package com.snakybo.torch.xml.parsers;
 
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
+import com.snakybo.torch.xml.XMLParserUtils;
 import org.w3c.dom.Element;
 
 /**
@@ -59,7 +60,7 @@ public final class TextureParser
 		throw new AssertionError();
 	}
 	
-	static TextureData decode(Element element)
+	public static TextureData decode(Element element)
 	{
 		String version = element.getAttribute("version");
 		

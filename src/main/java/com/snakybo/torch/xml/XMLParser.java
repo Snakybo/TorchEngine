@@ -25,12 +25,20 @@ package com.snakybo.torch.xml;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.util.FileUtils;
+import com.snakybo.torch.xml.parsers.MaterialParser;
+import com.snakybo.torch.xml.parsers.SceneParser;
+import com.snakybo.torch.xml.parsers.TextureParser;
 import org.w3c.dom.Document;
 
 import java.net.URI;
 import java.nio.file.NoSuchFileException;
 
 /**
+ * <p>
+ * The XML parser of the engine, currently used only internally by the engine,
+ * but in the future it will be extended so you can add custom decoders.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */
@@ -41,6 +49,20 @@ public final class XMLParser
 		throw new AssertionError();
 	}
 	
+	/**
+	 * <p>
+	 * Decode a DOM file.
+	 * </p>
+	 *
+	 * <p>
+	 * Currently, this method is for internal use by the engine only, but in the future
+	 * it will be extended so you can add custom decoders.
+	 * </p>
+	 *
+	 * @param file The file to decode.
+	 * @return The decoded object.
+	 * @throws NoSuchFileException Thrown if the given {@code file} does not exist.
+	 */
 	public static Object decode(String file) throws NoSuchFileException
 	{
 		LoggerInternal.log("Begin decoding XML file: " + file);

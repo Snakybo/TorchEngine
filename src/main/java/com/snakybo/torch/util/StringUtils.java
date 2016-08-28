@@ -27,6 +27,10 @@ import java.util.Collection;
 import java.util.List;
 
 /**
+ * <p>
+ * A collections of String utilities.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */
@@ -38,9 +42,12 @@ public final class StringUtils
 	}
 	
 	/**
-	 * Remove empty strings from a collection
-	 * @param data The data
-	 * @return The data with empty entries removed
+	 * <p>
+	 * Remove empty strings from a collection.
+	 * </p>
+	 *
+	 * @param data The data.
+	 * @return The data with empty entries removed.
 	 */
 	public static String[] removeEmptyStrings(Collection<String> data)
 	{

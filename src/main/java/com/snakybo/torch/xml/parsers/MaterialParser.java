@@ -20,10 +20,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.xml;
+package com.snakybo.torch.xml.parsers;
 
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
+import com.snakybo.torch.xml.XMLParserUtils;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -57,7 +58,7 @@ public final class MaterialParser
 		throw new AssertionError();
 	}
 	
-	static MaterialData decode(Element element)
+	public static MaterialData decode(Element element)
 	{
 		String version = element.getAttribute("version");
 		

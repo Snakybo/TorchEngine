@@ -23,11 +23,22 @@
 package com.snakybo.torch.util.callback;
 
 /**
+ * <p>
+ * Callback interface for char pressed events.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */
 @FunctionalInterface
 public interface ICharPressedCallback
 {
+	/**
+	 * <p>
+	 * Called when a char has been pressed.
+	 * </p>
+	 *
+	 * @param codepoint The character that has been pressed.
+	 */
 	void onCharPressed(char codepoint);
 }

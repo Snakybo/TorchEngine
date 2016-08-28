@@ -25,6 +25,10 @@ package com.snakybo.torch.util.time;
 import static org.lwjgl.glfw.GLFW.glfwGetTime;
 
 /**
+ * <p>
+ * Used internally by te engine.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */
@@ -41,9 +45,6 @@ public abstract class TimeInternal
 		throw new AssertionError();
 	}
 	
-	/**
-	 * Update the engine time and frame rate
-	 */
 	public static void updateDeltaTime()
 	{
 		Time.lastTime = Time.currentTime;
@@ -52,9 +53,6 @@ public abstract class TimeInternal
 		Time.deltaTime = (float)(Time.currentTime - Time.lastTime);
 	}
 	
-	/**
-	 * Update the frame count
-	 */
 	public static void updateFrameCount()
 	{
 		Time.frameCount++;

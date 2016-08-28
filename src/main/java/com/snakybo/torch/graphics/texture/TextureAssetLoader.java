@@ -25,9 +25,14 @@ package com.snakybo.torch.graphics.texture;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.util.FileUtils;
-import com.snakybo.torch.xml.TextureParser;
+import com.snakybo.torch.xml.parsers.TextureParser;
 import com.snakybo.torch.xml.XMLParser;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
 import java.nio.file.NoSuchFileException;
 
 /**
@@ -57,7 +62,7 @@ public final class TextureAssetLoader
 			
 			return new Texture(
 					path,
-					FileUtils.getBufferedImage(path),
+					getBufferedImage(path),
 					textureData.type,
 					textureData.filters,
 					textureData.anisoLevel,
@@ -71,5 +76,20 @@ public final class TextureAssetLoader
 		}
 		
 		return null;
+	}
+	
+	private static BufferedImage getBufferedImage(String path) throws NoSuchFileException
+	{
+		try
+		{
+			URI uri = FileUtils.toURI(path);
+			return ImageIO.read(new File(uri));
+		}
+		catch(IOException e)
+		{
+			Logger.logError(e.toString(), e);
+		}
+		
+		throw new NoSuchFileException("No file found at: " + path);
 	}
 }

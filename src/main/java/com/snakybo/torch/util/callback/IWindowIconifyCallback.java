@@ -23,11 +23,22 @@
 package com.snakybo.torch.util.callback;
 
 /**
+ * <p>
+ * Callback interface for window iconify/restore events.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */
 @FunctionalInterface
 public interface IWindowIconifyCallback
 {
+	/**
+	 * <p>
+	 * Called when the window has been iconified, or restored.
+	 * </p>
+	 *
+	 * @param iconified {@code true} if the window has been iconified, {@code false} if the window has been restored.
+	 */
 	void onWindowIconify(boolean iconified);
 }

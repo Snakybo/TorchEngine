@@ -30,6 +30,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * <p>
+ * Used internally by the engine.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */
@@ -40,12 +44,6 @@ public final class SerializationUtils
 		throw new AssertionError();
 	}
 	
-	/**
-	 * Set the value of an {@link SerializedField}
-	 * @param object The object of the field
-	 * @param field The field
-	 * @param value The value of the field
-	 */
 	public static void set(Object object, Field field, boolean value)
 	{
 		Class<?> t = field.getType();
@@ -69,12 +67,6 @@ public final class SerializationUtils
 		}
 	}
 	
-	/**
-	 * Set the value of an {@link SerializedField}
-	 * @param object The object of the field
-	 * @param field The field
-	 * @param value The value of the field
-	 */
 	public static void set(Object object, Field field, byte value)
 	{
 		Class<?> t = field.getType();
@@ -98,12 +90,6 @@ public final class SerializationUtils
 		}
 	}
 	
-	/**
-	 * Set the value of an {@link SerializedField}
-	 * @param object The object of the field
-	 * @param field The field
-	 * @param value The value of the field
-	 */
 	public static void set(Object object, Field field, short value)
 	{
 		Class<?> t = field.getType();
@@ -127,12 +113,6 @@ public final class SerializationUtils
 		}
 	}
 	
-	/**
-	 * Set the value of an {@link SerializedField}
-	 * @param object The object of the field
-	 * @param field The field
-	 * @param value The value of the field
-	 */
 	public static void set(Object object, Field field, int value)
 	{
 		Class<?> t = field.getType();
@@ -156,12 +136,6 @@ public final class SerializationUtils
 		}
 	}
 	
-	/**
-	 * Set the value of an {@link SerializedField}
-	 * @param object The object of the field
-	 * @param field The field
-	 * @param value The value of the field
-	 */
 	public static void set(Object object, Field field, float value)
 	{
 		Class<?> t = field.getType();
@@ -185,12 +159,6 @@ public final class SerializationUtils
 		}
 	}
 	
-	/**
-	 * Set the value of an {@link SerializedField}
-	 * @param object The object of the field
-	 * @param field The field
-	 * @param value The value of the field
-	 */
 	public static void set(Object object, Field field, double value)
 	{
 		Class<?> t = field.getType();
@@ -214,12 +182,6 @@ public final class SerializationUtils
 		}
 	}
 	
-	/**
-	 * Set the value of an {@link SerializedField}
-	 * @param object The object of the field
-	 * @param field The field
-	 * @param value The value of the field
-	 */
 	public static void set(Object object, Field field, long value)
 	{
 		Class<?> t = field.getType();
@@ -243,12 +205,6 @@ public final class SerializationUtils
 		}
 	}
 	
-	/**
-	 * Set the value of an {@link SerializedField}
-	 * @param object The object of the field
-	 * @param field The field
-	 * @param value The value of the field
-	 */
 	public static void set(Object object, Field field, char value)
 	{
 		Class<?> t = field.getType();
@@ -272,12 +228,6 @@ public final class SerializationUtils
 		}
 	}
 	
-	/**
-	 * Set the value of an {@link SerializedField}
-	 * @param object The object of the field
-	 * @param field The field
-	 * @param value The value of the field
-	 */
 	public static void set(Object object, Field field, String value)
 	{
 		Class<?> t = field.getType();
@@ -301,12 +251,6 @@ public final class SerializationUtils
 		}
 	}
 	
-	/**
-	 * Set the value of an {@link SerializedField}
-	 * @param object The object of the field
-	 * @param field The field
-	 * @param value The value of the field
-	 */
 	public static void set(Object object, Field field, Object value)
 	{
 		Class<?> t = field.getType();
@@ -330,11 +274,6 @@ public final class SerializationUtils
 		}
 	}
 	
-	/**
-	 * Get all {@link SerializedField}s from an object
-	 * @param object The object
-	 * @return All accessible fields
-	 */
 	public static Field[] getAll(Object object)
 	{
 		List<Field> result = new ArrayList<Field>();
@@ -352,12 +291,6 @@ public final class SerializationUtils
 		return result.toArray(new Field[result.size()]);
 	}
 	
-	/**
-	 * Get an {@link SerializedField} with the specified {@code name}
-	 * @param object The object of the field
-	 * @param name The name of the field
-	 * @return The field, or null if no field was found with the specified name
-	 */
 	public static Field get(Object object, String name)
 	{
 		try
@@ -377,12 +310,6 @@ public final class SerializationUtils
 		return null;
 	}
 	
-	/**
-	 * Get the value of an {@link SerializedField}
-	 * @param object The object of the field
-	 * @param field The field to get the value of
-	 * @return The value of the field as a string
-	 */
 	public static Object getValue(Object object, Field field)
 	{
 		Object result = null;
@@ -403,11 +330,6 @@ public final class SerializationUtils
 		return result;
 	}
 	
-	/**
-	 * Checks if a field is accessible
-	 * @param field The field to check
-	 * @return Whether or not the field is accessible
-	 */
 	public static boolean isExposed(Field field)
 	{
 		int modifiers = field.getModifiers();

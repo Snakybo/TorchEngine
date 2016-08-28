@@ -28,6 +28,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * <p>
+ * Used internally by the engine.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */

@@ -24,8 +24,7 @@ package com.snakybo.torch.graphics.texture;
 
 import com.snakybo.torch.asset.AssetData;
 import com.snakybo.torch.util.MathUtils;
-import com.snakybo.torch.util.ToByteBuffer;
-import org.lwjgl.BufferUtils;
+import com.snakybo.torch.util.BufferUtils;
 
 import java.awt.image.BufferedImage;
 import java.nio.IntBuffer;
@@ -40,7 +39,6 @@ import static org.lwjgl.opengl.GL11.GL_LINEAR_MIPMAP_NEAREST;
 import static org.lwjgl.opengl.GL11.GL_NEAREST;
 import static org.lwjgl.opengl.GL11.GL_NEAREST_MIPMAP_LINEAR;
 import static org.lwjgl.opengl.GL11.GL_NEAREST_MIPMAP_NEAREST;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_MAG_FILTER;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_MIN_FILTER;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_WRAP_S;
@@ -81,7 +79,7 @@ final class TextureAsset extends AssetData
 		
 		if(size > 0)
 		{
-			this.id = BufferUtils.createIntBuffer(size);
+			this.id = org.lwjgl.BufferUtils.createIntBuffer(size);
 			glGenTextures(id);
 		}
 		
@@ -124,7 +122,7 @@ final class TextureAsset extends AssetData
 			glTexParameteri(type, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 		}
 		
-		glTexImage2D(type, 0, internalFormat, bufferedImage.getWidth(), bufferedImage.getHeight(), 0, format, GL_UNSIGNED_BYTE, ToByteBuffer.convert(bufferedImage));
+		glTexImage2D(type, 0, internalFormat, bufferedImage.getWidth(), bufferedImage.getHeight(), 0, format, GL_UNSIGNED_BYTE, BufferUtils.toByteBuffer(bufferedImage));
 		
 		// Mipmaps
 		boolean hasMipmaps = filters == GL_LINEAR_MIPMAP_LINEAR || filters == GL_LINEAR_MIPMAP_NEAREST ||
