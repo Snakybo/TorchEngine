@@ -54,21 +54,26 @@ public final class MeshRenderer extends Component
 	@Override
 	protected final void onStart()
 	{
-		meshRenderer = new MeshRendererInternal(mesh, material);
+		meshRenderer = new MeshRendererInternal(mesh);
 		material.setTransform(getTransform());
-		meshRenderer.create();
 	}
 	
 	@Override
 	protected final void onRenderObject()
 	{
+		material.bind();
+		material.update();
+		
 		meshRenderer.render();
+		
+		material.unbind();
 	}
 	
 	@Override
 	protected final void onDestroy()
 	{
 		meshRenderer.destroy();
+		material.destroy();
 	}
 	
 	/**
@@ -87,7 +92,7 @@ public final class MeshRenderer extends Component
 	{
 		this.mesh = mesh;
 		meshRenderer.destroy();
-		meshRenderer = new MeshRendererInternal(mesh, material);
+		meshRenderer = new MeshRendererInternal(mesh);
 	}
 	
 	/**
@@ -100,7 +105,6 @@ public final class MeshRenderer extends Component
 	public final void setMaterial(Material material)
 	{
 		this.material = material;
-		meshRenderer.setMaterial(material);
 	}
 	
 	/**

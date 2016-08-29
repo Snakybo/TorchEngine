@@ -24,6 +24,8 @@ package opengl;
 
 import com.snakybo.torch.component.MeshRenderer;
 import com.snakybo.torch.debug.Logger;
+import com.snakybo.torch.graphics.color.Color;
+import com.snakybo.torch.graphics.gizmo.Gizmos;
 import com.snakybo.torch.graphics.texture.Texture;
 import com.snakybo.torch.object.Component;
 import com.snakybo.torch.scene.Scene;
@@ -81,9 +83,8 @@ public class LightController extends Component
 		
 		if(meshRenderer != null)
 		{
-			meshRenderer.getMaterial().setVector3f("light.direction", new Vector3f(-0.2f, -1.0f, -0.3f));
+			meshRenderer.getMaterial().setVector3f("light.direction", getTransform().forward());
 		}
-		
 		
 //		float r = (float)Math.sin(Time.getCurrentTime() * 2.0f);
 //		float g = (float)Math.sin(Time.getCurrentTime() * 0.7f);
@@ -94,5 +95,15 @@ public class LightController extends Component
 //
 //		meshRenderer.getMaterial().setVector3f("light.ambient", ambientColor);
 //		meshRenderer.getMaterial().setVector3f("light.diffuse", diffuseColor);
+	}
+	
+	@Override
+	protected void onRenderGizmos()
+	{
+		Gizmos.setColor(Color.BLUE);
+		Gizmos.drawCube(getTransform().getPosition(), new Vector3f(0.1f, 0.1f, 0.1f));
+		
+		Gizmos.setColor(Color.RED);
+		Gizmos.drawCube(getTransform().getPosition().add(getTransform().forward().mul(0.2f)), new Vector3f(0.1f, 0.1f, 0.1f));
 	}
 }

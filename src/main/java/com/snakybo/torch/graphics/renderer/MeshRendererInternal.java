@@ -62,20 +62,15 @@ public final class MeshRendererInternal
 	private static final int INDEX_VBO = 3;
 	private static final int LAST_VBO = INDEX_VBO;
 	
-	private Material material;
 	private Mesh mesh;
 	
 	private IntBuffer vao;
 	private IntBuffer vbo;
 	
-	public MeshRendererInternal(Mesh mesh, Material material)
+	public MeshRendererInternal(Mesh mesh)
 	{
 		this.mesh = mesh;
-		this.material = material;
-	}
-	
-	public final void create()
-	{
+		
 		vao = BufferUtils.createIntBuffer(1);
 		vbo = BufferUtils.createIntBuffer(LAST_VBO + 1);
 		
@@ -84,7 +79,7 @@ public final class MeshRendererInternal
 		
 		glGenBuffers(vbo);
 		
-		glBindBuffer(GL_ARRAY_BUFFER, vbo.get(POSITION_VBO));		
+		glBindBuffer(GL_ARRAY_BUFFER, vbo.get(POSITION_VBO));
 		glBufferData(GL_ARRAY_BUFFER, mesh.getVertexBuffer(), GL_STATIC_DRAW);
 		glVertexAttribPointer(POSITION_VBO, 3, GL_FLOAT, false, 0, 0);
 		
@@ -105,24 +100,24 @@ public final class MeshRendererInternal
 	
 	public final void render()
 	{
-		material.bind();
-		material.update();
-		
+		render(GL_TRIANGLES);
+	}
+	
+	public final void render(int renderMode)
+	{
 		glBindVertexArray(vao.get(0));
 		
 		glEnableVertexAttribArray(0);
 		glEnableVertexAttribArray(1);
 		glEnableVertexAttribArray(2);
 		
-		glDrawElements(GL_TRIANGLES, mesh.getNumIndices(), GL_UNSIGNED_INT, 0);
+		glDrawElements(renderMode, mesh.getNumIndices(), GL_UNSIGNED_INT, 0);
 		
 		glDisableVertexAttribArray(2);
 		glDisableVertexAttribArray(1);
 		glDisableVertexAttribArray(0);
 		
 		glBindVertexArray(0);
-		
-		material.unbind();
 	}
 	
 	public final void destroy()
@@ -134,17 +129,5 @@ public final class MeshRendererInternal
 		
 		glBindVertexArray(0);
 		glDeleteVertexArrays(vao);
-		
-		material.destroy();
-	}
-	
-	public final void setMaterial(Material material)
-	{
-		this.material = material;
-	}
-	
-	public final Material getMaterial()
-	{
-		return material;
 	}
 }

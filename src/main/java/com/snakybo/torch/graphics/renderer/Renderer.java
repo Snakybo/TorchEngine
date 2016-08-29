@@ -31,11 +31,13 @@ import static org.lwjgl.opengl.GL11.GL_BACK;
 import static org.lwjgl.opengl.GL11.GL_CULL_FACE;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_TEST;
 import static org.lwjgl.opengl.GL11.GL_EXTENSIONS;
+import static org.lwjgl.opengl.GL11.GL_FRONT;
 import static org.lwjgl.opengl.GL11.GL_RENDERER;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
 import static org.lwjgl.opengl.GL11.GL_VENDOR;
 import static org.lwjgl.opengl.GL11.GL_VERSION;
 import static org.lwjgl.opengl.GL11.glCullFace;
+import static org.lwjgl.opengl.GL11.glDisable;
 import static org.lwjgl.opengl.GL11.glEnable;
 import static org.lwjgl.opengl.GL11.glGetString;
 
@@ -61,17 +63,25 @@ public final class Renderer
 		LoggerInternal.log("OpenGL Version: " + glGetString(GL_VERSION));
 		LoggerInternal.log("OpenGL Extensions: " + glGetString(GL_EXTENSIONS));
 		
-		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_TEXTURE_2D);
-		
-		glEnable(GL_CULL_FACE);
-		glCullFace(GL_BACK);
 	}
 	
 	public static void render(GameObject gameObject)
 	{
+		glEnable(GL_DEPTH_TEST);
+		glEnable(GL_CULL_FACE);
+		glCullFace(GL_BACK);
+		
 		GameObjectInternal.onPreRender(gameObject);
 		GameObjectInternal.onRender(gameObject);
 		GameObjectInternal.onPostRender(gameObject);
+	}
+	
+	public static void renderGizmos(GameObject gameObject)
+	{
+		glDisable(GL_DEPTH_TEST);
+		glDisable(GL_CULL_FACE);
+		
+		GameObjectInternal.onRenderGizmos(gameObject);
 	}
 }

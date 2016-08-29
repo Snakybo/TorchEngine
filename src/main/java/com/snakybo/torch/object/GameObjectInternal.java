@@ -74,4 +74,9 @@ public final class GameObjectInternal
 	{
 		gameObject.components.forEach(Component::onPostRenderObject);
 	}
+	
+	public static void onRenderGizmos(GameObject gameObject)
+	{
+		gameObject.components.forEach(Component::onRenderGizmos);
+	}
 }

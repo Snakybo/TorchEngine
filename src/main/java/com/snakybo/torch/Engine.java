@@ -25,14 +25,18 @@ package com.snakybo.torch;
 import com.snakybo.torch.component.Camera;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.debug.LoggerInternal;
+import com.snakybo.torch.graphics.gizmo.Gizmos;
+import com.snakybo.torch.graphics.gizmo.GizmosInternal;
 import com.snakybo.torch.graphics.glfw.GLFW;
 import com.snakybo.torch.graphics.monitor.MonitorController;
+import com.snakybo.torch.graphics.renderer.Renderer;
 import com.snakybo.torch.graphics.window.Window;
 import com.snakybo.torch.graphics.window.WindowInternal;
 import com.snakybo.torch.input.cursor.CursorController;
 import com.snakybo.torch.input.joystick.JoystickController;
 import com.snakybo.torch.input.keyboard.KeyboardController;
 import com.snakybo.torch.input.mouse.MouseController;
+import com.snakybo.torch.object.GameObject;
 import com.snakybo.torch.object.GameObjectInternal;
 import com.snakybo.torch.object.TorchObject;
 import com.snakybo.torch.scene.SceneInternal;
@@ -167,6 +171,17 @@ public final class Engine
 	private static void render()
 	{
 		Camera.getCameras().forEach(Camera::render);
+		
+		GizmosInternal.isInGizmoRenderPass = true;
+		
+		// Render gizmos
+		for(GameObject gameObject : SceneInternal.getAllInitializedGameObjects())
+		{
+			Gizmos.reset();
+			Renderer.renderGizmos(gameObject);
+		}
+		
+		GizmosInternal.isInGizmoRenderPass = false;
 		
 		WindowInternal.update();
 		

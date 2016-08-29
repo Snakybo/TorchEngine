@@ -22,6 +22,8 @@
 
 package com.snakybo.torch.object;
 
+import com.snakybo.torch.graphics.gizmo.Gizmos;
+
 /**
  * <p>
  * Base class for all components.
@@ -113,6 +115,16 @@ public abstract class Component extends TorchObject
 	 * </p>
 	 */
 	protected void onPostRenderObject()
+	{
+	}
+	
+	/**
+	 * <p>
+	 * Called after everything in the scene has been rendered,
+	 * you can only render {@link Gizmos} from here.
+	 * </p>
+	 */
+	protected void onRenderGizmos()
 	{
 	}
 	

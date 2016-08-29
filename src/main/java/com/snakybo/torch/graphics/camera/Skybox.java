@@ -50,8 +50,7 @@ final class Skybox
 		material = new Material("unlit.glsl");
 		material.setTransform(transform);
 		
-		meshRenderer = new MeshRendererInternal(Assets.load(Mesh.class, "skybox.obj"), material);
-		meshRenderer.create();
+		meshRenderer = new MeshRendererInternal(Assets.load(Mesh.class, "skybox.obj"));
 	}
 	
 	public final void render()
@@ -64,7 +63,13 @@ final class Skybox
 		}
 		
 		transform.setPosition(position);
+		
+		material.bind();
+		material.update();
+		
 		meshRenderer.render();
+		
+		material.unbind();
 	}
 	
 	public final void setTexture(Texture texture)
