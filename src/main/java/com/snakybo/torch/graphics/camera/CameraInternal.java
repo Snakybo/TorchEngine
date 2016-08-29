@@ -151,7 +151,7 @@ public final class CameraInternal
 	
 	public final Matrix4f getViewMatrix()
 	{
-		return new Matrix4f().translate(transform.getPosition()).rotate(transform.getRotation());
+		return new Matrix4f().rotate(transform.getRotation()).translate(transform.getPosition());
 	}
 	
 	public final Transform getTransform()
