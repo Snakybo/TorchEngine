@@ -42,7 +42,7 @@ public class CameraFreeMove extends Component
 	@SerializedField private Key up = Key.E;
 	@SerializedField private Key down = Key.Q;
 	
-	@SerializedField private float speed = 2f;
+	@SerializedField private float speed = 2.5f;
 	
 	@Override
 	protected void onUpdate()
