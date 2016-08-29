@@ -84,6 +84,17 @@ import java.util.Set;
  */
 public final class TorchCallbacks
 {
+	/**
+	 * <p>
+	 * Callback handler.
+	 * </p>
+	 *
+	 * <p>
+	 * Keeps track of registered callbacks.
+	 * </p>
+	 *
+	 * @param <T> The callback type.
+	 */
 	public static final class Callback<T>
 	{
 		private Set<T> callbacks;
@@ -102,7 +113,7 @@ public final class TorchCallbacks
 		 * <p>
 		 * <strong>Note:</strong> If the {@code callback} is a method in a {@link Component},
 		 * it will receive callbacks even after the {@code Component} has been destroyed.
-		 * Make sure to un-subscribe from the callback.
+		 * <strong>Make sure to un-subscribe from the callback.</strong>
 		 * </p>
 		 *
 		 * @param callback The callback method.
