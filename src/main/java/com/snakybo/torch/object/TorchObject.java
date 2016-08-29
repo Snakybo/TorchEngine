@@ -105,8 +105,7 @@ public class TorchObject implements Serializable
 	 *
 	 * <p>
 	 * If the {@code obj} is a {@link GameObject}, it will work in a recursive manner, it will first schedule the
-	 * {@code GameObject} itself, and all components for removal.
-	 * After that it will work recursively for all children of the {@code GameObject}.
+	 * {@code GameObject} itself, and then all components for removal.
 	 * </p>
 	 *
 	 * @param obj The object to destroy.
@@ -121,12 +120,6 @@ public class TorchObject implements Serializable
 			
 			// Also destroy all components
 			gameObject.components.forEach(TorchObject::destroy);
-			
-			// Destroy all children of the GameObject
-			for(Transform transform : gameObject.getTransform().getChildren())
-			{
-				destroy(transform.gameObject);
-			}
 		}
 		else if(obj instanceof Component)
 		{

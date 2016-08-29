@@ -24,6 +24,7 @@ package com.snakybo.torch.graphics.camera;
 
 import com.snakybo.torch.asset.Assets;
 import com.snakybo.torch.component.Camera;
+import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.graphics.material.Material;
 import com.snakybo.torch.graphics.mesh.Mesh;
 import com.snakybo.torch.graphics.renderer.MeshRendererInternal;
@@ -44,7 +45,7 @@ final class Skybox
 	public Skybox()
 	{
 		transform = new Transform();
-		transform.setLocalScale(new Vector3f(50));
+		transform.setScale(new Vector3f(50));
 		
 		material = new Material("unlit.glsl");
 		material.setTransform(transform);
@@ -62,7 +63,7 @@ final class Skybox
 			position = Camera.getMainCamera().getTransform().getPosition();
 		}
 		
-		transform.setLocalPosition(position);
+		transform.setPosition(position);
 		meshRenderer.render();
 	}
 	

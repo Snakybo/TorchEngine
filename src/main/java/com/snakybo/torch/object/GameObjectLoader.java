@@ -40,9 +40,9 @@ public final class GameObjectLoader
 	{
 		GameObject gameObject = new GameObject(gameObjectData.name);
 		
-		gameObject.getTransform().setLocalPosition(gameObjectData.position);
-		gameObject.getTransform().setLocalRotation(gameObjectData.rotation);
-		gameObject.getTransform().setLocalScale(gameObjectData.scale);
+		gameObject.getTransform().setPosition(gameObjectData.position);
+		gameObject.getTransform().setRotation(gameObjectData.rotation);
+		gameObject.getTransform().setScale(gameObjectData.scale);
 		
 		for(ComponentParser.ComponentData componentData : gameObjectData.componentData)
 		{

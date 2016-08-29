@@ -22,6 +22,7 @@
 
 package com.snakybo.torch.object;
 
+import com.snakybo.torch.util.time.Time;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
@@ -42,11 +43,6 @@ public final class Transform implements Serializable
 {
 	GameObject gameObject;
 	
-	private Set<Transform> children;
-	
-	private Matrix4f parentMatrix;
-	private Transform parent;
-	
 	private Vector3f position;
 	private Quaternionf rotation;
 	private Vector3f scale;
@@ -56,9 +52,6 @@ public final class Transform implements Serializable
 	 */
 	public Transform()
 	{
-		children = new HashSet<>();
-		parentMatrix = new Matrix4f();
-		
 		position = new Vector3f();
 		rotation = new Quaternionf();
 		scale = new Vector3f(1, 1, 1);
@@ -83,7 +76,7 @@ public final class Transform implements Serializable
 	 */
 	public final void translate(Vector3f direction)
 	{
-		position.add(direction);
+		position.sub(direction);
 	}
 	
 	/**
@@ -143,47 +136,24 @@ public final class Transform implements Serializable
 	
 	/**
 	 * <p>
-	 * Set the parent of the {@code Transform}.
-	 * </p>
-	 *
-	 * @param parent The new parent.
-	 */
-	public final void setParent(Transform parent)
-	{
-		if(parent == this || children.contains(parent))
-		{
-			throw new UnsupportedOperationException("You cannot parent the transform to itself, or it's children");
-		}
-		
-		if(this.parent != null)
-		{
-			this.parent.children.remove(this);
-		}
-		
-		this.parent = parent;
-		this.parent.children.add(this);
-	}
-	
-	/**
-	 * <p>
-	 * Set the local position of the {@code Transform}.
+	 * Set the position of the {@code Transform} in world-space.
 	 * </p>
 	 *
 	 * @param position The new position.
 	 */
-	public final void setLocalPosition(Vector3f position)
+	public final void setPosition(Vector3f position)
 	{
 		this.position = position;
 	}
 	
 	/**
 	 * <p>
-	 * Set the local rotation of the {@code Transform}.
+	 * Set the rotation of the {@code Transform} in world-space.
 	 * </p>
 	 *
 	 * @param rotation The new rotation.
 	 */
-	public final void setLocalRotation(Quaternionf rotation)
+	public final void setRotation(Quaternionf rotation)
 	{
 		this.rotation = rotation;
 	}
@@ -195,21 +165,9 @@ public final class Transform implements Serializable
 	 *
 	 * @param scale The new scale.
 	 */
-	public final void setLocalScale(Vector3f scale)
+	public final void setScale(Vector3f scale)
 	{
 		this.scale = scale;
-	}
-	
-	/**
-	 * <p>
-	 * Get an array containing all children.
-	 * </p>
-	 *
-	 * @return All children.
-	 */
-	public final Transform[] getChildren()
-	{
-		return children.toArray(new Transform[children.size()]);
 	}
 	
 	/**
@@ -221,7 +179,7 @@ public final class Transform implements Serializable
 	 */
 	public final Matrix4f getTransformation()
 	{
-		return getParentMatrix().translate(position).rotate(rotation).scale(scale);
+		return new Matrix4f().translate(-position.x, -position.y, -position.z).scale(scale).rotate(rotation);
 	}
 	
 	/**
@@ -238,92 +196,36 @@ public final class Transform implements Serializable
 	
 	/**
 	 * <p>
-	 * Get the root {@code Transform}.
-	 * </p>
-	 *
-	 * @return The root {@code Transform}, if this is the root {@code Transform}, it will return {@code this}.
-	 */
-	public final Transform getRoot()
-	{
-		Transform root = this;
-		
-		while(root.getParent() != null)
-		{
-			root = root.getParent();
-		}
-		
-		return root;
-	}
-	
-	/**
-	 * <p>
-	 * Get this {@code Transform}'s parent.
-	 * </p>
-	 *
-	 * @return The parent.
-	 */
-	public final Transform getParent()
-	{
-		return parent;
-	}
-	
-	/**
-	 * <p>
-	 * Get the position in world-space (parent.position + position).
+	 * Get the position in world-space.
 	 * </p>
 	 *
 	 * @return The position in world-space.
 	 */
 	public final Vector3f getPosition()
 	{
-		return getParentMatrix().transformPosition(new Vector3f(position));
+		return new Vector3f(position);
 	}
 	
 	/**
 	 * <p>
-	 * Get the rotation in world-space (parent.rotation + rotation).
+	 * Get the rotation in world-space.
 	 * </p>
 	 *
 	 * @return The rotation world space.
 	 */
 	public final Quaternionf getRotation()
 	{
-		Quaternionf parentRotation = parent == null ? new Quaternionf() : parent.getRotation();
-		return parentRotation.mul(new Quaternionf(rotation));
-	}
-	
-	/**
-	 * <p>
-	 * Get the position in local-space.
-	 * </p>
-	 *
-	 * @return The position in local-space.
-	 */
-	public final Vector3f getLocalPosition()
-	{
-		return new Vector3f(position);
-	}
-	
-	/**
-	 * <p>
-	 * Get the rotation in local-space.
-	 * </p>
-	 *
-	 * @return The rotation of the transform in local-space.
-	 */
-	public final Quaternionf getLocalRotation()
-	{
 		return new Quaternionf(rotation);
 	}
 	
 	/**
 	 * <p>
-	 * Get the scale in local-space.
+	 * Get the scale of the {@code Transform}.
 	 * </p>
 	 *
-	 * @return The scale in local-space.
+	 * @return The scale.
 	 */
-	public final Vector3f getLocalScale()
+	public final Vector3f getScale()
 	{
 		return new Vector3f(scale);
 	}
@@ -337,7 +239,7 @@ public final class Transform implements Serializable
 	 */
 	public final Vector3f getForward()
 	{
-		return new Vector3f(0, 0, 1).rotate(rotation);
+		return rotation.positiveZ(new Vector3f()).negate();
 	}
 	/**
 	 * <p>
@@ -348,7 +250,7 @@ public final class Transform implements Serializable
 	 */
 	public final Vector3f getBack()
 	{
-		return new Vector3f(0, 0, -1).rotate(rotation);
+		return rotation.positiveZ(new Vector3f());
 	}
 	
 	/**
@@ -360,7 +262,7 @@ public final class Transform implements Serializable
 	 */
 	public final Vector3f getLeft()
 	{
-		return new Vector3f(-1, 0, 0).rotate(rotation);
+		return rotation.positiveX(new Vector3f()).negate();
 	}
 	
 	/**
@@ -372,7 +274,7 @@ public final class Transform implements Serializable
 	 */
 	public final Vector3f getRight()
 	{
-		return new Vector3f(1, 0, 0).rotate(rotation);
+		return rotation.positiveX(new Vector3f());
 	}
 	
 	/**
@@ -384,7 +286,7 @@ public final class Transform implements Serializable
 	 */
 	public final Vector3f getUp()
 	{
-		return new Vector3f(0, 1, 0).rotate(rotation);
+		return rotation.positiveY(new Vector3f());
 	}
 	
 	/**
@@ -396,24 +298,6 @@ public final class Transform implements Serializable
 	 */
 	public final Vector3f getDown()
 	{
-		return new Vector3f(0, -1, 0).rotate(rotation);
-	}
-	
-	/**
-	 * <p>
-	 * Get the number of children this {@code Transform} has.
-	 * </p>
-	 *
-	 * @return The number of children.
-	 */
-	public final int getNumChildren()
-	{
-		return children.size();
-	}
-	
-	private Matrix4f getParentMatrix()
-	{
-		parentMatrix = parent == null ? parentMatrix.identity() : parentMatrix.set(parent.getTransformation());
-		return parentMatrix;
+		return rotation.positiveY(new Vector3f()).negate();
 	}
 }

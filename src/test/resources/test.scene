@@ -16,6 +16,14 @@
                         <clearColor type="color">0, 0, 0, 1</clearColor>
                     </fields>
                 </component>
+                <component type="opengl.CameraFreeLook">
+                    <fields>
+                    </fields>
+                </component>
+                <component type="opengl.CameraFreeMove">
+                    <fields>
+                    </fields>
+                </component>
             </components>
         </game_object>
         <game_object name="Grassblock">

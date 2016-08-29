@@ -38,7 +38,7 @@ import org.joml.Vector3f;
  */
 public class CameraFreeLook extends Component
 {
-	@SerializedField private float sensitivity = 4;
+	@SerializedField private float sensitivity = 0.5f;
 	
 	@Override
 	protected void onStart()
@@ -68,22 +68,12 @@ public class CameraFreeLook extends Component
 
 		if(delta.y != 0)
 		{
-			rotate(getTransform().getRight(), -delta.y);
+			rotate(getTransform().getRight(), delta.y);
 		}
 	}
 	
 	private void rotate(Vector3f axis, float amount)
 	{
-		getTransform().rotate(axis, -amount * sensitivity * Time.getDeltaTime());
-	}
-	
-	public final void setSensitivity(float sensitivity)
-	{
-		this.sensitivity = sensitivity;
-	}
-	
-	public final float getSensitivity()
-	{
-		return sensitivity;
+		getTransform().rotate(axis, amount * sensitivity * Time.getDeltaTime());
 	}
 }

@@ -39,32 +39,47 @@ public class CameraFreeMove extends Component
 	@SerializedField private Key left = Key.A;
 	@SerializedField private Key back = Key.S;
 	@SerializedField private Key right = Key.D;
+	@SerializedField private Key up = Key.E;
+	@SerializedField private Key down = Key.Q;
 	
 	@SerializedField private float speed = 2f;
 	
 	@Override
 	protected void onUpdate()
 	{
-		Vector3f direction = new Vector3f();
-		
 		if(Keyboard.isDown(forward))
 		{
-			direction.z = -1;
+			move(getTransform().getForward());
 		}
-		else if(Keyboard.isDown(back))
+		
+		if(Keyboard.isDown(back))
 		{
-			direction.z = 1;
+			move(getTransform().getBack());
 		}
 		
 		if(Keyboard.isDown(left))
 		{
-			direction.x = -1;
-		}
-		else if(Keyboard.isDown(right))
-		{
-			direction.x = 1;
+			move(getTransform().getLeft());
 		}
 		
+		if(Keyboard.isDown(right))
+		{
+			move(getTransform().getRight());
+		}
+		
+		if(Keyboard.isDown(up))
+		{
+			move(getTransform().getUp());
+		}
+		
+		if(Keyboard.isDown(down))
+		{
+			move(getTransform().getDown());
+		}
+	}
+	
+	private void move(Vector3f direction)
+	{
 		getTransform().translate(direction.mul(speed * Time.getDeltaTime()));
 	}
 	
