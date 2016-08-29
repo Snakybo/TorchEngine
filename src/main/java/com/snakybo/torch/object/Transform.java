@@ -237,7 +237,7 @@ public final class Transform implements Serializable
 	 *
 	 * @return The forward direction.
 	 */
-	public final Vector3f getForward()
+	public final Vector3f forward()
 	{
 		return rotation.positiveZ(new Vector3f()).negate();
 	}
@@ -248,7 +248,7 @@ public final class Transform implements Serializable
 	 *
 	 * @return The backward direction.
 	 */
-	public final Vector3f getBack()
+	public final Vector3f backward()
 	{
 		return rotation.positiveZ(new Vector3f());
 	}
@@ -260,7 +260,7 @@ public final class Transform implements Serializable
 	 *
 	 * @return The left direction.
 	 */
-	public final Vector3f getLeft()
+	public final Vector3f left()
 	{
 		return rotation.positiveX(new Vector3f()).negate();
 	}
@@ -272,7 +272,7 @@ public final class Transform implements Serializable
 	 *
 	 * @return The right direction.
 	 */
-	public final Vector3f getRight()
+	public final Vector3f right()
 	{
 		return rotation.positiveX(new Vector3f());
 	}
@@ -284,7 +284,7 @@ public final class Transform implements Serializable
 	 *
 	 * @return The up direction.
 	 */
-	public final Vector3f getUp()
+	public final Vector3f up()
 	{
 		return rotation.positiveY(new Vector3f());
 	}
@@ -296,7 +296,7 @@ public final class Transform implements Serializable
 	 *
 	 * @return The down direction.
 	 */
-	public final Vector3f getDown()
+	public final Vector3f down()
 	{
 		return rotation.positiveY(new Vector3f()).negate();
 	}

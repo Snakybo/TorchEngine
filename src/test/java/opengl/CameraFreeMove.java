@@ -49,32 +49,32 @@ public class CameraFreeMove extends Component
 	{
 		if(Keyboard.isDown(forward))
 		{
-			move(getTransform().getForward());
+			move(getTransform().forward());
 		}
 		
 		if(Keyboard.isDown(back))
 		{
-			move(getTransform().getBack());
+			move(getTransform().backward());
 		}
 		
 		if(Keyboard.isDown(left))
 		{
-			move(getTransform().getLeft());
+			move(getTransform().left());
 		}
 		
 		if(Keyboard.isDown(right))
 		{
-			move(getTransform().getRight());
+			move(getTransform().right());
 		}
 		
 		if(Keyboard.isDown(up))
 		{
-			move(getTransform().getUp());
+			move(getTransform().up());
 		}
 		
 		if(Keyboard.isDown(down))
 		{
-			move(getTransform().getDown());
+			move(getTransform().down());
 		}
 	}
 	

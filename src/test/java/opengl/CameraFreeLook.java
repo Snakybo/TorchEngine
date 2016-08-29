@@ -25,7 +25,10 @@ package opengl;
 import com.snakybo.torch.graphics.window.Window;
 import com.snakybo.torch.input.cursor.Cursor;
 import com.snakybo.torch.input.cursor.CursorLockMode;
+import com.snakybo.torch.input.keyboard.Key;
+import com.snakybo.torch.input.keyboard.Keyboard;
 import com.snakybo.torch.input.mouse.Mouse;
+import com.snakybo.torch.input.mouse.MouseButton;
 import com.snakybo.torch.object.Component;
 import com.snakybo.torch.util.serialized.SerializedField;
 import com.snakybo.torch.util.time.Time;
@@ -59,6 +62,20 @@ public class CameraFreeLook extends Component
 	@Override
 	protected void onUpdate()
 	{
+		if(Cursor.getLockMode() != CursorLockMode.Locked)
+		{
+			if(Mouse.onDown(MouseButton.LEFT))
+			{
+				Cursor.setLockMode(CursorLockMode.Locked);
+				Cursor.setVisible(false);
+			}
+		}
+		
+		if(Cursor.getLockMode() != CursorLockMode.Locked)
+		{
+			return;
+		}
+		
 		Vector2f delta = Mouse.getCursorPositionDelta();
 
 		if(delta.x != 0)
@@ -68,7 +85,7 @@ public class CameraFreeLook extends Component
 
 		if(delta.y != 0)
 		{
-			rotate(getTransform().getRight(), delta.y);
+			rotate(getTransform().right(), delta.y);
 		}
 	}
 	
