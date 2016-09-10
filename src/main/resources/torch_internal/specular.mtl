@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<material shader="specular.glsl" version="1">
-    <properties>
-        <material.shininess type="float">32</material.shininess>
-        <light.ambient type="vector3">0.4, 0.4, 0.4</light.ambient>
-        <light.diffuse type="vector3">0.5, 0.5, 0.5</light.diffuse>
-        <light.specular type="vector3">1.0, 1.0, 1.0</light.specular>
-    </properties>
-</material>

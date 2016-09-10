@@ -174,7 +174,26 @@ public final class Material extends Asset
 				asset.shader.setUniform2f(value.getKey(), (Vector2f)value.getValue());
 				break;
 			case "vec3":
-				asset.shader.setUniform3f(value.getKey(), (Vector3f)value.getValue());
+				if(value.getValue().getClass().equals(Vector3f.class))
+				{
+					asset.shader.setUniform3f(value.getKey(), (Vector3f)value.getValue());
+				}
+				else if(value.getValue().getClass().equals(Color.class))
+				{
+					Color c = (Color)value.getValue();
+					asset.shader.setUniform3f(value.getKey(), new Vector3f(c.getRed(), c.getGreen(), c.getBlue()));
+				}
+				break;
+			case "vec4":
+				if(value.getValue().getClass().equals(Vector4f.class))
+				{
+					asset.shader.setUniform4f(value.getKey(), (Vector4f)value.getValue());
+				}
+				else if(value.getValue().getClass().equals(Color.class))
+				{
+					Color c = (Color)value.getValue();
+					asset.shader.setUniform4f(value.getKey(), new Vector4f(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha()));
+				}
 				break;
 			default:
 				Logger.logWarning("Invalid uniform type: " + type);
