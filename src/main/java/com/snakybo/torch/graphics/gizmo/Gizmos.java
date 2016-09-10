@@ -36,7 +36,13 @@ import org.lwjgl.BufferUtils;
 
 import java.nio.FloatBuffer;
 
+import static org.lwjgl.opengl.GL11.GL_FILL;
+import static org.lwjgl.opengl.GL11.GL_FRONT_AND_BACK;
+import static org.lwjgl.opengl.GL11.GL_LINE;
+import static org.lwjgl.opengl.GL11.GL_LINES;
+import static org.lwjgl.opengl.GL11.GL_QUADS;
 import static org.lwjgl.opengl.GL11.GL_TRIANGLES;
+import static org.lwjgl.opengl.GL11.glPolygonMode;
 
 /**
  * <p>
@@ -52,18 +58,12 @@ import static org.lwjgl.opengl.GL11.GL_TRIANGLES;
  */
 public final class Gizmos
 {
-	private static MeshRendererInternal cubeRenderer;
-	
-	private static FloatBuffer tempBuffer;
 	private static Shader shader;
 	
 	private static Color color;
 	
 	static
 	{
-		cubeRenderer = new MeshRendererInternal(Assets.load(Mesh.class, "cube.obj"));
-		
-		tempBuffer = BufferUtils.createFloatBuffer(16);
 		shader = Assets.load(Shader.class, "gizmos.glsl");
 		
 		setColor(Color.WHITE);
@@ -104,7 +104,85 @@ public final class Gizmos
 			return;
 		}
 		
-		drawCube(position, size, GL_TRIANGLES);
+		shader.bind();
+		
+		updateMatrix(position, size);
+		GizmoShapeCube.render(GL_TRIANGLES);
+		
+		shader.unbind();
+	}
+	
+	/**
+	 * <p>
+	 * Draw the wireframe of a cube at the target {@code position}.
+	 * </p>
+	 *
+	 * @param position The position to draw the cube at.
+	 * @param size The size of the cube.
+	 */
+	public static void drawCubeWireframe(Vector3f position, Vector3f size)
+	{
+		if(!canRender())
+		{
+			return;
+		}
+		
+		shader.bind();
+		
+		updateMatrix(position, size);
+		GizmoShapeCubeWireframe.render(GL_LINES);
+		
+		shader.unbind();
+	}
+	
+	/**
+	 * <p>
+	 * Draw a solid sphere at the target {@code position}.
+	 * </p>
+	 *
+	 * @param position The position to draw the sphere at.
+	 * @param radius The radius of the sphere.
+	 */
+	public static void drawSphere(Vector3f position, float radius)
+	{
+		if(!canRender())
+		{
+			return;
+		}
+		
+		shader.bind();
+		
+		updateMatrix(position, new Vector3f(radius));
+		GizmoShapeSphere.render(GL_QUADS);
+		
+		shader.unbind();
+	}
+	
+	/**
+	 * <p>
+	 * Draw a wireframe of a sphere at the target {@code position}.
+	 * </p>
+	 *
+	 * @param position The position to draw the sphere at.
+	 * @param radius The radius of the sphere.
+	 */
+	public static void drawSphereWireframe(Vector3f position, float radius)
+	{
+		if(!canRender())
+		{
+			return;
+		}
+		
+		shader.bind();
+		
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		
+		updateMatrix(position, new Vector3f(radius));
+		GizmoShapeSphere.render(GL_QUADS);
+		
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		
+		shader.unbind();
 	}
 	
 	private static void updateMatrix(Vector3f position, Vector3f size)
@@ -114,17 +192,6 @@ public final class Gizmos
 		shader.setUniform4fv("_view", Camera.getMainCamera().getViewMatrix());
 		
 		shader.setUniform3f("color", new Vector3f(color.getRed(), color.getGreen(), color.getBlue()));
-	}
-	
-	private static void drawCube(Vector3f position, Vector3f size, int renderMode)
-	{
-		shader.bind();
-		
-		updateMatrix(position, size);
-		
-		cubeRenderer.render(renderMode);
-		
-		shader.unbind();
 	}
 	
 	private static boolean canRender()
