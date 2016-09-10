@@ -93,8 +93,6 @@ public final class GameObject extends TorchObject
 			componentsToAdd.add(result);
 			components.add(result);
 			
-			result.onCreate();
-			
 			return result;
 		}
 		catch(ReflectiveOperationException e)
@@ -116,7 +114,10 @@ public final class GameObject extends TorchObject
 	 */
 	public final <T extends Component> T addComponent(Class<T> component)
 	{
-		return component.cast(addComponentInternal(component));
+		T result = component.cast(addComponentInternal(component));
+		result.onCreate();
+		
+		return result;
 	}
 	
 	/**<p>

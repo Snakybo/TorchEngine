@@ -90,5 +90,7 @@ public final class ComponentLoader
 				break;
 			}
 		}
+		
+		component.onCreate();
 	}
 }
