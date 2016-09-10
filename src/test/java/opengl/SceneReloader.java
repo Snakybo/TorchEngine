@@ -22,67 +22,32 @@
 
 package opengl;
 
-import com.snakybo.torch.component.Camera;
 import com.snakybo.torch.component.MeshRenderer;
 import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.graphics.color.Color;
 import com.snakybo.torch.graphics.gizmo.Gizmos;
 import com.snakybo.torch.graphics.texture.Texture;
+import com.snakybo.torch.input.keyboard.Key;
+import com.snakybo.torch.input.keyboard.Keyboard;
 import com.snakybo.torch.object.Component;
-import com.snakybo.torch.object.Transform;
 import com.snakybo.torch.scene.Scene;
 import com.snakybo.torch.util.serialized.SerializedField;
 import org.joml.Vector3f;
-
-import java.util.Random;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public class LightController extends Component
+public class SceneReloader extends Component
 {
-	private MeshRenderer meshRenderer;
-	
 	@Override
 	protected void onUpdate()
 	{
-		if(meshRenderer == null)
+		if(Keyboard.isDown(Key.LEFT_CONTROL) && Keyboard.onDown(Key.R))
 		{
-			meshRenderer = Scene.getGameObjectByName("Grassblock").getComponent(MeshRenderer.class);
+			Logger.log("Reloading scene");
 			
-			if(meshRenderer == null)
-			{
-				Logger.logError("Unable to retrieve MeshRenderer");
-			}
+			Scene.load("test");
 		}
-		
-		if(meshRenderer != null)
-		{
-			meshRenderer.getMaterial().setVector3f("directionalLight.direction", getTransform().forward());
-			
-			Transform camera = Camera.getMainCamera().getTransform();
-			
-			meshRenderer.getMaterial().setVector3f("spotLight.position", camera.getPosition());
-			meshRenderer.getMaterial().setVector3f("spotLight.direction", camera.forward());
-			meshRenderer.getMaterial().setFloat("spotLight.cutOff", (float)Math.toRadians(10.0));
-			meshRenderer.getMaterial().setFloat("spotLight.outerCutOff", (float)Math.toRadians(15.0));
-		}
-	}
-	
-	@Override
-	protected void onRenderGizmos()
-	{
-		Gizmos.setColor(new Color(1, 0, 0));
-		Gizmos.drawSphere(new Vector3f(2f, -1.2f, 3.0f), 0.1f);
-		
-		Gizmos.setColor(new Color(0, 1, 0));
-		Gizmos.drawSphere(new Vector3f(0, 5, 0), 0.1f);
-		
-		Gizmos.setColor(new Color(0, 0, 1));
-		Gizmos.drawSphere(new Vector3f(2, 0, -1), 0.1f);
-		
-		Gizmos.setColor(new Color(1, 1, 0));
-		Gizmos.drawSphere(new Vector3f(-2.3f, 0.7f, 2.8f), 0.1f);
 	}
 }

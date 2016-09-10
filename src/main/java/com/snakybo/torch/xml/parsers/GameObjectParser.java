@@ -70,13 +70,13 @@ public final class GameObjectParser
 		LoggerInternal.log("GameObject name: " + name);
 		
 		Element positionElement = (Element)element.getElementsByTagName("position").item(0);
-		Vector3f position = (Vector3f)XMLParserUtils.decodeObject(positionElement.getAttribute("type"), positionElement.getTextContent());
+		Vector3f position = (Vector3f)XMLParserUtils.decodeObject("vector3", positionElement.getTextContent());
 		
 		Element rotationElement = (Element)element.getElementsByTagName("rotation").item(0);
-		Quaternionf rotation = (Quaternionf)XMLParserUtils.decodeObject(rotationElement.getAttribute("type"), rotationElement.getTextContent());
+		Quaternionf rotation = (Quaternionf)XMLParserUtils.decodeObject("quaternion", rotationElement.getTextContent());
 		
 		Element scaleElement = (Element)element.getElementsByTagName("scale").item(0);
-		Vector3f scale = (Vector3f)XMLParserUtils.decodeObject(scaleElement.getAttribute("type"), scaleElement.getTextContent());
+		Vector3f scale = (Vector3f)XMLParserUtils.decodeObject("vector3", scaleElement.getTextContent());
 		
 		NodeList components = element.getElementsByTagName("components").item(0).getChildNodes();
 		List<ComponentParser.ComponentData> componentData = new ArrayList<>();

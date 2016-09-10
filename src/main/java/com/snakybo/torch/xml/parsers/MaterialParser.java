@@ -84,7 +84,7 @@ public final class MaterialParser
 			{
 				Element property = (Element)node;
 
-				String name = property.getNodeName();
+				String name = property.getAttribute("name");
 				Object value = XMLParserUtils.decodeObject(property.getAttribute("type"), property.getTextContent());
 				LoggerInternal.log("Property=" + name + " Value="  + value);
 				

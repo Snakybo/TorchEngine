@@ -2,16 +2,16 @@
 <scene version="1">
     <game_objects>
         <game_object name="Camera">
-            <position type="vector3">0, 0, -2</position>
-            <rotation type="quaternion">0, 0, 0, 1</rotation>
-            <scale type="vector3">1, 1, 1</scale>
+            <position>0, 0, -2</position>
+            <rotation>0, 0, 0, 1</rotation>
+            <scale>1, 1, 1</scale>
             <components>
                 <component type="com.snakybo.torch.component.Camera">
                     <fields>
                         <fieldOfView type="float">75</fieldOfView>
                         <zNear type="float">0.01</zNear>
                         <zFar type="float">1000</zFar>
-                        <clearFlags type="enum">com.snakybo.torch.graphics.camera.CameraClearFlags:0</clearFlags>
+                        <clearFlags type="enum">com.snakybo.torch.graphics.camera.CameraClearFlags:2</clearFlags>
                         <skyboxTexture type="asset">skybox_default.png</skyboxTexture>
                         <clearColor type="color">0, 0, 0, 1</clearColor>
                     </fields>
@@ -24,30 +24,149 @@
                     <fields>
                     </fields>
                 </component>
+                <component type="opengl.SceneReloader">
+                    <fields>
+                    </fields>
+                </component>
             </components>
         </game_object>
         <game_object name="Grassblock">
-            <position type="vector3">0, 0, 0</position>
-            <rotation type="quaternion">0, -0.21643962, 0, 0.976296</rotation>
-            <scale type="vector3">1, 1, 1</scale>
+            <position>0, 0, 0</position>
+            <rotation>0, 0, 0, 1</rotation>
+            <scale>1, 1, 1</scale>
             <components>
                 <component type="com.snakybo.torch.component.MeshRenderer">
                     <fields>
                         <mesh type="asset">cube.obj</mesh>
-                        <material type="asset">specular.mtl</material>
+                        <material type="asset">container2.mtl</material>
+                    </fields>
+                </component>
+            </components>
+        </game_object>
+        <game_object name="Grassblock">
+            <position>2, 5, -15</position>
+            <rotation>0, 0, 0, 1</rotation>
+            <scale>1, 1, 1</scale>
+            <components>
+                <component type="com.snakybo.torch.component.MeshRenderer">
+                    <fields>
+                        <mesh type="asset">cube.obj</mesh>
+                        <material type="asset">container2.mtl</material>
+                    </fields>
+                </component>
+            </components>
+        </game_object>
+        <game_object name="Grassblock">
+            <position>-1.5, -2.2, -2.5</position>
+            <rotation>0, 0, 0, 1</rotation>
+            <scale>1, 1, 1</scale>
+            <components>
+                <component type="com.snakybo.torch.component.MeshRenderer">
+                    <fields>
+                        <mesh type="asset">cube.obj</mesh>
+                        <material type="asset">container2.mtl</material>
+                    </fields>
+                </component>
+            </components>
+        </game_object>
+        <game_object name="Grassblock">
+            <position>-3.8, -2.0, -12.3</position>
+            <rotation>0, 0, 0, 1</rotation>
+            <scale>1, 1, 1</scale>
+            <components>
+                <component type="com.snakybo.torch.component.MeshRenderer">
+                    <fields>
+                        <mesh type="asset">cube.obj</mesh>
+                        <material type="asset">container2.mtl</material>
+                    </fields>
+                </component>
+            </components>
+        </game_object>
+        <game_object name="Grassblock">
+            <position>2.4, -0.4, -3.5</position>
+            <rotation>0, 0, 0, 1</rotation>
+            <scale>1, 1, 1</scale>
+            <components>
+                <component type="com.snakybo.torch.component.MeshRenderer">
+                    <fields>
+                        <mesh type="asset">cube.obj</mesh>
+                        <material type="asset">container2.mtl</material>
+                    </fields>
+                </component>
+            </components>
+        </game_object>
+        <game_object name="Grassblock">
+            <position>-1.7,  3.0, -7.5</position>
+            <rotation>0, 0, 0, 1</rotation>
+            <scale>1, 1, 1</scale>
+            <components>
+                <component type="com.snakybo.torch.component.MeshRenderer">
+                    <fields>
+                        <mesh type="asset">cube.obj</mesh>
+                        <material type="asset">container2.mtl</material>
+                    </fields>
+                </component>
+            </components>
+        </game_object>
+        <game_object name="Grassblock">
+            <position>1.3, -2.0, -2.5</position>
+            <rotation>0, 0, 0, 1</rotation>
+            <scale>1, 1, 1</scale>
+            <components>
+                <component type="com.snakybo.torch.component.MeshRenderer">
+                    <fields>
+                        <mesh type="asset">cube.obj</mesh>
+                        <material type="asset">container2.mtl</material>
+                    </fields>
+                </component>
+            </components>
+        </game_object>
+        <game_object name="Grassblock">
+            <position>1.5,  2.0, -2.5</position>
+            <rotation>0, 0, 0, 1</rotation>
+            <scale>1, 1, 1</scale>
+            <components>
+                <component type="com.snakybo.torch.component.MeshRenderer">
+                    <fields>
+                        <mesh type="asset">cube.obj</mesh>
+                        <material type="asset">container2.mtl</material>
+                    </fields>
+                </component>
+            </components>
+        </game_object>
+        <game_object name="Grassblock">
+            <position>1.5,  0.2, -1.5</position>
+            <rotation>0, 0, 0, 1</rotation>
+            <scale>1, 1, 1</scale>
+            <components>
+                <component type="com.snakybo.torch.component.MeshRenderer">
+                    <fields>
+                        <mesh type="asset">cube.obj</mesh>
+                        <material type="asset">container2.mtl</material>
+                    </fields>
+                </component>
+            </components>
+        </game_object>
+        <game_object name="Grassblock">
+            <position>-1.3,  1.0, -1.5</position>
+            <rotation>0, 0, 0, 1</rotation>
+            <scale>1, 1, 1</scale>
+            <components>
+                <component type="com.snakybo.torch.component.MeshRenderer">
+                    <fields>
+                        <mesh type="asset">cube.obj</mesh>
+                        <material type="asset">container2.mtl</material>
                     </fields>
                 </component>
             </components>
         </game_object>
         <game_object name="LightController">
-            <position type="vector3">0.1, 0, 1.1</position>
-            <rotation type="quaternion">0, 0, 0, 1</rotation>
-            <scale type="vector3">1, 1, 1</scale>
+            <position>1.2, 1.0, 2.0</position>
+            <rotation>0, 0, 0, 1</rotation>
+            <scale>1, 1, 1</scale>
             <components>
                 <component type="opengl.LightController">
                     <fields>
-                        <diffuse type="asset">container2.png</diffuse>
-                        <specular type="asset">container2_specular.png</specular>
                     </fields>
                 </component>
             </components>
