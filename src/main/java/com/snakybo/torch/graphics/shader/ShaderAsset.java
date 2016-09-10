@@ -160,18 +160,18 @@ final class ShaderAsset extends AssetData
 			Logger.logError(e.toString(), e);
 		}
 		
-		createShader(GL_VERTEX_SHADER, parseShader(source, "VERTEX_PASS"));
-		createShader(GL_FRAGMENT_SHADER, parseShader(source, "FRAGMENT_PASS"));
-		createShader(GL_GEOMETRY_SHADER, parseShader(source, "GEOMETRY_PASS"));
-		createShader(GL_COMPUTE_SHADER, parseShader(source, "COMPUTE_PASS"));
-		createShader(GL_TESS_CONTROL_SHADER, parseShader(source, "TESS_CONTROL_PASS"));
-		createShader(GL_TESS_EVALUATION_SHADER, parseShader(source, "TESS_EVAL_PASS"));
-		
+		createShader(GL_VERTEX_SHADER, name, parseShader(source, "VERTEX_PASS"));
+		createShader(GL_FRAGMENT_SHADER, name, parseShader(source, "FRAGMENT_PASS"));
+		createShader(GL_GEOMETRY_SHADER, name, parseShader(source, "GEOMETRY_PASS"));
+		createShader(GL_COMPUTE_SHADER, name, parseShader(source, "COMPUTE_PASS"));
+		createShader(GL_TESS_CONTROL_SHADER, name, parseShader(source, "TESS_CONTROL_PASS"));
+		createShader(GL_TESS_EVALUATION_SHADER, name, parseShader(source, "TESS_EVAL_PASS"));
+				
 		link();
 		addUniforms(name, source);
 	}
 	
-	private void createShader(int type, String source)
+	private void createShader(int type, String name, String source)
 	{
 		if(source.length() > 0)
 		{
@@ -187,7 +187,7 @@ final class ShaderAsset extends AssetData
 			
 			if(glGetShaderi(id, GL_COMPILE_STATUS) == NULL)
 			{
-				Logger.logError("Unable to compile shader source: " + glGetShaderInfoLog(id, 1024));
+				Logger.logError("Unable to compile shader source: " + name + ": " + glGetShaderInfoLog(id, 1024));
 				Logger.logError("Source dump: \n" + dumpShaderSource(source));
 				return;
 			}
