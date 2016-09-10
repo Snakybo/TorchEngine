@@ -268,12 +268,49 @@ final class ShaderAsset extends AssetData
 				}
 				
 				Uniform uniform = getUniformFromLine(line);
-				result.add(new Uniform(uniform.type, name + "." + uniform.name));
+				Iterable<String> uniformNames = getArrayUniformNames(name);
+				
+				for(String n : uniformNames)
+				{
+					result.add(new Uniform(uniform.type, n + "." + uniform.name));
+				}
 			}
 		}
 		else
 		{
-			result.add(new Uniform(type, name));
+			Iterable<String> uniformNames = getArrayUniformNames(name);
+			
+			for(String n : uniformNames)
+			{
+				result.add(new Uniform(type, n));
+			}
+		}
+		
+		return result;
+	}
+	
+	private Iterable<String> getArrayUniformNames(String name)
+	{
+		List<String> result = new ArrayList<>();
+		
+		if(name.endsWith("]"))
+		{
+			int arrayStart = name.indexOf('[');
+			int arrayEnd = name.length();
+
+			String size = name.substring(arrayStart + 1, arrayEnd - 1);
+			int sizeInt = Integer.parseInt(size);
+
+			name = name.substring(0, arrayStart);
+
+			for(int i = 0; i < sizeInt; i++)
+			{
+				result.add(name + "[" + i + "]");
+			}
+		}
+		else
+		{
+			result.add(name);
 		}
 		
 		return result;
