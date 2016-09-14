@@ -59,6 +59,11 @@ public abstract class Component extends TorchObject
 	 * <p>
 	 * Called as soon as the component is created.
 	 * </p>
+	 *
+	 * <p>
+	 * If the component has been created by loading a scene, it will be called as soon as
+	 * every component on the GameObject has been initialized.
+	 * </p>
 	 */
 	protected void onCreate()
 	{

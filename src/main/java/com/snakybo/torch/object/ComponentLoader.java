@@ -39,7 +39,7 @@ public final class ComponentLoader
 		throw new AssertionError();
 	}
 	
-	public static void load(GameObject gameObject, ComponentParser.ComponentData componentData)
+	public static Component load(GameObject gameObject, ComponentParser.ComponentData componentData)
 	{
 		try
 		{
@@ -47,17 +47,28 @@ public final class ComponentLoader
 			{
 				throw new RuntimeException("Components should not have a constructor (" + componentData.type.getName() + ")");
 			}
-		} catch(NoSuchMethodException e)
+		}
+		catch(NoSuchMethodException e)
 		{
 			Logger.logError(e.getMessage(), e);
-			return;
+			return null;
 		}
 		
 		Component component = gameObject.addComponentInternal(componentData.type);
 		
 		for(ComponentParser.ComponentFieldData fieldData : componentData.fieldData)
 		{
-			Field field = SerializationUtils.get(component, fieldData.name);
+			Field field = null;
+			
+			try
+			{
+				field = SerializationUtils.get(component, fieldData.name);
+			}
+			catch(NoSuchFieldException | SecurityException e)
+			{
+				Logger.logError("Unable to find field \"" + fieldData.name + "\" on " + gameObject + ":" + component);
+				continue;
+			}
 			
 			switch(fieldData.type)
 			{
@@ -91,6 +102,6 @@ public final class ComponentLoader
 			}
 		}
 		
-		component.onCreate();
+		return component;
 	}
 }

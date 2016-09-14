@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.graphics.renderer;
+package com.snakybo.torch.graphics;
 
 import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.object.GameObject;

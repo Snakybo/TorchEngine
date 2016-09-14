@@ -29,6 +29,8 @@ import com.snakybo.torch.graphics.renderer.MeshRendererInternal;
 import com.snakybo.torch.object.Component;
 import com.snakybo.torch.util.serialized.SerializedField;
 
+import static org.lwjgl.opengl.GL11.GL_TRIANGLES;
+
 /**
  * <p>
  * A {@link Mesh} renderer.
@@ -44,90 +46,36 @@ import com.snakybo.torch.util.serialized.SerializedField;
  * @author Snakybo
  * @since 1.0
  */
-public final class MeshRenderer extends Component
+public final class MeshRenderer extends Renderer
 {
-	@SerializedField private Mesh mesh = Assets.load(Mesh.class, "cube.obj");
-	@SerializedField private Material material = Assets.load(Material.class, "default.mtl");
-	
 	private MeshRendererInternal meshRenderer;
 	
 	@Override
-	protected final void onStart()
+	protected final void onCreate()
 	{
-		meshRenderer = new MeshRendererInternal(mesh);
-		material.setTransform(getTransform());
+		super.onCreate();
+		
+		meshRenderer = new MeshRendererInternal(meshFilter.getMesh());
 	}
 	
 	@Override
-	protected final void onRenderObject()
+	protected final void render()
 	{
-		material.bind();
-		material.update();
-		
-		meshRenderer.render();
-		
-		material.unbind();
+		meshRenderer.render(GL_TRIANGLES);
+	}
+	
+	@Override
+	protected final void onMeshUpdated()
+	{
+		meshRenderer.destroy();
+		meshRenderer = new MeshRendererInternal(meshFilter.getMesh());
 	}
 	
 	@Override
 	protected final void onDestroy()
 	{
+		super.onDestroy();
+		
 		meshRenderer.destroy();
-		material.destroy();
-	}
-	
-	/**
-	 * <p>
-	 * Set the {@link Mesh}.
-	 * </p>
-	 *
-	 * <p>
-	 * Setting a new mesh is relatively expensive,
-	 * since it has to compute new vertex and index buffers.
-	 * </p>
-	 *
-	 * @param mesh The new mesh.
-	 */
-	public final void setMesh(Mesh mesh)
-	{
-		this.mesh = mesh;
-		meshRenderer.destroy();
-		meshRenderer = new MeshRendererInternal(mesh);
-	}
-	
-	/**
-	 * <p>
-	 * Set the {@link Material}.
-	 * </p>
-	 *
-	 * @param material The new material.
-	 */
-	public final void setMaterial(Material material)
-	{
-		this.material = material;
-	}
-	
-	/**
-	 * <p>
-	 * Get the {@link Mesh}.
-	 * </p>
-	 *
-	 * @return The current mesh.
-	 */
-	public final Mesh getMesh()
-	{
-		return mesh;
-	}
-	
-	/**
-	 * <p>
-	 * Get the {@link Material}.
-	 * </p>
-	 *
-	 * @return The current material.
-	 */
-	public final Material getMaterial()
-	{
-		return material;
 	}
 }

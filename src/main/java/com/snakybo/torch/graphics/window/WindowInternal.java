@@ -25,7 +25,7 @@ package com.snakybo.torch.graphics.window;
 import com.snakybo.torch.Game;
 import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.graphics.monitor.DisplayMode;
-import com.snakybo.torch.graphics.renderer.Renderer;
+import com.snakybo.torch.graphics.Renderer;
 import com.snakybo.torch.input.joystick.JoystickController;
 import com.snakybo.torch.input.keyboard.KeyboardController;
 import com.snakybo.torch.input.mouse.Mouse;

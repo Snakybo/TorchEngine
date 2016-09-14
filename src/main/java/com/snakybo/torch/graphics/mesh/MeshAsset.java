@@ -64,6 +64,63 @@ final class MeshAsset extends AssetData
 	}
 	
 	@Override
+	public boolean equals(Object o)
+	{
+		if(this == o)
+		{
+			return true;
+		}
+		
+		if(o == null || getClass() != o.getClass())
+		{
+			return false;
+		}
+		
+		MeshAsset meshAsset = (MeshAsset)o;
+		
+		if(vertices != null ? !vertices.equals(meshAsset.vertices) : meshAsset.vertices != null)
+		{
+			return false;
+		}
+		
+		if(texCoords != null ? !texCoords.equals(meshAsset.texCoords) : meshAsset.texCoords != null)
+		{
+			return false;
+		}
+		
+		if(normals != null ? !normals.equals(meshAsset.normals) : meshAsset.normals != null)
+		{
+			return false;
+		}
+		
+		if(tangents != null ? !tangents.equals(meshAsset.tangents) : meshAsset.tangents != null)
+		{
+			return false;
+		}
+		
+		if(indices != null ? !indices.equals(meshAsset.indices) : meshAsset.indices != null)
+		{
+			return false;
+		}
+		
+		return name != null ? name.equals(meshAsset.name) : meshAsset.name == null;
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		int result = vertices != null ? vertices.hashCode() : 0;
+		
+		result = 31 * result + (texCoords != null ? texCoords.hashCode() : 0);
+		result = 31 * result + (normals != null ? normals.hashCode() : 0);
+		result = 31 * result + (tangents != null ? tangents.hashCode() : 0);
+		result = 31 * result + (indices != null ? indices.hashCode() : 0);
+		result = 31 * result + (name != null ? name.hashCode() : 0);
+		
+		return result;
+	}
+	
+	@Override
 	public final void destroy()
 	{
 		if(name != null && !name.isEmpty())

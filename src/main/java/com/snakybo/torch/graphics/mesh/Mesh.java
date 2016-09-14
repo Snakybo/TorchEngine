@@ -65,6 +65,18 @@ public final class Mesh extends Asset
 	}
 	
 	@Override
+	public boolean equals(Object obj)
+	{
+		return asset.equals(obj);
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		return asset.hashCode();
+	}
+	
+	@Override
 	public final void finalize() throws Throwable
 	{
 		try

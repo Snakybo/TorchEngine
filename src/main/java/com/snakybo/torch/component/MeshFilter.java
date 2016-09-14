@@ -20,62 +20,36 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.graphics.camera;
+package com.snakybo.torch.component;
 
 import com.snakybo.torch.asset.Assets;
-import com.snakybo.torch.component.Camera;
-import com.snakybo.torch.debug.Logger;
-import com.snakybo.torch.graphics.material.Material;
 import com.snakybo.torch.graphics.mesh.Mesh;
-import com.snakybo.torch.graphics.renderer.MeshRendererInternal;
-import com.snakybo.torch.graphics.texture.Texture;
-import com.snakybo.torch.object.Transform;
-import org.joml.Vector3f;
-
-import static org.lwjgl.opengl.GL11.GL_TRIANGLES;
+import com.snakybo.torch.object.Component;
+import com.snakybo.torch.util.serialized.SerializedField;
 
 /**
+ * <p>
+ * The MeshFilter simply holds a {@link Mesh}.
+ * </p>
+ *
+ * <p>
+ * This allows for a single GameObject to use the same mesh instance in multiple components.
+ * </p>
+ *
  * @author Snakybo
  * @since 1.0
  */
-final class Skybox
+public final class MeshFilter extends Component
 {
-	private MeshRendererInternal meshRenderer;
-	private Transform transform;
-	private Material material;
+	@SerializedField private Mesh mesh = Assets.load(Mesh.class, "cube.obj");
 	
-	public Skybox()
+	public final void setMesh(Mesh mesh)
 	{
-		transform = new Transform();
-		transform.setScale(new Vector3f(50));
-		
-		material = new Material("unlit.glsl");
-		material.setTransform(transform);
-		
-		meshRenderer = new MeshRendererInternal(Assets.load(Mesh.class, "skybox.obj"));
+		this.mesh = mesh;
 	}
 	
-	public final void render()
+	public final Mesh getMesh()
 	{
-		Vector3f position = new Vector3f();
-		
-		if(Camera.getMainCamera() != null)
-		{
-			position = Camera.getMainCamera().getTransform().getPosition();
-		}
-		
-		transform.setPosition(position);
-		
-		material.bind();
-		material.update();
-		
-		meshRenderer.render(GL_TRIANGLES);
-		
-		material.unbind();
-	}
-	
-	public final void setTexture(Texture texture)
-	{
-		material.setTexture("diffuse", texture);
+		return mesh;
 	}
 }

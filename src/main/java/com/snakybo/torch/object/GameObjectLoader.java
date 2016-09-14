@@ -25,6 +25,9 @@ package com.snakybo.torch.object;
 import com.snakybo.torch.xml.parsers.ComponentParser;
 import com.snakybo.torch.xml.parsers.GameObjectParser;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Snakybo
  * @since 1.0
@@ -44,10 +47,14 @@ public final class GameObjectLoader
 		gameObject.getTransform().setRotation(gameObjectData.rotation);
 		gameObject.getTransform().setScale(gameObjectData.scale);
 		
+		List<Component> components = new ArrayList<>();
 		for(ComponentParser.ComponentData componentData : gameObjectData.componentData)
 		{
-			ComponentLoader.load(gameObject, componentData);
+			Component component = ComponentLoader.load(gameObject, componentData);
+			components.add(component);
 		}
+		
+		components.forEach(Component::onCreate);
 		
 		return gameObject;
 	}

@@ -29,7 +29,7 @@ import com.snakybo.torch.graphics.gizmo.Gizmos;
 import com.snakybo.torch.graphics.gizmo.GizmosInternal;
 import com.snakybo.torch.graphics.glfw.GLFW;
 import com.snakybo.torch.graphics.monitor.MonitorController;
-import com.snakybo.torch.graphics.renderer.Renderer;
+import com.snakybo.torch.graphics.Renderer;
 import com.snakybo.torch.graphics.window.Window;
 import com.snakybo.torch.graphics.window.WindowInternal;
 import com.snakybo.torch.input.cursor.CursorController;

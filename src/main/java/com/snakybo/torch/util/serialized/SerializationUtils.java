@@ -291,23 +291,31 @@ public final class SerializationUtils
 		return result.toArray(new Field[result.size()]);
 	}
 	
-	public static Field get(Object object, String name)
+	public static Field get(Object object, String name) throws NoSuchFieldException
 	{
-		try
+		Class<?> clazz = object.getClass();
+		
+		while(clazz != null)
 		{
-			Field result = object.getClass().getDeclaredField(name);
-			
-			if(isExposed(result))
+			try
 			{
-				return result;
+				Field field = clazz.getDeclaredField(name);
+				
+				if(field != null && isExposed(field))
+				{
+					return field;
+				}
+			}
+			catch(NoSuchFieldException | SecurityException e)
+			{
+			}
+			finally
+			{
+				clazz = clazz.getSuperclass();
 			}
 		}
-		catch(NoSuchFieldException | SecurityException e)
-		{
-			Logger.logError(e.getMessage(), e);
-		}
 		
-		return null;
+		throw new NoSuchFieldException("No field with name: " + name + " found on object: " + object);
 	}
 	
 	public static Object getValue(Object object, Field field)

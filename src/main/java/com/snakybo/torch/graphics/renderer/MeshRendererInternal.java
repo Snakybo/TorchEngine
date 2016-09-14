@@ -98,11 +98,6 @@ public final class MeshRendererInternal
 		glBindVertexArray(0);
 	}
 	
-	public final void render()
-	{
-		render(GL_TRIANGLES);
-	}
-	
 	public final void render(int renderMode)
 	{
 		glBindVertexArray(vao.get(0));

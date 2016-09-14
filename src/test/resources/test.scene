@@ -35,9 +35,13 @@
             <rotation>0, 0, 0, 1</rotation>
             <scale>1, 1, 1</scale>
             <components>
-                <component type="com.snakybo.torch.component.MeshRenderer">
+                <component type="com.snakybo.torch.component.MeshFilter">
                     <fields>
                         <mesh type="asset">cube.obj</mesh>
+                    </fields>
+                </component>
+                <component type="com.snakybo.torch.component.MeshRenderer">
+                    <fields>
                         <material type="asset">container2.mtl</material>
                     </fields>
                 </component>
@@ -48,9 +52,13 @@
             <rotation>0, 0, 0, 1</rotation>
             <scale>1, 1, 1</scale>
             <components>
-                <component type="com.snakybo.torch.component.MeshRenderer">
+                <component type="com.snakybo.torch.component.MeshFilter">
                     <fields>
                         <mesh type="asset">cube.obj</mesh>
+                    </fields>
+                </component>
+                <component type="com.snakybo.torch.component.MeshRenderer">
+                    <fields>
                         <material type="asset">container2.mtl</material>
                     </fields>
                 </component>
@@ -61,9 +69,13 @@
             <rotation>0, 0, 0, 1</rotation>
             <scale>1, 1, 1</scale>
             <components>
-                <component type="com.snakybo.torch.component.MeshRenderer">
+                <component type="com.snakybo.torch.component.MeshFilter">
                     <fields>
                         <mesh type="asset">cube.obj</mesh>
+                    </fields>
+                </component>
+                <component type="com.snakybo.torch.component.MeshRenderer">
+                    <fields>
                         <material type="asset">container2.mtl</material>
                     </fields>
                 </component>
@@ -74,9 +86,13 @@
             <rotation>0, 0, 0, 1</rotation>
             <scale>1, 1, 1</scale>
             <components>
-                <component type="com.snakybo.torch.component.MeshRenderer">
+                <component type="com.snakybo.torch.component.MeshFilter">
                     <fields>
                         <mesh type="asset">cube.obj</mesh>
+                    </fields>
+                </component>
+                <component type="com.snakybo.torch.component.MeshRenderer">
+                    <fields>
                         <material type="asset">container2.mtl</material>
                     </fields>
                 </component>
@@ -87,9 +103,13 @@
             <rotation>0, 0, 0, 1</rotation>
             <scale>1, 1, 1</scale>
             <components>
-                <component type="com.snakybo.torch.component.MeshRenderer">
+                <component type="com.snakybo.torch.component.MeshFilter">
                     <fields>
                         <mesh type="asset">cube.obj</mesh>
+                    </fields>
+                </component>
+                <component type="com.snakybo.torch.component.MeshRenderer">
+                    <fields>
                         <material type="asset">container2.mtl</material>
                     </fields>
                 </component>
@@ -100,9 +120,13 @@
             <rotation>0, 0, 0, 1</rotation>
             <scale>1, 1, 1</scale>
             <components>
-                <component type="com.snakybo.torch.component.MeshRenderer">
+                <component type="com.snakybo.torch.component.MeshFilter">
                     <fields>
                         <mesh type="asset">cube.obj</mesh>
+                    </fields>
+                </component>
+                <component type="com.snakybo.torch.component.MeshRenderer">
+                    <fields>
                         <material type="asset">container2.mtl</material>
                     </fields>
                 </component>
@@ -113,9 +137,13 @@
             <rotation>0, 0, 0, 1</rotation>
             <scale>1, 1, 1</scale>
             <components>
-                <component type="com.snakybo.torch.component.MeshRenderer">
+                <component type="com.snakybo.torch.component.MeshFilter">
                     <fields>
                         <mesh type="asset">cube.obj</mesh>
+                    </fields>
+                </component>
+                <component type="com.snakybo.torch.component.MeshRenderer">
+                    <fields>
                         <material type="asset">container2.mtl</material>
                     </fields>
                 </component>
@@ -126,9 +154,13 @@
             <rotation>0, 0, 0, 1</rotation>
             <scale>1, 1, 1</scale>
             <components>
-                <component type="com.snakybo.torch.component.MeshRenderer">
+                <component type="com.snakybo.torch.component.MeshFilter">
                     <fields>
                         <mesh type="asset">cube.obj</mesh>
+                    </fields>
+                </component>
+                <component type="com.snakybo.torch.component.MeshRenderer">
+                    <fields>
                         <material type="asset">container2.mtl</material>
                     </fields>
                 </component>
@@ -139,9 +171,13 @@
             <rotation>0, 0, 0, 1</rotation>
             <scale>1, 1, 1</scale>
             <components>
-                <component type="com.snakybo.torch.component.MeshRenderer">
+                <component type="com.snakybo.torch.component.MeshFilter">
                     <fields>
                         <mesh type="asset">cube.obj</mesh>
+                    </fields>
+                </component>
+                <component type="com.snakybo.torch.component.MeshRenderer">
+                    <fields>
                         <material type="asset">container2.mtl</material>
                     </fields>
                 </component>
@@ -152,9 +188,13 @@
             <rotation>0, 0, 0, 1</rotation>
             <scale>1, 1, 1</scale>
             <components>
-                <component type="com.snakybo.torch.component.MeshRenderer">
+                <component type="com.snakybo.torch.component.MeshFilter">
                     <fields>
                         <mesh type="asset">cube.obj</mesh>
+                    </fields>
+                </component>
+                <component type="com.snakybo.torch.component.MeshRenderer">
+                    <fields>
                         <material type="asset">container2.mtl</material>
                     </fields>
                 </component>
