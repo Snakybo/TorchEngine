@@ -129,17 +129,17 @@ public final class Material extends Asset
 		
 		if(asset.shader.hasUniform("_view"))
 		{
-			asset.shader.setUniform4fv("_view", CameraInternal.getCurrentCamera().getViewMatrix());
+			asset.shader.setUniform4fv("_view", CameraInternal.getInstance().getViewMatrix());
 		}
 		
 		if(asset.shader.hasUniform("_projection"))
 		{
-			asset.shader.setUniform4fv("_projection", CameraInternal.getCurrentCamera().getProjectionMatrix());
+			asset.shader.setUniform4fv("_projection", CameraInternal.getInstance().getProjectionMatrix());
 		}
 		
 		if(asset.shader.hasUniform("_cameraPosition"))
 		{
-			asset.shader.setUniform3f("_cameraPosition", CameraInternal.getCurrentCamera().getTransform().getPosition());
+			asset.shader.setUniform3f("_cameraPosition", CameraInternal.getInstance().getTransform().getPosition());
 		}
 		
 		for(Map.Entry<String, Object> value : asset.values.entrySet())

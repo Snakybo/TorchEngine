@@ -24,6 +24,7 @@ package com.snakybo.torch;
 
 import com.snakybo.torch.component.Camera;
 import com.snakybo.torch.graphics.RenderingEngine;
+import com.snakybo.torch.graphics.camera.CameraInternal;
 import com.snakybo.torch.graphics.gizmo.Gizmos;
 import com.snakybo.torch.graphics.gizmo.GizmosInternal;
 import com.snakybo.torch.graphics.glfw.GLFW;
@@ -170,18 +171,8 @@ public final class Engine
 	
 	private static void render()
 	{
-		Camera.getCameras().forEach(Camera::render);
-		
-		GizmosInternal.isInGizmoRenderPass = true;
-		
-		// Render gizmos
-		for(GameObject gameObject : SceneInternal.getAllInitializedGameObjects())
-		{
-			Gizmos.reset();
-			RenderingEngine.renderGizmos(gameObject);
-		}
-		
-		GizmosInternal.isInGizmoRenderPass = false;
+		RenderingEngine.render(CameraInternal.getInstance());
+		RenderingEngine.renderGizmos();
 		
 		WindowInternal.update();
 		

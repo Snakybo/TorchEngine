@@ -46,7 +46,7 @@ import java.util.Set;
  */
 public final class Camera extends Component
 {
-	private static Set<Camera> cameras = new HashSet<>();
+	private static Camera instance;
 	
 	@SerializedField private float fieldOfView = 75;
 	@SerializedField private float zNear = 0.01f;
@@ -68,13 +68,12 @@ public final class Camera extends Component
 		camera.setSkybox(skyboxTexture);
 		camera.setClearColor(clearColor);
 		
-		cameras.add(this);
+		instance = this;
 	}
 	
 	@Override
 	protected final void onDestroy()
 	{
-		cameras.remove(this);
 		camera.destroy();
 	}
 	
@@ -271,66 +270,13 @@ public final class Camera extends Component
 	
 	/**
 	 * <p>
-	 * Set the main camera.
-	 * </p>
-	 *
-	 * @param camera The new main camera.
-	 */
-	public static void setMainCamera(Camera camera)
-	{
-		CameraInternal.setMainCamera(camera.camera);
-	}
-	
-	/**
-	 * <p>
-	 * Get an {@code Iterator} containing all cameras.
-	 * </p>
-	 *
-	 * @return All cameras.
-	 */
-	public static Iterable<Camera> getCameras()
-	{
-		return cameras;
-	}
-	
-	/**
-	 * <p>
 	 * Get the main camera.
 	 * </p>
 	 *
 	 * @return The main camera.
 	 */
-	public static Camera getMainCamera()
+	public static Camera getInstance()
 	{
-		for(Camera camera : cameras)
-		{
-			if(camera.camera == CameraInternal.getMainCamera())
-			{
-				return camera;
-			}
-		}
-		
-		return null;
-	}
-	
-	/**
-	 * <p>
-	 * Get the current camera, this will return {@code null} if
-	 * the engine is rendering a {@link CameraInternal}.
-	 * </p>
-	 *
-	 * @return The current camera or null.
-	 */
-	public static Camera getCurrentCamera()
-	{
-		for(Camera camera : cameras)
-		{
-			if(camera.camera == CameraInternal.getCurrentCamera())
-			{
-				return camera;
-			}
-		}
-		
-		return null;
+		return instance;
 	}
 }

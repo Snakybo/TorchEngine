@@ -37,7 +37,7 @@ import static org.lwjgl.opengl.GL11.GL_TRIANGLES;
  * @author Snakybo
  * @since 1.0
  */
-final class Skybox
+public final class Skybox
 {
 	private MeshRendererInternal meshRenderer;
 	private Transform transform;
@@ -58,9 +58,9 @@ final class Skybox
 	{
 		Vector3f position = new Vector3f();
 		
-		if(Camera.getMainCamera() != null)
+		if(Camera.getInstance() != null)
 		{
-			position = Camera.getMainCamera().getTransform().getPosition();
+			position = Camera.getInstance().getTransform().getPosition();
 		}
 		
 		transform.setPosition(position);

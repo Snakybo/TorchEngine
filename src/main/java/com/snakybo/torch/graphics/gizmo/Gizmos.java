@@ -183,8 +183,8 @@ public final class Gizmos
 	private static void updateMatrix(Vector3f position, Vector3f size)
 	{
 		shader.setUniform4fv("_model", new Matrix4f().translate(position).scale(size));
-		shader.setUniform4fv("_projection", Camera.getMainCamera().getProjectionMatrix());
-		shader.setUniform4fv("_view", Camera.getMainCamera().getViewMatrix());
+		shader.setUniform4fv("_projection", Camera.getInstance().getProjectionMatrix());
+		shader.setUniform4fv("_view", Camera.getInstance().getViewMatrix());
 		
 		shader.setUniform3f("color", new Vector3f(color.getRed(), color.getGreen(), color.getBlue()));
 	}

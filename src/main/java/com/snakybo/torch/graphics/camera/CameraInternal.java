@@ -47,9 +47,7 @@ import static org.lwjgl.opengl.GL11.glClearColor;
  */
 public final class CameraInternal
 {
-	private static List<CameraInternal> cameras = new ArrayList<>();
-	private static CameraInternal current;
-	private static CameraInternal main;
+	private static CameraInternal instance;
 	
 	private CameraClearFlags clearFlags;
 	
@@ -68,50 +66,17 @@ public final class CameraInternal
 		
 		transform = new Transform();
 		
-		cameras.add(this);
-		
-		if(main == null)
-		{
-			main = this;
-		}
-	}
-	
-	public final void destroy()
-	{
-		cameras.remove(this);
-		
-		if(main == this)
-		{
-			main = cameras.size() > 0 ? cameras.get(0) : null;
-		}
+		instance = this;
 	}
 	
 	public final void render()
 	{
-		current = this;
-		
-		switch(clearFlags)
-		{
-		case Skybox:
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			break;
-		case SolidColor:
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			glClearColor(clearColor.getRed(), clearColor.getGreen(), clearColor.getBlue(), clearColor.getAlpha());
-			break;
-		case DepthOnly:
-			glClear(GL_DEPTH_BUFFER_BIT);
-			break;
-		}
-		
-		SceneInternal.getAllInitializedGameObjects().forEach(RenderingEngine::render);
-		
-		if(clearFlags == CameraClearFlags.Skybox)
-		{
-			skybox.render();
-		}
-		
-		current = null;
+		RenderingEngine.render(this);
+	}
+	
+	public final void destroy()
+	{
+		instance = null;
 	}
 	
 	public final void setClearFlags(CameraClearFlags clearFlags)
@@ -154,6 +119,11 @@ public final class CameraInternal
 		return new Matrix4f().rotate(transform.getRotation()).translate(transform.getPosition());
 	}
 	
+	public final Skybox getSkybox()
+	{
+		return skybox;
+	}
+	
 	public final Transform getTransform()
 	{
 		return transform;
@@ -164,23 +134,8 @@ public final class CameraInternal
 		return clearColor;
 	}
 	
-	public static void setMainCamera(CameraInternal camera)
+	public static CameraInternal getInstance()
 	{
-		main = camera;
-	}
-	
-	public static Iterable<CameraInternal> getCameras()
-	{
-		return cameras;
-	}
-	
-	public static CameraInternal getMainCamera()
-	{
-		return main;
-	}
-	
-	public static CameraInternal getCurrentCamera()
-	{
-		return current;
+		return instance;
 	}
 }

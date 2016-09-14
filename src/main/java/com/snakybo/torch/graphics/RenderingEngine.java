@@ -22,14 +22,24 @@
 
 package com.snakybo.torch.graphics;
 
+import com.snakybo.torch.Game;
+import com.snakybo.torch.component.Camera;
+import com.snakybo.torch.graphics.camera.CameraClearFlags;
+import com.snakybo.torch.graphics.camera.CameraInternal;
+import com.snakybo.torch.graphics.color.Color;
+import com.snakybo.torch.graphics.gizmo.Gizmos;
+import com.snakybo.torch.graphics.gizmo.GizmosInternal;
 import com.snakybo.torch.object.GameObject;
 import com.snakybo.torch.object.GameObjectInternal;
+import com.snakybo.torch.scene.SceneInternal;
 import com.snakybo.torch.util.debug.LoggerInternal;
 
 import static org.lwjgl.opengl.GL.createCapabilities;
 import static org.lwjgl.opengl.GL11.GL_BACK;
 import static org.lwjgl.opengl.GL11.GL_BLEND;
+import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.GL_CULL_FACE;
+import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_TEST;
 import static org.lwjgl.opengl.GL11.GL_EXTENSIONS;
 import static org.lwjgl.opengl.GL11.GL_LESS;
@@ -40,6 +50,8 @@ import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
 import static org.lwjgl.opengl.GL11.GL_VENDOR;
 import static org.lwjgl.opengl.GL11.GL_VERSION;
 import static org.lwjgl.opengl.GL11.glBlendFunc;
+import static org.lwjgl.opengl.GL11.glClear;
+import static org.lwjgl.opengl.GL11.glClearColor;
 import static org.lwjgl.opengl.GL11.glCullFace;
 import static org.lwjgl.opengl.GL11.glDepthFunc;
 import static org.lwjgl.opengl.GL11.glDisable;
@@ -71,27 +83,64 @@ public final class RenderingEngine
 		glEnable(GL_TEXTURE_2D);
 	}
 	
-	public static void render(GameObject gameObject)
+	public static void render(CameraInternal camera)
 	{
-		glEnable(GL_DEPTH_TEST);
-		glDepthFunc(GL_LESS);
+		switch(camera.getClearFlags())
+		{
+		case Skybox:
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			break;
+		case SolidColor:
+			Color cc = camera.getClearColor();
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			glClearColor(cc.getRed(), cc.getGreen(), cc.getBlue(), cc.getAlpha());
+			break;
+		case DepthOnly:
+			glClear(GL_DEPTH_BUFFER_BIT);
+			break;
+		}
 		
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		renderObjects(SceneInternal.getAllInitializedGameObjects());
 		
-		glEnable(GL_CULL_FACE);
-		glCullFace(GL_BACK);
-		
-		GameObjectInternal.onPreRender(gameObject);
-		GameObjectInternal.onRender(gameObject);
-		GameObjectInternal.onPostRender(gameObject);
+		if(camera.getClearFlags() == CameraClearFlags.Skybox)
+		{
+			camera.getSkybox().render();
+		}
 	}
 	
-	public static void renderGizmos(GameObject gameObject)
+	public static void renderGizmos()
 	{
-		glDisable(GL_DEPTH_TEST);
-		glDisable(GL_CULL_FACE);
+		GizmosInternal.isInGizmoRenderPass = true;
 		
-		GameObjectInternal.onRenderGizmos(gameObject);
+		for(GameObject gameObject : SceneInternal.getAllInitializedGameObjects())
+		{
+			Gizmos.reset();
+			
+			glDisable(GL_DEPTH_TEST);
+			glDisable(GL_CULL_FACE);
+			
+			GameObjectInternal.onRenderGizmos(gameObject);
+		}
+		
+		GizmosInternal.isInGizmoRenderPass = false;
+	}
+	
+	private static void renderObjects(Iterable<GameObject> gameObjects)
+	{
+		for(GameObject gameObject : gameObjects)
+		{
+			glEnable(GL_DEPTH_TEST);
+			glDepthFunc(GL_LESS);
+			
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			
+			glEnable(GL_CULL_FACE);
+			glCullFace(GL_BACK);
+			
+			GameObjectInternal.onPreRender(gameObject);
+			GameObjectInternal.onRender(gameObject);
+			GameObjectInternal.onPostRender(gameObject);
+		}
 	}
 }
