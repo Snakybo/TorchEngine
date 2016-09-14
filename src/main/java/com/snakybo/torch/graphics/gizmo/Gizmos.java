@@ -64,7 +64,7 @@ public final class Gizmos
 	
 	static
 	{
-		shader = Assets.load(Shader.class, "gizmos.glsl");
+		shader = Assets.load(Shader.class, "torch_internal/gizmos.glsl");
 		
 		setColor(Color.WHITE);
 	}

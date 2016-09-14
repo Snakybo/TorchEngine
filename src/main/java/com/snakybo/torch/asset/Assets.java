@@ -117,7 +117,7 @@ public final class Assets
 		}
 		catch(NoSuchFileException e)
 		{
-			target = "torch_internal/" + target;
+			target = "torch_default/" + target;
 			
 			try
 			{

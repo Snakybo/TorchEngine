@@ -52,7 +52,7 @@ public final class Camera extends Component
 	@SerializedField private float zNear = 0.01f;
 	@SerializedField private float zFar = 1000f;
 	@SerializedField private CameraClearFlags clearFlags = CameraClearFlags.Skybox;
-	@SerializedField private Texture skyboxTexture = Assets.load(Texture.class, "skybox_default.png");
+	@SerializedField private Texture skyboxTexture = Assets.load(Texture.class, "torch_internal/skybox_default.png");
 	@SerializedField private Color clearColor = Color.BLACK;
 	
 	private CameraInternal camera;

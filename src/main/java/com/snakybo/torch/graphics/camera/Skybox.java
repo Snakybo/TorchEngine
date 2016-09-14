@@ -52,7 +52,7 @@ final class Skybox
 		material = new Material("unlit.glsl");
 		material.setTransform(transform);
 		
-		meshRenderer = new MeshRendererInternal(Assets.load(Mesh.class, "skybox.obj"));
+		meshRenderer = new MeshRendererInternal(Assets.load(Mesh.class, "torch_internal/skybox.obj"));
 	}
 	
 	public final void render()
