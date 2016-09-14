@@ -23,14 +23,14 @@
 package com.snakybo.torch.graphics.window;
 
 import com.snakybo.torch.Game;
-import com.snakybo.torch.debug.LoggerInternal;
+import com.snakybo.torch.graphics.RenderingEngine;
 import com.snakybo.torch.graphics.monitor.DisplayMode;
-import com.snakybo.torch.graphics.Renderer;
 import com.snakybo.torch.input.joystick.JoystickController;
 import com.snakybo.torch.input.keyboard.KeyboardController;
 import com.snakybo.torch.input.mouse.Mouse;
 import com.snakybo.torch.input.mouse.MouseController;
 import com.snakybo.torch.util.callback.TorchCallbacks;
+import com.snakybo.torch.util.debug.LoggerInternal;
 import org.joml.Vector2f;
 import org.lwjgl.glfw.Callbacks;
 
@@ -122,7 +122,7 @@ public final class WindowInternal
 		glfwShowWindow(nativeId);
 		Window.setVSyncEnabled(true);
 		
-		Renderer.create();
+		RenderingEngine.create();
 		
 		KeyboardController.create();
 		MouseController.create();

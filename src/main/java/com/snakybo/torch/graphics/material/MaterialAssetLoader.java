@@ -22,10 +22,10 @@
 
 package com.snakybo.torch.graphics.material;
 
-import com.snakybo.torch.debug.Logger;
-import com.snakybo.torch.debug.LoggerInternal;
-import com.snakybo.torch.xml.parsers.MaterialParser;
+import com.snakybo.torch.util.debug.Logger;
+import com.snakybo.torch.util.debug.LoggerInternal;
 import com.snakybo.torch.xml.XMLParser;
+import com.snakybo.torch.xml.parsers.MaterialParser;
 
 import java.nio.file.NoSuchFileException;
 import java.util.Map;

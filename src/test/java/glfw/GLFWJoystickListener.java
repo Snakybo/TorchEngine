@@ -22,10 +22,10 @@
 
 package glfw;
 
-import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.input.joystick.Joystick;
 import com.snakybo.torch.input.joystick.JoystickDevice;
 import com.snakybo.torch.object.Component;
+import com.snakybo.torch.util.debug.Logger;
 
 /**
  * @author Snakybo

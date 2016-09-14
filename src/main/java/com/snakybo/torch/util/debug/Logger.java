@@ -20,23 +20,76 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.util.serialized;
+package com.snakybo.torch.util.debug;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.util.logging.Level;
 
 /**
  * <p>
- * Add this annotation before a private, protected or internal field to expose it to the engine.
+ * The main logging utility of the engine.
+ * </p>
+ *
+ * <p>
+ * All logs are written to both the console,
+ * and a file located at {@code %appdata%/TorchEngine/log.txt}.
  * </p>
  *
  * @author Snakybo
  * @since 1.0
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
-public @interface SerializedField
+public final class Logger
 {
+	private Logger()
+	{
+		throw new AssertionError();
+	}
+	
+	/**
+	 * <p>
+	 * Log a message.
+	 * </p>
+	 *
+	 * @param msg The message to log.
+	 */
+	public static void log(Object msg)
+	{
+		LoggerInternal.logInternal(Level.INFO, msg);
+	}
+	
+	/**
+	 * <p>
+	 * Log a warning.
+	 * </p>
+	 *
+	 * @param msg The warning to log.
+	 */
+	public static void logWarning(Object msg)
+	{
+		LoggerInternal.logInternal(Level.WARNING, msg);
+	}
+	
+	/**
+	 * <p>
+	 * Log an error.
+	 * </p>
+	 *
+	 * @param msg The error to log.
+	 */
+	public static void logError(Object msg)
+	{
+		LoggerInternal.logInternal(Level.SEVERE, msg);
+	}
+	
+	/**
+	 * <p>
+	 * Log an error.
+	 * </p>
+	 *
+	 * @param msg The error to log.
+	 * @param thrown The related exception.
+	 */
+	public static void logError(Object msg, Throwable thrown)
+	{
+		LoggerInternal.logInternal(Level.SEVERE, msg, thrown);
+	}
 }

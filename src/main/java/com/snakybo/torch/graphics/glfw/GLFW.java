@@ -22,7 +22,7 @@
 
 package com.snakybo.torch.graphics.glfw;
 
-import com.snakybo.torch.debug.LoggerInternal;
+import com.snakybo.torch.util.debug.LoggerInternal;
 import org.lwjgl.glfw.GLFWErrorCallback;
 
 import static org.lwjgl.glfw.GLFW.glfwGetVersionString;

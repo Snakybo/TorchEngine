@@ -22,8 +22,8 @@
 
 package com.snakybo.torch.object;
 
-import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.scene.SceneInternal;
+import com.snakybo.torch.util.debug.Logger;
 
 import java.io.Serializable;
 

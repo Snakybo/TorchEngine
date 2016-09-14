@@ -22,15 +22,13 @@
 
 package opengl;
 
+import com.snakybo.torch.annotation.SerializedField;
 import com.snakybo.torch.graphics.window.Window;
 import com.snakybo.torch.input.cursor.Cursor;
 import com.snakybo.torch.input.cursor.CursorLockMode;
-import com.snakybo.torch.input.keyboard.Key;
-import com.snakybo.torch.input.keyboard.Keyboard;
 import com.snakybo.torch.input.mouse.Mouse;
 import com.snakybo.torch.input.mouse.MouseButton;
 import com.snakybo.torch.object.Component;
-import com.snakybo.torch.util.serialized.SerializedField;
 import com.snakybo.torch.util.time.Time;
 import org.joml.Vector2f;
 import org.joml.Vector3f;

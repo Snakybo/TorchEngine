@@ -22,8 +22,8 @@
 
 package com.snakybo.torch.object;
 
-import com.snakybo.torch.debug.Logger;
-import com.snakybo.torch.util.serialized.SerializationUtils;
+import com.snakybo.torch.util.debug.Logger;
+import com.snakybo.torch.util.reflection.SerializedFieldUtils;
 import com.snakybo.torch.xml.parsers.ComponentParser;
 
 import java.lang.reflect.Field;
@@ -62,7 +62,7 @@ public final class ComponentLoader
 			
 			try
 			{
-				field = SerializationUtils.get(component, fieldData.name);
+				field = SerializedFieldUtils.get(component, fieldData.name);
 			}
 			catch(NoSuchFieldException | SecurityException e)
 			{
@@ -73,31 +73,31 @@ public final class ComponentLoader
 			switch(fieldData.type)
 			{
 			case "byte":
-				SerializationUtils.set(component, field, (byte)fieldData.value);
+				SerializedFieldUtils.set(component, field, (byte)fieldData.value);
 				break;
 			case "short":
-				SerializationUtils.set(component, field, (short)fieldData.value);
+				SerializedFieldUtils.set(component, field, (short)fieldData.value);
 				break;
 			case "int":
-				SerializationUtils.set(component, field, (int)fieldData.value);
+				SerializedFieldUtils.set(component, field, (int)fieldData.value);
 				break;
 			case "float":
-				SerializationUtils.set(component, field, (float)fieldData.value);
+				SerializedFieldUtils.set(component, field, (float)fieldData.value);
 				break;
 			case "long":
-				SerializationUtils.set(component, field, (long)fieldData.value);
+				SerializedFieldUtils.set(component, field, (long)fieldData.value);
 				break;
 			case "double":
-				SerializationUtils.set(component, field, (double)fieldData.value);
+				SerializedFieldUtils.set(component, field, (double)fieldData.value);
 				break;
 			case "char":
-				SerializationUtils.set(component, field, (char)fieldData.value);
+				SerializedFieldUtils.set(component, field, (char)fieldData.value);
 				break;
 			case "boolean":
-				SerializationUtils.set(component, field, (boolean)fieldData.value);
+				SerializedFieldUtils.set(component, field, (boolean)fieldData.value);
 				break;
 			default:
-				SerializationUtils.set(component, field, fieldData.value);
+				SerializedFieldUtils.set(component, field, fieldData.value);
 				break;
 			}
 		}

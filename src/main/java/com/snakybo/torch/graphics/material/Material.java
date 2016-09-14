@@ -23,13 +23,13 @@
 package com.snakybo.torch.graphics.material;
 
 import com.snakybo.torch.asset.Asset;
-import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.graphics.camera.CameraInternal;
 import com.snakybo.torch.graphics.color.Color;
 import com.snakybo.torch.graphics.mesh.Mesh;
 import com.snakybo.torch.graphics.shader.Shader;
 import com.snakybo.torch.graphics.texture.Texture;
 import com.snakybo.torch.object.Transform;
+import com.snakybo.torch.util.debug.Logger;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;

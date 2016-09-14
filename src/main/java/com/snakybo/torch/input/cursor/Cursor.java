@@ -22,11 +22,11 @@
 
 package com.snakybo.torch.input.cursor;
 
-import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.graphics.texture.Texture;
 import com.snakybo.torch.graphics.window.Window;
 import com.snakybo.torch.graphics.window.WindowInternal;
 import com.snakybo.torch.input.mouse.Mouse;
+import com.snakybo.torch.util.debug.LoggerInternal;
 import org.joml.Vector2f;
 import org.lwjgl.glfw.GLFWImage;
 

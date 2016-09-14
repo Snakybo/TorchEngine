@@ -22,14 +22,12 @@
 
 package com.snakybo.torch.graphics.renderer;
 
-import com.snakybo.torch.graphics.material.Material;
 import com.snakybo.torch.graphics.mesh.Mesh;
 import org.lwjgl.BufferUtils;
 
 import java.nio.IntBuffer;
 
 import static org.lwjgl.opengl.GL11.GL_FLOAT;
-import static org.lwjgl.opengl.GL11.GL_TRIANGLES;
 import static org.lwjgl.opengl.GL11.GL_UNSIGNED_INT;
 import static org.lwjgl.opengl.GL11.glDrawElements;
 import static org.lwjgl.opengl.GL15.GL_ARRAY_BUFFER;

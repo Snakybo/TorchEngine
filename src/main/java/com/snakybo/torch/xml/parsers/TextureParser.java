@@ -22,8 +22,8 @@
 
 package com.snakybo.torch.xml.parsers;
 
-import com.snakybo.torch.debug.Logger;
-import com.snakybo.torch.debug.LoggerInternal;
+import com.snakybo.torch.util.debug.Logger;
+import com.snakybo.torch.util.debug.LoggerInternal;
 import com.snakybo.torch.xml.XMLParserUtils;
 import org.w3c.dom.Element;
 

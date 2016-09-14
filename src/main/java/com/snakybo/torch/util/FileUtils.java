@@ -22,7 +22,7 @@
 
 package com.snakybo.torch.util;
 
-import com.snakybo.torch.debug.Logger;
+import com.snakybo.torch.util.debug.Logger;
 
 import java.net.URI;
 import java.net.URISyntaxException;

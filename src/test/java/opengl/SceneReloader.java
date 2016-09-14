@@ -22,17 +22,11 @@
 
 package opengl;
 
-import com.snakybo.torch.component.MeshRenderer;
-import com.snakybo.torch.debug.Logger;
-import com.snakybo.torch.graphics.color.Color;
-import com.snakybo.torch.graphics.gizmo.Gizmos;
-import com.snakybo.torch.graphics.texture.Texture;
 import com.snakybo.torch.input.keyboard.Key;
 import com.snakybo.torch.input.keyboard.Keyboard;
 import com.snakybo.torch.object.Component;
 import com.snakybo.torch.scene.Scene;
-import com.snakybo.torch.util.serialized.SerializedField;
-import org.joml.Vector3f;
+import com.snakybo.torch.util.debug.Logger;
 
 /**
  * @author Snakybo

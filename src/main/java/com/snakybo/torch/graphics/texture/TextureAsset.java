@@ -23,8 +23,8 @@
 package com.snakybo.torch.graphics.texture;
 
 import com.snakybo.torch.asset.AssetData;
-import com.snakybo.torch.util.MathUtils;
 import com.snakybo.torch.util.BufferUtils;
+import com.snakybo.torch.util.MathUtils;
 
 import java.awt.image.BufferedImage;
 import java.nio.IntBuffer;

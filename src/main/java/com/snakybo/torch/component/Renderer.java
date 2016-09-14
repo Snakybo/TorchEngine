@@ -22,10 +22,10 @@
 
 package com.snakybo.torch.component;
 
+import com.snakybo.torch.annotation.SerializedField;
 import com.snakybo.torch.asset.Assets;
 import com.snakybo.torch.graphics.material.Material;
 import com.snakybo.torch.object.Component;
-import com.snakybo.torch.util.serialized.SerializedField;
 
 /**
  * <p>

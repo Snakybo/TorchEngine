@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.debug;
+package com.snakybo.torch.util.debug;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -59,7 +59,7 @@ public final class LoggerInternal
 		}
 		catch(Exception e)
 		{
-			com.snakybo.torch.debug.Logger.logError(e.toString(), e);
+			com.snakybo.torch.util.debug.Logger.logError(e.toString(), e);
 		}
 	}
 	

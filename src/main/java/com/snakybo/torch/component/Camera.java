@@ -22,6 +22,7 @@
 
 package com.snakybo.torch.component;
 
+import com.snakybo.torch.annotation.SerializedField;
 import com.snakybo.torch.asset.Assets;
 import com.snakybo.torch.graphics.camera.CameraClearFlags;
 import com.snakybo.torch.graphics.camera.CameraInternal;
@@ -29,7 +30,6 @@ import com.snakybo.torch.graphics.color.Color;
 import com.snakybo.torch.graphics.texture.Texture;
 import com.snakybo.torch.graphics.window.Window;
 import com.snakybo.torch.object.Component;
-import com.snakybo.torch.util.serialized.SerializedField;
 import org.joml.Matrix4f;
 
 import java.util.HashSet;

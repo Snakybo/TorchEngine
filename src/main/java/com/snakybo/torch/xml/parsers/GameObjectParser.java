@@ -22,7 +22,7 @@
 
 package com.snakybo.torch.xml.parsers;
 
-import com.snakybo.torch.debug.LoggerInternal;
+import com.snakybo.torch.util.debug.LoggerInternal;
 import com.snakybo.torch.xml.XMLParserUtils;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;

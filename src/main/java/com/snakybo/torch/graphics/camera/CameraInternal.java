@@ -22,8 +22,8 @@
 
 package com.snakybo.torch.graphics.camera;
 
+import com.snakybo.torch.graphics.RenderingEngine;
 import com.snakybo.torch.graphics.color.Color;
-import com.snakybo.torch.graphics.Renderer;
 import com.snakybo.torch.graphics.texture.Texture;
 import com.snakybo.torch.object.Transform;
 import com.snakybo.torch.scene.SceneInternal;
@@ -104,7 +104,7 @@ public final class CameraInternal
 			break;
 		}
 		
-		SceneInternal.getAllInitializedGameObjects().forEach(Renderer::render);
+		SceneInternal.getAllInitializedGameObjects().forEach(RenderingEngine::render);
 		
 		if(clearFlags == CameraClearFlags.Skybox)
 		{

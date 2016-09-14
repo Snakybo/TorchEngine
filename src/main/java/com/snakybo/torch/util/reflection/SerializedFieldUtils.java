@@ -20,9 +20,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.util.serialized;
+package com.snakybo.torch.util.reflection;
 
-import com.snakybo.torch.debug.Logger;
+import com.snakybo.torch.annotation.SerializedField;
+import com.snakybo.torch.util.debug.Logger;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -37,9 +38,9 @@ import java.util.List;
  * @author Snakybo
  * @since 1.0
  */
-public final class SerializationUtils
+public final class SerializedFieldUtils
 {
-	private SerializationUtils()
+	private SerializedFieldUtils()
 	{
 		throw new AssertionError();
 	}

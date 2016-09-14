@@ -22,7 +22,7 @@
 
 package com.snakybo.torch.asset;
 
-import com.snakybo.torch.debug.LoggerInternal;
+import com.snakybo.torch.util.debug.LoggerInternal;
 
 /**
  * <p>

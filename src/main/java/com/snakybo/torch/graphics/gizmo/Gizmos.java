@@ -24,17 +24,12 @@ package com.snakybo.torch.graphics.gizmo;
 
 import com.snakybo.torch.asset.Assets;
 import com.snakybo.torch.component.Camera;
-import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.graphics.color.Color;
-import com.snakybo.torch.graphics.mesh.Mesh;
-import com.snakybo.torch.graphics.renderer.MeshRendererInternal;
 import com.snakybo.torch.graphics.shader.Shader;
 import com.snakybo.torch.object.Component;
+import com.snakybo.torch.util.debug.Logger;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
-import org.lwjgl.BufferUtils;
-
-import java.nio.FloatBuffer;
 
 import static org.lwjgl.opengl.GL11.GL_FILL;
 import static org.lwjgl.opengl.GL11.GL_FRONT_AND_BACK;

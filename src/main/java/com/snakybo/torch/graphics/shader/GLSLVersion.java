@@ -22,7 +22,7 @@
 
 package com.snakybo.torch.graphics.shader;
 
-import com.snakybo.torch.debug.Logger;
+import com.snakybo.torch.util.debug.Logger;
 
 import static org.lwjgl.opengl.GL11.glGetInteger;
 import static org.lwjgl.opengl.GL30.GL_MAJOR_VERSION;

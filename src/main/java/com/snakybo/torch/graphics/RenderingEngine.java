@@ -22,9 +22,9 @@
 
 package com.snakybo.torch.graphics;
 
-import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.object.GameObject;
 import com.snakybo.torch.object.GameObjectInternal;
+import com.snakybo.torch.util.debug.LoggerInternal;
 
 import static org.lwjgl.opengl.GL.createCapabilities;
 import static org.lwjgl.opengl.GL11.GL_BACK;
@@ -32,7 +32,6 @@ import static org.lwjgl.opengl.GL11.GL_BLEND;
 import static org.lwjgl.opengl.GL11.GL_CULL_FACE;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_TEST;
 import static org.lwjgl.opengl.GL11.GL_EXTENSIONS;
-import static org.lwjgl.opengl.GL11.GL_FRONT;
 import static org.lwjgl.opengl.GL11.GL_LESS;
 import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
 import static org.lwjgl.opengl.GL11.GL_RENDERER;
@@ -51,9 +50,9 @@ import static org.lwjgl.opengl.GL11.glGetString;
  * @author Snakybo
  * @since 1.0
  */
-public final class Renderer
+public final class RenderingEngine
 {
-	private Renderer()
+	private RenderingEngine()
 	{
 		throw new AssertionError();
 	}

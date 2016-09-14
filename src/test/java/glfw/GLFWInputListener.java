@@ -22,12 +22,12 @@
 
 package glfw;
 
-import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.input.keyboard.Key;
 import com.snakybo.torch.input.keyboard.Keyboard;
 import com.snakybo.torch.input.mouse.Mouse;
 import com.snakybo.torch.input.mouse.MouseButton;
 import com.snakybo.torch.object.Component;
+import com.snakybo.torch.util.debug.Logger;
 
 /**
  * @author Snakybo

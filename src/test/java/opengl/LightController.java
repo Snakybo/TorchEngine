@@ -24,17 +24,13 @@ package opengl;
 
 import com.snakybo.torch.component.Camera;
 import com.snakybo.torch.component.MeshRenderer;
-import com.snakybo.torch.debug.Logger;
 import com.snakybo.torch.graphics.color.Color;
 import com.snakybo.torch.graphics.gizmo.Gizmos;
-import com.snakybo.torch.graphics.texture.Texture;
 import com.snakybo.torch.object.Component;
 import com.snakybo.torch.object.Transform;
 import com.snakybo.torch.scene.Scene;
-import com.snakybo.torch.util.serialized.SerializedField;
+import com.snakybo.torch.util.debug.Logger;
 import org.joml.Vector3f;
-
-import java.util.Random;
 
 /**
  * @author Snakybo

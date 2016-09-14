@@ -22,9 +22,9 @@
 
 package com.snakybo.torch.xml;
 
-import com.snakybo.torch.debug.Logger;
-import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.util.FileUtils;
+import com.snakybo.torch.util.debug.Logger;
+import com.snakybo.torch.util.debug.LoggerInternal;
 import com.snakybo.torch.xml.parsers.MaterialParser;
 import com.snakybo.torch.xml.parsers.SceneParser;
 import com.snakybo.torch.xml.parsers.TextureParser;

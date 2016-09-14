@@ -23,12 +23,12 @@
 package com.snakybo.torch.graphics.texture;
 
 import com.snakybo.torch.asset.Asset;
-import com.snakybo.torch.debug.Logger;
-import com.snakybo.torch.debug.LoggerInternal;
 import com.snakybo.torch.graphics.color.Color;
 import com.snakybo.torch.graphics.color.ColorUtil;
-import com.snakybo.torch.util.MathUtils;
 import com.snakybo.torch.util.BufferUtils;
+import com.snakybo.torch.util.MathUtils;
+import com.snakybo.torch.util.debug.Logger;
+import com.snakybo.torch.util.debug.LoggerInternal;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

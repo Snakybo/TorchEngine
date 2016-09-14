@@ -22,14 +22,11 @@
 
 package com.snakybo.torch.object;
 
-import com.snakybo.torch.util.time.Time;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * <p>

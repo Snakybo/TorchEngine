@@ -23,13 +23,11 @@
 package com.snakybo.torch;
 
 import com.snakybo.torch.component.Camera;
-import com.snakybo.torch.debug.Logger;
-import com.snakybo.torch.debug.LoggerInternal;
+import com.snakybo.torch.graphics.RenderingEngine;
 import com.snakybo.torch.graphics.gizmo.Gizmos;
 import com.snakybo.torch.graphics.gizmo.GizmosInternal;
 import com.snakybo.torch.graphics.glfw.GLFW;
 import com.snakybo.torch.graphics.monitor.MonitorController;
-import com.snakybo.torch.graphics.Renderer;
 import com.snakybo.torch.graphics.window.Window;
 import com.snakybo.torch.graphics.window.WindowInternal;
 import com.snakybo.torch.input.cursor.CursorController;
@@ -40,6 +38,8 @@ import com.snakybo.torch.object.GameObject;
 import com.snakybo.torch.object.GameObjectInternal;
 import com.snakybo.torch.object.TorchObject;
 import com.snakybo.torch.scene.SceneInternal;
+import com.snakybo.torch.util.debug.Logger;
+import com.snakybo.torch.util.debug.LoggerInternal;
 import com.snakybo.torch.util.time.Time;
 import com.snakybo.torch.util.time.TimeInternal;
 import org.lwjgl.Version;
@@ -178,7 +178,7 @@ public final class Engine
 		for(GameObject gameObject : SceneInternal.getAllInitializedGameObjects())
 		{
 			Gizmos.reset();
-			Renderer.renderGizmos(gameObject);
+			RenderingEngine.renderGizmos(gameObject);
 		}
 		
 		GizmosInternal.isInGizmoRenderPass = false;
