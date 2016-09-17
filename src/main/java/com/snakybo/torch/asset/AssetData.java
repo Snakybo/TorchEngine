@@ -110,4 +110,16 @@ public abstract class AssetData
 			destroy();
 		}
 	}
+	
+	/**
+	 * <p>
+	 * Get the name of the asset.
+	 * </p>
+	 *
+	 * @return The name of the asset.
+	 */
+	public final String getName()
+	{
+		return name;
+	}
 }
