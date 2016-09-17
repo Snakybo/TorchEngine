@@ -24,7 +24,9 @@ package com.snakybo.torch.component;
 
 import com.snakybo.torch.annotation.SerializedField;
 import com.snakybo.torch.asset.Assets;
+import com.snakybo.torch.graphics.camera.CameraInternal;
 import com.snakybo.torch.graphics.material.Material;
+import com.snakybo.torch.graphics.material.MaterialUpdater;
 import com.snakybo.torch.object.Component;
 
 /**
@@ -53,8 +55,6 @@ public abstract class Renderer extends Component
 		}
 		
 		cachedMeshHashCode = meshFilter.getMesh().hashCode();
-		
-		material.setTransform(getTransform());
 	}
 	
 	@Override
@@ -72,12 +72,12 @@ public abstract class Renderer extends Component
 	@Override
 	protected void onRenderObject()
 	{
-		material.bind();
-		material.update();
+		material.getShader().bind();
+		MaterialUpdater.update(material, getTransform().getTransformation());
 		
 		render();
 		
-		material.unbind();
+		material.getShader().unbind();
 	}
 	
 	@Override

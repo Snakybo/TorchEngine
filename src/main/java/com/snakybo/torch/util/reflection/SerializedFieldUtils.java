@@ -255,7 +255,7 @@ public final class SerializedFieldUtils
 	public static void set(Object object, Field field, Object value)
 	{
 		Class<?> t = field.getType();
-		if(value == null || t.equals(value.getClass()))
+		if(value == null || t.isAssignableFrom(value.getClass()))
 		{
 			try
 			{

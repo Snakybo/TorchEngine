@@ -26,6 +26,9 @@ import com.snakybo.torch.component.Camera;
 import com.snakybo.torch.component.MeshRenderer;
 import com.snakybo.torch.graphics.color.Color;
 import com.snakybo.torch.graphics.gizmo.Gizmos;
+import com.snakybo.torch.graphics.texture.TextureFilterMode;
+import com.snakybo.torch.input.keyboard.Key;
+import com.snakybo.torch.input.keyboard.Keyboard;
 import com.snakybo.torch.object.Component;
 import com.snakybo.torch.object.Transform;
 import com.snakybo.torch.scene.Scene;
@@ -63,6 +66,19 @@ public class LightController extends Component
 			meshRenderer.getMaterial().setVector3f("spotLight.direction", camera.forward());
 			meshRenderer.getMaterial().setFloat("spotLight.cutOff", (float)Math.toRadians(10.0));
 			meshRenderer.getMaterial().setFloat("spotLight.outerCutOff", (float)Math.toRadians(15.0));
+		}
+		
+		if(Keyboard.onDown(Key.F))
+		{
+			meshRenderer.getMaterial().getTexture("mainTexture").setFilterMode(TextureFilterMode.Point);
+		}
+		else if(Keyboard.onDown(Key.G))
+		{
+			meshRenderer.getMaterial().getTexture("mainTexture").setFilterMode(TextureFilterMode.Bilinear);
+		}
+		else if(Keyboard.onDown(Key.H))
+		{
+			meshRenderer.getMaterial().getTexture("mainTexture").setFilterMode(TextureFilterMode.Trilinear);
 		}
 	}
 	

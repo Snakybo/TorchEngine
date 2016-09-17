@@ -22,10 +22,16 @@
 
 package com.snakybo.torch.graphics.material;
 
+import com.snakybo.torch.graphics.color.Color;
+import com.snakybo.torch.graphics.texture.Texture;
+import com.snakybo.torch.graphics.texture.Texture2D;
 import com.snakybo.torch.util.debug.Logger;
 import com.snakybo.torch.util.debug.LoggerInternal;
 import com.snakybo.torch.xml.XMLParser;
 import com.snakybo.torch.xml.parsers.MaterialParser;
+import org.joml.Vector2f;
+import org.joml.Vector3f;
+import org.joml.Vector4f;
 
 import java.nio.file.NoSuchFileException;
 import java.util.Map;
@@ -57,9 +63,40 @@ public final class MaterialAssetLoader
 			
 			Material material = new Material(materialData.shader);
 			
-			for(Map.Entry<String, Object> value : materialData.values.entrySet())
+			for(Map.Entry<String, Object> prop : materialData.values.entrySet())
 			{
-				material.set(value.getKey(), value.getValue());
+				if(prop.getValue().getClass().equals(Vector2f.class))
+				{
+					material.setVector2f(prop.getKey(), (Vector2f)prop.getValue());
+				}
+				else if(prop.getValue().getClass().equals(Vector3f.class))
+				{
+					material.setVector3f(prop.getKey(), (Vector3f)prop.getValue());
+				}
+				else if(prop.getValue().getClass().equals(Vector4f.class))
+				{
+					material.setVector4f(prop.getKey(), (Vector4f)prop.getValue());
+				}
+				else if(prop.getValue().getClass().equals(Color.class))
+				{
+					material.setColor(prop.getKey(), (Color)prop.getValue());
+				}
+				else if(prop.getValue().getClass().equals(Float.class))
+				{
+					material.setFloat(prop.getKey(), (float)prop.getValue());
+				}
+				else if(prop.getValue().getClass().equals(Integer.class))
+				{
+					material.setInt(prop.getKey(), (int)prop.getValue());
+				}
+				else if(prop.getValue().getClass().equals(Texture2D.class))
+				{
+					material.setTexture(prop.getKey(), (Texture2D)prop.getValue());
+				}
+				else
+				{
+					Logger.logError("Unknown material property: " + prop.getKey() + " - " + prop.getValue().getClass());
+				}
 			}
 			
 			return material;

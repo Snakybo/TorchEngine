@@ -118,8 +118,8 @@ public abstract class Texture extends Asset
 	{
 		if(this == o)
 		{
-		return true;
-	}
+			return true;
+		}
 		
 		if(o == null || getClass() != o.getClass())
 		{

@@ -245,6 +245,18 @@ public final class Shader extends Asset
 	
 	/**
 	 * <p>
+	 * Get the name of the shader.
+	 * </p>
+	 *
+	 * @return The name of the shader.
+	 */
+	public final String getName()
+	{
+		return asset.getName();
+	}
+	
+	/**
+	 * <p>
 	 * Load a shader.
 	 * </p>
 	 *

@@ -75,14 +75,7 @@ final class TextureAsset extends AssetData
 		
 		if(name != null && !name.isEmpty())
 		{
-			if(all.containsKey(name))
-			{
-				Logger.logError("A texture object with the name: " + name + " already exists");
-			}
-			else
-			{
-				all.put(name, this);
-			}
+			all.put(name, this);
 		}
 	}
 	

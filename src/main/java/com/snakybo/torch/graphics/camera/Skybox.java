@@ -25,6 +25,7 @@ package com.snakybo.torch.graphics.camera;
 import com.snakybo.torch.asset.Assets;
 import com.snakybo.torch.component.Camera;
 import com.snakybo.torch.graphics.material.Material;
+import com.snakybo.torch.graphics.material.MaterialUpdater;
 import com.snakybo.torch.graphics.mesh.Mesh;
 import com.snakybo.torch.graphics.renderer.MeshRendererInternal;
 import com.snakybo.torch.graphics.texture.Texture;
@@ -49,8 +50,6 @@ public final class Skybox
 		transform.setScale(new Vector3f(50));
 		
 		material = new Material("unlit.glsl");
-		material.setTransform(transform);
-		
 		meshRenderer = new MeshRendererInternal(Assets.load(Mesh.class, "torch_internal/skybox.obj"));
 	}
 	
@@ -65,12 +64,12 @@ public final class Skybox
 		
 		transform.setPosition(position);
 		
-		material.bind();
-		material.update();
+		material.getShader().bind();
+		MaterialUpdater.update(material, transform.getTransformation());
 		
 		meshRenderer.render(GL_TRIANGLES);
 		
-		material.unbind();
+		material.getShader().unbind();
 	}
 	
 	public final void setTexture(Texture texture)
