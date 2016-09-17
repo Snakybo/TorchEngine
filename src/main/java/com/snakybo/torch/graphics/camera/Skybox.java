@@ -25,7 +25,7 @@ package com.snakybo.torch.graphics.camera;
 import com.snakybo.torch.asset.Assets;
 import com.snakybo.torch.component.Camera;
 import com.snakybo.torch.graphics.material.Material;
-import com.snakybo.torch.graphics.material.MaterialUpdater;
+import com.snakybo.torch.graphics.material.MaterialInternal;
 import com.snakybo.torch.graphics.mesh.Mesh;
 import com.snakybo.torch.graphics.renderer.MeshRendererInternal;
 import com.snakybo.torch.graphics.shader.ShaderInternal;
@@ -67,8 +67,8 @@ public final class Skybox
 		
 		ShaderInternal.bind(material.getShader());
 		
-		MaterialUpdater.updateBuiltInUniforms(material, transform.getTransformation());
-		MaterialUpdater.update(material);
+		MaterialInternal.updateBuiltInUniforms(material, transform.getTransformation());
+		MaterialInternal.update(material);
 		
 		meshRenderer.render(GL_TRIANGLES);
 		

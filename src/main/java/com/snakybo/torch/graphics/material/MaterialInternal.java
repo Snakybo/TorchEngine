@@ -47,9 +47,9 @@ import static org.lwjgl.opengl.GL20.glUniformMatrix4fv;
  * @author Snakybo
  * @since 1.0
  */
-public final class MaterialUpdater
+public final class MaterialInternal
 {
-	private MaterialUpdater()
+	private MaterialInternal()
 	{
 		throw new AssertionError();
 	}

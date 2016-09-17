@@ -24,7 +24,7 @@ package com.snakybo.torch.graphics.gizmo;
 
 import com.snakybo.torch.graphics.color.Color;
 import com.snakybo.torch.graphics.material.Material;
-import com.snakybo.torch.graphics.material.MaterialUpdater;
+import com.snakybo.torch.graphics.material.MaterialInternal;
 import com.snakybo.torch.graphics.shader.ShaderInternal;
 import com.snakybo.torch.object.Component;
 import com.snakybo.torch.util.debug.Logger;
@@ -184,8 +184,8 @@ public final class Gizmos
 	{
 		material.setVector3f("color", new Vector3f(color.getRed(), color.getGreen(), color.getBlue()));
 		
-		MaterialUpdater.updateBuiltInUniforms(material, new Matrix4f().translate(position).scale(size));
-		MaterialUpdater.update(material);
+		MaterialInternal.updateBuiltInUniforms(material, new Matrix4f().translate(position).scale(size));
+		MaterialInternal.update(material);
 	}
 	
 	private static boolean canRender()
