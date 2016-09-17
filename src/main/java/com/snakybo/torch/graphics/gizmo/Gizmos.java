@@ -22,10 +22,10 @@
 
 package com.snakybo.torch.graphics.gizmo;
 
-import com.snakybo.torch.asset.Assets;
-import com.snakybo.torch.component.Camera;
 import com.snakybo.torch.graphics.color.Color;
-import com.snakybo.torch.graphics.shader.Shader;
+import com.snakybo.torch.graphics.material.Material;
+import com.snakybo.torch.graphics.material.MaterialUpdater;
+import com.snakybo.torch.graphics.shader.ShaderInternal;
 import com.snakybo.torch.object.Component;
 import com.snakybo.torch.util.debug.Logger;
 import org.joml.Matrix4f;
@@ -53,13 +53,13 @@ import static org.lwjgl.opengl.GL11.glPolygonMode;
  */
 public final class Gizmos
 {
-	private static Shader shader;
+	private static Material material;
 	
 	private static Color color;
 	
 	static
 	{
-		shader = Assets.load(Shader.class, "torch_internal/gizmos.glsl");
+		material = new Material("torch_internal/gizmos.glsl");
 		
 		setColor(Color.WHITE);
 	}
@@ -99,12 +99,12 @@ public final class Gizmos
 			return;
 		}
 		
-		shader.bind();
+		ShaderInternal.bind(material.getShader());
 		
 		updateMatrix(position, size);
 		GizmoShapeCube.render(GL_TRIANGLES);
 		
-		shader.unbind();
+		ShaderInternal.unbind();
 	}
 	
 	/**
@@ -122,12 +122,12 @@ public final class Gizmos
 			return;
 		}
 		
-		shader.bind();
+		ShaderInternal.bind(material.getShader());
 		
 		updateMatrix(position, size);
 		GizmoShapeCubeWireframe.render(GL_LINES);
 		
-		shader.unbind();
+		ShaderInternal.unbind();
 	}
 	
 	/**
@@ -145,12 +145,12 @@ public final class Gizmos
 			return;
 		}
 		
-		shader.bind();
+		ShaderInternal.bind(material.getShader());
 		
 		updateMatrix(position, new Vector3f(radius));
 		GizmoShapeSphere.render(GL_QUADS);
 		
-		shader.unbind();
+		ShaderInternal.unbind();
 	}
 	
 	/**
@@ -168,7 +168,7 @@ public final class Gizmos
 			return;
 		}
 		
-		shader.bind();
+		ShaderInternal.bind(material.getShader());
 		
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		
@@ -177,16 +177,15 @@ public final class Gizmos
 		
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		
-		shader.unbind();
+		ShaderInternal.unbind();
 	}
 	
 	private static void updateMatrix(Vector3f position, Vector3f size)
 	{
-		shader.setUniform4fv("_model", new Matrix4f().translate(position).scale(size));
-		shader.setUniform4fv("_projection", Camera.getInstance().getProjectionMatrix());
-		shader.setUniform4fv("_view", Camera.getInstance().getViewMatrix());
+		material.setVector3f("color", new Vector3f(color.getRed(), color.getGreen(), color.getBlue()));
 		
-		shader.setUniform3f("color", new Vector3f(color.getRed(), color.getGreen(), color.getBlue()));
+		MaterialUpdater.updateBuiltInUniforms(material, new Matrix4f().translate(position).scale(size));
+		MaterialUpdater.update(material);
 	}
 	
 	private static boolean canRender()

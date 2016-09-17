@@ -28,6 +28,7 @@ import com.snakybo.torch.graphics.material.Material;
 import com.snakybo.torch.graphics.material.MaterialUpdater;
 import com.snakybo.torch.graphics.mesh.Mesh;
 import com.snakybo.torch.graphics.renderer.MeshRendererInternal;
+import com.snakybo.torch.graphics.shader.ShaderInternal;
 import com.snakybo.torch.graphics.texture.Texture;
 import com.snakybo.torch.object.Transform;
 import org.joml.Vector3f;
@@ -64,12 +65,14 @@ public final class Skybox
 		
 		transform.setPosition(position);
 		
-		material.getShader().bind();
-		MaterialUpdater.update(material, transform.getTransformation());
+		ShaderInternal.bind(material.getShader());
+		
+		MaterialUpdater.updateBuiltInUniforms(material, transform.getTransformation());
+		MaterialUpdater.update(material);
 		
 		meshRenderer.render(GL_TRIANGLES);
 		
-		material.getShader().unbind();
+		ShaderInternal.unbind();
 	}
 	
 	public final void setTexture(Texture texture)

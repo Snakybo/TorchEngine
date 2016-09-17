@@ -26,8 +26,11 @@ import com.snakybo.torch.asset.Asset;
 import com.snakybo.torch.asset.AssetData;
 import com.snakybo.torch.asset.Assets;
 import com.snakybo.torch.graphics.shader.Shader;
+import com.snakybo.torch.graphics.texture.Texture;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -39,6 +42,7 @@ final class MaterialAsset extends AssetData
 	static Map<String, MaterialAsset> all = new HashMap<>();
 	
 	Map<String, Object> values;
+	List<Texture> textureSamplerSlotIds;
 	
 	Shader shader;
 	
@@ -48,6 +52,7 @@ final class MaterialAsset extends AssetData
 		
 		this.shader = Assets.load(Shader.class, shader);
 		this.values = new HashMap<>();
+		this.textureSamplerSlotIds = new ArrayList<>();
 		
 		if(name != null && !name.isEmpty())
 		{

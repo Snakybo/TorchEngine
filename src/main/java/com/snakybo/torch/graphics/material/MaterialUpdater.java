@@ -23,16 +23,25 @@
 package com.snakybo.torch.graphics.material;
 
 import com.snakybo.torch.graphics.camera.CameraInternal;
-import com.snakybo.torch.graphics.shader.Shader;
+import com.snakybo.torch.graphics.shader.ShaderInternal;
 import com.snakybo.torch.graphics.texture.Texture;
 import com.snakybo.torch.graphics.texture.TextureInternal;
-import com.snakybo.torch.util.debug.Logger;
+import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
+import org.lwjgl.BufferUtils;
 
 import java.util.Map;
+
+import static org.lwjgl.opengl.GL20.glUniform1f;
+import static org.lwjgl.opengl.GL20.glUniform1i;
+import static org.lwjgl.opengl.GL20.glUniform2f;
+import static org.lwjgl.opengl.GL20.glUniform3f;
+import static org.lwjgl.opengl.GL20.glUniform4f;
+import static org.lwjgl.opengl.GL20.glUniformMatrix3fv;
+import static org.lwjgl.opengl.GL20.glUniformMatrix4fv;
 
 /**
  * @author Snakybo
@@ -45,71 +54,76 @@ public final class MaterialUpdater
 		throw new AssertionError();
 	}
 	
-	public static void update(Material material, Matrix4f transformation)
+	public static void update(Material material)
 	{
-		Shader s = material.getShader();
-		
-		if(s.hasUniform("_model"))
+		for(Map.Entry<String, Object> property : material.asset.values.entrySet())
 		{
-			s.setUniform4fv("_model", transformation);
-		}
-		
-		if(s.hasUniform("_view"))
-		{
-			s.setUniform4fv("_view", CameraInternal.getInstance().getViewMatrix());
-		}
-		
-		if(s.hasUniform("_projection"))
-		{
-			s.setUniform4fv("_projection", CameraInternal.getInstance().getProjectionMatrix());
-		}
-		
-		if(s.hasUniform("_cameraPosition"))
-		{
-			s.setUniform3f("_cameraPosition", CameraInternal.getInstance().getTransform().getPosition());
-		}
-		
-		for(Map.Entry<String, Object> value : material.asset.values.entrySet())
-		{
-			String type = s.getUniformType(value.getKey());
+			String type = ShaderInternal.getUniformType(material.asset.shader, property.getKey());
 			
-			if(type == null)
+			if(type != null)
 			{
-				Logger.logWarning("No type found for: " + value.getKey());
-				continue;
-			}
-			
-			switch(type)
-			{
-			case "sampler2D":
-				if(value.getKey().contains("mainTexture"))
-				{
-					TextureInternal.bind((Texture)value.getValue(), 0);
-					s.setUniform1i(value.getKey(), 0);
-				}
-				else if(value.getKey().contains("specular"))
-				{
-					TextureInternal.bind((Texture)value.getValue(), 1);
-					s.setUniform1i(value.getKey(), 1);
-				}
+				int loc = ShaderInternal.getUniformLocation(material.getShader(), property.getKey());
+				Object value = property.getValue();
 				
-				break;
-			case "float":
-				s.setUniform1f(value.getKey(), (float)value.getValue());
-				break;
-			case "vec2":
-				s.setUniform2f(value.getKey(), (Vector2f)value.getValue());
-				break;
-			case "vec3":
-				s.setUniform3f(value.getKey(), (Vector3f)value.getValue());
-				break;
-			case "vec4":
-				s.setUniform4f(value.getKey(), (Vector4f)value.getValue());
-				break;
-			default:
-				Logger.logWarning("Invalid uniform type: " + type);
-				break;
+				switch(type)
+				{
+				case "int":
+					glUniform1i(loc, (int)value);
+					break;
+				case "float":
+					glUniform1f(loc, (float)value);
+					break;
+				case "vec2":
+					Vector2f vec2 = (Vector2f)value;
+					glUniform2f(loc, vec2.x, vec2.y);
+					break;
+				case "vec3":
+					Vector3f vec3 = (Vector3f)value;
+					glUniform3f(loc, vec3.x, vec3.y, vec3.z);
+					break;
+				case "vec4":
+					Vector4f vec4 = (Vector4f)value;
+					glUniform4f(loc, vec4.x, vec4.y, vec4.z, vec4.w);
+					break;
+				case "mat3":
+					Matrix3f mat3 = (Matrix3f)value;
+					glUniformMatrix3fv(loc, false, mat3.get(BufferUtils.createFloatBuffer(9)));
+					break;
+				case "mat4":
+					Matrix4f mat4 = (Matrix4f)value;
+					glUniformMatrix4fv(loc, false, mat4.get(BufferUtils.createFloatBuffer(16)));
+					break;
+				case "sampler2D":
+					Texture texture = (Texture)value;
+					int samplerSlotId = material.asset.textureSamplerSlotIds.indexOf(texture);
+					TextureInternal.bind(texture, samplerSlotId);
+					glUniform1i(loc, samplerSlotId);
+					break;
+				}
 			}
+		}
+	}
+	
+	public static void updateBuiltInUniforms(Material material, Matrix4f model)
+	{
+		if(ShaderInternal.hasUniform(material.asset.shader, "_model"))
+		{
+			material.setMatrix4f("_model", model);
+		}
+		
+		if(ShaderInternal.hasUniform(material.asset.shader, "_view"))
+		{
+			material.setMatrix4f("_view", CameraInternal.getInstance().getViewMatrix());
+		}
+		
+		if(ShaderInternal.hasUniform(material.asset.shader, "_projection"))
+		{
+			material.setMatrix4f("_projection", CameraInternal.getInstance().getProjectionMatrix());
+		}
+		
+		if(ShaderInternal.hasUniform(material.asset.shader, "_cameraPosition"))
+		{
+			material.setVector3f("_cameraPosition", CameraInternal.getInstance().getTransform().getPosition());
 		}
 	}
 }

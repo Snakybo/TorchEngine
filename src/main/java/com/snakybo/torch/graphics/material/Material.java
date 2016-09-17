@@ -23,20 +23,18 @@
 package com.snakybo.torch.graphics.material;
 
 import com.snakybo.torch.asset.Asset;
-import com.snakybo.torch.graphics.camera.CameraInternal;
 import com.snakybo.torch.graphics.color.Color;
 import com.snakybo.torch.graphics.mesh.Mesh;
 import com.snakybo.torch.graphics.shader.Shader;
+import com.snakybo.torch.graphics.shader.ShaderInternal;
 import com.snakybo.torch.graphics.texture.Texture;
 import com.snakybo.torch.graphics.texture.Texture2D;
-import com.snakybo.torch.graphics.texture.TextureInternal;
-import com.snakybo.torch.object.Transform;
 import com.snakybo.torch.util.debug.Logger;
+import org.joml.Matrix3f;
+import org.joml.Matrix4f;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
-
-import java.util.Map;
 
 /**
  * <p>
@@ -132,26 +130,39 @@ public final class Material extends Asset
 	
 	/**
 	 * <p>
-	 * Set the main texture.
+	 * Set an {@code int} value.
 	 * </p>
-	 *
-	 * @param texture The main texture.
+	 * @param name The name of the uniform in the shader.
+	 * @param value The value of the uniform.
 	 */
-	public final void setTexture(Texture texture)
+	public final void setInt(String name, int value)
 	{
-		setTexture("material.mainTexture", texture);
+		if(!ShaderInternal.hasUniform(asset.shader, name) || !ShaderInternal.getUniformType(asset.shader, name).equals("int"))
+		{
+			Logger.logWarning("Shader: " + getShader().getName() + " does not contain a int with the name: " + name);
+			return;
+		}
+		
+		asset.values.put(name, value);
 	}
 	
 	/**
 	 * <p>
-	 * Set the main color.
+	 * Set a {@code float} value.
 	 * </p>
 	 *
-	 * @param color The main color.
+	 * @param name The name of the uniform in the shader.
+	 * @param value The value of the uniform.
 	 */
-	public final void setColor(Color color)
+	public final void setFloat(String name, float value)
 	{
-		setColor("material.mainColor", color);
+		if(!ShaderInternal.hasUniform(asset.shader, name) || !ShaderInternal.getUniformType(asset.shader, name).equals("float"))
+		{
+			Logger.logWarning("Shader: " + getShader().getName() + " does not contain a float with the name: " + name);
+			return;
+		}
+		
+		asset.values.put(name, value);
 	}
 	
 	/**
@@ -164,6 +175,12 @@ public final class Material extends Asset
 	 */
 	public final void setVector2f(String name, Vector2f value)
 	{
+		if(!ShaderInternal.hasUniform(asset.shader, name) || !ShaderInternal.getUniformType(asset.shader, name).equals("vec2"))
+		{
+			Logger.logWarning("Shader: " + getShader().getName() + " does not contain a vec2 with the name: " + name);
+			return;
+		}
+		
 		asset.values.put(name, value);
 	}
 	
@@ -177,6 +194,12 @@ public final class Material extends Asset
 	 */
 	public final void setVector3f(String name, Vector3f value)
 	{
+		if(!ShaderInternal.hasUniform(asset.shader, name) || !ShaderInternal.getUniformType(asset.shader, name).equals("vec3"))
+		{
+			Logger.logWarning("Shader: " + getShader().getName() + " does not contain a vec3 with the name: " + name);
+			return;
+		}
+		
 		asset.values.put(name, value);
 	}
 	
@@ -190,6 +213,34 @@ public final class Material extends Asset
 	 */
 	public final void setVector4f(String name, Vector4f value)
 	{
+		if(!ShaderInternal.hasUniform(asset.shader, name) || !ShaderInternal.getUniformType(asset.shader, name).equals("vec4"))
+		{
+			Logger.logWarning("Shader: " + getShader().getName() + " does not contain a vec4 with the name: " + name);
+			return;
+		}
+		
+		asset.values.put(name, value);
+	}
+	
+	public final void setMatrix3f(String name, Matrix3f value)
+	{
+		if(!ShaderInternal.hasUniform(asset.shader, name) || !ShaderInternal.getUniformType(asset.shader, name).equals("mat3"))
+		{
+			Logger.logWarning("Shader: " + getShader().getName() + " does not contain a mat3 with the name: " + name);
+			return;
+		}
+		
+		asset.values.put(name, value);
+	}
+	
+	public final void setMatrix4f(String name, Matrix4f value)
+	{
+		if(!ShaderInternal.hasUniform(asset.shader, name) || !ShaderInternal.getUniformType(asset.shader, name).equals("mat4"))
+		{
+			Logger.logWarning("Shader: " + getShader().getName() + " does not contain a mat4 with the name: " + name);
+			return;
+		}
+		
 		asset.values.put(name, value);
 	}
 	
@@ -203,17 +254,23 @@ public final class Material extends Asset
 	 */
 	public final void setColor(String name, Color value)
 	{
-		String type = asset.shader.getUniformType(name);
+		if(!ShaderInternal.hasUniform(asset.shader, name) || !ShaderInternal.getUniformType(asset.shader, name).equals("vec3") && !ShaderInternal.getUniformType(asset.shader, name).equals("vec4"))
+		{
+			Logger.logWarning("Shader: " + getShader().getName() + " does not contain a vec3 or vec4 with the name: " + name);
+			return;
+		}
+		
+		String type = ShaderInternal.getUniformType(asset.shader, name);
 		
 		if(type != null)
 		{
 			switch(type)
 			{
 			case "vec3":
-				asset.values.put(name, new Vector3f(value.getRed(), value.getGreen(), value.getBlue()));
+				setVector3f(name, new Vector3f(value.getRed(), value.getGreen(), value.getBlue()));
 				break;
 			case "vec4":
-				asset.values.put(name, new Vector4f(value.getRed(), value.getGreen(), value.getBlue(), value.getAlpha()));
+				setVector4f(name, new Vector4f(value.getRed(), value.getGreen(), value.getBlue(), value.getAlpha()));
 				break;
 			}
 		}
@@ -229,56 +286,40 @@ public final class Material extends Asset
 	 */
 	public final void setTexture(String name, Texture value)
 	{
+		if(!ShaderInternal.hasUniform(asset.shader, name) || !ShaderInternal.getUniformType(asset.shader, name).equals("sampler2D"))
+		{
+			Logger.logWarning("Shader: " + getShader().getName() + " does not contain a sampler2D with the name: " + name);
+			return;
+		}
+		
 		asset.values.put(name, value);
+		asset.textureSamplerSlotIds.add(value);
 	}
 	
 	/**
 	 * <p>
-	 * Set a {@code float} value.
+	 * Get an {@code int} value.
 	 * </p>
 	 *
 	 * @param name The name of the uniform in the shader.
-	 * @param value The value of the uniform.
+	 * @return The value of the uniform.
 	 */
-	public final void setFloat(String name, float value)
+	public final int getInt(String name)
 	{
-		asset.values.put(name, value);
+		return get(int.class, name);
 	}
 	
 	/**
 	 * <p>
-	 * Set an {@code int} value.
+	 * Get a {@code float} value.
 	 * </p>
+	 *
 	 * @param name The name of the uniform in the shader.
-	 * @param value The value of the uniform.
+	 * @return The value of the uniform.
 	 */
-	public final void setInt(String name, int value)
+	public final float getFloat(String name)
 	{
-		asset.values.put(name, value);
-	}
-	
-	/**
-	 * <p>
-	 * Get the main texture.
-	 * </p>
-	 *
-	 * @return The main texture.
-	 */
-	public final Texture getTexture()
-	{
-		return getTexture("material.mainTexture");
-	}
-	
-	/**
-	 * <p>
-	 * Get the main color.
-	 * </p>
-	 *
-	 * @return The main color.
-	 */
-	public final Color getColor()
-	{
-		return getColor("material.mainColor");
+		return get(float.class, name);
 	}
 	
 	/**
@@ -320,6 +361,16 @@ public final class Material extends Asset
 		return get(Vector4f.class, name);
 	}
 	
+	public final Matrix3f getMatrix3f(String name)
+	{
+		return get(Matrix3f.class, name);
+	}
+	
+	public final Matrix4f getMatrix4f(String name)
+	{
+		return get(Matrix4f.class, name);
+	}
+	
 	/**
 	 * <p>
 	 * Get a {@code vec3}  or {@code vec4} value.
@@ -330,7 +381,7 @@ public final class Material extends Asset
 	 */
 	public final Color getColor(String name)
 	{
-		String type = asset.shader.getUniformType(name);
+		String type = ShaderInternal.getUniformType(asset.shader, name);
 		
 		if(type != null)
 		{
@@ -365,34 +416,8 @@ public final class Material extends Asset
 			return (Texture2D)value;
 		}
 		
-		Logger.logError("Unknown texture type");
+		Logger.logError("Unknown texture type for name: " + name + " (is of type: " + value.getClass() + ")");
 		return null;
-	}
-	
-	/**
-	 * <p>
-	 * Get a {@code float} value.
-	 * </p>
-	 *
-	 * @param name The name of the uniform in the shader.
-	 * @return The value of the uniform.
-	 */
-	public final float getFloat(String name)
-	{
-		return get(float.class, name);
-	}
-	
-	/**
-	 * <p>
-	 * Get an {@code int} value.
-	 * </p>
-	 *
-	 * @param name The name of the uniform in the shader.
-	 * @return The value of the uniform.
-	 */
-	public final int getInt(String name)
-	{
-		return get(int.class, name);
 	}
 	
 	/**

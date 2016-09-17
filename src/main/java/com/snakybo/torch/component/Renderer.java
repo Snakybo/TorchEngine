@@ -24,9 +24,9 @@ package com.snakybo.torch.component;
 
 import com.snakybo.torch.annotation.SerializedField;
 import com.snakybo.torch.asset.Assets;
-import com.snakybo.torch.graphics.camera.CameraInternal;
 import com.snakybo.torch.graphics.material.Material;
 import com.snakybo.torch.graphics.material.MaterialUpdater;
+import com.snakybo.torch.graphics.shader.ShaderInternal;
 import com.snakybo.torch.object.Component;
 
 /**
@@ -72,12 +72,14 @@ public abstract class Renderer extends Component
 	@Override
 	protected void onRenderObject()
 	{
-		material.getShader().bind();
-		MaterialUpdater.update(material, getTransform().getTransformation());
+		ShaderInternal.bind(material.getShader());
+		
+		MaterialUpdater.updateBuiltInUniforms(material, getTransform().getTransformation());
+		MaterialUpdater.update(material);
 		
 		render();
 		
-		material.getShader().unbind();
+		ShaderInternal.unbind();
 	}
 	
 	@Override

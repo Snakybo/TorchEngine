@@ -22,91 +22,51 @@
 
 package com.snakybo.torch.graphics.shader;
 
-import com.snakybo.torch.asset.Asset;
-import com.snakybo.torch.graphics.material.Material;
-import com.snakybo.torch.object.Component;
-
 import static org.lwjgl.opengl.GL20.glUseProgram;
 
 /**
- * <p>
- * The shader class is a direct link to the low-level GLSL shaders.
- * </p>
- *
- * <p>
- * A shader is usually attached to a {@link Material}, however it is possible to manually
- * use a shader in the {@link Component#onRenderObject()} method.
- * </p>
- *
  * @author Snakybo
  * @since 1.0
  */
-public final class Shader extends Asset
+public final class ShaderInternal
 {
-	ShaderAsset asset;
-	
-	Shader(ShaderAsset asset)
+	private ShaderInternal()
 	{
-		this.asset = asset;
-		this.asset.addUsage();
+		throw new AssertionError();
 	}
 	
-	Shader(String path)
+	public static void bind(Shader shader)
 	{
-		asset = new ShaderAsset(path);
-		asset.init();
+		glUseProgram(shader.asset.programId);
 	}
 	
-	@Override
-	public final void finalize() throws Throwable
+	public static void unbind()
 	{
-		try
+		glUseProgram(0);
+	}
+	
+	public static boolean hasUniform(Shader shader, String name)
+	{
+		return shader.asset.uniforms.containsKey(name);
+	}
+	
+	public static String getUniformType(Shader shader, String name)
+	{
+		if(hasUniform(shader, name))
 		{
-			destroy();
-		}
-		finally
-		{
-			super.finalize();
-		}
-	}
-	
-	@Override
-	public final void destroy()
-	{
-		if(asset != null)
-		{
-			asset.removeUsage();
-			asset = null;
-		}
-	}
-	
-	/**
-	 * <p>
-	 * Get the name of the shader.
-	 * </p>
-	 *
-	 * @return The name of the shader.
-	 */
-	public final String getName()
-	{
-		return asset.getName();
-	}
-	
-	/**
-	 * <p>
-	 * Load a shader.
-	 * </p>
-	 *
-	 * @param path The path/name of the shader.
-	 * @return The loaded shader.
-	 */
-	public static Shader load(String path)
-	{
-		if(ShaderAsset.all.containsKey(path))
-		{
-			return new Shader(ShaderAsset.all.get(path));
+			return shader.asset.uniformTypes.get(name);
 		}
 		
-		return new Shader(path);
+		return null;
+	}
+	
+	public static int getUniformLocation(Shader shader, String name)
+	{
+		if(shader.asset.uniforms.containsKey(name))
+		{
+			return shader.asset.uniforms.get(name);
+		}
+		
+		return -1;
 	}
 }
