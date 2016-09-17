@@ -23,6 +23,7 @@
 package com.snakybo.torch.object;
 
 import com.snakybo.torch.util.debug.Logger;
+import com.snakybo.torch.util.debug.LoggerInternal;
 import com.snakybo.torch.util.reflection.SerializedFieldUtils;
 import com.snakybo.torch.xml.parsers.ComponentParser;
 
@@ -54,6 +55,7 @@ public final class ComponentLoader
 			return null;
 		}
 		
+		LoggerInternal.log("Creating component: " + componentData.type);
 		Component component = gameObject.addComponentInternal(componentData.type);
 		
 		for(ComponentParser.ComponentFieldData fieldData : componentData.fieldData)
