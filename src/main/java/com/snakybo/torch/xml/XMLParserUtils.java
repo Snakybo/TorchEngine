@@ -83,28 +83,6 @@ public final class XMLParserUtils
 	
 	/**
 	 * <p>
-	 * Attempt to load a class from the given {@code className}.
-	 * </p>
-	 *
-	 * @param className The name of the class to load, must be in the format {@code package.class}.
-	 * @return The resulting class, or {@code null}.
-	 */
-	private static Class<?> decodeClass(String className)
-	{
-		try
-		{
-			return Class.forName(className);
-		}
-		catch(ClassNotFoundException e)
-		{
-			Logger.logError("Error while decoding XML: " + e.getMessage(), e);
-		}
-		
-		return null;
-	}
-	
-	/**
-	 * <p>
 	 * Attempt to decode an object from the given {@code type} and {@code value}.
 	 * </p>
 	 *
@@ -264,5 +242,18 @@ public final class XMLParserUtils
 		float a = Float.parseFloat(parts[3]);
 		
 		return new Color(r, g, b, a);
+	}
+	
+	private static Class<?> decodeClass(String className)
+	{
+		try
+		{
+			return Class.forName(className);
+		} catch(ClassNotFoundException e)
+		{
+			Logger.logError("Error while decoding XML: " + e.getMessage(), e);
+		}
+		
+		return null;
 	}
 }
