@@ -28,6 +28,7 @@ import com.snakybo.torch.graphics.color.Color;
 import com.snakybo.torch.graphics.mesh.Mesh;
 import com.snakybo.torch.graphics.shader.Shader;
 import com.snakybo.torch.graphics.texture.Texture;
+import com.snakybo.torch.graphics.texture.TextureInternal;
 import com.snakybo.torch.object.Transform;
 import com.snakybo.torch.util.debug.Logger;
 import org.joml.Vector2f;
@@ -157,12 +158,12 @@ public final class Material extends Asset
 			case "sampler2D":
 				if(value.getKey().contains("diffuse"))
 				{
-					((Texture)value.getValue()).bind();
+					TextureInternal.bind((Texture)value.getValue(), 0);
 					asset.shader.setUniform1i(value.getKey(), 0);
 				}
 				else if(value.getKey().contains("specular"))
 				{
-					((Texture)value.getValue()).bind(1);
+					TextureInternal.bind((Texture)value.getValue(), 1);
 					asset.shader.setUniform1i(value.getKey(), 1);
 				}
 				

@@ -23,38 +23,21 @@
 package com.snakybo.torch.graphics.texture;
 
 import com.snakybo.torch.asset.AssetData;
-import com.snakybo.torch.util.BufferUtils;
-import com.snakybo.torch.util.MathUtils;
+import com.snakybo.torch.util.debug.Logger;
+import org.lwjgl.BufferUtils;
 
 import java.awt.image.BufferedImage;
+import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.lwjgl.opengl.EXTTextureFilterAnisotropic.GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT;
-import static org.lwjgl.opengl.EXTTextureFilterAnisotropic.GL_TEXTURE_MAX_ANISOTROPY_EXT;
-import static org.lwjgl.opengl.GL11.GL_LINEAR;
-import static org.lwjgl.opengl.GL11.GL_LINEAR_MIPMAP_LINEAR;
-import static org.lwjgl.opengl.GL11.GL_LINEAR_MIPMAP_NEAREST;
-import static org.lwjgl.opengl.GL11.GL_NEAREST;
-import static org.lwjgl.opengl.GL11.GL_NEAREST_MIPMAP_LINEAR;
-import static org.lwjgl.opengl.GL11.GL_NEAREST_MIPMAP_NEAREST;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_MAG_FILTER;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_MIN_FILTER;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_WRAP_S;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_WRAP_T;
+import static org.lwjgl.opengl.GL11.GL_RGBA;
 import static org.lwjgl.opengl.GL11.GL_UNSIGNED_BYTE;
 import static org.lwjgl.opengl.GL11.glBindTexture;
 import static org.lwjgl.opengl.GL11.glDeleteTextures;
 import static org.lwjgl.opengl.GL11.glGenTextures;
-import static org.lwjgl.opengl.GL11.glGetFloat;
 import static org.lwjgl.opengl.GL11.glTexImage2D;
-import static org.lwjgl.opengl.GL11.glTexParameterf;
-import static org.lwjgl.opengl.GL11.glTexParameteri;
-import static org.lwjgl.opengl.GL12.GL_CLAMP_TO_EDGE;
-import static org.lwjgl.opengl.GL12.GL_TEXTURE_BASE_LEVEL;
-import static org.lwjgl.opengl.GL12.GL_TEXTURE_MAX_LEVEL;
-import static org.lwjgl.opengl.GL12.GL_TEXTURE_WRAP_R;
 import static org.lwjgl.opengl.GL30.glGenerateMipmap;
 
 /**
@@ -66,26 +49,40 @@ final class TextureAsset extends AssetData
 	static Map<String, TextureAsset> all = new HashMap<>();
 	
 	BufferedImage bufferedImage;
-	
 	IntBuffer id;
+	int target;
 	
-	int type;
-	
-	TextureAsset(String name, BufferedImage bufferedImage, int size)
+	TextureAsset(int target, String name, BufferedImage bufferedImage)
 	{
 		super(name);
 		
+		this.target = target;
 		this.bufferedImage = bufferedImage;
 		
-		if(size > 0)
-		{
-			this.id = org.lwjgl.BufferUtils.createIntBuffer(size);
-			glGenTextures(id);
-		}
+		this.id = BufferUtils.createIntBuffer(1);
+		
+		glGenTextures(id);
+		glBindTexture(target, id.get(0));
+		
+		int w = bufferedImage.getWidth();
+		int h = bufferedImage.getHeight();
+		ByteBuffer data = com.snakybo.torch.util.BufferUtils.toByteBuffer(bufferedImage);
+		
+		glTexImage2D(target, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+		
+		glGenerateMipmap(target);
+		glBindTexture(target, 0);
 		
 		if(name != null && !name.isEmpty())
 		{
-			all.put(name, this);
+			if(all.containsKey(name))
+			{
+				Logger.logError("A texture object with the name: " + name + " already exists");
+			}
+			else
+			{
+				all.put(name, this);
+			}
 		}
 	}
 	
@@ -98,47 +95,5 @@ final class TextureAsset extends AssetData
 		}
 		
 		glDeleteTextures(id);
-	}
-	
-	final void init(int type, int filters, float anisoLevel, int internalFormat, int format, boolean clamp)
-	{
-		this.type = type;
-		
-		glBindTexture(type, id.get(0));
-		
-		// Filters
-		assert( filters == GL_LINEAR || filters == GL_NEAREST ||
-				filters == GL_LINEAR_MIPMAP_LINEAR || filters == GL_NEAREST_MIPMAP_NEAREST ||
-				filters == GL_LINEAR_MIPMAP_NEAREST || filters == GL_NEAREST_MIPMAP_LINEAR);
-		
-		glTexParameterf(type, GL_TEXTURE_MIN_FILTER, filters);
-		glTexParameterf(type, GL_TEXTURE_MAG_FILTER, filters);
-		
-		// Clamp
-		if(clamp)
-		{
-			glTexParameteri(type, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-			glTexParameteri(type, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-			glTexParameteri(type, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-		}
-		
-		glTexImage2D(type, 0, internalFormat, bufferedImage.getWidth(), bufferedImage.getHeight(), 0, format, GL_UNSIGNED_BYTE, BufferUtils.toByteBuffer(bufferedImage));
-		
-		// Mipmaps
-		boolean hasMipmaps = filters == GL_LINEAR_MIPMAP_LINEAR || filters == GL_LINEAR_MIPMAP_NEAREST ||
-				filters == GL_NEAREST_MIPMAP_LINEAR || filters == GL_NEAREST_MIPMAP_NEAREST;
-		
-		if(hasMipmaps)
-		{
-			glGenerateMipmap(type);
-			
-			anisoLevel = MathUtils.clamp(anisoLevel, 0, glGetFloat(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT));
-			glTexParameterf(type, GL_TEXTURE_MAX_ANISOTROPY_EXT, anisoLevel);
-		}
-		else
-		{
-			glTexParameterf(type, GL_TEXTURE_BASE_LEVEL, 0);
-			glTexParameterf(type, GL_TEXTURE_MAX_LEVEL, 0);
-		}
 	}
 }

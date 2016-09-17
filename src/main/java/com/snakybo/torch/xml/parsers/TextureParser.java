@@ -22,6 +22,8 @@
 
 package com.snakybo.torch.xml.parsers;
 
+import com.snakybo.torch.graphics.texture.TextureFilterMode;
+import com.snakybo.torch.graphics.texture.TextureWrapMode;
 import com.snakybo.torch.util.debug.Logger;
 import com.snakybo.torch.util.debug.LoggerInternal;
 import com.snakybo.torch.xml.XMLParserUtils;
@@ -37,21 +39,17 @@ public final class TextureParser
 	
 	public static final class TextureData
 	{
-		public final int type;
-		public final int filters;
+		public final Class<?> target;
+		public final TextureFilterMode filterMode;
+		public final TextureWrapMode wrapMode;
 		public final float anisoLevel;
-		public final int format;
-		public final int internalFormat;
-		public final boolean clamp;
 		
-		public TextureData(int type, int filters, float anisoLevel, int format, int internalFormat, boolean clamp)
+		public TextureData(Class<?> target, TextureFilterMode filterMode, TextureWrapMode wrapMode, float anisoLevel)
 		{
-			this.type = type;
-			this.filters = filters;
+			this.target = target;
+			this.filterMode = filterMode;
+			this.wrapMode = wrapMode;
 			this.anisoLevel = anisoLevel;
-			this.format = format;
-			this.internalFormat = internalFormat;
-			this.clamp = clamp;
 		}
 	}
 	
@@ -74,25 +72,19 @@ public final class TextureParser
 		
 		Element parameters = (Element)element.getElementsByTagName("parameters").item(0);
 		
-		Element typeElement = (Element)parameters.getElementsByTagName("type").item(0);
-		int type = (int)XMLParserUtils.decodeObject(typeElement.getAttribute("type"), typeElement.getTextContent());
+		Element targetElement = (Element)parameters.getElementsByTagName("target").item(0);
+		Class<?> target = (Class<?>)XMLParserUtils.decodeObject(targetElement.getAttribute("type"), targetElement.getTextContent());
 		
-		Element filtersElement = (Element)parameters.getElementsByTagName("filters").item(0);
-		int filters = (int)XMLParserUtils.decodeObject(filtersElement.getAttribute("type"), filtersElement.getTextContent());
+		Element filterModeElement = (Element)parameters.getElementsByTagName("filterMode").item(0);
+		TextureFilterMode filterMode = (TextureFilterMode)XMLParserUtils.decodeObject(filterModeElement.getAttribute("type"), filterModeElement.getTextContent());
+		
+		Element wrapModeElement = (Element)parameters.getElementsByTagName("wrapMode").item(0);
+		TextureWrapMode wrapMode = (TextureWrapMode)XMLParserUtils.decodeObject(wrapModeElement.getAttribute("type"), wrapModeElement.getTextContent());
 		
 		Element anisoLevelElement = (Element)parameters.getElementsByTagName("anisoLevel").item(0);
 		float anisoLevel = (float)XMLParserUtils.decodeObject(anisoLevelElement.getAttribute("type"), anisoLevelElement.getTextContent());
 		
-		Element formatElement = (Element)parameters.getElementsByTagName("format").item(0);
-		int format = (int)XMLParserUtils.decodeObject(formatElement.getAttribute("type"), formatElement.getTextContent());
-		
-		Element internalFormatElement = (Element)parameters.getElementsByTagName("internalFormat").item(0);
-		int internalFormat = (int)XMLParserUtils.decodeObject(internalFormatElement.getAttribute("type"), internalFormatElement.getTextContent());
-		
-		Element clampElement = (Element)parameters.getElementsByTagName("clamp").item(0);
-		boolean clamp = (boolean)XMLParserUtils.decodeObject(clampElement.getAttribute("type"), clampElement.getTextContent());
-		
 		LoggerInternal.log("Successfully decoded texture data");
-		return new TextureData(type, filters, anisoLevel, format, internalFormat, clamp);
+		return new TextureData(target, filterMode, wrapMode, anisoLevel);
 	}
 }

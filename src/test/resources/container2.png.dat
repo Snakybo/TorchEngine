@@ -1,11 +1,9 @@
 <?xml version="1.0"?>
 <texture version="1">
     <parameters>
-        <type type="int">3553</type>
-        <filters type="int">9987</filters>
+        <target type="class">com.snakybo.torch.graphics.texture.Texture2D</target>
+        <filterMode type="enum">com.snakybo.torch.graphics.texture.TextureFilterMode:1</filterMode>
+        <wrapMode type="enum">com.snakybo.torch.graphics.texture.TextureWrapMode:0</wrapMode>
         <anisoLevel type="float">16</anisoLevel>
-        <format type="int">6408</format>
-        <internalFormat type="int">6408</internalFormat>
-        <clamp type="boolean">false</clamp>
     </parameters>
 </texture>

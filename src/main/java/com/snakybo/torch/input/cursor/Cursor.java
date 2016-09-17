@@ -23,6 +23,7 @@
 package com.snakybo.torch.input.cursor;
 
 import com.snakybo.torch.graphics.texture.Texture;
+import com.snakybo.torch.graphics.texture.TextureInternal;
 import com.snakybo.torch.graphics.window.Window;
 import com.snakybo.torch.graphics.window.WindowInternal;
 import com.snakybo.torch.input.mouse.Mouse;
@@ -182,7 +183,7 @@ public final class Cursor
 		}
 		else
 		{
-			GLFWImage image = GLFWImage.malloc().set(texture.getWidth(), texture.getHeight(), texture.getByteBuffer());
+			GLFWImage image = GLFWImage.malloc().set(texture.getWidth(), texture.getHeight(), TextureInternal.getByteBuffer(texture));
 			
 			long cursor = glfwCreateCursor(image, Math.round(hot.x), Math.round(hot.y));
 			CursorShape.addCursor(texture, hot, cursor);

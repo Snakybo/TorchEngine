@@ -70,7 +70,7 @@ public final class ComponentParser
 	
 	public static ComponentData decode(Element element)
 	{
-		Class<?> type = XMLParserUtils.decodeClass(element.getAttribute("type"));
+		Class<?> type = (Class<?>)XMLParserUtils.decodeObject("class", element.getAttribute("type"));
 		LoggerInternal.log("Component type: " + type);
 		
 		NodeList fields = element.getElementsByTagName("fields").item(0).getChildNodes();

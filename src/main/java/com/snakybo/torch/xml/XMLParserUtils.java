@@ -89,7 +89,7 @@ public final class XMLParserUtils
 	 * @param className The name of the class to load, must be in the format {@code package.class}.
 	 * @return The resulting class, or {@code null}.
 	 */
-	public static Class<?> decodeClass(String className)
+	private static Class<?> decodeClass(String className)
 	{
 		try
 		{
@@ -126,6 +126,7 @@ public final class XMLParserUtils
 	 *     <li>quaternion</li>
 	 *     <li>color</li>
 	 *     <li>asset</li>
+	 *     <li>class</li>
 	 * </ul>
 	 *
 	 * <p>
@@ -180,6 +181,8 @@ public final class XMLParserUtils
 			return decodeColor(value);
 		case "asset":
 			return Assets.load(value);
+		case "class":
+			return decodeClass(value);
 		default:
 			throw new IllegalArgumentException("Unable to parse XML: Unknown object type: " + type + ", value is: " + value);
 		}

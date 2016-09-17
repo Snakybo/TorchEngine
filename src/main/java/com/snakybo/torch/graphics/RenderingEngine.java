@@ -22,8 +22,6 @@
 
 package com.snakybo.torch.graphics;
 
-import com.snakybo.torch.Game;
-import com.snakybo.torch.component.Camera;
 import com.snakybo.torch.graphics.camera.CameraClearFlags;
 import com.snakybo.torch.graphics.camera.CameraInternal;
 import com.snakybo.torch.graphics.color.Color;

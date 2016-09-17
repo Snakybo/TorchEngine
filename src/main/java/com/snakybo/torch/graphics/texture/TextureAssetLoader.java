@@ -35,6 +35,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.nio.file.NoSuchFileException;
 
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
+
 /**
  * @author Snakybo
  * @since 1.0
@@ -53,22 +55,36 @@ public final class TextureAssetLoader
 		if(TextureAsset.all.containsKey(path))
 		{
 			LoggerInternal.log("Texture has already been loaded");
-			return new Texture(TextureAsset.all.get(path));
+			
+			switch(TextureAsset.all.get(path).target)
+			{
+			case GL_TEXTURE_2D:
+				return new Texture2D(TextureAsset.all.get(path));
+			default:
+				Logger.logError("Unsupported texture target: " + TextureAsset.all.get(path).target);
+				return null;
+			}
 		}
 		
 		try
 		{
 			TextureParser.TextureData textureData = (TextureParser.TextureData)XMLParser.decode(path + ".dat");
+			Texture texture = null;
 			
-			return new Texture(
-					path,
-					getBufferedImage(path),
-					textureData.type,
-					textureData.filters,
-					textureData.anisoLevel,
-					textureData.format,
-					textureData.internalFormat,
-					textureData.clamp);
+			if(textureData.target.equals(Texture2D.class))
+			{
+				texture = new Texture2D(path, getBufferedImage(path));
+			}
+			else
+			{
+				Logger.logError("Unsupported texture target: " + textureData.target);
+			}
+			
+			texture.setFilterMode(textureData.filterMode);
+			texture.setWrapMode(textureData.wrapMode);
+			texture.setAnisoLevel(textureData.anisoLevel);
+			
+			return texture;
 		}
 		catch(NoSuchFileException e)
 		{
