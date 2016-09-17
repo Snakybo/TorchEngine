@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <material shader="specular.glsl" version="1">
     <properties>
-        <property name="material.mainTexture" type="asset">container2.png</property>
+        <property name="material.diffuse" type="asset">container2.png</property>
         <property name="material.specular" type="asset">container2_specular.png</property>
         <property name="material.shininess" type="float">32</property>
         <!--<property name="material.mainColor" type="color">1, 1, 1, 1</property>-->
