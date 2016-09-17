@@ -75,12 +75,16 @@ public final class LoggerInternal
 	
 	static void logInternal(Level level, Object msg)
 	{
+		msg = msg != null ? msg : "null";
+		
 		StackTraceElement ste = getStackTraceElement();
 		logger.logp(level, ste.getClassName(), ste.getMethodName(), msg.toString());
 	}
 	
 	static void logInternal(Level level, Object msg, Throwable thrown)
 	{
+		msg = msg != null ? msg : "null";
+		
 		StackTraceElement ste = getStackTraceElement();
 		logger.logp(level, ste.getClassName(), ste.getMethodName(), msg.toString(), thrown);
 	}
