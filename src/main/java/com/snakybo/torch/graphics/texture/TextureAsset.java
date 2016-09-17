@@ -23,7 +23,6 @@
 package com.snakybo.torch.graphics.texture;
 
 import com.snakybo.torch.asset.AssetData;
-import com.snakybo.torch.util.debug.Logger;
 import org.lwjgl.BufferUtils;
 
 import java.awt.image.BufferedImage;

@@ -26,8 +26,6 @@ import com.snakybo.torch.asset.Asset;
 import com.snakybo.torch.graphics.material.Material;
 import com.snakybo.torch.object.Component;
 
-import static org.lwjgl.opengl.GL20.glUseProgram;
-
 /**
  * <p>
  * The shader class is a direct link to the low-level GLSL shaders.

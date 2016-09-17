@@ -32,9 +32,6 @@ import com.snakybo.torch.graphics.window.Window;
 import com.snakybo.torch.object.Component;
 import org.joml.Matrix4f;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * <p>
  * The camera component. Everything in the camera's viewport

@@ -23,7 +23,6 @@
 package com.snakybo.torch.graphics.material;
 
 import com.snakybo.torch.graphics.color.Color;
-import com.snakybo.torch.graphics.texture.Texture;
 import com.snakybo.torch.graphics.texture.Texture2D;
 import com.snakybo.torch.util.debug.Logger;
 import com.snakybo.torch.util.debug.LoggerInternal;

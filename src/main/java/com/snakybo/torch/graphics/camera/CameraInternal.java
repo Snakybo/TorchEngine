@@ -26,16 +26,7 @@ import com.snakybo.torch.graphics.RenderingEngine;
 import com.snakybo.torch.graphics.color.Color;
 import com.snakybo.torch.graphics.texture.Texture;
 import com.snakybo.torch.object.Transform;
-import com.snakybo.torch.scene.SceneInternal;
 import org.joml.Matrix4f;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.glClear;
-import static org.lwjgl.opengl.GL11.glClearColor;
 
 /**
  * <p>
