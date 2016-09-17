@@ -59,5 +59,5 @@ public final class Texture2D extends Texture
 		super(asset);
 	}
 	
-	// TODO: Epand Texture2D class
+	// TODO: Expand Texture2D class
 }
