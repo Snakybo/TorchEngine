@@ -222,6 +222,14 @@ public final class Material extends Asset
 		asset.values.put(name, value);
 	}
 	
+	/**
+	 * <p>
+	 * Set a {@code mat3} value.
+	 * </p>
+	 *
+	 * @param name The name of the uniform in the shader.
+	 * @param value The value of the uniform.
+	 */
 	public final void setMatrix3f(String name, Matrix3f value)
 	{
 		if(!ShaderInternal.hasUniform(asset.shader, name) || !ShaderInternal.getUniformType(asset.shader, name).equals("mat3"))
@@ -233,6 +241,14 @@ public final class Material extends Asset
 		asset.values.put(name, value);
 	}
 	
+	/**
+	 * <p>
+	 * Set a {@code mat4} value.
+	 * </p>
+	 *
+	 * @param name The name of the uniform in the shader.
+	 * @param value The value of the uniform.
+	 */
 	public final void setMatrix4f(String name, Matrix4f value)
 	{
 		if(!ShaderInternal.hasUniform(asset.shader, name) || !ShaderInternal.getUniformType(asset.shader, name).equals("mat4"))
@@ -361,11 +377,27 @@ public final class Material extends Asset
 		return get(Vector4f.class, name);
 	}
 	
+	/**
+	 * <p>
+	 * Get a {@code mat3} value.
+	 * </p>
+	 *
+	 * @param name The name of the uniform in the shader.
+	 * @return The value of the uniform.
+	 */
 	public final Matrix3f getMatrix3f(String name)
 	{
 		return get(Matrix3f.class, name);
 	}
 	
+	/**
+	 * <p>
+	 * Get a {@code mat4} value.
+	 * </p>
+	 *
+	 * @param name The name of the uniform in the shader.
+	 * @return The value of the uniform.
+	 */
 	public final Matrix4f getMatrix4f(String name)
 	{
 		return get(Matrix4f.class, name);
