@@ -67,7 +67,7 @@ public final class Skybox
 		
 		ShaderInternal.bind(material.getShader());
 		
-		MaterialInternal.updateBuiltInUniforms(material, transform.getTransformation());
+		MaterialInternal.updateBuiltInUniforms(material, transform);
 		MaterialInternal.update(material);
 		
 		meshRenderer.render(GL_TRIANGLES);

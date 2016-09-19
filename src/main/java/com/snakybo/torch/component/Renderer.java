@@ -74,7 +74,7 @@ public abstract class Renderer extends Component
 	{
 		ShaderInternal.bind(material.getShader());
 		
-		MaterialInternal.updateBuiltInUniforms(material, getTransform().getTransformation());
+		MaterialInternal.updateBuiltInUniforms(material, getTransform());
 		MaterialInternal.update(material);
 		
 		render();

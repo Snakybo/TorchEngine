@@ -26,6 +26,7 @@ import com.snakybo.torch.graphics.camera.CameraInternal;
 import com.snakybo.torch.graphics.shader.ShaderInternal;
 import com.snakybo.torch.graphics.texture.Texture;
 import com.snakybo.torch.graphics.texture.TextureInternal;
+import com.snakybo.torch.object.Transform;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 import org.joml.Vector2f;
@@ -102,6 +103,11 @@ public final class MaterialInternal
 				}
 			}
 		}
+	}
+	
+	public static void updateBuiltInUniforms(Material material, Transform transform)
+	{
+		updateBuiltInUniforms(material, transform.getTransformation());
 	}
 	
 	public static void updateBuiltInUniforms(Material material, Matrix4f model)
