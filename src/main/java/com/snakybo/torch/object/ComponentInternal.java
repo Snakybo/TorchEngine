@@ -38,7 +38,7 @@ import java.util.Set;
  */
 public final class ComponentInternal
 {
-	private static final Set<String> VALID_BEHAVIOURS = new HashSet<>(Arrays.asList(
+	private static final Set<String> VALID_CALLBACKS = new HashSet<>(Arrays.asList(
 			new String[] {
 					"onCreate",
 					"onStart",
@@ -51,23 +51,23 @@ public final class ComponentInternal
 					"onRenderGizmos",
 			}));
 	
-	private static Map<Component, Map<String, Method>> behaviours = new HashMap<>();
+	private static Map<Component, Map<String, Method>> callbacks = new HashMap<>();
 		
 	private ComponentInternal()
 	{
 		throw new AssertionError();
 	}
 	
-	public static void addBehaviours(Component component)
+	public static void addCallbacks(Component component)
 	{
-		if(behaviours.containsKey(component))
+		if(callbacks.containsKey(component))
 		{
 			return;
 		}
 		
 		Map<String, Method> methods = new HashMap<>();
 		
-		for(String methodName : VALID_BEHAVIOURS)
+		for(String methodName : VALID_CALLBACKS)
 		{
 			Method method = findMethodRecursive(component.getClass(), methodName);
 			
@@ -77,12 +77,12 @@ public final class ComponentInternal
 			}
 		}
 		
-		behaviours.put(component, methods);
+		callbacks.put(component, methods);
 	}
 	
-	public static void removeBehaviours(Component component)
+	public static void removeCallbacks(Component component)
 	{
-		behaviours.remove(component);
+		callbacks.remove(component);
 	}
 	
 	public static void invokeAll(GameObject gameObject, String name)
@@ -95,14 +95,14 @@ public final class ComponentInternal
 	
 	public static void invoke(Component component, String name)
 	{
-		if(!behaviours.containsKey(component) || !behaviours.get(component).containsKey(name))
+		if(!callbacks.containsKey(component) || !callbacks.get(component).containsKey(name))
 		{
 			return;
 		}
 		
 		try
 		{
-			Method method = behaviours.get(component).get(name);
+			Method method = callbacks.get(component).get(name);
 			method.setAccessible(true);
 			method.invoke(component);
 			method.setAccessible(false);

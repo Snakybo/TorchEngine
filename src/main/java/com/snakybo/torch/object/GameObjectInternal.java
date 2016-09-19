@@ -52,7 +52,7 @@ public final class GameObjectInternal
 		for(Component component : gameObject.componentsToRemove)
 		{
 			ComponentInternal.invoke(component, "onStart");
-			ComponentInternal.removeBehaviours(component);
+			ComponentInternal.removeCallbacks(component);
 		}
 		
 		gameObject.components.removeAll(gameObject.componentsToRemove);

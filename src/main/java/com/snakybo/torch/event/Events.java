@@ -34,8 +34,8 @@ import java.util.Set;
  *
  * <p>
  * To subscribe to an event, you will need either an anonymous class, or a lambda.
- * You will also have to store the callback in a variable, if you don't store it in a variable,
- * you will be unable to remove the callback.
+ * You will also have to store the listener in a variable, if you don't store it in a variable,
+ * you will be unable to remove the listener.
  * </p>
  *
  * <p>
@@ -86,7 +86,7 @@ public final class Events
 {
 	/**
 	 * <p>
-	 * Callback handler.
+	 * Event handler.
 	 * </p>
 	 *
 	 * <p>
@@ -113,10 +113,10 @@ public final class Events
 		 * <p>
 		 * <strong>Note:</strong> If the {@code listener} is a method in a {@link Component},
 		 * it will receive events even after the {@code Component} has been destroyed.
-		 * <strong>Make sure to un-subscribe from the callback.</strong>
+		 * <strong>Make sure to un-subscribe from the event.</strong>
 		 * </p>
 		 *
-		 * @param listener The callback method.
+		 * @param listener The listener method.
 		 */
 		public final void addListener(T listener)
 		{

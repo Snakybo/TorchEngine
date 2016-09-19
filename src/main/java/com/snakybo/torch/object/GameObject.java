@@ -92,7 +92,7 @@ public final class GameObject extends TorchObject
 			result.setName(getName() + ":" + component.getClass().getSimpleName());
 			result.gameObject = this;
 			
-			ComponentInternal.addBehaviours(result);
+			ComponentInternal.addCallbacks(result);
 			
 			componentsToAdd.add(result);
 			components.add(result);
