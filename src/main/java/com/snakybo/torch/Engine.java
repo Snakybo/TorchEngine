@@ -221,6 +221,7 @@ public final class Engine
 		MonitorController.destroy();
 		
 		LoggerInternal.log("Terminating");
+		GLFW.destroy();
 		System.exit(0);
 	}
 }
