@@ -23,9 +23,9 @@
 package com.snakybo.torch.graphics.camera;
 
 import com.snakybo.torch.graphics.RenderingEngine;
-import com.snakybo.torch.graphics.color.Color;
 import com.snakybo.torch.graphics.texture.Texture;
 import com.snakybo.torch.object.Transform;
+import com.snakybo.torch.util.color.Color;
 import org.joml.Matrix4f;
 
 /**

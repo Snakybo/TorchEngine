@@ -20,18 +20,18 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.util.callback;
+package com.snakybo.torch.event;
 
 /**
  * <p>
- * Callback interface for window focus events.
+ * Interface for window focus events.
  * </p>
  *
  * @author Snakybo
  * @since 1.0
  */
 @FunctionalInterface
-public interface IWindowFocusCallback
+public interface IWindowFocusEvent
 {
 	/**
 	 * <p>
@@ -40,5 +40,5 @@ public interface IWindowFocusCallback
 	 *
 	 * @param focused {@code true} if the window has gained focus, {@code false} if the window has lost focus.
 	 */
-	void onWindowFocus(boolean focused);
+	void invoke(boolean focused);
 }

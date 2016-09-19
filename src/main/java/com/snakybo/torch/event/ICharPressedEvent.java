@@ -20,25 +20,25 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.util.callback;
+package com.snakybo.torch.event;
 
 /**
  * <p>
- * Callback interface for window iconify/restore events.
+ * Interface for char pressed events.
  * </p>
  *
  * @author Snakybo
  * @since 1.0
  */
 @FunctionalInterface
-public interface IWindowIconifyCallback
+public interface ICharPressedEvent
 {
 	/**
 	 * <p>
-	 * Called when the window has been iconified, or restored.
+	 * Called when a char has been pressed.
 	 * </p>
 	 *
-	 * @param iconified {@code true} if the window has been iconified, {@code false} if the window has been restored.
+	 * @param codepoint The character that has been pressed.
 	 */
-	void onWindowIconify(boolean iconified);
+	void invoke(char codepoint);
 }

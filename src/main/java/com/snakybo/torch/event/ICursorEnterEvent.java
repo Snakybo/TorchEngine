@@ -20,25 +20,25 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.util.callback;
+package com.snakybo.torch.event;
 
 /**
  * <p>
- * Callback interface for char pressed events.
+ * Interface for cursor enter/exit events.
  * </p>
  *
  * @author Snakybo
  * @since 1.0
  */
 @FunctionalInterface
-public interface ICharPressedCallback
+public interface ICursorEnterEvent
 {
 	/**
 	 * <p>
-	 * Called when a char has been pressed.
+	 * Called when the cursor enters or exits the window.
 	 * </p>
 	 *
-	 * @param codepoint The character that has been pressed.
+	 * @param entered {@code true} if the cursor has entered the window, {@code false} if the cursor has left the window.
 	 */
-	void onCharPressed(char codepoint);
+	void invoke(boolean entered);
 }

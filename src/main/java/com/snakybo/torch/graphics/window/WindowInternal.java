@@ -23,14 +23,14 @@
 package com.snakybo.torch.graphics.window;
 
 import com.snakybo.torch.Game;
+import com.snakybo.torch.event.Events;
 import com.snakybo.torch.graphics.RenderingEngine;
-import com.snakybo.torch.graphics.monitor.DisplayMode;
 import com.snakybo.torch.input.joystick.JoystickController;
 import com.snakybo.torch.input.keyboard.KeyboardController;
 import com.snakybo.torch.input.mouse.Mouse;
 import com.snakybo.torch.input.mouse.MouseController;
-import com.snakybo.torch.util.callback.TorchCallbacks;
 import com.snakybo.torch.util.debug.LoggerInternal;
+import com.snakybo.torch.util.monitor.DisplayMode;
 import org.joml.Vector2f;
 import org.lwjgl.glfw.Callbacks;
 
@@ -110,12 +110,12 @@ public final class WindowInternal
 			throw new RuntimeException("Unable to create GLFW window");
 		}
 		
-		glfwSetWindowFocusCallback(nativeId, (window, focus) -> TorchCallbacks.onWindowFocus.getCallbacks().forEach(cb -> cb.onWindowFocus(focus)));
-		glfwSetWindowIconifyCallback(nativeId, (window, iconified) -> TorchCallbacks.onWindowIconify.getCallbacks().forEach(cb -> cb.onWindowIconify(iconified)));
+		glfwSetWindowFocusCallback(nativeId, (window, focus) -> Events.onWindowFocus.getListeners().forEach(cb -> cb.invoke(focus)));
+		glfwSetWindowIconifyCallback(nativeId, (window, iconified) -> Events.onWindowIconify.getListeners().forEach(cb -> cb.invoke(iconified)));
 		
-		glfwSetCharCallback(nativeId, (window, codepoint) -> TorchCallbacks.onCharPressed.getCallbacks().forEach(cb -> cb.onCharPressed((char)codepoint)));
+		glfwSetCharCallback(nativeId, (window, codepoint) -> Events.onCharPressed.getListeners().forEach(cb -> cb.invoke((char)codepoint)));
 		
-		glfwSetCursorEnterCallback(nativeId, (window, entered) -> TorchCallbacks.onCursorEnter.getCallbacks().forEach(cb -> cb.onCursorEnter(entered)));
+		glfwSetCursorEnterCallback(nativeId, (window, entered) -> Events.onCursorEnter.getListeners().forEach(cb -> cb.invoke(entered)));
 		glfwSetScrollCallback(nativeId, (window, x, y) -> Mouse.setScrollDelta(new Vector2f((float)x, (float)y)));
 		
 		glfwMakeContextCurrent(nativeId);

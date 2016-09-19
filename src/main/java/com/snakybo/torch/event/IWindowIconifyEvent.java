@@ -20,25 +20,25 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.util.callback;
+package com.snakybo.torch.event;
 
 /**
  * <p>
- * Callback interface for cursor enter/exit events.
+ * Interface for window iconify/restore events.
  * </p>
  *
  * @author Snakybo
  * @since 1.0
  */
 @FunctionalInterface
-public interface ICursorEnterCallback
+public interface IWindowIconifyEvent
 {
 	/**
 	 * <p>
-	 * Called when the cursor enters or exits the window.
+	 * Called when the window has been iconified, or restored.
 	 * </p>
 	 *
-	 * @param entered {@code true} if the cursor has entered the window, {@code false} if the cursor has left the window.
+	 * @param iconified {@code true} if the window has been iconified, {@code false} if the window has been restored.
 	 */
-	void onCursorEnter(boolean entered);
+	void invoke(boolean iconified);
 }

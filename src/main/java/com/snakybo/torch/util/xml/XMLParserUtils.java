@@ -23,7 +23,7 @@
 package com.snakybo.torch.util.xml;
 
 import com.snakybo.torch.asset.Assets;
-import com.snakybo.torch.graphics.color.Color;
+import com.snakybo.torch.util.color.Color;
 import com.snakybo.torch.util.debug.Logger;
 import org.joml.Quaternionf;
 import org.joml.Vector2f;

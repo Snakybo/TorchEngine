@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.util.callback;
+package com.snakybo.torch.event;
 
 import com.snakybo.torch.object.Component;
 
@@ -29,11 +29,11 @@ import java.util.Set;
 
 /**
  * <p>
- * All available callbacks are in this class, from here you can subscribe, or un-subscribe from a callback.
+ * All available events are in this class, from here you can subscribe, or un-subscribe from an event.
  * </p>
  *
  * <p>
- * To subscribe to a callback, you will need either an anonymous class, or a lambda.
+ * To subscribe to an event, you will need either an anonymous class, or a lambda.
  * You will also have to store the callback in a variable, if you don't store it in a variable,
  * you will be unable to remove the callback.
  * </p>
@@ -43,11 +43,11 @@ import java.util.Set;
  * </p>
  *
  * <pre>
- * ICharPressedCallback charPressedCallback;
+ * ICharPressedEvent charPressedEvent;
  *
- *{@code charPressedCallback = (c) -> onCharPressed(c)};
+ *{@code charPressedEvent = (c) -> onCharPressed(c)};
  *
- * private void onCharPressed(char c)
+ * private void invoke(char c)
  * {
  *     Logger.log("Character " + c + " has been pressed");
  * }
@@ -58,12 +58,12 @@ import java.util.Set;
  * </p>
  *
  * <pre>
- * ICharPressedCallback charPressedCallback;
+ * ICharPressedEvent charPressedEvent;
  *
- * charPressedCallback = new ICharPressedCallback()
+ * charPressedEvent = new ICharPressedEvent()
  * {
  *  {@code @Override}
- *   public void onCharPressed(char c)
+ *   public void invoke(char c)
  *   {
  *       Logger.log("Character " + c + " has been pressed");
  *   }
@@ -75,14 +75,14 @@ import java.util.Set;
  * </p>
  *
  * <pre>
- * TorchCallbacks.onCharPressed.addListener(charPressedCallback);
- * TorchCallbacks.onCharPressed.removeListener(charPressedCallback);
+ * Events.onCharPressed.addListener(charPressedEvent);
+ * Events.onCharPressed.removeListener(charPressedEvent);
  * </pre>
  *
  * @author Snakybo
  * @since 1.0
  */
-public final class TorchCallbacks
+public final class Events
 {
 	/**
 	 * <p>
@@ -90,98 +90,98 @@ public final class TorchCallbacks
 	 * </p>
 	 *
 	 * <p>
-	 * Keeps track of registered callbacks.
+	 * Keeps track of registered events.
 	 * </p>
 	 *
-	 * @param <T> The callback type.
+	 * @param <T> The event type.
 	 */
-	public static final class Callback<T>
+	public static final class Event<T>
 	{
-		private Set<T> callbacks;
+		private Set<T> listeners;
 		
-		private Callback()
+		private Event()
 		{
-			callbacks = new HashSet<>();
+			listeners = new HashSet<>();
 		}
 		
 		/**
 		 * <p>
-		 * Add a listener to the callback, the {@code callback} will receive events
+		 * Add a listener to the event, the {@code listener} will receive events
 		 * for as long as it remains subscribed.
 		 * </p>
 		 *
 		 * <p>
-		 * <strong>Note:</strong> If the {@code callback} is a method in a {@link Component},
-		 * it will receive callbacks even after the {@code Component} has been destroyed.
+		 * <strong>Note:</strong> If the {@code listener} is a method in a {@link Component},
+		 * it will receive events even after the {@code Component} has been destroyed.
 		 * <strong>Make sure to un-subscribe from the callback.</strong>
 		 * </p>
 		 *
-		 * @param callback The callback method.
+		 * @param listener The callback method.
 		 */
-		public final void addListener(T callback)
+		public final void addListener(T listener)
 		{
-			callbacks.add(callback);
+			listeners.add(listener);
 		}
 		
 		/**
 		 * <p>
-		 * Remove a listener from the callback.
+		 * Remove a listener from the event.
 		 * </p>
 		 *
-		 * @param callback The callback method.
+		 * @param listener The listener method.
 		 */
-		public final void removeListener(T callback)
+		public final void removeListener(T listener)
 		{
-			callbacks.remove(callback);
+			listeners.remove(listener);
 		}
 		
 		/**
 		 * <p>
-		 * Remove all listeners from the callback.
+		 * Remove all listeners from the event.
 		 * </p>
 		 */
 		public final void removeAllListeners()
 		{
-			callbacks.clear();
+			listeners.clear();
 		}
 		
-		public final Iterable<T> getCallbacks()
+		public final Iterable<T> getListeners()
 		{
-			return callbacks;
+			return listeners;
 		}
 	}
 	
 	/**
 	 * <p>
-	 * The character pressed callback, this event will be fired when any character has been pressed while the
+	 * The character pressed event, this event will be fired when any character has been pressed while the
 	 * window has focus.
 	 * </p>
 	 */
-	public static final Callback<ICharPressedCallback> onCharPressed = new Callback<>();
+	public static final Event<ICharPressedEvent> onCharPressed = new Event<>();
 	
 	/**
 	 * <p>
-	 * The cursor enter/exit callback, this event will be fired when the cursor enters or exits the
+	 * The cursor enter/exit event, this event will be fired when the cursor enters or exits the
 	 * window.
 	 * </p>
 	 */
-	public static final Callback<ICursorEnterCallback> onCursorEnter = new Callback<>();
+	public static final Event<ICursorEnterEvent> onCursorEnter = new Event<>();
 	
 	/**
 	 * <p>
-	 * The window focus callback, this event will be fired when the window either gains, or loses focus.
+	 * The window focus event, this event will be fired when the window either gains, or loses focus.
 	 * </p>
 	 */
-	public static final Callback<IWindowFocusCallback> onWindowFocus = new Callback<>();
+	public static final Event<IWindowFocusEvent> onWindowFocus = new Event<>();
 	
 	/**
 	 * <p>
-	 * The window iconify/restore callback, this event will be fired when the window has been iconified, or restored.
+	 * The window iconify/restore event, this event will be fired when the window has been iconified, or restored.
 	 * </p>
 	 */
-	public static final Callback<IWindowIconifyCallback> onWindowIconify = new Callback<>();
+	public static final Event<IWindowIconifyEvent> onWindowIconify = new Event<>();
 	
-	private TorchCallbacks()
+	private Events()
 	{
 		throw new AssertionError();
 	}

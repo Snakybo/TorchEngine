@@ -24,7 +24,7 @@ package opengl;
 
 import com.snakybo.torch.component.Camera;
 import com.snakybo.torch.component.MeshRenderer;
-import com.snakybo.torch.graphics.color.Color;
+import com.snakybo.torch.util.color.Color;
 import com.snakybo.torch.graphics.gizmo.Gizmos;
 import com.snakybo.torch.graphics.texture.TextureFilterMode;
 import com.snakybo.torch.input.keyboard.Key;

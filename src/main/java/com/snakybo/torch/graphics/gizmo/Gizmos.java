@@ -22,11 +22,11 @@
 
 package com.snakybo.torch.graphics.gizmo;
 
-import com.snakybo.torch.graphics.color.Color;
 import com.snakybo.torch.graphics.material.Material;
 import com.snakybo.torch.graphics.material.MaterialInternal;
 import com.snakybo.torch.graphics.shader.ShaderInternal;
 import com.snakybo.torch.object.Component;
+import com.snakybo.torch.util.color.Color;
 import com.snakybo.torch.util.debug.Logger;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;

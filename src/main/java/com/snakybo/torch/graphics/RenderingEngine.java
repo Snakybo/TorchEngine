@@ -24,13 +24,12 @@ package com.snakybo.torch.graphics;
 
 import com.snakybo.torch.graphics.camera.CameraClearFlags;
 import com.snakybo.torch.graphics.camera.CameraInternal;
-import com.snakybo.torch.graphics.color.Color;
 import com.snakybo.torch.graphics.gizmo.Gizmos;
 import com.snakybo.torch.graphics.gizmo.GizmosInternal;
 import com.snakybo.torch.object.ComponentInternal;
 import com.snakybo.torch.object.GameObject;
-import com.snakybo.torch.object.GameObjectInternal;
 import com.snakybo.torch.scene.SceneInternal;
+import com.snakybo.torch.util.color.Color;
 import com.snakybo.torch.util.debug.LoggerInternal;
 
 import static org.lwjgl.opengl.GL.createCapabilities;

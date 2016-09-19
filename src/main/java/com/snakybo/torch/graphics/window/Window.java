@@ -22,7 +22,7 @@
 
 package com.snakybo.torch.graphics.window;
 
-import com.snakybo.torch.graphics.monitor.DisplayMode;
+import com.snakybo.torch.util.monitor.DisplayMode;
 import org.joml.Vector2f;
 import org.lwjgl.BufferUtils;
 
