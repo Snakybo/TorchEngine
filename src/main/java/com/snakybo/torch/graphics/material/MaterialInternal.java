@@ -68,30 +68,36 @@ public final class MaterialInternal
 				switch(type)
 				{
 				case "int":
-					ShaderInternal.uniform1i(loc, (int)value);
+					glUniform1i(loc, (int)value);
 					break;
 				case "float":
-					ShaderInternal.uniform1f(loc, (float)value);
+					glUniform1f(loc, (float)value);
 					break;
 				case "vec2":
-					ShaderInternal.uniform2f(loc, (Vector2f)value);
+					Vector2f vec2 = (Vector2f)value;
+					glUniform2f(loc, vec2.x, vec2.y);
 					break;
 				case "vec3":
-					ShaderInternal.uniform3f(loc, (Vector3f)value);
+					Vector3f vec3 = (Vector3f)value;
+					glUniform3f(loc, vec3.x, vec3.y, vec3.z);
 					break;
 				case "vec4":
-					ShaderInternal.uniform4f(loc, (Vector4f)value);
+					Vector4f vec4 = (Vector4f)value;
+					glUniform4f(loc, vec4.x, vec4.y, vec4.z, vec4.w);
 					break;
 				case "mat3":
-					ShaderInternal.uniform3fv(loc, (Matrix3f)value);
+					Matrix3f mat3 = (Matrix3f)value;
+					glUniformMatrix3fv(loc, false, mat3.get(BufferUtils.createFloatBuffer(9)));
 					break;
 				case "mat4":
-					ShaderInternal.uniform4fv(loc, (Matrix4f)value);
+					Matrix4f mat4 = (Matrix4f)value;
+					glUniformMatrix4fv(loc, false, mat4.get(BufferUtils.createFloatBuffer(16)));
 					break;
 				case "sampler2D":
-					int samplerSlotId = material.asset.textureSamplerSlotIds.indexOf(value);
-					TextureInternal.bind((Texture)value, samplerSlotId);
-					ShaderInternal.uniform1i(loc, samplerSlotId);
+					Texture texture = (Texture)value;
+					int samplerSlotId = material.asset.textureSamplerSlotIds.indexOf(texture);
+					TextureInternal.bind(texture, samplerSlotId);
+					glUniform1i(loc, samplerSlotId);
 					break;
 				}
 			}

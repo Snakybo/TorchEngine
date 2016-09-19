@@ -22,23 +22,7 @@
 
 package com.snakybo.torch.graphics.shader;
 
-import org.joml.Matrix3f;
-import org.joml.Matrix4f;
-import org.joml.Vector2f;
-import org.joml.Vector3f;
-import org.joml.Vector4f;
-import org.lwjgl.BufferUtils;
-
-import static org.lwjgl.opengl.GL20.glUniform1f;
-import static org.lwjgl.opengl.GL20.glUniform1i;
-import static org.lwjgl.opengl.GL20.glUniform2f;
-import static org.lwjgl.opengl.GL20.glUniform3fv;
-import static org.lwjgl.opengl.GL20.glUniform4f;
-import static org.lwjgl.opengl.GL20.glUniform4fv;
-import static org.lwjgl.opengl.GL20.glUniformMatrix3fv;
-import static org.lwjgl.opengl.GL20.glUniformMatrix4fv;
 import static org.lwjgl.opengl.GL20.glUseProgram;
-import static org.lwjgl.opengles.GLES20.glUniform3f;
 
 /**
  * @author Snakybo
@@ -64,41 +48,6 @@ public final class ShaderInternal
 	public static boolean hasUniform(Shader shader, String name)
 	{
 		return shader.asset.uniforms.containsKey(name);
-	}
-	
-	public static void uniform1i(int location, int value)
-	{
-		glUniform1i(location, value);
-	}
-	
-	public static void uniform1f(int location, float value)
-	{
-		glUniform1f(location, value);
-	}
-	
-	public static void uniform2f(int location, Vector2f value)
-	{
-		glUniform2f(location, value.x, value.y);
-	}
-	
-	public static void uniform3f(int location, Vector3f value)
-	{
-		glUniform3f(location, value.x, value.y, value.z);
-	}
-	
-	public static void uniform4f(int location, Vector4f value)
-	{
-		glUniform4f(location, value.x, value.y, value.z, value.w);
-	}
-	
-	public static void uniform3fv(int location, Matrix3f value)
-	{
-		glUniformMatrix3fv(location, false, value.get(BufferUtils.createFloatBuffer(9)));
-	}
-	
-	public static void uniform4fv(int location, Matrix4f value)
-	{
-		glUniformMatrix4fv(location, false, value.get(BufferUtils.createFloatBuffer(16)));
 	}
 	
 	public static String getUniformType(Shader shader, String name)
