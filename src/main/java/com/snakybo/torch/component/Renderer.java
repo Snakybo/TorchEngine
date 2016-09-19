@@ -45,7 +45,6 @@ public abstract class Renderer extends Component
 	
 	private int cachedMeshHashCode;
 	
-	@Override
 	protected void onCreate()
 	{
 		meshFilter = getComponent(MeshFilter.class);
@@ -57,8 +56,7 @@ public abstract class Renderer extends Component
 		cachedMeshHashCode = meshFilter.getMesh().hashCode();
 	}
 	
-	@Override
-	protected void onPreRenderObject()
+	protected void onPreRender()
 	{
 		int hashCode = meshFilter.getMesh().hashCode();
 		
@@ -69,8 +67,7 @@ public abstract class Renderer extends Component
 		}
 	}
 	
-	@Override
-	protected void onRenderObject()
+	protected void onRender()
 	{
 		ShaderInternal.bind(material.getShader());
 		
@@ -82,7 +79,6 @@ public abstract class Renderer extends Component
 		ShaderInternal.unbind();
 	}
 	
-	@Override
 	protected void onDestroy()
 	{
 		material.destroy();

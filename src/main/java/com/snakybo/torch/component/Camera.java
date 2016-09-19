@@ -55,7 +55,6 @@ public final class Camera extends Component
 	private CameraInternal camera;
 	private boolean changed;
 	
-	@Override
 	protected void onCreate()
 	{
 		Matrix4f projection = new Matrix4f().perspective((float)Math.toRadians(fieldOfView), Window.getAspectRatio(), zNear, zFar);
@@ -68,13 +67,11 @@ public final class Camera extends Component
 		instance = this;
 	}
 	
-	@Override
 	protected final void onDestroy()
 	{
 		camera.destroy();
 	}
 	
-	@Override
 	protected final void onPostUpdate()
 	{
 		if(changed)
