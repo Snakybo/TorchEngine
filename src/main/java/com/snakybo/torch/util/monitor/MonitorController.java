@@ -25,7 +25,7 @@ package com.snakybo.torch.util.monitor;
 import org.lwjgl.PointerBuffer;
 import org.lwjgl.glfw.GLFWMonitorCallback;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 
 import static org.lwjgl.glfw.GLFW.GLFW_CONNECTED;
 import static org.lwjgl.glfw.GLFW.GLFW_DISCONNECTED;
@@ -81,7 +81,7 @@ public final class MonitorController
 	public static void create()
 	{
 		PointerBuffer monitorPointers = glfwGetMonitors();
-		Monitor.monitors = new HashSet<>();
+		Monitor.monitors = new ArrayList<>();
 		
 		for(int i = 0; i < monitorPointers.limit(); i++)
 		{
