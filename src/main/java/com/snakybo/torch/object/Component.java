@@ -22,8 +22,6 @@
 
 package com.snakybo.torch.object;
 
-import com.snakybo.torch.graphics.gizmo.Gizmos;
-
 /**
  * <p>
  * Base class for all components.
@@ -39,122 +37,6 @@ import com.snakybo.torch.graphics.gizmo.Gizmos;
 public abstract class Component extends TorchObject
 {	
 	transient GameObject gameObject;
-	
-	public Component()
-	{
-		super("Component");
-		
-		String name = getClass().getSimpleName();
-		if(!name.isEmpty())
-		{
-			setName(name);
-		}
-		else
-		{
-			setName("Anonymous Component");
-		}
-	}
-	
-	/**
-	 * <p>
-	 * Called as soon as the component is created.
-	 * </p>
-	 *
-	 * <p>
-	 * If the component has been created by loading a scene, it will be called as soon as
-	 * every component on the GameObject has been initialized.
-	 * </p>
-	 */
-	protected void onCreate()
-	{
-	}
-	
-	/**
-	 * <p>
-	 * Called just before the first time {@link #onUpdate()} is called.
-	 * </p>
-	 */
-	protected void onStart()
-	{
-	}
-	
-	/**
-	 * <p>
-	 * Called every frame.
-	 * </p>
-	 */
-	protected void onUpdate()
-	{
-	}
-	
-	/**
-	 * <p>
-	 * Called every frame, after {@link #onUpdate()} has been called on every component in the scene.
-	 * </p>
-	 */
-	protected void onPostUpdate()
-	{
-	}
-	
-	/**
-	 * <p>
-	 * Called when a camera starts rendering the object.
-	 * </p>
-	 */
-	protected void onPreRenderObject()
-	{
-	}
-	
-	/**
-	 * <p>
-	 * Called when a camera renders the object.
-	 * </p>
-	 */
-	protected void onRenderObject()
-	{
-	}
-	
-	/**
-	 * <p>
-	 * Called when a camera has finished rendering the object
-	 * </p>
-	 */
-	protected void onPostRenderObject()
-	{
-	}
-	
-	/**
-	 * <p>
-	 * Called after everything in the scene has been rendered,
-	 * you can only render {@link Gizmos} from here.
-	 * </p>
-	 */
-	protected void onRenderGizmos()
-	{
-	}
-	
-	/**
-	 * <p>
-	 * Called when the component or parent {@link GameObject} has been destroyed
-	 * </p>
-	 */
-	protected void onDestroy()
-	{
-	}
-	
-	/**
-	 * <p>
-	 * Add a component to the parent {@code GameObject}.
-	 * </p>
-	 *
-	 * @param component The component to add.
-	 * @param <T> The class of the component to add.
-	 * @return The component.
-	 */
-	public final <T extends Component> T addComponent(Class<T> component)
-	{
-		return gameObject.addComponent(component);
-	}
 	
 	/**
 	 * <p>

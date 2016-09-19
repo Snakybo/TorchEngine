@@ -27,6 +27,7 @@ import com.snakybo.torch.graphics.camera.CameraInternal;
 import com.snakybo.torch.graphics.color.Color;
 import com.snakybo.torch.graphics.gizmo.Gizmos;
 import com.snakybo.torch.graphics.gizmo.GizmosInternal;
+import com.snakybo.torch.object.ComponentInternal;
 import com.snakybo.torch.object.GameObject;
 import com.snakybo.torch.object.GameObjectInternal;
 import com.snakybo.torch.scene.SceneInternal;
@@ -117,7 +118,7 @@ public final class RenderingEngine
 			glDisable(GL_DEPTH_TEST);
 			glDisable(GL_CULL_FACE);
 			
-			GameObjectInternal.onRenderGizmos(gameObject);
+			ComponentInternal.invokeAll(gameObject, "onRenderGizmos");
 		}
 		
 		GizmosInternal.isInGizmoRenderPass = false;
@@ -136,9 +137,9 @@ public final class RenderingEngine
 			glEnable(GL_CULL_FACE);
 			glCullFace(GL_BACK);
 			
-			GameObjectInternal.onPreRender(gameObject);
-			GameObjectInternal.onRender(gameObject);
-			GameObjectInternal.onPostRender(gameObject);
+			ComponentInternal.invokeAll(gameObject, "onPreRender");
+			ComponentInternal.invokeAll(gameObject, "onRender");
+			ComponentInternal.invokeAll(gameObject, "onPostRender");
 		}
 	}
 }

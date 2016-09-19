@@ -39,44 +39,23 @@ public final class GameObjectInternal
 	
 	public static void processAdditions(GameObject gameObject)
 	{
-		gameObject.componentsToAdd.forEach(Component::onStart);
+		for(Component component : gameObject.componentsToAdd)
+		{
+			ComponentInternal.invoke(component, "onStart");
+		}
+		
 		gameObject.componentsToAdd.clear();
 	}
 	
 	public static void processRemovals(GameObject gameObject)
 	{
-		gameObject.componentsToRemove.forEach(Component::onDestroy);
+		for(Component component : gameObject.componentsToRemove)
+		{
+			ComponentInternal.invoke(component, "onStart");
+			ComponentInternal.removeBehaviours(component);
+		}
+		
 		gameObject.components.removeAll(gameObject.componentsToRemove);
 		gameObject.componentsToRemove.clear();
-	}
-	
-	public static void onUpdate(GameObject gameObject)
-	{
-		gameObject.components.forEach(Component::onUpdate);
-	}
-	
-	public static void onPostUpdate(GameObject gameObject)
-	{
-		gameObject.components.forEach(Component::onPostUpdate);
-	}
-	
-	public static void onPreRender(GameObject gameObject)
-	{
-		gameObject.components.forEach(Component::onPreRenderObject);
-	}
-	
-	public static void onRender(GameObject gameObject)
-	{
-		gameObject.components.forEach(Component::onRenderObject);
-	}
-	
-	public static void onPostRender(GameObject gameObject)
-	{
-		gameObject.components.forEach(Component::onPostRenderObject);
-	}
-	
-	public static void onRenderGizmos(GameObject gameObject)
-	{
-		gameObject.components.forEach(Component::onRenderGizmos);
 	}
 }

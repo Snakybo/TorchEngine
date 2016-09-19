@@ -54,7 +54,10 @@ public final class GameObjectLoader
 			components.add(component);
 		}
 		
-		components.forEach(Component::onCreate);
+		for(Component component : components)
+		{
+			ComponentInternal.invoke(component, "onCreate");
+		}
 		
 		return gameObject;
 	}

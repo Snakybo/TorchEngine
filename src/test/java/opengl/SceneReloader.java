@@ -34,7 +34,6 @@ import com.snakybo.torch.util.debug.Logger;
  */
 public class SceneReloader extends Component
 {
-	@Override
 	protected void onUpdate()
 	{
 		if(Keyboard.isDown(Key.LEFT_CONTROL) && Keyboard.onDown(Key.R))

@@ -43,7 +43,6 @@ public class LightController extends Component
 {
 	private MeshRenderer meshRenderer;
 	
-	@Override
 	protected void onUpdate()
 	{
 		if(meshRenderer == null)
@@ -82,7 +81,6 @@ public class LightController extends Component
 		}
 	}
 	
-	@Override
 	protected void onRenderGizmos()
 	{
 		Gizmos.setColor(new Color(1, 0, 0));

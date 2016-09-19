@@ -44,7 +44,6 @@ public class CameraFreeMove extends Component
 	
 	@SerializedField private float speed = 2.5f;
 	
-	@Override
 	protected void onUpdate()
 	{
 		if(Keyboard.isDown(forward))

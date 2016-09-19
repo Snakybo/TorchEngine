@@ -35,7 +35,6 @@ import com.snakybo.torch.util.debug.Logger;
  */
 public class GLFWInputListener extends Component
 {
-	@Override
 	protected void onUpdate()
 	{
 		if(Keyboard.onDown(Key.W))

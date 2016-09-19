@@ -41,7 +41,6 @@ public class CameraFreeLook extends Component
 {
 	@SerializedField private float sensitivity = 0.5f;
 	
-	@Override
 	protected void onStart()
 	{
 		Mouse.setCursorPosition(Window.getCenter());
@@ -50,14 +49,12 @@ public class CameraFreeLook extends Component
 		Cursor.setVisible(false);
 	}
 	
-	@Override
 	protected void onDestroy()
 	{
 		Cursor.setLockMode(CursorLockMode.None);
 		Cursor.setVisible(true);
 	}
 	
-	@Override
 	protected void onUpdate()
 	{
 		if(Cursor.getLockMode() != CursorLockMode.Locked)

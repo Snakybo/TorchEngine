@@ -70,7 +70,7 @@ public final class GameObject extends TorchObject
 	 */
 	public GameObject(String name)
 	{
-		super(name);
+		setName(name);
 		
 		componentsToAdd = new HashSet<>();
 		componentsToRemove = new HashSet<>();
@@ -88,7 +88,11 @@ public final class GameObject extends TorchObject
 		try
 		{
 			Component result = (Component)component.getConstructor().newInstance();
+			
+			result.setName(getName() + ":" + component.getClass().getSimpleName());
 			result.gameObject = this;
+			
+			ComponentInternal.addBehaviours(result);
 			
 			componentsToAdd.add(result);
 			components.add(result);
@@ -115,7 +119,7 @@ public final class GameObject extends TorchObject
 	public final <T extends Component> T addComponent(Class<T> component)
 	{
 		T result = component.cast(addComponentInternal(component));
-		result.onCreate();
+		ComponentInternal.invoke(result, "onCreate");
 		
 		return result;
 	}

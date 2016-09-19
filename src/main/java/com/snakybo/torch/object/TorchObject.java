@@ -42,18 +42,6 @@ public class TorchObject implements Serializable
 {
 	private String name;
 	
-	/**
-	 * <p>
-	 * Create a new object.
-	 * </p>
-	 *
-	 * @param name The name.
-	 */
-	public TorchObject(String name)
-	{
-		setName(name);
-	}
-	
 	@Override
 	public String toString()
 	{
@@ -114,17 +102,14 @@ public class TorchObject implements Serializable
 	{
 		if(obj instanceof GameObject)
 		{
-			// Destroy the GameObject
 			GameObject gameObject = (GameObject)obj;
-			SceneInternal.remove(gameObject);
-			
-			// Also destroy all components
 			gameObject.components.forEach(TorchObject::destroy);
+			SceneInternal.remove(gameObject);
 		}
 		else if(obj instanceof Component)
 		{
 			Component component = (Component)obj;
-			component.gameObject.componentsToRemove.add(component);
+			component.getGameObject().componentsToRemove.add(component);
 		}
 	}
 }

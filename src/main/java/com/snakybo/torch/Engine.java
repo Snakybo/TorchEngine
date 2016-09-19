@@ -32,6 +32,8 @@ import com.snakybo.torch.input.cursor.CursorController;
 import com.snakybo.torch.input.joystick.JoystickController;
 import com.snakybo.torch.input.keyboard.KeyboardController;
 import com.snakybo.torch.input.mouse.MouseController;
+import com.snakybo.torch.object.ComponentInternal;
+import com.snakybo.torch.object.GameObject;
 import com.snakybo.torch.object.GameObjectInternal;
 import com.snakybo.torch.object.TorchObject;
 import com.snakybo.torch.scene.SceneInternal;
@@ -153,8 +155,15 @@ public final class Engine
 	
 	private static void update()
 	{
-		SceneInternal.getAllInitializedGameObjects().forEach(GameObjectInternal::onUpdate);
-		SceneInternal.getAllInitializedGameObjects().forEach(GameObjectInternal::onPostUpdate);
+		for(GameObject gameObject : SceneInternal.getAllInitializedGameObjects())
+		{
+			ComponentInternal.invokeAll(gameObject, "onUpdate");
+		}
+		
+		for(GameObject gameObject : SceneInternal.getAllInitializedGameObjects())
+		{
+			ComponentInternal.invokeAll(gameObject, "onPostUpdate");
+		}
 	}
 	
 	private static void updateInput()
