@@ -25,8 +25,8 @@ package com.snakybo.torch.graphics.texture;
 import com.snakybo.torch.util.FileUtils;
 import com.snakybo.torch.util.debug.Logger;
 import com.snakybo.torch.util.debug.LoggerInternal;
-import com.snakybo.torch.xml.XMLParser;
-import com.snakybo.torch.xml.parsers.TextureParser;
+import com.snakybo.torch.util.xml.XMLParser;
+import com.snakybo.torch.util.xml.parsers.TextureParser;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

@@ -20,79 +20,68 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.xml.parsers;
+package com.snakybo.torch.util.xml.parsers;
 
 import com.snakybo.torch.util.debug.Logger;
 import com.snakybo.torch.util.debug.LoggerInternal;
-import com.snakybo.torch.xml.XMLParserUtils;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Snakybo
  * @since 1.0
  */
-public final class MaterialParser
+public final class SceneParser
 {
 	private static final String VERSION = "1";
 	
-	public static final class MaterialData
+	public static final class SceneData
 	{
-		public final Map<String, Object> values;
+		public final List<GameObjectParser.GameObjectData> gameObjectData;
 		
-		public final String shader;
-		
-		public MaterialData(String shader, Map<String, Object> values)
+		public SceneData(List<GameObjectParser.GameObjectData> gameObjectData)
 		{
-			this.shader = shader;
-			this.values = values;
+			this.gameObjectData = gameObjectData;
 		}
 	}
 	
-	private MaterialParser()
+	private SceneParser()
 	{
 		throw new AssertionError();
 	}
 	
-	public static MaterialData decode(Element element)
+	public static SceneData decode(Element element)
 	{
 		String version = element.getAttribute("version");
 		
-		LoggerInternal.log("Material data version: " + version);
+		LoggerInternal.log("Scene data version: " + version);
 		if(!version.equals(VERSION))
 		{
-			// TODO: Material data version upgrade tool
+			// TODO: Scene data version upgrade tool
 			Logger.logError("Unable to load scene data, invalid version (expected: " + VERSION + " got:" + version + ")");
 			return null;
 		}
 		
-		String shader = element.getAttribute("shader");
+		NodeList gameObjects = element.getElementsByTagName("game_objects").item(0).getChildNodes();
+		List<GameObjectParser.GameObjectData> gameObjectData = new ArrayList<>();
 		
-		NodeList properties = element.getElementsByTagName("properties").item(0).getChildNodes();
-		Map<String, Object> values = new HashMap<>();
-		
-		LoggerInternal.log("Begin decoding material properties");
-		for(int i = 0; i < properties.getLength(); i++)
+		LoggerInternal.log("Begin decoding GameObject data");
+		for(int i = 0; i < gameObjects.getLength(); i++)
 		{
-			Node node = properties.item(i);
+			Node node = gameObjects.item(i);
 			
 			if(node.getNodeType() == Node.ELEMENT_NODE)
 			{
-				Element property = (Element)node;
-
-				String name = property.getAttribute("name");
-				Object value = XMLParserUtils.decodeObject(property.getAttribute("type"), property.getTextContent());
-				LoggerInternal.log("Property=" + name + " Value="  + value);
-				
-				values.put(name, value);
+				Element gameObject = (Element)node;
+				gameObjectData.add(GameObjectParser.decode(gameObject));
 			}
 		}
 		
-		LoggerInternal.log("Successfully decoded material data");
-		return new MaterialData(shader, values);
+		LoggerInternal.log("Successfully decoded scene data");
+		return new SceneData(gameObjectData);
 	}
 }

@@ -25,7 +25,7 @@ package com.snakybo.torch.object;
 import com.snakybo.torch.util.debug.Logger;
 import com.snakybo.torch.util.debug.LoggerInternal;
 import com.snakybo.torch.util.reflection.SerializedFieldUtils;
-import com.snakybo.torch.xml.parsers.ComponentParser;
+import com.snakybo.torch.util.xml.parsers.ComponentParser;
 
 import java.lang.reflect.Field;
 

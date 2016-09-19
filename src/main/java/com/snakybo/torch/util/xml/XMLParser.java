@@ -20,14 +20,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.xml;
+package com.snakybo.torch.util.xml;
 
 import com.snakybo.torch.util.FileUtils;
 import com.snakybo.torch.util.debug.Logger;
 import com.snakybo.torch.util.debug.LoggerInternal;
-import com.snakybo.torch.xml.parsers.MaterialParser;
-import com.snakybo.torch.xml.parsers.SceneParser;
-import com.snakybo.torch.xml.parsers.TextureParser;
+import com.snakybo.torch.util.xml.parsers.MaterialParser;
+import com.snakybo.torch.util.xml.parsers.SceneParser;
+import com.snakybo.torch.util.xml.parsers.TextureParser;
 import org.w3c.dom.Document;
 
 import java.net.URI;

@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.xml;
+package com.snakybo.torch.util.xml;
 
 import com.snakybo.torch.asset.Assets;
 import com.snakybo.torch.graphics.color.Color;

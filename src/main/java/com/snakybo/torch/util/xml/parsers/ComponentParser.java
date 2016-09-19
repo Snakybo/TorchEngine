@@ -20,10 +20,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.xml.parsers;
+package com.snakybo.torch.util.xml.parsers;
 
 import com.snakybo.torch.util.debug.LoggerInternal;
-import com.snakybo.torch.xml.XMLParserUtils;
+import com.snakybo.torch.util.xml.XMLParserUtils;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;

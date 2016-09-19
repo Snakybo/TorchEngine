@@ -22,8 +22,8 @@
 
 package com.snakybo.torch.object;
 
-import com.snakybo.torch.xml.parsers.ComponentParser;
-import com.snakybo.torch.xml.parsers.GameObjectParser;
+import com.snakybo.torch.util.xml.parsers.ComponentParser;
+import com.snakybo.torch.util.xml.parsers.GameObjectParser;
 
 import java.util.ArrayList;
 import java.util.List;
