@@ -23,19 +23,23 @@
 package com.snakybo.torch.component;
 
 import com.snakybo.torch.annotation.SerializedField;
-import com.snakybo.torch.asset.Assets;
 import com.snakybo.torch.graphics.camera.CameraClearFlags;
 import com.snakybo.torch.graphics.camera.CameraInternal;
 import com.snakybo.torch.graphics.texture.Texture;
-import com.snakybo.torch.graphics.window.Window;
 import com.snakybo.torch.object.Component;
+import com.snakybo.torch.util.Rect;
 import com.snakybo.torch.util.color.Color;
 import org.joml.Matrix4f;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * <p>
- * The camera component. Everything in the camera's viewport
- * is rendered automatically every frame.
+ * Camera component, everything in the view of the camera is rendered every frame.
  * </p>
  *
  * @author Snakybo
@@ -43,42 +47,48 @@ import org.joml.Matrix4f;
  */
 public final class Camera extends Component
 {
-	private static Camera instance;
+	private static Map<CameraInternal, Camera> cameras = new HashMap<>();
 	
-	@SerializedField private float fieldOfView = 75;
-	@SerializedField private float zNear = 0.01f;
-	@SerializedField private float zFar = 1000f;
-	@SerializedField private CameraClearFlags clearFlags = CameraClearFlags.Skybox;
-	@SerializedField private Texture skyboxTexture = Assets.load(Texture.class, "torch_internal/skybox_default.png");
-	@SerializedField private Color clearColor = Color.BLACK;
+	@SerializedField private float viewportX;
+	@SerializedField private float viewportY;
+	@SerializedField private float viewportW;
+	@SerializedField private float viewportH;
+	@SerializedField private float fieldOfView;
+	@SerializedField private float zNear;
+	@SerializedField private float zFar;
+	@SerializedField private int depth;
+	
+	@SerializedField private CameraClearFlags clearFlags;
+	@SerializedField private Texture skybox;
+	@SerializedField private Color clearColor;
 	
 	private CameraInternal camera;
-	private boolean changed;
 	
-	protected void onCreate()
+	protected final void onCreate()
 	{
-		Matrix4f projection = new Matrix4f().perspective((float)Math.toRadians(fieldOfView), Window.getAspectRatio(), zNear, zFar);
+		Rect viewport = new Rect(viewportX, viewportY, viewportW, viewportH);
 		
-		camera = new CameraInternal(projection, clearFlags);
-		camera.setTransform(getTransform());
-		camera.setSkybox(skyboxTexture);
+		camera = new CameraInternal(viewport, fieldOfView, zNear, zFar, depth);
+		camera.setClearFlags(clearFlags);
+		camera.setSkybox(skybox);
 		camera.setClearColor(clearColor);
 		
-		instance = this;
+		camera.setPosition(getTransform().getPosition());
+		camera.setRotation(getTransform().getRotation());
+		
+		cameras.put(camera, this);
+	}
+	
+	protected final void onPostUpdate()
+	{
+		camera.setPosition(getTransform().getPosition());
+		camera.setRotation(getTransform().getRotation());
 	}
 	
 	protected final void onDestroy()
 	{
 		camera.destroy();
-	}
-	
-	protected final void onPostUpdate()
-	{
-		if(changed)
-		{
-			changed = false;
-			setProjection(new Matrix4f().perspective((float)Math.toRadians(fieldOfView), Window.getAspectRatio(), zNear, zFar));
-		}
+		cameras.remove(camera);
 	}
 	
 	/**
@@ -93,58 +103,7 @@ public final class Camera extends Component
 	
 	/**
 	 * <p>
-	 * Set the projection of the camera.
-	 * </p>
-	 *
-	 * @param projection The new projection.
-	 */
-	public final void setProjection(Matrix4f projection)
-	{
-		camera.setProjection(projection);
-	}
-	
-	/**
-	 * <p>
-	 * Set the field of view of the camera.
-	 * </p>
-	 *
-	 * @param fieldOfView The new field of view.
-	 */
-	public final void setFieldOfView(float fieldOfView)
-	{
-		this.fieldOfView = fieldOfView;
-		this.changed = true;
-	}
-	
-	/**
-	 * <p>
-	 * Set the near clipping plane of the camera.
-	 * </p>
-	 *
-	 * @param zNear The new near clipping plane.
-	 */
-	public final void setNearClippingPlane(float zNear)
-	{
-		this.zNear = zNear;
-		this.changed = true;
-	}
-	
-	/**
-	 * <p>
-	 * Set the far clipping plane of the camera.
-	 * </p>
-	 *
-	 * @param zFar The new far clipping plane.
-	 */
-	public final void setFarClippingPlane(float zFar)
-	{
-		this.zFar = zFar;
-		this.changed = true;
-	}
-	
-	/**
-	 * <p>
-	 * Set the {@link CameraClearFlags} to use.
+	 * Set the clear flags.
 	 * </p>
 	 *
 	 * @param clearFlags The new clear flags.
@@ -156,19 +115,19 @@ public final class Camera extends Component
 	
 	/**
 	 * <p>
-	 * Set the texture of the skybox.
+	 * Set the skybox texture.
 	 * </p>
 	 *
-	 * @param texture The new texture of the skybox.
+	 * @param skybox The new skybox texture.
 	 */
-	public final void setSkybox(Texture texture)
+	public final void setSkybox(Texture skybox)
 	{
-		camera.setSkybox(texture);
+		camera.setSkybox(skybox);
 	}
 	
 	/**
 	 * <p>
-	 * Set the clear color of the camera, only used in {@link CameraClearFlags#SolidColor}.
+	 * Set the clear color.
 	 * </p>
 	 *
 	 * @param clearColor The new clear color.
@@ -180,14 +139,157 @@ public final class Camera extends Component
 	
 	/**
 	 * <p>
+	 * Manually set a projection matrix,
+	 * note that this gets overwritten when you make a call to:
+	 * </p>
+	 *
+	 * <ul>
+	 *  <li>{@link #setFieldOfView(float)}</li>
+	 *  <li>{@link #setNearClipPlane(float)}</li>
+	 *  <li>{@link #setFarClipPlane(float)}</li>
+	 * </ul>
+	 *
+	 * @param projection The new projection.
+	 */
+	public final void setProjection(Matrix4f projection)
+	{
+		camera.setProjection(projection);
+	}
+	
+	/**
+	 * <p>
+	 * Set the viewport.
+	 * </p>
+	 *
+	 * @param viewport The new viewport.
+	 */
+	public final void setViewport(Rect viewport)
+	{
+		camera.setViewport(viewport);
+	}
+	
+	/**
+	 * <p>
+	 * Set the field of view.
+	 * </p>
+	 *
+	 * @param fieldOfView The new field of view.
+	 */
+	public final void setFieldOfView(float fieldOfView)
+	{
+		camera.setFieldOfView(fieldOfView);
+	}
+	
+	/**
+	 * <p>
+	 * Set the near clipping plane (zNear).
+	 * </p>
+	 *
+	 * @param zNear The new near clipping plane.
+	 */
+	public final void setNearClipPlane(float zNear)
+	{
+		camera.setNearClipPlane(zNear);
+	}
+	
+	/**
+	 * <p>
+	 * Set the far clipping plane (zFar).
+	 * </p>
+	 *
+	 * @param zFar The new far clipping plane.
+	 */
+	public final void setFarClipPlane(float zFar)
+	{
+		camera.setFarClipPlane(zFar);
+	}
+	
+	/**
+	 * <p>
+	 * Set the depth.
+	 * </p>
+	 *
+	 * <p>
+	 * Cameras with a lower depth value will be rendered first.
+	 * </p>
+	 *
+	 * @param depth The new depth.
+	 */
+	public final void setDepth(int depth)
+	{
+		camera.setDepth(depth);
+	}
+	
+	/**
+	 * <p>
+	 * Get the clear flags.
+	 * </p>
+	 *
+	 * @return The clear flags.
+	 */
+	public final CameraClearFlags getClearFlags()
+	{
+		return camera.getClearFlags();
+	}
+	
+	/**
+	 * <p>
+	 * Get the skybox texture.
+	 * </p>
+	 *
+	 * @return The skybox texture.
+	 */
+	public final Texture getSkybox()
+	{
+		return camera.getSkybox();
+	}
+	
+	/**
+	 * <p>
+	 * Get the clear color.
+	 * </p>
+	 *
+	 * @return The clear color.
+	 */
+	public final Color getClearColor()
+	{
+		return camera.getClearColor();
+	}
+	
+	/**
+	 * <p>
 	 * Get the projection matrix.
 	 * </p>
 	 *
 	 * @return The projection matrix.
 	 */
-	public final Matrix4f getProjectionMatrix()
+	public final Matrix4f getProjection()
 	{
-		return camera.getProjectionMatrix();
+		return camera.getProjection();
+	}
+	
+	/**
+	 * <p>
+	 * Get the view matrix.
+	 * </p>
+	 *
+	 * @return The view matrix.
+	 */
+	public final Matrix4f getViewMatrix()
+	{
+		return camera.getViewMatrix();
+	}
+	
+	/**
+	 * <p>
+	 * Get the viewport.
+	 * </p>
+	 *
+	 * @return The viewport.
+	 */
+	public final Rect getViewport()
+	{
+		return camera.getViewport();
 	}
 	
 	/**
@@ -199,67 +301,55 @@ public final class Camera extends Component
 	 */
 	public final float getFieldOfView()
 	{
-		return fieldOfView;
+		return camera.getFieldOfView();
 	}
 	
 	/**
 	 * <p>
-	 * Get the near clipping plane.
+	 * Get the near clipping plane (zNear).
 	 * </p>
 	 *
 	 * @return The near clipping plane.
 	 */
-	public final float getNearClippingPlane()
+	public final float getNearClipPlane()
 	{
-		return zNear;
+		return camera.getNearClipPlane();
 	}
 	
 	/**
 	 * <p>
-	 * Get the far clipping plane.
+	 * Get the far clipping plane (zFar).
 	 * </p>
 	 *
 	 * @return The far clipping plane.
 	 */
-	public final float getFarClippingPlane()
+	public final float getFarClipPlane()
 	{
-		return zFar ;
+		return camera.getFarClipPlane();
 	}
 	
 	/**
 	 * <p>
-	 * Get the {@link CameraClearFlags}.
+	 * Get the depth.
 	 * </p>
 	 *
-	 * @return The {@link CameraClearFlags} this camera is using.
+	 * @return The depth.
 	 */
-	public final CameraClearFlags getClearFlags()
+	public final int getDepth()
 	{
-		return camera.getClearFlags();
+		return depth;
 	}
 	
 	/**
 	 * <p>
-	 * Get the view matrix.
+	 * Set the main camera.
 	 * </p>
 	 *
-	 * @return The view matrix of the camera.
+	 * @param camera The new main camera.
 	 */
-	public final Matrix4f getViewMatrix()
+	public static void setMainCamera(Camera camera)
 	{
-		return camera.getViewMatrix();
-	}
-	
-	/**
-	 * <p>
-	 * Get the clear color.
-	 * </p>
-	 *
-	 * @return The clear color of the camera.
-	 */
-	public final Color getClearColor()
-	{
-		return camera.getClearColor();
+		CameraInternal.setMainCamera(camera.camera);
 	}
 	
 	/**
@@ -269,8 +359,81 @@ public final class Camera extends Component
 	 *
 	 * @return The main camera.
 	 */
-	public static Camera getInstance()
+	public static Camera getMainCamera()
 	{
-		return instance;
+		for(Map.Entry<CameraInternal, Camera> camera : cameras.entrySet())
+		{
+			if(camera.getKey() == CameraInternal.getMainCamera())
+			{
+				return camera.getValue();
+			}
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * <p>
+	 * Get the current camera.
+	 * </p>
+	 *
+	 * <p>
+	 * The current camera is the camera that's currently rendering, can be {@code null}.
+	 * </p>
+	 *
+	 * @return The current camera.
+	 */
+	public static Camera getCurrentCamera()
+	{
+		for(Map.Entry<CameraInternal, Camera> camera : cameras.entrySet())
+		{
+			if(camera.getKey() == CameraInternal.getCurrentCamera())
+			{
+				return camera.getValue();
+			}
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * <p>
+	 * Get all cameras.
+	 * </p>
+	 *
+	 * @return All cameras.
+	 */
+	public static Iterable<Camera> getAllCameras()
+	{
+		return cameras.values();
+	}
+	
+	/**
+	 * <p>
+	 * Get all cameras, sorted by their {@code depth}.
+	 * </p>
+	 *
+	 * @return The cameras sorted by their {@code depth}.
+	 */
+	public static Camera[] getAllCamerasSorted()
+	{
+		List<Camera> result = new ArrayList<>(cameras.values());
+		
+		Collections.sort(result, (o1, o2) ->
+		{
+			if(o1.getDepth() == o2.getDepth())
+			{
+				return 0;
+			}
+			
+			return o1.getDepth() < o2.getDepth() ? -1 : 1;
+		});
+		
+		return result.toArray(new Camera[result.size()]);
+	}
+	
+	public static CameraInternal getInternalCamera(Camera camera)
+	{
+		return camera.camera;
 	}
 }

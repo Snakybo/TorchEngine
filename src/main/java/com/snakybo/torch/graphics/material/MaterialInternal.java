@@ -105,12 +105,12 @@ public final class MaterialInternal
 		}
 	}
 	
-	public static void updateBuiltInUniforms(Material material, Transform transform)
+	public static void updateBuiltInUniforms(Material material, CameraInternal camera, Transform transform)
 	{
-		updateBuiltInUniforms(material, transform.getTransformation());
+		updateBuiltInUniforms(material, camera, transform.getTransformation());
 	}
 	
-	public static void updateBuiltInUniforms(Material material, Matrix4f model)
+	public static void updateBuiltInUniforms(Material material, CameraInternal camera, Matrix4f model)
 	{
 		if(ShaderInternal.hasUniform(material.asset.shader, "_model"))
 		{
@@ -119,17 +119,17 @@ public final class MaterialInternal
 		
 		if(ShaderInternal.hasUniform(material.asset.shader, "_view"))
 		{
-			material.setMatrix4f("_view", CameraInternal.getInstance().getViewMatrix());
+			material.setMatrix4f("_view", camera.getViewMatrix());
 		}
 		
 		if(ShaderInternal.hasUniform(material.asset.shader, "_projection"))
 		{
-			material.setMatrix4f("_projection", CameraInternal.getInstance().getProjectionMatrix());
+			material.setMatrix4f("_projection", camera.getProjection());
 		}
 		
 		if(ShaderInternal.hasUniform(material.asset.shader, "_cameraPosition"))
 		{
-			material.setVector3f("_cameraPosition", CameraInternal.getInstance().getTransform().getPosition());
+			material.setVector3f("_cameraPosition", camera.getPosition());
 		}
 	}
 }

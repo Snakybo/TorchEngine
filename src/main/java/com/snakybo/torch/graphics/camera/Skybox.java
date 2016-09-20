@@ -23,7 +23,6 @@
 package com.snakybo.torch.graphics.camera;
 
 import com.snakybo.torch.asset.Assets;
-import com.snakybo.torch.component.Camera;
 import com.snakybo.torch.graphics.material.Material;
 import com.snakybo.torch.graphics.material.MaterialInternal;
 import com.snakybo.torch.graphics.mesh.Mesh;
@@ -41,11 +40,11 @@ import static org.lwjgl.opengl.GL11.GL_TRIANGLES;
  */
 public final class Skybox
 {
-	private MeshRendererInternal meshRenderer;
-	private Transform transform;
-	private Material material;
+	private static MeshRendererInternal meshRenderer;
+	private static Transform transform;
+	private static Material material;
 	
-	public Skybox()
+	static
 	{
 		transform = new Transform();
 		transform.setScale(new Vector3f(50));
@@ -54,29 +53,23 @@ public final class Skybox
 		meshRenderer = new MeshRendererInternal(Assets.load(Mesh.class, "torch_internal/skybox.obj"));
 	}
 	
-	public final void render()
+	private Skybox()
 	{
-		Vector3f position = new Vector3f();
-		
-		if(Camera.getInstance() != null)
-		{
-			position = Camera.getInstance().getTransform().getPosition();
-		}
-		
+		throw new AssertionError();
+	}
+	
+	public static void render(Texture texture, Vector3f position)
+	{
+		material.setTexture("diffuse", texture);
 		transform.setPosition(position);
 		
 		ShaderInternal.bind(material.getShader());
 		
-		MaterialInternal.updateBuiltInUniforms(material, transform);
+		MaterialInternal.updateBuiltInUniforms(material, CameraInternal.getCurrentCamera(), transform);
 		MaterialInternal.update(material);
 		
 		meshRenderer.render(GL_TRIANGLES);
 		
 		ShaderInternal.unbind();
-	}
-	
-	public final void setTexture(Texture texture)
-	{
-		material.setTexture("diffuse", texture);
 	}
 }

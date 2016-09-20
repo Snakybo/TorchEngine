@@ -107,9 +107,13 @@ public final class ComponentInternal
 			method.invoke(component);
 			method.setAccessible(false);
 		}
-		catch(IllegalAccessException | InvocationTargetException e)
+		catch(IllegalAccessException e)
 		{
-			Logger.logError(e.getMessage(), e);
+			Logger.logError("Unable to invoke method: " + name + " is component: " + component, e);
+		}
+		catch(InvocationTargetException ex)
+		{
+			Logger.logError("An exception has been thrown when invoking: " + component.getClass().getName() + "." + name, ex.getCause());
 		}
 	}
 	

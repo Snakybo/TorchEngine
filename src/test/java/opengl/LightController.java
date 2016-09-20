@@ -62,7 +62,7 @@ public class LightController extends Component
 		{
 			meshRenderer.getMaterial().setVector3f("directionalLight.direction", getTransform().forward());
 			
-			Transform camera = Camera.getInstance().getTransform();
+			Transform camera = Camera.getMainCamera().getTransform();
 			
 			meshRenderer.getMaterial().setVector3f("spotLight.position", camera.getPosition());
 			meshRenderer.getMaterial().setVector3f("spotLight.direction", camera.forward());

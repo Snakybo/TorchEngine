@@ -8,11 +8,16 @@
             <components>
                 <component type="com.snakybo.torch.component.Camera">
                     <fields>
+                        <viewportX type="float">0</viewportX>
+                        <viewportY type="float">0</viewportY>
+                        <viewportW type="float">1</viewportW>
+                        <viewportH type="float">1</viewportH>
                         <fieldOfView type="float">75</fieldOfView>
                         <zNear type="float">0.01</zNear>
                         <zFar type="float">1000</zFar>
+                        <depth type="int">-1</depth>
                         <clearFlags type="enum">com.snakybo.torch.graphics.camera.CameraClearFlags:2</clearFlags>
-                        <skyboxTexture type="asset">torch_internal/skybox_default.png</skyboxTexture>
+                        <skybox type="asset">torch_internal/skybox_default.png</skybox>
                         <clearColor type="color">0, 0, 0, 1</clearColor>
                     </fields>
                 </component>

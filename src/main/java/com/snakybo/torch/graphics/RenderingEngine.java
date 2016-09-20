@@ -24,6 +24,7 @@ package com.snakybo.torch.graphics;
 
 import com.snakybo.torch.graphics.camera.CameraClearFlags;
 import com.snakybo.torch.graphics.camera.CameraInternal;
+import com.snakybo.torch.graphics.camera.Skybox;
 import com.snakybo.torch.graphics.gizmo.Gizmos;
 import com.snakybo.torch.graphics.gizmo.GizmosInternal;
 import com.snakybo.torch.object.ComponentInternal;
@@ -102,7 +103,7 @@ public final class RenderingEngine
 		
 		if(camera.getClearFlags() == CameraClearFlags.Skybox)
 		{
-			camera.getSkybox().render();
+			Skybox.render(camera.getSkybox(), camera.getPosition());
 		}
 	}
 	

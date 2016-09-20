@@ -24,6 +24,7 @@ package com.snakybo.torch;
 
 import com.snakybo.torch.graphics.RenderingEngine;
 import com.snakybo.torch.graphics.camera.CameraInternal;
+import com.snakybo.torch.graphics.display.DisplayController;
 import com.snakybo.torch.graphics.glfw.GLFW;
 import com.snakybo.torch.graphics.window.Window;
 import com.snakybo.torch.graphics.window.WindowInternal;
@@ -38,7 +39,6 @@ import com.snakybo.torch.object.TorchObject;
 import com.snakybo.torch.scene.SceneInternal;
 import com.snakybo.torch.util.debug.Logger;
 import com.snakybo.torch.util.debug.LoggerInternal;
-import com.snakybo.torch.util.monitor.MonitorController;
 import com.snakybo.torch.util.time.Time;
 import com.snakybo.torch.util.time.TimeInternal;
 import org.lwjgl.Version;
@@ -182,7 +182,13 @@ public final class Engine
 	
 	private static void render()
 	{
-		RenderingEngine.render(CameraInternal.getInstance());
+		CameraInternal[] cameras = CameraInternal.getAllCamerasSorted();
+		
+		for(CameraInternal camera : cameras)
+		{
+			camera.render();
+		}
+		
 		RenderingEngine.renderGizmos();
 		
 		WindowInternal.update();

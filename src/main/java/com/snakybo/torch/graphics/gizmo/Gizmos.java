@@ -22,10 +22,10 @@
 
 package com.snakybo.torch.graphics.gizmo;
 
+import com.snakybo.torch.graphics.camera.CameraInternal;
 import com.snakybo.torch.graphics.material.Material;
 import com.snakybo.torch.graphics.material.MaterialInternal;
 import com.snakybo.torch.graphics.shader.ShaderInternal;
-import com.snakybo.torch.object.Component;
 import com.snakybo.torch.util.color.Color;
 import com.snakybo.torch.util.debug.Logger;
 import org.joml.Matrix4f;
@@ -75,7 +75,7 @@ public final class Gizmos
 	 * </p>
 	 *
 	 * <p>
-	 * This is automatically called before {@link Component#onRenderGizmos()} is called,
+	 * This is automatically called before {@code Component#onRenderGizmos()} is called,
 	 * but you can also call it manually in your {@code onRenderGizmos} method to reset everything.
 	 * </p>
 	 */
@@ -184,7 +184,7 @@ public final class Gizmos
 	{
 		material.setVector3f("color", new Vector3f(color.getRed(), color.getGreen(), color.getBlue()));
 		
-		MaterialInternal.updateBuiltInUniforms(material, new Matrix4f().translate(position).scale(size));
+		MaterialInternal.updateBuiltInUniforms(material, CameraInternal.getMainCamera(), new Matrix4f().translate(position).scale(size));
 		MaterialInternal.update(material);
 	}
 	
