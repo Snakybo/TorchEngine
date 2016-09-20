@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.util.monitor;
+package com.snakybo.torch.graphics.display;
 
 /**
  * <p>
@@ -33,16 +33,16 @@ package com.snakybo.torch.util.monitor;
  * </p>
  *
  * <p>
- * You can also get all available display modes for a monitor using {@link Monitor#getAllDisplayModes()}, or just
- * the native display mode using {@link Monitor#getNativeDisplayMode()}.
+ * You can also get all available display modes for a display using {@link Display#getDisplayModes()}, or just
+ * the native display mode using {@link Display#getNativeDisplayMode()}.
  * </p>
  *
  * @author Snakybo
  * @since 1.0
  */
-public class DisplayMode
+public final class DisplayMode
 {
-	private Monitor monitor;
+	private Display display;
 	
 	private int width;
 	private int height;
@@ -55,13 +55,13 @@ public class DisplayMode
 	 * Create a new {@code DisplayMode}.
 	 * </p>
 	 *
-	 * @param monitor The monitor this display mode belongs to.
+	 * @param display The display this display mode belongs to.
 	 * @param width The width.
 	 * @param height The height.
 	 */
-	public DisplayMode(Monitor monitor, int width, int height)
+	public DisplayMode(Display display, int width, int height)
 	{
-		this(monitor, width, height, 0, 0);
+		this(display, width, height, 0, 0);
 	}
 	
 	/**
@@ -69,15 +69,15 @@ public class DisplayMode
 	 * Create a new {@code DisplayMode}.
 	 * </p>
 	 *
-	 * @param monitor The monitor this display mode belongs to.
+	 * @param display The display this display mode belongs to.
 	 * @param width The width.
 	 * @param height The height.
 	 * @param bpp The number of bits per pixel.
 	 * @param freq The refresh rate.
 	 */
-	public DisplayMode(Monitor monitor, int width, int height, int bpp, int freq)
+	public DisplayMode(Display display, int width, int height, int bpp, int freq)
 	{
-		this.monitor = monitor;
+		this.display = display;
 		this.width = width;
 		this.height = height;
 		this.bpp = bpp;
@@ -113,14 +113,14 @@ public class DisplayMode
 	
 	/**
 	 * <p>
-	 * Get the monitor this {@code DisplayMode} belongs to.
+	 * Get the display this {@code DisplayMode} belongs to.
 	 * </p>
 	 *
-	 * @return The monitor.
+	 * @return The display.
 	 */
-	public final Monitor getMonitor()
+	public final Display getDisplay()
 	{
-		return monitor;
+		return display;
 	}
 	
 	/**

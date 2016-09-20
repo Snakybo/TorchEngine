@@ -24,14 +24,17 @@ package opengl;
 
 import com.snakybo.torch.component.Camera;
 import com.snakybo.torch.component.MeshRenderer;
-import com.snakybo.torch.util.color.Color;
+import com.snakybo.torch.graphics.display.Display;
+import com.snakybo.torch.graphics.display.DisplayMode;
 import com.snakybo.torch.graphics.gizmo.Gizmos;
-import com.snakybo.torch.graphics.texture.TextureFilterMode;
+import com.snakybo.torch.graphics.window.Window;
+import com.snakybo.torch.graphics.window.WindowMode;
 import com.snakybo.torch.input.keyboard.Key;
 import com.snakybo.torch.input.keyboard.Keyboard;
 import com.snakybo.torch.object.Component;
 import com.snakybo.torch.object.Transform;
 import com.snakybo.torch.scene.Scene;
+import com.snakybo.torch.util.color.Color;
 import com.snakybo.torch.util.debug.Logger;
 import org.joml.Vector3f;
 
@@ -69,15 +72,15 @@ public class LightController extends Component
 		
 		if(Keyboard.onDown(Key.F))
 		{
-			meshRenderer.getMaterial().getTexture("mainTexture").setFilterMode(TextureFilterMode.Point);
+			Window.setResolution(new DisplayMode(Display.getPrimaryMonitor(), 1280, 720), WindowMode.Windowed);
 		}
 		else if(Keyboard.onDown(Key.G))
 		{
-			meshRenderer.getMaterial().getTexture("mainTexture").setFilterMode(TextureFilterMode.Bilinear);
+			Window.setResolution(Display.getPrimaryMonitor().getNativeDisplayMode(), WindowMode.Borderless);
 		}
 		else if(Keyboard.onDown(Key.H))
 		{
-			meshRenderer.getMaterial().getTexture("mainTexture").setFilterMode(TextureFilterMode.Trilinear);
+			Window.setResolution(Display.getPrimaryMonitor().getNativeDisplayMode(), WindowMode.Fullscreen);
 		}
 	}
 	

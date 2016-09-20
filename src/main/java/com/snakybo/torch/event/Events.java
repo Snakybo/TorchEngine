@@ -181,6 +181,13 @@ public final class Events
 	 */
 	public static final Event<IWindowIconifyEvent> onWindowIconify = new Event<>();
 	
+	/**
+	 * <p>
+	 * The window resized event, this event will be fired when the window has been resized.
+	 * </p>
+	 */
+	public static final Event<IWindowResizeEvent> onWindowResize = new Event<>();
+	
 	private Events()
 	{
 		throw new AssertionError();

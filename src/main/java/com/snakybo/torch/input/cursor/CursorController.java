@@ -70,24 +70,23 @@ public final class CursorController
 	private static void handleConfinedCursor()
 	{
 		Vector2f cursorPosition = Mouse.getCursorPosition();
-		Vector2f windowSize = Window.getSize();
 		
 		if(cursorPosition.x < 0)
 		{
 			cursorPosition.x = 0;
 		}
-		else if(cursorPosition.x > windowSize.x)
+		else if(cursorPosition.x > Window.getWidth())
 		{
-			cursorPosition.x = windowSize.x;
+			cursorPosition.x = Window.getWidth();
 		}
 		
 		if(cursorPosition.y < 0)
 		{
 			cursorPosition.y = 0;
 		}
-		else if(cursorPosition.y > windowSize.y)
+		else if(cursorPosition.y > Window.getHeight())
 		{
-			cursorPosition.y = windowSize.y;
+			cursorPosition.y = Window.getHeight();
 		}
 		
 		Mouse.setCursorPosition(cursorPosition);	

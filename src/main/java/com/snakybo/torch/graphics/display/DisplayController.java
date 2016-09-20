@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.util.monitor;
+package com.snakybo.torch.graphics.display;
 
 import org.lwjgl.PointerBuffer;
 import org.lwjgl.glfw.GLFWMonitorCallback;
@@ -36,60 +36,60 @@ import static org.lwjgl.glfw.GLFW.glfwSetMonitorCallback;
  * @author Snakybo
  * @since 1.0
  */
-public final class MonitorController
+public final class DisplayController
 {
-	private static class MonitorCallback extends GLFWMonitorCallback
+	private static class DisplayCallback extends GLFWMonitorCallback
 	{
 		@Override
-		public void invoke(long monitorId, int event)
+		public void invoke(long displayId, int event)
 		{
 			if(event == GLFW_CONNECTED)
 			{
-				for(Monitor monitor : Monitor.monitors)
+				for(Display display : Display.displays)
 				{
-					if(monitor.getNativeId() == monitorId)
+					if(display.getNativeId() == displayId)
 					{
-						throw new RuntimeException("Unable to add monitor, another monitor with ID " + monitorId + " is already connected.");
+						throw new RuntimeException("Unable to add display, another display with ID " + displayId + " is already connected.");
 					}
 					
-					Monitor.monitors.add(new Monitor(monitorId));
+					Display.displays.add(new Display(displayId));
 				}
 			}
 			else if(event == GLFW_DISCONNECTED)
 			{
-				Monitor target = null;
+				Display target = null;
 				
-				for(Monitor monitor : Monitor.monitors)
+				for(Display display : Display.displays)
 				{
-					if(monitor.getNativeId() == monitorId)
+					if(display.getNativeId() == displayId)
 					{
-						target = monitor;
+						target = display;
 						break;
 					}
 				}
 				
 				if(target == null)
 				{
-					throw new RuntimeException("Unable to remove monitor, no monitor with ID " + monitorId + " is present.");
+					throw new RuntimeException("Unable to remove display, no display with ID " + displayId + " is present.");
 				}
 				
-				Monitor.monitors.remove(target);
+				Display.displays.remove(target);
 			}
 		}
 	}
 	
 	public static void create()
 	{
-		PointerBuffer monitorPointers = glfwGetMonitors();
-		Monitor.monitors = new ArrayList<>();
+		PointerBuffer displayPointers = glfwGetMonitors();
+		Display.displays = new ArrayList<>();
 		
-		for(int i = 0; i < monitorPointers.limit(); i++)
+		for(int i = 0; i < displayPointers.limit(); i++)
 		{
-			long id = monitorPointers.get(i);
-			Monitor.monitors.add(new Monitor(id));
+			long id = displayPointers.get(i);
+			Display.displays.add(new Display(id));
 		}
 		
-		glfwSetMonitorCallback(new MonitorCallback());
+		glfwSetMonitorCallback(new DisplayCallback());
 	}
 	
 	public static void destroy()

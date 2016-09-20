@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.util.monitor;
+package com.snakybo.torch.graphics.display;
 
 import org.joml.Vector2f;
 import org.lwjgl.BufferUtils;
@@ -45,19 +45,18 @@ import static org.lwjgl.glfw.GLFW.glfwGetVideoModes;
  * @author Snakybo
  * @since 1.0
  */
-public final class Monitor
+public final class Display
 {
-	static List<Monitor> monitors;
+	static List<Display> displays;
 	
-	private Set<DisplayMode> displayModes;
+	private final Set<DisplayMode> displayModes;
+	private final long id;
 	
-	private long monitorId;
-	
-	Monitor(long monitorId)
+	Display(long id)
 	{
-		this.monitorId = monitorId;
+		this.id = id;
 		
-		GLFWVidMode.Buffer modes = glfwGetVideoModes(monitorId);
+		GLFWVidMode.Buffer modes = glfwGetVideoModes(id);
 		displayModes = new HashSet<>();
 		
 		for(int i = 0; i < modes.limit(); i++)
@@ -82,14 +81,14 @@ public final class Monitor
 	
 	/**
 	 * <p>
-	 * Is this the primary monitor?
+	 * Is this the primary display?
 	 * </p>
 	 *
-	 * @return <code>true</code> if this is the primary monitor.
+	 * @return <code>true</code> if this is the primary display.
 	 */
-	public final boolean isPrimaryMonitor()
+	public final boolean isPrimaryDisplay()
 	{
-		return monitorId == glfwGetPrimaryMonitor();
+		return id == glfwGetPrimaryMonitor();
 	}
 	
 	/**
@@ -99,21 +98,21 @@ public final class Monitor
 	 *
 	 * @return All available window modes.
 	 */
-	public final DisplayMode[] getAllDisplayModes()
+	public final DisplayMode[] getDisplayModes()
 	{
 		return displayModes.toArray(new DisplayMode[displayModes.size()]);
 	}
 	
 	/**
 	 * <p>
-	 * Get the native window mode of the monitor.
+	 * Get the native window mode of the display.
 	 * </p>
 	 *
 	 * @return The native window mode.
 	 */
 	public final DisplayMode getNativeDisplayMode()
 	{
-		GLFWVidMode nvm = glfwGetVideoMode(monitorId);
+		GLFWVidMode nvm = glfwGetVideoMode(id);
 		
 		for(DisplayMode mode : displayModes)
 		{
@@ -131,7 +130,7 @@ public final class Monitor
 	
 	/**
 	 * <p>
-	 * Get the physical size of the monitor.
+	 * Get the physical size of the display.
 	 * </p>
 	 *
 	 * @return The physical size.
@@ -141,49 +140,49 @@ public final class Monitor
 		IntBuffer width = BufferUtils.createIntBuffer(1);
 		IntBuffer height = BufferUtils.createIntBuffer(1);
 		
-		glfwGetMonitorPhysicalSize(monitorId, width, height);
+		glfwGetMonitorPhysicalSize(id, width, height);
 		
 		return new Vector2f(width.get(), height.get());
 	}
 	
 	/**
 	 * <p>
-	 * Get the name of the monitor.
+	 * Get the name of the display.
 	 * </p>
 	 *
 	 * @return The name.
 	 */
 	public final String getName()
 	{
-		return glfwGetMonitorName(monitorId);
+		return glfwGetMonitorName(id);
 	}
 	
 	/**
 	 * <p>
-	 * Get the native ID of the monitor.
+	 * Get the native ID of the display.
 	 * </p>
 	 *
 	 * @return The native ID.
 	 */
 	public final long getNativeId()
 	{
-		return monitorId;
+		return id;
 	}
 	
 	/**
 	 * <p>
-	 * Get the system's primary monitor.
+	 * Get the system's primary display.
 	 * </p>
 	 *
-	 * @return The primary monitor.
+	 * @return The primary display.
 	 */
-	public static Monitor getPrimaryMonitor()
+	public static Display getPrimaryMonitor()
 	{
-		for(Monitor monitor : monitors)
+		for(Display display : displays)
 		{
-			if(monitor.isPrimaryMonitor())
+			if(display.isPrimaryDisplay())
 			{
-				return monitor;
+				return display;
 			}
 		}
 		
@@ -192,13 +191,13 @@ public final class Monitor
 	
 	/**
 	 * <p>
-	 * Get all monitors.
+	 * Get all available displays.
 	 * </p>
 	 *
-	 * @return All monitors.
+	 * @return All available displays.
 	 */
-	public static Monitor[] getMonitors()
+	public static Display[] getDisplays()
 	{
-		return monitors.toArray(new Monitor[monitors.size()]);
+		return displays.toArray(new Display[displays.size()]);
 	}
 }

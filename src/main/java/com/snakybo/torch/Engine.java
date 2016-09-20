@@ -63,9 +63,9 @@ import static org.lwjgl.glfw.GLFW.glfwGetTime;
  */
 public final class Engine
 {
-	static boolean running;
-	
 	private static boolean initialized;
+	
+	private static boolean running;
 	
 	/**
 	 * <p>
@@ -80,8 +80,14 @@ public final class Engine
 			LoggerInternal.log("Engine version: " + EngineInfo.VERSION_STRING);
 			LoggerInternal.log("LWJGL Version: " + Version.getVersion());
 			
+			// Initialize various subsystems
 			GLFW.create();
-			MonitorController.create();
+			DisplayController.create();
+			WindowInternal.create();
+			RenderingEngine.create();
+			KeyboardController.create();
+			MouseController.create();
+			JoystickController.create();
 			
 			initialized = true;
 		}
@@ -218,7 +224,7 @@ public final class Engine
 		LoggerInternal.log("Cleaning up");
 
 		JoystickController.destroy();
-		MonitorController.destroy();
+		DisplayController.destroy();
 		
 		LoggerInternal.log("Terminating");
 		GLFW.destroy();

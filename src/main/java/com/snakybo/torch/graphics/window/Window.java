@@ -22,22 +22,15 @@
 
 package com.snakybo.torch.graphics.window;
 
-import com.snakybo.torch.util.monitor.DisplayMode;
+import com.snakybo.torch.graphics.display.Display;
+import com.snakybo.torch.graphics.display.DisplayMode;
 import org.joml.Vector2f;
-import org.lwjgl.BufferUtils;
 
-import java.nio.IntBuffer;
-
-import static org.lwjgl.glfw.GLFW.glfwFocusWindow;
-import static org.lwjgl.glfw.GLFW.glfwGetWindowSize;
-import static org.lwjgl.glfw.GLFW.glfwIconifyWindow;
-import static org.lwjgl.glfw.GLFW.glfwRestoreWindow;
-import static org.lwjgl.glfw.GLFW.glfwSetWindowSize;
 import static org.lwjgl.glfw.GLFW.glfwSwapInterval;
 
 /**
  * <p>
- * The Window allows for manipulation of the low-level GLFW window.
+ * Controller for the game window, allows you to change the resolution and vsync setting.
  * </p>
  *
  * @author Snakybo
@@ -45,7 +38,16 @@ import static org.lwjgl.glfw.GLFW.glfwSwapInterval;
  */
 public final class Window
 {
+	private static DisplayMode displayMode;
+	private static WindowMode windowMode;
+	
 	private static boolean vsyncEnabled;
+	
+	static
+	{
+		displayMode = new DisplayMode(Display.getPrimaryMonitor(), 800, 600);
+		windowMode = WindowMode.Windowed;
+	}
 	
 	private Window()
 	{
@@ -54,58 +56,39 @@ public final class Window
 	
 	/**
 	 * <p>
-	 * Create a new window.
+	 * Enable or disable VSYNC.
 	 * </p>
 	 *
-	 * @param displayMode The window properties.
-	 * @param windowMode The window mode.
+	 * @param enabled Whether or not VSYNC should be enabled.
 	 */
-	public static void create(DisplayMode displayMode, WindowMode windowMode)
+	public static void setVSyncEnabled(boolean enabled)
 	{
-		WindowInternal.create(displayMode, windowMode);
+		vsyncEnabled = enabled;
+		glfwSwapInterval(enabled ? 1 : 0);
 	}
 	
 	/**
 	 * <p>
-	 * Bring the window to the front and give it input focus.
+	 * Set the resolution.
 	 * </p>
 	 *
-	 * <p>
-	 * If the window is currently iconified, this will also call {@link #restore()}.
-	 * </p>
+	 * @param displayMode The new display mode.
+	 * @param windowMode The new window mode.
 	 */
-	public static void focus()
+	public static void setResolution(DisplayMode displayMode, WindowMode windowMode)
 	{
-		restore();
-		glfwFocusWindow(WindowInternal.getNativeId());
+		Window.displayMode = displayMode;
+		Window.windowMode = windowMode;
+		
+		WindowInternal.applyChanges();
 	}
 	
 	/**
 	 * <p>
-	 * Restore the window from an iconified position.
-	 * </p>
-	 */
-	public static void restore()
-	{
-		glfwRestoreWindow(WindowInternal.getNativeId());
-	}
-	
-	/**
-	 * <p>
-	 * Iconify the window.
-	 * </p>
-	 */
-	public static void iconify()
-	{
-		glfwIconifyWindow(WindowInternal.getNativeId());
-	}
-	
-	/**
-	 * <p>
-	 * Check whether or not vsync is enabled.
+	 * Get whether or not VSYNC is enabled.
 	 * </p>
 	 *
-	 * @return Whether or not vsync is enabled.
+	 * @return Whether or not VSYNC is enabled.
 	 */
 	public static boolean isVSyncEnabled()
 	{
@@ -114,68 +97,61 @@ public final class Window
 	
 	/**
 	 * <p>
-	 * Set the size of the window.
+	 * Get the display mode.
 	 * </p>
 	 *
-	 * @param size The new size.
+	 * @return The display mode.
 	 */
-	public static void setSize(Vector2f size)
+	public static DisplayMode getDisplayMode()
 	{
-		glfwSetWindowSize(WindowInternal.getNativeId(), (int)size.x, (int)size.y);
+		return displayMode;
 	}
 	
 	/**
 	 * <p>
-	 * Enable or disable vsync.
+	 * Get the window mode.
 	 * </p>
 	 *
-	 * @param enabled Whether or not to enable vsync.
+	 * @return The window mode.
 	 */
-	public static void setVSyncEnabled(boolean enabled)
+	public static WindowMode getWindowMode()
 	{
-		vsyncEnabled = enabled;
-		
-		glfwSwapInterval(enabled ? 1 : 0);
+		return windowMode;
 	}
 	
 	/**
 	 * <p>
-	 * Get the size in pixels.
+	 * Get the coordinates of the center pixel.
 	 * </p>
 	 *
-	 * @return The size in pixels.
-	 */
-	public static Vector2f getSize()
-	{
-		IntBuffer width = BufferUtils.createIntBuffer(1);
-		IntBuffer height = BufferUtils.createIntBuffer(1);
-		
-		glfwGetWindowSize(WindowInternal.getNativeId(), width, height);
-		return new Vector2f(width.get(), height.get());
-	}
-	
-	/**
-	 * <p>
-	 * Get the aspect ratio.
-	 * </p>
-	 *
-	 * @return The aspect ratio.
-	 */
-	public static float getAspectRatio()
-	{
-		Vector2f size = getSize();
-		return size.x / size.y;
-	}
-	
-	/**
-	 * <p>
-	 * Get the center coordinates.
-	 * </p>
-	 *
-	 * @return The coordinates of the pixel in the center.
+	 * @return The coordinates of the center pixel.
 	 */
 	public static Vector2f getCenter()
 	{
-		return getSize().mul(0.5f);
+		return new Vector2f(getWidth(), getHeight()).mul(0.5f);
+	}
+	
+	/**
+	 * <p>
+	 * Get the width of the game window.
+	 * </p>
+	 *
+	 * @return The width of the game window.
+	 */
+	public static int getWidth()
+	{
+		return displayMode.getWidth();
+	}
+	
+	/**
+	 * <p>
+	 * Get the height of the game window.
+	 * </p>
+	 *
+	 * @return The height of game window.
+	 */
+	public static int getHeight()
+	{
+		return displayMode.getHeight();
 	}
 }

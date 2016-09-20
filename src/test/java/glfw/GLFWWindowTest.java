@@ -24,10 +24,6 @@ package glfw;
 
 import com.snakybo.torch.Engine;
 import com.snakybo.torch.Game;
-import com.snakybo.torch.util.monitor.DisplayMode;
-import com.snakybo.torch.util.monitor.Monitor;
-import com.snakybo.torch.graphics.window.Window;
-import com.snakybo.torch.graphics.window.WindowMode;
 import com.snakybo.torch.object.GameObject;
 
 /**
@@ -46,8 +42,6 @@ public class GLFWWindowTest
 	public static void main(String[] args)
 	{
 		Engine.initialize();
-		
-		Window.create(new DisplayMode(Monitor.getPrimaryMonitor(), 1280, 720), WindowMode.Windowed);
 		
 		createScene();
 		

@@ -20,30 +20,23 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package opengl;
-
-import com.snakybo.torch.Engine;
-import com.snakybo.torch.Game;
-import com.snakybo.torch.scene.Scene;
+package com.snakybo.torch.event;
 
 /**
- * @author Kevin
+ * <p>
+ * Interface for window resize events.
+ * </p>
+ *
+ * @author Snakybo
  * @since 1.0
  */
-public class OpenGLTest
+@FunctionalInterface
+public interface IWindowResizeEvent
 {
-	private static void createScene()
-	{
-		Scene.load("test");
-	}
-	
-	public static void main(String[] args)
-	{
-		Engine.initialize();
-		
-		createScene();
-		
-		Game.setName("OpenGL Test");
-		Game.start();
-	}
+	/**
+	 * <p>
+	 * Called when the window has been resized.
+	 * </p>
+	 */
+	void invoke();
 }
