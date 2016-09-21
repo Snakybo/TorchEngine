@@ -2,7 +2,7 @@
 <texture version="1">
     <parameters>
         <target type="class">com.snakybo.torch.graphics.texture.Texture2D</target>
-        <filterMode type="enum">com.snakybo.torch.graphics.texture.TextureFilterMode:1</filterMode>
+        <filterMode type="enum">com.snakybo.torch.graphics.texture.TextureFilterMode:2</filterMode>
         <wrapMode type="enum">com.snakybo.torch.graphics.texture.TextureWrapMode:0</wrapMode>
         <anisoLevel type="float">16</anisoLevel>
     </parameters>
