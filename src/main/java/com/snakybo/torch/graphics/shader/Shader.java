@@ -33,7 +33,7 @@ import com.snakybo.torch.object.Component;
  *
  * <p>
  * A shader is usually attached to a {@link Material}, however it is possible to manually
- * use a shader in the {@link Component#onRenderObject()} method.
+ * use a shader in the {@code Component#onRenderObject()} method.
  * </p>
  *
  * @author Snakybo

@@ -22,8 +22,6 @@
 
 package com.snakybo.torch.util.debug;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import static org.lwjgl.opengl.GL30.GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT;
 import static org.lwjgl.opengl.GL30.GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER;
 import static org.lwjgl.opengl.GL30.GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT;
@@ -66,7 +64,8 @@ public final class GLChecks
 		case GL_FRAMEBUFFER_INCOMPLETE_LAYER_TARGETS:
 			return "GL_FRAMEBUFFER_INCOMPLETE_LAYER_TARGETS";
 		default:
-			throw new NotImplementedException();
+			Logger.logError("Not implemented yet");
+			return "";
 		}
 	}
 }
