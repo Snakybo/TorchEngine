@@ -24,16 +24,11 @@ package com.snakybo.torch.graphics.shader;
 
 import com.snakybo.torch.asset.Asset;
 import com.snakybo.torch.graphics.material.Material;
-import com.snakybo.torch.object.Component;
 
 /**
  * <p>
- * The shader class is a direct link to the low-level GLSL shaders.
- * </p>
- *
- * <p>
- * A shader is usually attached to a {@link Material}, however it is possible to manually
- * use a shader in the {@code Component#onRenderObject()} method.
+ * A shader is the handler for low-level GLSL shaders.
+ * It's only possible to set uniform values via a {@link Material}.
  * </p>
  *
  * @author Snakybo
