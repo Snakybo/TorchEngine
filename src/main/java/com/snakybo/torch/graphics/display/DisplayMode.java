@@ -105,7 +105,8 @@ public final class DisplayMode
 		}
 		
 		DisplayMode dm = (DisplayMode)obj;
-		return dm.width == width
+		return display.equals(dm.display)
+				&& dm.width == width
 				&& dm.height == height
 				&& dm.bpp == bpp
 				&& dm.freq == freq;

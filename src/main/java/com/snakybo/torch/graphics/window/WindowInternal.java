@@ -27,17 +27,13 @@ import com.snakybo.torch.event.Events;
 import com.snakybo.torch.graphics.display.Display;
 import com.snakybo.torch.graphics.display.DisplayMode;
 import com.snakybo.torch.input.mouse.Mouse;
+import com.snakybo.torch.util.debug.Logger;
 import com.snakybo.torch.util.debug.LoggerInternal;
 import org.joml.Vector2f;
 import org.lwjgl.glfw.Callbacks;
 
-import static org.lwjgl.glfw.GLFW.GLFW_BLUE_BITS;
-import static org.lwjgl.glfw.GLFW.GLFW_DECORATED;
-import static org.lwjgl.glfw.GLFW.GLFW_FALSE;
-import static org.lwjgl.glfw.GLFW.GLFW_GREEN_BITS;
-import static org.lwjgl.glfw.GLFW.GLFW_RED_BITS;
+import static org.lwjgl.glfw.GLFW.GLFW_DONT_CARE;
 import static org.lwjgl.glfw.GLFW.GLFW_RESIZABLE;
-import static org.lwjgl.glfw.GLFW.GLFW_TRUE;
 import static org.lwjgl.glfw.GLFW.GLFW_VISIBLE;
 import static org.lwjgl.glfw.GLFW.glfwCreateWindow;
 import static org.lwjgl.glfw.GLFW.glfwDefaultWindowHints;
@@ -51,6 +47,7 @@ import static org.lwjgl.glfw.GLFW.glfwSetWindowFocusCallback;
 import static org.lwjgl.glfw.GLFW.glfwSetWindowIconifyCallback;
 import static org.lwjgl.glfw.GLFW.glfwSetWindowMonitor;
 import static org.lwjgl.glfw.GLFW.glfwSetWindowPos;
+import static org.lwjgl.glfw.GLFW.glfwSetWindowSize;
 import static org.lwjgl.glfw.GLFW.glfwShowWindow;
 import static org.lwjgl.glfw.GLFW.glfwSwapBuffers;
 import static org.lwjgl.glfw.GLFW.glfwWindowHint;
@@ -109,41 +106,68 @@ public final class WindowInternal
 	
 	public static void applyChanges()
 	{
-		DisplayMode displayMode = Window.getDisplayMode();
-		long monitor = NULL;
-		
-		switch(Window.getWindowMode())
+		if(Window.getWindowMode() == WindowMode.Borderless)
 		{
-		case Fullscreen:
-			monitor = displayMode.getDisplay().getNativeId();
-			break;
-		case Borderless:
-			glfwWindowHint(GLFW_RED_BITS, displayMode.getBitsPerPixel());
-			glfwWindowHint(GLFW_GREEN_BITS, displayMode.getBitsPerPixel());
-			glfwWindowHint(GLFW_BLUE_BITS, displayMode.getBitsPerPixel());
-			glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
-			break;
-		case Windowed:
-			glfwWindowHint(GLFW_DECORATED, GLFW_TRUE);
-			break;
+			Logger.logError("Borderless fullscreen has not been implemented yet.");
+			return;
 		}
 		
-		glfwSetWindowMonitor(nativeId,
-				monitor,
-				0,
-				0,
-				displayMode.getWidth(),
-				displayMode.getHeight(),
-				displayMode.getFrequency()
-		);
+		DisplayMode displayMode = Window.getDisplayMode();
 		
-		glViewport(0, 0, displayMode.getWidth(), displayMode.getHeight());
-		Events.onWindowResize.getListeners().forEach((cb) -> cb.invoke());
+		if(Window.getWindowMode() == cachedWindowMode)
+		{
+			if(Window.getWindowMode() == WindowMode.Windowed)
+			{
+				glfwSetWindowSize(nativeId, displayMode.getWidth(), displayMode.getHeight());
+				LoggerInternal.log("Set window to Windowed (was Windowed) using glfwSetWindowMonitor");
+			}
+			else if(Window.getWindowMode() == WindowMode.Fullscreen)
+			{
+				if(displayMode.getDisplay().equals(cachedDisplayMode.getDisplay())
+						&& displayMode.getFrequency() == cachedDisplayMode.getFrequency())
+				{
+					glfwSetWindowSize(nativeId, displayMode.getWidth(), displayMode.getHeight());
+					LoggerInternal.log("Set window to Fullscreen (was Fullscreen) using glfwSetWindowSize");
+				}
+				else
+				{
+					long monitor = displayMode.getDisplay().getNativeId();
+					int width = displayMode.getWidth();
+					int height = displayMode.getHeight();
+					int frequency = displayMode.getFrequency();
+					
+					glfwSetWindowMonitor(nativeId, monitor, 0, 0, width, height, frequency);
+					LoggerInternal.log("Set window to Fullscreen (was Fullscreen) using glfwSetWindowMonitor");
+				}
+			}
+		}
+		else
+		{
+			long monitor = NULL;
+			int frequency = GLFW_DONT_CARE;
+			
+			switch(Window.getWindowMode())
+			{
+			case Fullscreen:
+				monitor = displayMode.getDisplay().getNativeId();
+				frequency = displayMode.getFrequency();
+				break;
+			}
+			
+			glfwSetWindowMonitor(nativeId, monitor, 0, 0, displayMode.getWidth(), displayMode.getHeight(), frequency);
+			LoggerInternal.log("Set window to " + Window.getWindowMode() + " (was " + cachedWindowMode + ") using glfwSetWindowMonitor");
+		}
 		
 		if(Window.getWindowMode() == WindowMode.Windowed)
 		{
 			moveToCenter();
 		}
+		
+		cachedDisplayMode = displayMode;
+		cachedWindowMode = Window.getWindowMode();
+		
+		glViewport(0, 0, displayMode.getWidth(), displayMode.getHeight());
+		Events.onWindowResize.getListeners().forEach((cb) -> cb.invoke());
 	}
 	
 	public static void pollEvents()

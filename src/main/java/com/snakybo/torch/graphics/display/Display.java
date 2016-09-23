@@ -74,9 +74,33 @@ public final class Display
 	}
 	
 	@Override
-	public String toString()
+	public final String toString()
 	{
 		return getName();
+	}
+	
+	@Override
+	public final boolean equals(Object o)
+	{
+		if(this == o)
+		{
+			return true;
+		}
+		
+		if(o == null || getClass() != o.getClass())
+		{
+			return false;
+		}
+		
+		Display display = (Display)o;
+		return id == display.id;
+		
+	}
+	
+	@Override
+	public final int hashCode()
+	{
+		return (int)(id ^ (id >>> 32));
 	}
 	
 	/**

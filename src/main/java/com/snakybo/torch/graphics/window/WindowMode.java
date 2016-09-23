@@ -43,7 +43,12 @@ public enum WindowMode
 	 * <p>
 	 * Borderless fullscreen.
 	 * </p>
+	 *
+	 * <p>
+	 * <strong>Currently not implemented.</strong>
+	 * </p>
 	 */
+	// TODO: Borderless fullscreen implementation
 	Borderless,
 	
 	/**
