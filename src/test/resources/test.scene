@@ -17,7 +17,7 @@
                         <zFar type="float">1000</zFar>
                         <depth type="int">-1</depth>
                         <clearFlags type="enum">com.snakybo.torch.graphics.camera.CameraClearFlags:2</clearFlags>
-                        <skybox type="asset">torch_internal/skybox_default.png</skybox>
+                        <skybox type="asset2">torch_internal/skybox_default.png</skybox>
                         <clearColor type="color">0, 0, 0, 1</clearColor>
                     </fields>
                 </component>

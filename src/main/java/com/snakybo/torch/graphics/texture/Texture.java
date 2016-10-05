@@ -23,11 +23,14 @@
 package com.snakybo.torch.graphics.texture;
 
 import com.snakybo.torch.asset.Asset;
+import com.snakybo.torch.asset2.Asset2;
+import com.snakybo.torch.asset2.AssetData2;
 import com.snakybo.torch.util.MathUtils;
 import com.snakybo.torch.util.debug.Logger;
 import org.lwjgl.opengl.GL;
 
 import java.awt.image.BufferedImage;
+import java.nio.IntBuffer;
 
 import static org.lwjgl.opengl.EXTTextureFilterAnisotropic.GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT;
 import static org.lwjgl.opengl.EXTTextureFilterAnisotropic.GL_TEXTURE_MAX_ANISOTROPY_EXT;
@@ -55,100 +58,11 @@ import static org.lwjgl.opengl.GL12.GL_TEXTURE_MAX_LEVEL;
  * @author Snakybo
  * @since 1.0
  */
-public abstract class Texture extends Asset
+public abstract class Texture extends Asset2
 {
-	protected final int id;
-	protected final int target;
-	
-	TextureAsset asset;
-	
-	protected Texture(int target, int width, int height)
+	protected Texture(String name)
 	{
-		this(target, "", new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB));
-	}
-	
-	protected Texture(int target, String name, BufferedImage bufferedImage)
-	{
-		this.asset = new TextureAsset(target, name, bufferedImage);
-		
-		this.id = asset.id.get(0);
-		this.target = asset.target;
-		
-		setFilterMode(TextureFilterMode.Bilinear);
-		setWrapMode(TextureWrapMode.Repeat);
-		setAnisoLevel(16);
-	}
-	
-	protected Texture(TextureAsset asset)
-	{
-		this.asset = asset;
-		this.asset.addUsage();
-		
-		this.id = asset.id.get(0);
-		this.target = asset.target;
-	}
-	
-	@Override
-	public final void finalize() throws Throwable
-	{
-		try
-		{
-			destroy();
-		}
-		finally
-		{
-			super.finalize();
-		}
-	}
-	
-	@Override
-	public final int hashCode()
-	{
-		int hashCode = 654;
-		
-		hashCode += 31 * asset.bufferedImage.hashCode();
-		hashCode += 31 * asset.id.hashCode();
-		hashCode += 31 * asset.target;
-		
-		return hashCode;
-	}
-	
-	@Override
-	public boolean equals(Object o)
-	{
-		if(this == o)
-		{
-			return true;
-		}
-		
-		if(o == null || getClass() != o.getClass())
-		{
-			return false;
-		}
-		
-		Texture t = (Texture)o;
-		
-		if(!asset.bufferedImage.equals(t.asset.bufferedImage))
-		{
-			return false;
-		}
-		
-		if(!asset.id.equals(t.asset.id))
-		{
-			return false;
-		}
-		
-		return asset.target == t.asset.target;
-	}
-	
-	@Override
-	public void destroy()
-	{
-		if(asset != null)
-		{
-			asset.removeUsage();
-			asset = null;
-		}
+		super(name);
 	}
 	
 	/**
@@ -160,7 +74,9 @@ public abstract class Texture extends Asset
 	 */
 	public final void setFilterMode(TextureFilterMode filterMode)
 	{
-		glBindTexture(target, id);
+		int target = getTarget();
+		
+		glBindTexture(target, getNativeId());
 		
 		switch(filterMode)
 		{
@@ -189,7 +105,9 @@ public abstract class Texture extends Asset
 	 */
 	public final void setWrapMode(TextureWrapMode wrapMode)
 	{
-		glBindTexture(target, id);
+		int target = getTarget();
+		
+		glBindTexture(target, getNativeId());
 		
 		switch(wrapMode)
 		{
@@ -216,7 +134,9 @@ public abstract class Texture extends Asset
 	{
 		if(GL.getCapabilities().GL_EXT_texture_filter_anisotropic)
 		{
-			glBindTexture(target, id);
+			int target = getTarget();
+			
+			glBindTexture(target, getNativeId());
 			
 			level = MathUtils.clamp(level, 0, glGetFloat(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT));
 			
@@ -247,10 +167,7 @@ public abstract class Texture extends Asset
 	 *
 	 * @return The width of the texture in pixels.
 	 */
-	public final int getWidth()
-	{
-		return asset.bufferedImage.getWidth();
-	}
+	public abstract int getWidth();
 	
 	/**
 	 * <p>
@@ -259,13 +176,15 @@ public abstract class Texture extends Asset
 	 *
 	 * @return The height of the texture in pixels.
 	 */
-	public final int getHeight()
-	{
-		return asset.bufferedImage.getHeight();
-	}
+	public abstract int getHeight();
 	
 	public final int getNativeId()
 	{
-		return id;
+		return ((IntBuffer)getProperty("id")).get(0);
+	}
+	
+	final int getTarget()
+	{
+		return (int)getProperty("target");
 	}
 }

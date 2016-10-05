@@ -22,9 +22,27 @@
 
 package com.snakybo.torch.graphics.texture;
 
-import java.awt.image.BufferedImage;
+import com.snakybo.torch.util.FileUtils;
+import com.snakybo.torch.util.debug.Logger;
+import org.lwjgl.BufferUtils;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
+import java.nio.file.NoSuchFileException;
+
+import static org.lwjgl.opengl.GL11.GL_RGBA;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
+import static org.lwjgl.opengl.GL11.GL_UNSIGNED_BYTE;
+import static org.lwjgl.opengl.GL11.glBindTexture;
+import static org.lwjgl.opengl.GL11.glDeleteTextures;
+import static org.lwjgl.opengl.GL11.glGenTextures;
+import static org.lwjgl.opengl.GL11.glTexImage2D;
+import static org.lwjgl.opengl.GL30.glGenerateMipmap;
 
 /**
  * <p>
@@ -46,17 +64,78 @@ public final class Texture2D extends Texture
 	 */
 	public Texture2D(int width, int height)
 	{
-		super(GL_TEXTURE_2D, width, height);
+		super("");
+		
+		create(new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB));
 	}
 	
-	Texture2D(String name, BufferedImage bufferedImage)
+	Texture2D(String name)
 	{
-		super(GL_TEXTURE_2D, name, bufferedImage);
+		super(name);
+		
+		if(isCreator())
+		{
+			try
+			{
+				URI uri = FileUtils.toURI(name);
+				create(ImageIO.read(new File(uri)));
+			}
+			catch(IOException e)
+			{
+				Logger.logError(e.toString(), e);
+			}
+		}
 	}
 	
-	Texture2D(TextureAsset asset)
+	private void create(BufferedImage bufferedImage)
 	{
-		super(asset);
+		IntBuffer id = BufferUtils.createIntBuffer(1);
+		
+		// Create texture
+		glGenTextures(id);
+		glBindTexture(GL_TEXTURE_2D, id.get(0));
+		
+		int w = bufferedImage.getWidth();
+		int h = bufferedImage.getHeight();
+		ByteBuffer data = com.snakybo.torch.util.BufferUtils.toByteBuffer(bufferedImage);
+		
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+		
+		glGenerateMipmap(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, 0);
+		
+		// Set properties
+		setProperty("id", id);
+		setProperty("target", GL_TEXTURE_2D);
+		setProperty("bufferedImage", bufferedImage);
+		
+		// Set texture properties
+		setFilterMode(TextureFilterMode.Trilinear);
+		setWrapMode(TextureWrapMode.Repeat);
+		setAnisoLevel(16);
+	}
+	
+	@Override
+	protected final void onDestroy()
+	{
+		glDeleteTextures((IntBuffer)getProperty("id"));
+	}
+	
+	public final ByteBuffer getByteBuffer()
+	{
+		return com.snakybo.torch.util.BufferUtils.toByteBuffer((BufferedImage)getProperty("bufferedImage"));
+	}
+	
+	@Override
+	public final int getWidth()
+	{
+		return ((BufferedImage)getProperty("bufferedImage")).getWidth();
+	}
+	
+	@Override
+	public final int getHeight()
+	{
+		return ((BufferedImage)getProperty("bufferedImage")).getHeight();
 	}
 	
 	// TODO: Expand Texture2D class

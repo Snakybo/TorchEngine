@@ -49,17 +49,12 @@ public final class TextureInternal
 		}
 		
 		glActiveTexture(GL_TEXTURE0 + unit);
-		glBindTexture(texture.target, texture.id);
+		glBindTexture(texture.getTarget(), texture.getNativeId());
 	}
 	
 	public static void unbind(Texture texture, int unit)
 	{
 		glActiveTexture(GL_TEXTURE0 + unit);
-		glBindTexture(texture.target, 0);
-	}
-	
-	public static ByteBuffer getByteBuffer(Texture texture)
-	{
-		return BufferUtils.toByteBuffer(texture.asset.bufferedImage);
+		glBindTexture(texture.getTarget(), 0);
 	}
 }

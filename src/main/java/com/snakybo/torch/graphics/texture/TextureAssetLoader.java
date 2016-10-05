@@ -22,6 +22,8 @@
 
 package com.snakybo.torch.graphics.texture;
 
+import com.snakybo.torch.asset2.Asset2;
+import com.snakybo.torch.asset2.AssetData2;
 import com.snakybo.torch.util.FileUtils;
 import com.snakybo.torch.util.debug.Logger;
 import com.snakybo.torch.util.debug.LoggerInternal;
@@ -52,20 +54,6 @@ public final class TextureAssetLoader
 	{
 		LoggerInternal.log("Begin loading of texture: " + path);
 		
-		if(TextureAsset.all.containsKey(path))
-		{
-			LoggerInternal.log("Texture has already been loaded");
-			
-			switch(TextureAsset.all.get(path).target)
-			{
-			case GL_TEXTURE_2D:
-				return new Texture2D(TextureAsset.all.get(path));
-			default:
-				Logger.logError("Unsupported texture target: " + TextureAsset.all.get(path).target);
-				return null;
-			}
-		}
-		
 		try
 		{
 			TextureParser.TextureData textureData = (TextureParser.TextureData)XMLParser.decode(path + ".dat");
@@ -73,7 +61,7 @@ public final class TextureAssetLoader
 			
 			if(textureData.target.equals(Texture2D.class))
 			{
-				texture = new Texture2D(path, getBufferedImage(path));
+				texture = new Texture2D(path);
 			}
 			else
 			{
@@ -92,20 +80,5 @@ public final class TextureAssetLoader
 		}
 		
 		return null;
-	}
-	
-	private static BufferedImage getBufferedImage(String path) throws NoSuchFileException
-	{
-		try
-		{
-			URI uri = FileUtils.toURI(path);
-			return ImageIO.read(new File(uri));
-		}
-		catch(IOException e)
-		{
-			Logger.logError(e.toString(), e);
-		}
-		
-		throw new NoSuchFileException("No file found at: " + path);
 	}
 }

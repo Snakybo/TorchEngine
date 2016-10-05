@@ -22,8 +22,7 @@
 
 package com.snakybo.torch.input.cursor;
 
-import com.snakybo.torch.graphics.texture.Texture;
-import com.snakybo.torch.graphics.texture.TextureInternal;
+import com.snakybo.torch.graphics.texture.Texture2D;
 import com.snakybo.torch.graphics.window.Window;
 import com.snakybo.torch.graphics.window.WindowInternal;
 import com.snakybo.torch.input.mouse.Mouse;
@@ -174,7 +173,7 @@ public final class Cursor
 	 * @param texture The cursor shape.
 	 * @param hot The hot point of the shape.
 	 */
-	public static void setShape(Texture texture, Vector2f hot)
+	public static void setShape(Texture2D texture, Vector2f hot)
 	{
 		if(CursorShape.hasCursor(texture, hot))
 		{
@@ -183,7 +182,7 @@ public final class Cursor
 		}
 		else
 		{
-			GLFWImage image = GLFWImage.malloc().set(texture.getWidth(), texture.getHeight(), TextureInternal.getByteBuffer(texture));
+			GLFWImage image = GLFWImage.malloc().set(texture.getWidth(), texture.getHeight(), texture.getByteBuffer());
 			
 			long cursor = glfwCreateCursor(image, Math.round(hot.x), Math.round(hot.y));
 			CursorShape.addCursor(texture, hot, cursor);

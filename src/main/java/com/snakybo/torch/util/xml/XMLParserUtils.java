@@ -23,6 +23,7 @@
 package com.snakybo.torch.util.xml;
 
 import com.snakybo.torch.asset.Assets;
+import com.snakybo.torch.asset2.Assets2;
 import com.snakybo.torch.util.color.Color;
 import com.snakybo.torch.util.debug.Logger;
 import org.joml.Quaternionf;
@@ -159,6 +160,8 @@ public final class XMLParserUtils
 			return decodeColor(value);
 		case "asset":
 			return Assets.load(value);
+		case "asset2":
+			return Assets2.load(value);
 		case "class":
 			return decodeClass(value);
 		default:

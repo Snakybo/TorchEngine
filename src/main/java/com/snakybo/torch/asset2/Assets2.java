@@ -20,8 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package com.snakybo.torch.asset;
+package com.snakybo.torch.asset2;
 
+import com.snakybo.torch.asset.Asset;
 import com.snakybo.torch.graphics.material.MaterialAssetLoader;
 import com.snakybo.torch.graphics.mesh.MeshAssetLoader;
 import com.snakybo.torch.graphics.shader.Shader;
@@ -33,30 +34,30 @@ import java.nio.file.NoSuchFileException;
 
 /**
  * <p>
- * The {@link Asset} loader. Attempts to load assets based on their file extension.
+ * The {@link Asset2} loader. Attempts to load assets based on their file extension.
  * </p>
  *
- * @see Asset
+ * @see Asset2
  *
  * @author Snakybo
  * @since 1.0
  */
-public final class Assets
+public final class Assets2
 {
-	private Assets()
+	private Assets2()
 	{
 		throw new AssertionError();
 	}
 	
 	/**
 	 * <p>
-	 * Load an {@link Asset} by file name.
+	 * Load an {@link Asset2} by file name.
 	 * </p>
 	 *
 	 * @param file The file to load.
 	 * @return The loaded asset if it exists and has a known type. Returns {@code null} otherwise.
 	 */
-	public static Asset load(String file)
+	public static Asset2 load(String file)
 	{
 		try
 		{
@@ -65,15 +66,15 @@ public final class Assets
 			
 			switch(ext)
 			{
-//			case "png":
-//			case "jpg":
-//				return TextureAssetLoader.load(path);
-			case "obj":
-				return MeshAssetLoader.load(path);
-			case "mtl":
-				return MaterialAssetLoader.load(path);
-			case "glsl":
-				return Shader.load(path);
+			case "png":
+			case "jpg":
+				return TextureAssetLoader.load(path);
+//			case "obj":
+//				return MeshAssetLoader.load(path);
+//			case "mtl":
+//				return MaterialAssetLoader.load(path);
+//			case "glsl":
+//				return Shader.load(path);
 			default:
 				Logger.logError("Unknown asset type: " + ext);
 				return null;
@@ -88,16 +89,16 @@ public final class Assets
 	}
 	
 	/**
-	 * Load an {@link Asset} by file name.
+	 * Load an {@link Asset2} by file name.
 	 * @param clazz The class to cast the resulting {@code Asset} to.
 	 * @param file The file to load.
 	 * @param <T> The class to cast the resulting {@code Asset} to.
 	 * @return The loaded asset if it exists and has a known type. Returns {@code null} otherwise.
 	 * @see #load(String)
 	 */
-	public static <T extends Asset> T load(Class<T> clazz, String file)
+	public static <T extends Asset2> T load(Class<T> clazz, String file)
 	{
-		Asset result = load(file);
+		Asset2 result = load(file);
 		
 		if(result != null)
 		{

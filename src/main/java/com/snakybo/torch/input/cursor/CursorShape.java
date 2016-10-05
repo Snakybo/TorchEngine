@@ -22,7 +22,7 @@
 
 package com.snakybo.torch.input.cursor;
 
-import com.snakybo.torch.graphics.texture.Texture;
+import com.snakybo.torch.graphics.texture.Texture2D;
 import org.joml.Vector2f;
 
 import java.util.HashSet;
@@ -36,24 +36,24 @@ class CursorShape
 {
 	private static Set<CursorShape> cursorShapeCache = new HashSet<>();
 	
-	private Texture texture;
+	private Texture2D texture;
 	private Vector2f hot;
 	
 	private long cursor;
 	
-	private CursorShape(Texture texture, Vector2f hot, long cursor)
+	private CursorShape(Texture2D texture, Vector2f hot, long cursor)
 	{
 		this.texture = texture;
 		this.hot = hot;
 		this.cursor = cursor;
 	}
 	
-	private boolean equals(Texture texture, Vector2f hot)
+	private boolean equals(Texture2D texture, Vector2f hot)
 	{
 		return texture.equals(this.texture) && hot.equals(this.hot);
 	}
 	
-	public static boolean hasCursor(Texture texture, Vector2f hot)
+	public static boolean hasCursor(Texture2D texture, Vector2f hot)
 	{
 		for(CursorShape shape : cursorShapeCache)
 		{
@@ -66,7 +66,7 @@ class CursorShape
 		return false;
 	}
 	
-	public static void addCursor(Texture texture, Vector2f hot, long cursor)
+	public static void addCursor(Texture2D texture, Vector2f hot, long cursor)
 	{
 		if(!hasCursor(texture, hot))
 		{
@@ -74,7 +74,7 @@ class CursorShape
 		}
 	}
 	
-	public static long getCursor(Texture texture, Vector2f hot)
+	public static long getCursor(Texture2D texture, Vector2f hot)
 	{
 		for(CursorShape shape : cursorShapeCache)
 		{

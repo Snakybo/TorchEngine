@@ -22,7 +22,7 @@
 
 package com.snakybo.torch.graphics.camera;
 
-import com.snakybo.torch.asset.Assets;
+import com.snakybo.torch.asset2.Assets2;
 import com.snakybo.torch.event.Events;
 import com.snakybo.torch.event.IWindowResizeEvent;
 import com.snakybo.torch.graphics.RenderingEngine;
@@ -78,7 +78,7 @@ public final class CameraInternal
 		Events.onWindowResize.addListener(windowResizeEvent = () -> updateProjection());
 		
 		this.clearFlags = CameraClearFlags.SolidColor;
-		this.skybox = Assets.load(Texture.class, "torch_internal/skybox_default.png");
+		this.skybox = Assets2.load(Texture.class, "torch_internal/skybox_default.png");
 		this.clearColor = Color.BLACK;
 		
 		this.position = new Vector3f();
