@@ -28,6 +28,8 @@ import com.snakybo.torch.util.debug.Logger;
 import com.snakybo.torch.util.debug.LoggerInternal;
 import com.snakybo.torch.util.xml.XMLParserUtils;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  * @author Snakybo
@@ -70,21 +72,53 @@ public final class TextureParser
 			return null;
 		}
 		
-		Element parameters = (Element)element.getElementsByTagName("parameters").item(0);
+		Element parameters = getElement(element, "parameters");
 		
-		Element targetElement = (Element)parameters.getElementsByTagName("target").item(0);
-		Class<?> target = (Class<?>)XMLParserUtils.decodeObject(targetElement.getAttribute("type"), targetElement.getTextContent());
+		if(parameters != null)
+		{
+			Class<?> target = (Class<?>)decode(parameters, "target");
+			TextureFilterMode textureFilterMode = (TextureFilterMode)decode(parameters, "filterMode");
+			TextureWrapMode textureWrapMode = (TextureWrapMode)decode(parameters, "wrapMode");
+			
+			Object anisoLevelObject = decode(parameters, "anisoLevel");
+			float anisoLevel = anisoLevelObject == null ? -1 : (float)anisoLevelObject;
+			
+			LoggerInternal.log("Successfully decoded texture data");
+			return new TextureData(target, textureFilterMode, textureWrapMode, anisoLevel);
+		}
 		
-		Element filterModeElement = (Element)parameters.getElementsByTagName("filterMode").item(0);
-		TextureFilterMode filterMode = (TextureFilterMode)XMLParserUtils.decodeObject(filterModeElement.getAttribute("type"), filterModeElement.getTextContent());
+		return null;
+	}
+	
+	private static Object decode(Element parent, String name)
+	{
+		Element element = getElement(parent, name);
 		
-		Element wrapModeElement = (Element)parameters.getElementsByTagName("wrapMode").item(0);
-		TextureWrapMode wrapMode = (TextureWrapMode)XMLParserUtils.decodeObject(wrapModeElement.getAttribute("type"), wrapModeElement.getTextContent());
+		if(element != null)
+		{
+			String type = element.getAttribute("type");
+			String value = element.getTextContent();
+			
+			return XMLParserUtils.decodeObject(type, value);
+		}
 		
-		Element anisoLevelElement = (Element)parameters.getElementsByTagName("anisoLevel").item(0);
-		float anisoLevel = (float)XMLParserUtils.decodeObject(anisoLevelElement.getAttribute("type"), anisoLevelElement.getTextContent());
+		return null;
+	}
+	
+	private static Element getElement(Element parent, String name)
+	{
+		NodeList nodeList = parent.getElementsByTagName(name);
 		
-		LoggerInternal.log("Successfully decoded texture data");
-		return new TextureData(target, filterMode, wrapMode, anisoLevel);
+		if(nodeList.getLength() > 0)
+		{
+			Node node = nodeList.item(0);
+			
+			if(node.getNodeType() == Node.ELEMENT_NODE)
+			{
+				return (Element)node;
+			}
+		}
+		
+		return null;
 	}
 }

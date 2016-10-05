@@ -25,7 +25,6 @@ package com.snakybo.torch.asset;
 import com.snakybo.torch.graphics.material.MaterialAssetLoader;
 import com.snakybo.torch.graphics.mesh.MeshAssetLoader;
 import com.snakybo.torch.graphics.shader.Shader;
-import com.snakybo.torch.graphics.texture.TextureAssetLoader;
 import com.snakybo.torch.util.FileUtils;
 import com.snakybo.torch.util.debug.Logger;
 

@@ -91,8 +91,8 @@ public final class RenderingEngine
 			break;
 		case SolidColor:
 			Color cc = camera.getClearColor();
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			glClearColor(cc.getRed(), cc.getGreen(), cc.getBlue(), cc.getAlpha());
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			break;
 		case DepthOnly:
 			glClear(GL_DEPTH_BUFFER_BIT);
@@ -103,7 +103,7 @@ public final class RenderingEngine
 		
 		if(camera.getClearFlags() == CameraClearFlags.Skybox)
 		{
-			Skybox.render(camera.getSkybox(), camera.getPosition());
+			Skybox.render();
 		}
 	}
 	

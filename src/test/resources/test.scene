@@ -16,8 +16,8 @@
                         <zNear type="float">0.01</zNear>
                         <zFar type="float">1000</zFar>
                         <depth type="int">-1</depth>
-                        <clearFlags type="enum">com.snakybo.torch.graphics.camera.CameraClearFlags:2</clearFlags>
-                        <skybox type="asset2">torch_internal/skybox_default.png</skybox>
+                        <clearFlags type="enum">com.snakybo.torch.graphics.camera.CameraClearFlags:0</clearFlags>
+                        <skybox type="asset2">skybox/skybox.jpg</skybox>
                         <clearColor type="color">0, 0, 0, 1</clearColor>
                     </fields>
                 </component>

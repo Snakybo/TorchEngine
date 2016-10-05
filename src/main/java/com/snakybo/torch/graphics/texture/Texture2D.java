@@ -31,6 +31,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.nio.file.NoSuchFileException;
@@ -77,12 +78,12 @@ public final class Texture2D extends Texture
 		{
 			try
 			{
-				URI uri = FileUtils.toURI(name);
-				create(ImageIO.read(new File(uri)));
+				BufferedImage bufferedImage = TextureInternal.loadBufferedImage(name);
+				create(bufferedImage);
 			}
-			catch(IOException e)
+			catch(NoSuchFileException e)
 			{
-				Logger.logError(e.toString(), e);
+				destroy();
 			}
 		}
 	}

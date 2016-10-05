@@ -23,8 +23,16 @@
 package com.snakybo.torch.graphics.texture;
 
 import com.snakybo.torch.util.BufferUtils;
+import com.snakybo.torch.util.FileUtils;
+import com.snakybo.torch.util.debug.Logger;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
 import java.nio.ByteBuffer;
+import java.nio.file.NoSuchFileException;
 
 import static org.lwjgl.opengl.GL11.glBindTexture;
 import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
@@ -56,5 +64,20 @@ public final class TextureInternal
 	{
 		glActiveTexture(GL_TEXTURE0 + unit);
 		glBindTexture(texture.getTarget(), 0);
+	}
+	
+	static BufferedImage loadBufferedImage(String path) throws NoSuchFileException
+	{
+		try
+		{
+			URI uri = FileUtils.toURI(path);
+			return ImageIO.read(new File(uri));
+		}
+		catch(IOException e)
+		{
+			Logger.logError(e.toString(), e);
+		}
+		
+		throw new NoSuchFileException("No file found at: " + path);
 	}
 }

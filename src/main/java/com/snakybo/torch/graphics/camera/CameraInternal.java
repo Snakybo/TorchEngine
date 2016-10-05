@@ -26,6 +26,7 @@ import com.snakybo.torch.asset2.Assets2;
 import com.snakybo.torch.event.Events;
 import com.snakybo.torch.event.IWindowResizeEvent;
 import com.snakybo.torch.graphics.RenderingEngine;
+import com.snakybo.torch.graphics.texture.Cubemap;
 import com.snakybo.torch.graphics.texture.Texture;
 import com.snakybo.torch.graphics.window.Window;
 import com.snakybo.torch.util.Rect;
@@ -58,7 +59,6 @@ public final class CameraInternal
 	private IWindowResizeEvent windowResizeEvent;
 	
 	private CameraClearFlags clearFlags;
-	private Texture skybox;
 	private Color clearColor;
 	
 	private Vector3f position;
@@ -77,8 +77,10 @@ public final class CameraInternal
 	{
 		Events.onWindowResize.addListener(windowResizeEvent = () -> updateProjection());
 		
+		// TODO; Change skybox to default skybox
+		Skybox.setTexture(Assets2.load(Cubemap.class, "skybox/skybox.jpg"));
+		
 		this.clearFlags = CameraClearFlags.SolidColor;
-		this.skybox = Assets2.load(Texture.class, "torch_internal/skybox_default.png");
 		this.clearColor = Color.BLACK;
 		
 		this.position = new Vector3f();
@@ -127,9 +129,9 @@ public final class CameraInternal
 		this.clearFlags = clearFlags;
 	}
 	
-	public final void setSkybox(Texture skybox)
+	public final void setSkybox(Cubemap skybox)
 	{
-		this.skybox = skybox;
+		Skybox.setTexture(skybox);
 	}
 	
 	public final void setClearColor(Color clearColor)
@@ -186,9 +188,9 @@ public final class CameraInternal
 		return clearFlags;
 	}
 	
-	public final Texture getSkybox()
+	public final Cubemap getSkybox()
 	{
-		return skybox;
+		return Skybox.getTexture();
 	}
 	
 	public final Color getClearColor()

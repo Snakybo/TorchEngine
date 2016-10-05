@@ -27,6 +27,7 @@ import com.snakybo.torch.graphics.shader.ShaderInternal;
 import com.snakybo.torch.graphics.texture.Texture;
 import com.snakybo.torch.graphics.texture.TextureInternal;
 import com.snakybo.torch.object.Transform;
+import com.snakybo.torch.util.debug.Logger;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 import org.joml.Vector2f;
@@ -66,70 +67,87 @@ public final class MaterialInternal
 				int loc = ShaderInternal.getUniformLocation(material.getShader(), property.getKey());
 				Object value = property.getValue();
 				
-				switch(type)
+				if(type.startsWith("sampler"))
 				{
-				case "int":
-					glUniform1i(loc, (int)value);
-					break;
-				case "float":
-					glUniform1f(loc, (float)value);
-					break;
-				case "vec2":
-					Vector2f vec2 = (Vector2f)value;
-					glUniform2f(loc, vec2.x, vec2.y);
-					break;
-				case "vec3":
-					Vector3f vec3 = (Vector3f)value;
-					glUniform3f(loc, vec3.x, vec3.y, vec3.z);
-					break;
-				case "vec4":
-					Vector4f vec4 = (Vector4f)value;
-					glUniform4f(loc, vec4.x, vec4.y, vec4.z, vec4.w);
-					break;
-				case "mat3":
-					Matrix3f mat3 = (Matrix3f)value;
-					glUniformMatrix3fv(loc, false, mat3.get(BufferUtils.createFloatBuffer(9)));
-					break;
-				case "mat4":
-					Matrix4f mat4 = (Matrix4f)value;
-					glUniformMatrix4fv(loc, false, mat4.get(BufferUtils.createFloatBuffer(16)));
-					break;
-				case "sampler2D":
 					Texture texture = (Texture)value;
 					int samplerSlotId = material.asset.textureSamplerSlotIds.indexOf(texture);
 					TextureInternal.bind(texture, samplerSlotId);
 					glUniform1i(loc, samplerSlotId);
-					break;
+				}
+				else
+				{
+					switch(type)
+					{
+					case "int":
+						glUniform1i(loc, (int)value);
+						break;
+					case "float":
+						glUniform1f(loc, (float)value);
+						break;
+					case "vec2":
+						Vector2f vec2 = (Vector2f)value;
+						glUniform2f(loc, vec2.x, vec2.y);
+						break;
+					case "vec3":
+						Vector3f vec3 = (Vector3f)value;
+						glUniform3f(loc, vec3.x, vec3.y, vec3.z);
+						break;
+					case "vec4":
+						Vector4f vec4 = (Vector4f)value;
+						glUniform4f(loc, vec4.x, vec4.y, vec4.z, vec4.w);
+						break;
+					case "mat3":
+						Matrix3f mat3 = (Matrix3f)value;
+						glUniformMatrix3fv(loc, false, mat3.get(BufferUtils.createFloatBuffer(9)));
+						break;
+					case "mat4":
+						Matrix4f mat4 = (Matrix4f)value;
+						glUniformMatrix4fv(loc, false, mat4.get(BufferUtils.createFloatBuffer(16)));
+						break;
+					}
 				}
 			}
 		}
 	}
 	
+	public static void updateBuiltInUniforms(Material material, CameraInternal camera)
+	{
+		updateBuiltInUniforms(material, camera, (Matrix4f)null);
+	}
+	
 	public static void updateBuiltInUniforms(Material material, CameraInternal camera, Transform transform)
 	{
-		updateBuiltInUniforms(material, camera, transform.getTransformation());
+		updateBuiltInUniforms(material, camera, transform == null ? null : transform.getTransformation());
 	}
 	
 	public static void updateBuiltInUniforms(Material material, CameraInternal camera, Matrix4f model)
 	{
-		if(ShaderInternal.hasUniform(material.asset.shader, "_model"))
+		if(material == null)
+		{
+			return;
+		}
+		
+		if(model != null && ShaderInternal.hasUniform(material.asset.shader, "_model"))
 		{
 			material.setMatrix4f("_model", model);
 		}
 		
-		if(ShaderInternal.hasUniform(material.asset.shader, "_view"))
+		if(camera != null)
 		{
-			material.setMatrix4f("_view", camera.getViewMatrix());
-		}
-		
-		if(ShaderInternal.hasUniform(material.asset.shader, "_projection"))
-		{
-			material.setMatrix4f("_projection", camera.getProjection());
-		}
-		
-		if(ShaderInternal.hasUniform(material.asset.shader, "_cameraPosition"))
-		{
-			material.setVector3f("_cameraPosition", camera.getPosition());
+			if(ShaderInternal.hasUniform(material.asset.shader, "_view"))
+			{
+				material.setMatrix4f("_view", camera.getViewMatrix());
+			}
+			
+			if(ShaderInternal.hasUniform(material.asset.shader, "_projection"))
+			{
+				material.setMatrix4f("_projection", camera.getProjection());
+			}
+			
+			if(ShaderInternal.hasUniform(material.asset.shader, "_cameraPosition"))
+			{
+				material.setVector3f("_cameraPosition", camera.getPosition());
+			}
 		}
 	}
 }

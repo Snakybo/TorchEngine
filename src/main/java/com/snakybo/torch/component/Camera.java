@@ -25,6 +25,7 @@ package com.snakybo.torch.component;
 import com.snakybo.torch.annotation.SerializedField;
 import com.snakybo.torch.graphics.camera.CameraClearFlags;
 import com.snakybo.torch.graphics.camera.CameraInternal;
+import com.snakybo.torch.graphics.texture.Cubemap;
 import com.snakybo.torch.graphics.texture.Texture;
 import com.snakybo.torch.object.Component;
 import com.snakybo.torch.util.Rect;
@@ -59,7 +60,7 @@ public final class Camera extends Component
 	@SerializedField private int depth;
 	
 	@SerializedField private CameraClearFlags clearFlags;
-	@SerializedField private Texture skybox;
+	@SerializedField private Cubemap skybox;
 	@SerializedField private Color clearColor;
 	
 	private CameraInternal camera;
@@ -120,7 +121,7 @@ public final class Camera extends Component
 	 *
 	 * @param skybox The new skybox texture.
 	 */
-	public final void setSkybox(Texture skybox)
+	public final void setSkybox(Cubemap skybox)
 	{
 		camera.setSkybox(skybox);
 	}
@@ -239,7 +240,7 @@ public final class Camera extends Component
 	 *
 	 * @return The skybox texture.
 	 */
-	public final Texture getSkybox()
+	public final Cubemap getSkybox()
 	{
 		return camera.getSkybox();
 	}

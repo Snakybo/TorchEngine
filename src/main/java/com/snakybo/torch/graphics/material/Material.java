@@ -302,9 +302,9 @@ public final class Material extends Asset
 	 */
 	public final void setTexture(String name, Texture value)
 	{
-		if(!ShaderInternal.hasUniform(asset.shader, name) || !ShaderInternal.getUniformType(asset.shader, name).equals("sampler2D"))
+		if(!ShaderInternal.hasUniform(asset.shader, name) || !ShaderInternal.getUniformType(asset.shader, name).startsWith("sampler"))
 		{
-			Logger.logWarning("Shader: " + getShader().getName() + " does not contain a sampler2D with the name: " + name);
+			Logger.logWarning("Shader: " + getShader().getName() + " does not contain a sampler with the name: " + name);
 			return;
 		}
 		

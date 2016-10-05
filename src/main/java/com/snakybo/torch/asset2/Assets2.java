@@ -22,11 +22,7 @@
 
 package com.snakybo.torch.asset2;
 
-import com.snakybo.torch.asset.Asset;
-import com.snakybo.torch.graphics.material.MaterialAssetLoader;
-import com.snakybo.torch.graphics.mesh.MeshAssetLoader;
-import com.snakybo.torch.graphics.shader.Shader;
-import com.snakybo.torch.graphics.texture.TextureAssetLoader;
+import com.snakybo.torch.graphics.texture.TextureLoader;
 import com.snakybo.torch.util.FileUtils;
 import com.snakybo.torch.util.debug.Logger;
 
@@ -68,7 +64,7 @@ public final class Assets2
 			{
 			case "png":
 			case "jpg":
-				return TextureAssetLoader.load(path);
+				return TextureLoader.load(path);
 //			case "obj":
 //				return MeshAssetLoader.load(path);
 //			case "mtl":
@@ -114,7 +110,7 @@ public final class Assets2
 		
 		try
 		{
-			FileUtils.toURI(target);
+			FileUtils.toURI(target + ".dat");
 		}
 		catch(NoSuchFileException e)
 		{
@@ -122,7 +118,7 @@ public final class Assets2
 			
 			try
 			{
-				FileUtils.toURI(target);
+				FileUtils.toURI(target + ".dat");
 			}
 			catch(NoSuchFileException ex)
 			{

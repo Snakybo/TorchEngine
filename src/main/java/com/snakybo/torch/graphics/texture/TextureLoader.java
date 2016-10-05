@@ -34,6 +34,8 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import java.nio.file.NoSuchFileException;
 
@@ -43,9 +45,9 @@ import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
  * @author Snakybo
  * @since 1.0
  */
-public final class TextureAssetLoader
+public final class TextureLoader
 {
-	private TextureAssetLoader()
+	private TextureLoader()
 	{
 		throw new AssertionError();
 	}
@@ -59,18 +61,30 @@ public final class TextureAssetLoader
 			TextureParser.TextureData textureData = (TextureParser.TextureData)XMLParser.decode(path + ".dat");
 			Texture texture = null;
 			
-			if(textureData.target.equals(Texture2D.class))
+			try
 			{
-				texture = new Texture2D(path);
+				Constructor<?> constructor = textureData.target.getDeclaredConstructor(String.class);
+				texture = (Texture)constructor.newInstance(path);
 			}
-			else
+			catch(InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e)
 			{
-				Logger.logError("Unsupported texture target: " + textureData.target);
+				Logger.logError(e.getMessage(), e);
 			}
 			
-			texture.setFilterMode(textureData.filterMode);
-			texture.setWrapMode(textureData.wrapMode);
-			texture.setAnisoLevel(textureData.anisoLevel);
+			if(textureData.filterMode != null)
+			{
+				texture.setFilterMode(textureData.filterMode);
+			}
+			
+			if(textureData.wrapMode != null)
+			{
+				texture.setWrapMode(textureData.wrapMode);
+			}
+			
+			if(textureData.anisoLevel != -1)
+			{
+				texture.setAnisoLevel(textureData.anisoLevel);
+			}
 			
 			return texture;
 		}
