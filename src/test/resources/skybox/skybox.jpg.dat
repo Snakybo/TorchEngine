@@ -1,6 +1,0 @@
-<?xml version="1.0"?>
-<texture version="1">
-    <parameters>
-        <target type="class">com.snakybo.torch.graphics.texture.Cubemap</target>
-    </parameters>
-</texture>

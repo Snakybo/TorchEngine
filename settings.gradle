@@ -1,1 +1,5 @@
 rootProject.name = 'Torch Engine'
+
+include 'TorchEngine'
+include 'TorchEditor'
+
