@@ -61,7 +61,7 @@ public class VulkanUtil
 	{
 		if(result != VK_SUCCESS)
 		{
-			throw new AssertionError("Vulkan encountered an error: " + errorToString(result));
+			throw new AssertionError("The Vulkan runtime has encountered an error: " + errorToString(result));
 		}
 	}
 	

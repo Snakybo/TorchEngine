@@ -24,9 +24,6 @@ package com.snakybo.test;
 
 import com.snakybo.torch.engine.core.Actor;
 import com.snakybo.torch.engine.core.World;
-import com.snakybo.torch.engine.debug.Debug;
-import com.snakybo.torch.engine.util.Util;
-import sun.security.pkcs11.Secmod;
 
 /**
  * @author Snakybo

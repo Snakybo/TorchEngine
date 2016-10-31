@@ -90,7 +90,6 @@ import static org.lwjgl.vulkan.VK10.vkGetPhysicalDeviceQueueFamilyProperties;
 public final class VulkanBackend
 {
 	static VkQueueFamilyProperties.Buffer vkQueueFamilyProperties;
-	static VkPhysicalDeviceProperties vkPhysicalDeviceProperties;
 	static VkPhysicalDevice vkPhysicalDevice;
 	static VkInstance vkInstance;
 	static VkDevice vkDevice;
@@ -144,7 +143,6 @@ public final class VulkanBackend
 		
 		vkDestroyDevice(vkDevice, null);
 		
-		vkPhysicalDeviceProperties.free();
 		vkQueueFamilyProperties.free();
 		
 		vkDestroySurfaceKHR(vkInstance, surface, null);
@@ -228,14 +226,14 @@ public final class VulkanBackend
 		vkPhysicalDevice = new VkPhysicalDevice(physicalDevices.get(0), vkInstance);
 		
 		// Get physical device properties
-		vkPhysicalDeviceProperties = VkPhysicalDeviceProperties.calloc();
-		vkGetPhysicalDeviceProperties(vkPhysicalDevice, vkPhysicalDeviceProperties);
+		VkPhysicalDeviceProperties properties = VkPhysicalDeviceProperties.calloc();
+		vkGetPhysicalDeviceProperties(vkPhysicalDevice, properties);
 		
 		// Log physical device properties
-		Debug.getLogHandler().log(LogType.Internal, "\t" + vkPhysicalDeviceProperties.deviceNameString());
-		Debug.getLogHandler().log(LogType.Internal, "\t\tDriver version:\t" + vkPhysicalDeviceProperties.driverVersion());
-		Debug.getLogHandler().log(LogType.Internal, "\t\tDevice type:\t" + deviceTypeToString(vkPhysicalDeviceProperties.deviceType()));
-		Debug.getLogHandler().log(LogType.Internal, "\t\tAPI version:\t" + getApiVersion(vkPhysicalDeviceProperties.apiVersion()));
+		Debug.getLogHandler().log(LogType.Internal, "\t" + properties.deviceNameString());
+		Debug.getLogHandler().log(LogType.Internal, "\t\tDriver version:\t" + properties.driverVersion());
+		Debug.getLogHandler().log(LogType.Internal, "\t\tDevice type:\t" + deviceTypeToString(properties.deviceType()));
+		Debug.getLogHandler().log(LogType.Internal, "\t\tAPI version:\t" + getApiVersion(properties.apiVersion()));
 		
 		// Get physical device queue family properties
 		IntBuffer queueFamilyCount = memAllocInt(1);
@@ -248,6 +246,8 @@ public final class VulkanBackend
 		memFree(physicalDeviceCount);
 		memFree(physicalDevices);
 		memFree(queueFamilyCount);
+		
+		properties.free();
 	}
 	
 	private static void createVkDevice()

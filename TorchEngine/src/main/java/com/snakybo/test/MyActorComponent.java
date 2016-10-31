@@ -25,9 +25,6 @@ package com.snakybo.test;
 import com.snakybo.torch.engine.component.ActorComponent;
 import com.snakybo.torch.engine.core.Actor;
 import com.snakybo.torch.engine.debug.Debug;
-import com.snakybo.torch.engine.debug.logging.ILogCallback;
-import com.snakybo.torch.engine.debug.logging.LogType;
-import com.snakybo.torch.engine.debug.logging.Logger;
 
 /**
  * @author Snakybo

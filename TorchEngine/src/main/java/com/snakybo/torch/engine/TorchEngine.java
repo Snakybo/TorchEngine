@@ -22,9 +22,6 @@
 
 package com.snakybo.torch.engine;
 
-import com.snakybo.test.MyActor;
-import com.snakybo.torch.engine.core.World;
-
 /**
  * @author Snakybo
  * @since 1.0

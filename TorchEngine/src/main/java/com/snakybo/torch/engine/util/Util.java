@@ -22,8 +22,6 @@
 
 package com.snakybo.torch.engine.util;
 
-import com.snakybo.torch.engine.debug.Debug;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
